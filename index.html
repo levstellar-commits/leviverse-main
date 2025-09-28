@@ -2,38 +2,80 @@
 <html lang="zh-CN">
 <head>
     <title>立维宇宙 | Liwei Universe - 原创文明悬疑史诗IP</title>
-    
-    <meta name="description" content="立维宇宙（Liwei Universe）官方网站。这是一个跨越神话、历史与科幻的原创多媒体世界观，以“文明悬疑和史诗群像”为核心赛道，探讨九鼎失衡下的凡人意志与神裔命运。">
-    
+    <meta name="description" content="立维宇宙（Liwei Universe）官方网站。跨越神话、历史与科幻的原创多媒体世界观，以“文明悬疑和史诗群像”为核心赛道。">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    </head>
-<body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'deep-space': '#0a0a0a', // 极深黑色背景
+              'amber-gold': '#d97706',  // 琥珀金色 (点缀色)
+              'bronze-green': '#34d399', // 青铜绿色 (强调色)
+            }
+          }
+        }
+      }
+    </script>
+</head>
 
-    <header>
-        <h1>立维宇宙 (Liwei Universe) 官方主页</h1>
+<body class="bg-deep-space text-white min-h-screen font-sans">
+
+    <nav class="flex justify-between items-center px-8 py-4 border-b border-gray-700">
+        <h1 class="text-3xl font-extrabold text-amber-gold tracking-wider">
+            立维宇宙
+        </h1>
+        
+        <div class="flex space-x-6 text-lg">
+            <a href="/universe.html" class="hover:text-amber-gold transition duration-300">世界观</a>
+            <a href="/works.html" class="hover:text-amber-gold transition duration-300">作品</a>
+            <a href="/characters.html" class="hover:text-amber-gold transition duration-300">角色</a>
+        </div>
+    </nav>
+
+    <header class="text-center py-20 px-8 bg-gray-900/50">
+        <h2 class="text-6xl font-black mb-4 tracking-tighter text-gray-100">
+            神话不是传说，<span class="text-amber-gold">是待运行的代码。</span>
+        </h2>
+        <p class="text-xl max-w-3xl mx-auto mb-8 text-gray-400">
+            立维宇宙：原创多媒体世界观，文明悬疑和史诗群像的终极交汇。
+        </p>
+        
+        <a href="/works.html" class="inline-block px-10 py-3 bg-amber-gold text-deep-space font-bold rounded-full text-lg shadow-lg hover:bg-amber-600 transition duration-300">
+            探索核心作品
+        </a>
     </header>
 
-    <main>
-        <h2>核心概念：文明悬疑与史诗群像</h2>
+    <main class="max-w-6xl mx-auto py-16 px-8">
+        <h3 class="text-4xl font-extrabold mb-12 border-l-4 pl-4 border-bronze-green">
+            IP 核心价值
+        </h3>
         
-        <p>立维宇宙是一个整合了华夏神话、苏美尔文明和未来科幻的超巨型IP框架。我们相信：**神话不是传说，是待运行的代码。**</p>
-        
-        <h3>核心作品：</h3>
-        <ul>
-            <li>**《炎黄星曌》：** 上古洪荒史诗，聚焦姜炎洺、澜熙等神裔，以及狸嘟嘟与九鼎失衡的危机。</li>
-            <li>**《驹隙万秋》：** 2074未来科幻，探索时隙与神话代码的隐秘交汇。</li>
-        </ul>
+        <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
+            
+            <div class="flex-1 p-6 bg-gray-800 rounded-xl shadow-2xl border-t-4 border-bronze-green">
+                <h4 class="text-2xl font-bold mb-3 text-bronze-green">文明悬疑：代码重组</h4>
+                <p class="text-gray-300">整合神话科幻智慧，解构苏美尔、华夏等古文明在同一时间线的隐秘交锋，揭示传说的血肉真相。</p>
+            </div>
 
-        <h3>关键人物：</h3>
-        <p>姜炎洺（炎帝之子）、澜熙（月冥血脉）、墨氚（潜藏神裔）、蕊琀（星使刺客）、狸嘟嘟（核心神话萌宠）。</p>
-        
-        <p>正在建设中，更多内容将很快在 <a href="https://leviverse.com/universe.html">世界观</a> 和 <a href="https://leviverse.com/works.html">作品</a> 页面发布。</p>
+            <div class="flex-1 p-6 bg-gray-800 rounded-xl shadow-2xl border-t-4 border-bronze-green">
+                <h4 class="text-2xl font-bold mb-3 text-bronze-green">史诗群像：凡人立锚</h4>
+                <p class="text-gray-300">聚焦炎帝之子、潜藏神裔等“命外之人”，描绘凡人在九鼎失衡的赌局中，反抗神性、自立人道的史诗。</p>
+            </div>
+
+            <div class="flex-1 p-6 bg-gray-800 rounded-xl shadow-2xl border-t-4 border-bronze-green">
+                <h4 class="text-2xl font-bold mb-3 text-bronze-green">核心锚点：神话萌宠</h4>
+                <p class="text-gray-300">以狸嘟嘟等核心IP资产为载体，实现卡牌、具身机器人等产品落地，用“可爱”承载宏大文明。</p>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p>© [当前年份] 立维宇宙. 版权所有.</p>
+    <footer class="text-center py-6 border-t border-gray-800 text-gray-500 text-sm">
+        <p>© [当前年份] 立维宇宙. 神话不是终点，是起点。</p>
     </footer>
 
 </body>
