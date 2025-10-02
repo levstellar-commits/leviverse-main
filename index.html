@@ -1,82 +1,283 @@
-<!DOCTYPE html>
+<!--
+立维宇宙（中文主页）——单文件示例（index.html）
+说明：
+- 这是为中文观众优化的静态主页模板，保留英文品牌名作为次级标识，页面语言以中文为主，便于国内沟通同时保留国际识别性。
+- 推荐品牌呈现：
+  - 主品牌：立维宇宙（Leviverse）——页面标题与视觉首位为中文，英文放在副标题或 Logo 旁，增强国际识别但保留本土文化气质。
+  - 设计伙伴：维杰设计（Vigio Design）——中文名为法定/对外正式名，英文为国际化简称（名片/英文简介使用）。
+- 模块：英雄区（文化 + 设计并列）、世界神话基因图谱、档案/白皮书申请、小说/有声/漫画入口、商城/手办、Vigio 设计能力、原型/3D 占位、媒体下载、联系方式与扫码。
+- 使用指南：把此文件命名为 index.html，放入 GitHub 仓库并启用 GitHub Pages 即可；/assets/ 下放置 logo、封面、音频、二维码等资源并替换占位。
+- 部署注意：若在中国大陆正式上线，请按要求完成 ICP 备案，并在底部补充公司工商信息或链接以提升可信度。
+-->
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>立维宇宙 | Liwei Universe - 原创文明悬疑史诗IP</title>
-    <meta name="description" content="立维宇宙（Liwei Universe）官方网站。跨越神话、历史与科幻的原创多媒体世界观，以“文明悬疑和史诗群像”为核心赛道。">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'deep-space': '#0a0a0a', // 极深黑色背景
-              'amber-gold': '#d97706',  // 琥珀金色 (点缀色)
-              'bronze-green': '#34d399', // 青铜绿色 (强调色)
-            }
-          }
-        }
-      }
-    </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>立维宇宙 · Leviverse — 文化科技 × 维杰设计（Vigio Design）</title>
+  <meta name="description" content="立维宇宙（Leviverse）— 以世界神话与文明悬疑为核心的文化科技平台，与维杰设计（Vigio Design）联合推动叙事向城市空间的转化。" />
+  <link rel="icon" href="/assets/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#04101a;--card:#0b1620;--muted:#9cb0c5;--accent:#ffb86b;--accent2:#7be2ff}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff}
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    header{position:fixed;left:0;right:0;top:0;padding:10px 28px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg, rgba(2,4,10,0.7), rgba(2,4,10,0.05));z-index:80}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:800}
+    nav{display:flex;gap:10px;align-items:center}
+    .btn{padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.03);font-weight:700}
+
+    /* hero */
+    .hero{margin-top:76px;display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:stretch}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:26px;border-radius:14px}
+    h1{font-family:'Noto Serif SC',serif;margin:0;font-size:34px}
+    .subtitle{color:var(--muted);margin-top:6px}
+    .lead{color:var(--muted);margin-top:12px}
+
+    /* small modules */
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .dossier{width:240px;height:150px;perspective:900px}
+    .dossier-inner{width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;position:relative}
+    .dossier:hover .dossier-inner{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;border-radius:8px;padding:12px;backface-visibility:hidden}
+    .front{background:linear-gradient(135deg,#071428,#0b1b2a)}
+    .back{background:#071018;transform:rotateY(180deg)}
+
+    svg{border-radius:8px}
+    footer{margin-top:28px;color:var(--muted);font-size:13px}
+    @media (max-width:980px){.hero{grid-template-columns:1fr}.grid-3{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:600px){.grid-3{grid-template-columns:1fr}}
+  </style>
 </head>
-
-<body class="bg-deep-space text-white min-h-screen font-sans">
-
-    <nav class="flex justify-between items-center px-8 py-4 border-b border-gray-700">
-        <h1 class="text-3xl font-extrabold text-amber-gold tracking-wider">
-            立维宇宙
-        </h1>
-        
-        <div class="flex space-x-6 text-lg">
-            <a href="/universe.html" class="hover:text-amber-gold transition duration-300">世界观</a>
-            <a href="/works.html" class="hover:text-amber-gold transition duration-300">作品</a>
-            <a href="/characters.html" class="hover:text-amber-gold transition duration-300">角色</a>
-        </div>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">立</div>
+      <div>
+        <div style="font-weight:800">立维宇宙 <span style="font-weight:400;font-size:12px;color:var(--muted)">(Leviverse)</span></div>
+        <div style="font-size:12px;color:var(--muted)">世界神话融合 · 文明悬疑 · 史诗群像</div>
+      </div>
+    </div>
+    <nav>
+      <a class="btn" href="#map">世界观地图</a>
+      <a class="btn" href="#archive">研究档案</a>
+      <a class="btn" href="#novels">叙事作品</a>
+      <a class="btn" href="#shop">文创周边</a>
+      <a class="btn" href="#vigio">设计赋能（Vigio）</a>
+      <a class="btn" href="#contact">合作咨询</a>
     </nav>
+  </header>
 
-    <header class="text-center py-20 px-8 bg-gray-900/50">
-        <h2 class="text-6xl font-black mb-4 tracking-tighter text-gray-100">
-            神话不是传说，<span class="text-amber-gold">是待运行的代码。</span>
-        </h2>
-        <p class="text-xl max-w-3xl mx-auto mb-8 text-gray-400">
-            立维宇宙：原创多媒体世界观，文明悬疑和史诗群像的终极交汇。
-        </p>
-        
-        <a href="/works.html" class="inline-block px-10 py-3 bg-amber-gold text-deep-space font-bold rounded-full text-lg shadow-lg hover:bg-amber-600 transition duration-300">
-            探索核心作品
-        </a>
-    </header>
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-card">
+        <h1>立维宇宙 · Leviverse × 维杰设计 · Vigio Design</h1>
+        <div class="subtitle">文明的悬疑，神话的史诗。<span style="color:var(--muted);margin-left:8px">（英文名称用于国际交流：Leviverse / Vigio Design）</span></div>
+        <p class="lead">立维宇宙是一个融合东方神话与文明悬疑的文化科技平台，开发原创宇宙叙事、作品与跨媒介内容。维杰设计专注于规划与建筑，将文化叙事转化为可建成的空间与城市体验。我们联合打造「文化 × 设计」的创新路径：从文字到城市，从故事到场景。</p>
 
-    <main class="max-w-6xl mx-auto py-16 px-8">
-        <h3 class="text-4xl font-extrabold mb-12 border-l-4 pl-4 border-bronze-green">
-            IP 核心价值
-        </h3>
-        
-        <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
-            
-            <div class="flex-1 p-6 bg-gray-800 rounded-xl shadow-2xl border-t-4 border-bronze-green">
-                <h4 class="text-2xl font-bold mb-3 text-bronze-green">文明悬疑：代码重组</h4>
-                <p class="text-gray-300">整合神话科幻智慧，解构苏美尔、华夏等古文明在同一时间线的隐秘交锋，揭示传说的血肉真相。</p>
-            </div>
-
-            <div class="flex-1 p-6 bg-gray-800 rounded-xl shadow-2xl border-t-4 border-bronze-green">
-                <h4 class="text-2xl font-bold mb-3 text-bronze-green">史诗群像：凡人立锚</h4>
-                <p class="text-gray-300">聚焦炎帝之子、潜藏神裔等“命外之人”，描绘凡人在九鼎失衡的赌局中，反抗神性、自立人道的史诗。</p>
-            </div>
-
-            <div class="flex-1 p-6 bg-gray-800 rounded-xl shadow-2xl border-t-4 border-bronze-green">
-                <h4 class="text-2xl font-bold mb-3 text-bronze-green">核心锚点：神话萌宠</h4>
-                <p class="text-gray-300">以狸嘟嘟等核心IP资产为载体，实现卡牌、具身机器人等产品落地，用“可爱”承载宏大文明。</p>
-            </div>
+        <div style="display:flex;gap:10px;margin-top:14px;align-items:center">
+          <a class="btn" href="#archive">研究与档案</a>
+          <a class="btn" href="#prototype">体验原型</a>
+          <a class="btn" href="#rfp">下载 RFP / NDA</a>
+          <div style="margin-left:auto;color:var(--muted);font-size:13px">商务邮箱：<strong>business@leviverse.com</strong></div>
         </div>
-    </main>
 
-    <footer class="text-center py-6 border-t border-gray-800 text-gray-500 text-sm">
-        <p>© [当前年份] 立维宇宙. 神话不是终点，是起点。</p>
+        <!-- 动态摘录 + 音频 -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px">
+          <div>
+            <div id="rotating-quote" style="font-style:italic;color:#e9f7ff">“时间有了裂口，故事便从那里流出。”</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px">摘录 · 立维档案（可听样片）</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button id="playAudio" class="btn">▶ 听样片</button>
+            <button id="muteBtn" class="btn">静音</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card" style="width:360px">
+        <h4 style="margin:0">快速入口</h4>
+        <div style="color:var(--muted);font-size:13px;margin-top:8px">基因图谱 / 小说 / 有声 / 漫画 / 商城</div>
+        <div style="display:flex;gap:8px;flex-direction:column;margin-top:12px">
+          <a class="btn" href="#map">进入神话基因图谱</a>
+          <a class="btn" href="#novels">叙事作品</a>
+          <a class="btn" href="#shop">文创周边</a>
+        </div>
+        <div style="margin-top:12px;color:var(--muted);font-size:13px">关注：公众号 / 微信</div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+                    <img src="/assets/images/qrcode_wechat.png" alt="微信公众号" style="width:120px;height:120px;object-fit:cover;border-radius:8px;">
+                    <img src="/assets/images/qrcode_corpwechat.png" alt="企业微信" style="width:120px;height:120px;object-fit:cover;border-radius:8px;">
+        </div>
+      </aside>
+    </section>
+
+    <!-- Gene Map -->
+    <section id="map" style="margin-top:20px">
+      <h2>世界神话基因图谱</h2>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div class="card" style="flex:1; position:relative;">
+                    <img src="/assets/images/gene_map_bg.jpg" alt="世界神话基因图谱" style="width:100%; height:280px; object-fit:cover; border-radius:8px; position:absolute; inset:0;">
+                    <svg id="geneMap" viewBox="0 0 600 340" style="width:100%;height:280px;background:transparent;border-radius:8px;position:relative;">
+            <line x1="110" y1="60" x2="300" y2="160" stroke="rgba(123,226,255,0.25)" stroke-width="1.5" />
+            <g class="node" data-id="n1"><circle cx="110" cy="60" r="10" fill="#ffd8b5" /><text x="130" y="64" fill="#cfe8ff" font-size="12">炎黄系</text></g>
+            <g class="node" data-id="n2"><circle cx="300" cy="160" r="11" fill="#7be2ff" /><text x="320" y="164" fill="#cfe8ff" font-size="12">补天节点</text></g>
+            <g class="node" data-id="n3"><circle cx="460" cy="90" r="8" fill="#ffb86b" /><text x="480" y="94" fill="#cfe8ff" font-size="12">驹隙系</text></g>
+          </svg>
+        </div>
+        <div style="width:320px">
+          <div style="color:var(--muted);font-size:13px">时间轴</div>
+          <input id="eraSlider" type="range" min="0" max="3" value="0" style="width:100%" />
+          <div id="eraLabel" style="margin-top:8px;color:var(--muted)">时代：史前 · 神祇萌芽</div>
+          <div style="margin-top:8px;color:var(--muted);font-size:13px">提示：可接入 API，滑块控制节点权重和颜色，支持数据导出与可视化嵌入。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Archive -->
+    <section id="archive" style="margin-top:18px">
+      <h2>档案 · 方法论</h2>
+      <p style="color:var(--muted)">将古籍、田野、口述、影像等材料结构化整理，形成可溯源的档案单元。每个档案背后都有清晰的研究逻辑，可作为文化开发与空间设计的底层支撑。</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div class="dossier card">
+          <div class="dossier-inner">
+            <div class="face front"><div style="font-weight:700">档案：炎黄·起源碎片</div><div style="color:var(--muted);margin-top:8px">田野 · 文献 · 录音</div></div>
+            <div class="face back"><div style="font-weight:700">注释</div><div style="color:var(--muted);margin-top:8px">来源：古籍摘录；口述文件；录音编号 A-12。</div></div>
+          </div>
+        </div>
+        <div class="dossier card">
+          <div class="dossier-inner">
+            <div class="face front"><div style="font-weight:700">档案：补天·城市记忆</div><div style="color:var(--muted);margin-top:8px">原型 · AR</div></div>
+            <div class="face back"><div style="font-weight:700">注释</div><div style="color:var(--muted);margin-top:8px">AR 导览脚本、展览动线与用户场景。</div></div>
+          </div>
+        </div>
+        <div class="dossier card">
+          <div class="dossier-inner">
+            <div class="face front"><div style="font-weight:700">档案：驹隙·时间碎片</div><div style="color:var(--muted);margin-top:8px">叙事 · 场景</div></div>
+            <div class="face back"><div style="font-weight:700">注释</div><div style="color:var(--muted);margin-top:8px">叙事纲要、角色年谱、互动节点。</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px"><button id="openWhitepaper" class="btn">申请白皮书</button><a class="btn ghost" href="/press-kit.zip">下载媒体包</a></div>
+    </section>
+
+    <!-- Novels / Comics / Audio -->
+    <section id="novels" style="margin-top:18px">
+      <h2>叙事作品矩阵</h2>
+      <div class="grid-3">
+        <div class="card">
+            <img src="/assets/images/cover_juanqiu.jpg" alt="驹隙万秋" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
+            <div style="font-weight:700;margin-top:8px">《驹隙万秋》</div><div style="color:var(--muted);margin-top:6px">文明悬疑 · 科幻与神话融合。</div><div style="margin-top:8px;display:flex;gap:8px"><a class="btn" href="#">阅读样章</a><a class="btn ghost" href="#">听有声</a></div></div>
+        <div class="card">
+            <img src="/assets/images/cover_yanhuang.jpg" alt="炎黄星曌" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
+            <div style="font-weight:700;margin-top:8px">《炎黄星曌》</div><div style="color:var(--muted);margin-top:6px">文明悬疑 ·  上古神话解密。</div><div style="margin-top:8px;display:flex;gap:8px"><a class="btn" href="#">阅读</a><a class="btn ghost" href="#">图集</a></div></div>
+        <div class="card">
+            <img src="/assets/images/cover_butian.jpg" alt="补天之城" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
+            <div style="font-weight:700;margin-top:8px">《补天之城：上海2074》</div><div style="color:var(--muted);margin-top:6px">文明悬疑 · 赛博补天。</div><div style="margin-top:8px;display:flex;gap:8px"><a class="btn" href="#">漫画</a><a class="btn ghost" href="#">原型</a></div></div>
+      </div>
+    </section>
+
+    <!-- Shop -->
+    <section id="shop" style="margin-top:18px">
+      <h2>文创与周边</h2>
+      <p style="color:var(--muted)">手办、画集与限量藏品。</p>
+      <div class="grid-3">
+        <div class="card"><div style="height:96px;background:#081426;border-radius:8px"></div><div style="font-weight:700;margin-top:8px">手办：时间碎片</div><div style="color:var(--muted);margin-top:6px">预售 · 限量发行</div><div style="margin-top:8px"><a class="btn" href="#">预定</a></div></div>
+        <div class="card"><div style="height:96px;background:#081426;border-radius:8px"></div><div style="font-weight:700;margin-top:8px">画集：基因图谱</div><div style="color:var(--muted);margin-top:6px">艺术集 · 小批</div><div style="margin-top:8px"><a class="btn" href="#">购买</a></div></div>
+        <div class="card"><div style="height:96px;background:#081426;border-radius:8px"></div><div style="font-weight:700;margin-top:8px">签名样章</div><div style="color:var(--muted);margin-top:6px">作者签名 · 限量</div><div style="margin-top:8px"><a class="btn" href="#">预定</a></div></div>
+      </div>
+    </section>
+
+    <!-- Vigio Design -->
+    <section id="vigio" style="margin-top:18px">
+      <h2>维杰设计（Vigio Design）— 从产业研究、规划涉及到空间实现，维杰设计将文化叙事与空间建设无缝结合。</h2>
+      <p style="color:var(--muted)">维杰（Vigio Design）专注于建筑规划、BIM 交付与展陈工程，实现从叙事到场景的工程化落地。</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div class="card" style="min-width:260px"><strong>能力</strong><div style="color:var(--muted);margin-top:8px"> 产业研究 · 概念设计 · 规划设计 · </div></div>
+        <div class="card" style="min-width:260px"><strong>交付</strong><div style="color:var(--muted);margin-top:8px">提供 Revit/IFC 输出，支持云端协同与供应链对接。</div></div>
+        <div class="card" style="min-width:260px"><strong>合作入口</strong><div style="color:var(--muted);margin-top:8px">下载 RFP / 联系：business@leviverse.com</div></div>
+      </div>
+    </section>
+
+    <!-- Prototype / 3D -->
+    <section id="prototype" style="margin-top:18px">
+      <h2>原型 · 数字孪生</h2>
+      <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1" class="card"><div style="height:260px;background:#071218;border-radius:8px;display:grid;place-items:center;color:var(--muted)">3D 模型 / 视频 占位（支持 glTF / Sketchfab 嵌入）</div></div>
+        <div style="width:320px" class="card"><strong>原型节点</strong><ul style="color:var(--muted);margin-top:8px"><li>AR 导览脚本 · 3 条主线</li><li>数字孪生 · 展厅线上映射</li><li>交付物 实体模型 + 展陈文化包</li></ul></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" style="margin-top:18px">
+      <h2>合作入口</h2>
+      <p style="color:var(--muted)">商务：<strong>business@leviverse.com</strong> · 设计对接：<strong>business@leviverse.com</strong></p>
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:12px">
+        <div>
+          <form style="display:flex;flex-direction:column;gap:8px;max-width:680px">
+            <input placeholder="单位 / 工作室" />
+            <input placeholder="联系人与邮箱" />
+            <textarea placeholder="项目简述（200 字）" rows="4"></textarea>
+            <div style="display:flex;gap:8px"><button class="btn">提交</button><button class="btn ghost">下载 RFP 模板</button></div>
+          </form>
+        </div>
+        <aside class="card">
+          <div style="font-weight:700">扫码关注</div>
+          <div style="color:var(--muted);margin-top:8px">建议放：公众号（公众用户）与企业微信（商务对接）二维码</div>
+          <div style="display:flex;gap:8px;margin-top:12px"><div style="width:120px;height:120px;background:#071428;border-radius:8px;display:grid;place-items:center;color:var(--muted)">公众号</div><div style="width:120px;height:120px;background:#071428;border-radius:8px;display:grid;place-items:center;color:var(--muted)">企业微信</div></div>
+        </aside>
+      </div>
+    </section>
+
+    <footer style="margin-top:24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:700">立维宇宙（Leviverse） · 维杰设计（Vigio Design）</div>
+          <div style="color:var(--muted);margin-top:6px">© 2025 Leviverse / Vigio Planning &amp; Architectural Design Co., Ltd. 保留所有权利。</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <a href="#">隐私条款</a>
+          <a href="#">使用条款</a>
+          <a href="#">联系：business@leviverse.com</a>
+        </div>
+      </div>
     </footer>
+  </main>
 
+  <!-- audio placeholder -->
+  <audio id="sampleAudio" preload="none"><source src="/assets/audio/sample_excerpt.mp3" type="audio/mpeg"></audio>
+
+  <!-- modal 白皮书申请 -->
+  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center">
+    <div style="background:#07121a;padding:18px;border-radius:8px;max-width:560px;width:100%">
+      <h3 style="margin:0">申请白皮书 · 世界神话基因图谱（β）</h3>
+      <p style="color:var(--muted);margin-top:8px">填写邮箱后我们会发送下载链接（示例：请用工作邮箱以便申请机构包）。</p>
+      <input id="wpEmail" placeholder="邮箱" style="width:100%;padding:8px;margin-top:8px;border-radius:6px" />
+      <div style="display:flex;gap:8px;margin-top:10px"><button id="wpSend" class="btn">发送</button><button id="wpClose" class="btn ghost">关闭</button></div>
+    </div>
+  </div>
+
+  <script>
+    // 轮换摘录
+    const quotes = ['“时间有了裂口，故事便从那里流出。”','“城，是补天的器物，也是记忆的容器。”','“一段神话可以成为一座广场的骨架。”'];
+    let idx=0; const rq=document.getElementById('rotating-quote'); setInterval(()=>{ idx=(idx+1)%quotes.length; rq.textContent=quotes[idx]; },4000);
+
+    // 音频控制
+    const audio=document.getElementById('sampleAudio'); document.getElementById('playAudio').addEventListener('click', function(){ if(audio.paused){ audio.play(); this.textContent='▌▌ 停止'; } else { audio.pause(); audio.currentTime=0; this.textContent='▶ 听样片'; }});
+    document.getElementById('muteBtn').addEventListener('click', function(){ audio.muted=!audio.muted; this.textContent=audio.muted? '取消静音':'静音'; });
+
+    // gene map hover tooltip
+    document.querySelectorAll('#geneMap .node').forEach(n=>{ n.style.cursor='pointer'; n.addEventListener('mouseenter', e=>{ const id=n.getAttribute('data-id'); const t=document.createElement('div'); t.id='tt'; t.style.position='fixed'; t.style.background='rgba(2,6,10,0.92)'; t.style.color='#cfe8ff'; t.style.padding='8px'; t.style.borderRadius='6px'; t.style.fontSize='13px'; t.style.zIndex=9999; t.innerText = id==='n1'?'炎黄系：文化源流':''; if(id==='n2') t.innerText='补天节点：城市神话与修补叙事'; if(id==='n3') t.innerText='驹隙系：时间碎片与叙事线索'; document.body.appendChild(t); }); n.addEventListener('mousemove', e=>{ const t=document.getElementById('tt'); if(t){ t.style.left=(e.clientX+12)+'px'; t.style.top=(e.clientY+6)+'px'; }}); n.addEventListener('mouseleave', e=>{ const t=document.getElementById('tt'); if(t) t.remove(); }); });
+
+    // slider label
+    const eraLabel=document.getElementById('eraLabel'); document.getElementById('eraSlider').addEventListener('input', e=>{ const v=e.target.value; if(v==0) eraLabel.textContent='时代：史前 · 神祇萌芽'; else if(v==1) eraLabel.textContent='时代：古典 · 文化定型'; else if(v==2) eraLabel.textContent='时代：近代 · 记忆重写'; else eraLabel.textContent='时代：未来 · 城市神话'; });
+
+    // 白皮书 modal
+    document.getElementById('openWhitepaper').addEventListener('click', ()=>{ document.getElementById('modal').style.display='flex'; }); document.getElementById('wpClose').addEventListener('click', ()=>{ document.getElementById('modal').style.display='none'; }); document.getElementById('wpSend').addEventListener('click', ()=>{ const email=document.getElementById('wpEmail').value; if(!email){ alert('请填写邮箱'); return; } alert('白皮书申请已收到：'+email+'（示例提示，需后端支持发送）'); document.getElementById('modal').style.display='none'; });
+  </script>
 </body>
 </html>
