@@ -1,283 +1,491 @@
-<!--
-立维宇宙（中文主页）——单文件示例（index.html）
-说明：
-- 这是为中文观众优化的静态主页模板，保留英文品牌名作为次级标识，页面语言以中文为主，便于国内沟通同时保留国际识别性。
-- 推荐品牌呈现：
-  - 主品牌：立维宇宙（Leviverse）——页面标题与视觉首位为中文，英文放在副标题或 Logo 旁，增强国际识别但保留本土文化气质。
-  - 设计伙伴：维杰设计（Vigio Design）——中文名为法定/对外正式名，英文为国际化简称（名片/英文简介使用）。
-- 模块：英雄区（文化 + 设计并列）、世界神话基因图谱、档案/白皮书申请、小说/有声/漫画入口、商城/手办、Vigio 设计能力、原型/3D 占位、媒体下载、联系方式与扫码。
-- 使用指南：把此文件命名为 index.html，放入 GitHub 仓库并启用 GitHub Pages 即可；/assets/ 下放置 logo、封面、音频、二维码等资源并替换占位。
-- 部署注意：若在中国大陆正式上线，请按要求完成 ICP 备案，并在底部补充公司工商信息或链接以提升可信度。
--->
 <!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>立维宇宙 · Leviverse — 文化科技 × 维杰设计（Vigio Design）</title>
-  <meta name="description" content="立维宇宙（Leviverse）— 以世界神话与文明悬疑为核心的文化科技平台，与维杰设计（Vigio Design）联合推动叙事向城市空间的转化。" />
-  <link rel="icon" href="/assets/favicon.png" />
+  <title>立维宇宙 × 维杰设计 — Leviverse × Vigio Design</title>
+  <meta name="description" content="立维宇宙（Leviverse）— 将东方神话与文明悬疑转化为可运营的文化宇宙；维杰设计（Vigio Design）— 提供场景化交付与工程化落地能力。" />
+  <link rel="icon" href="assets/images/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#04101a;--card:#0b1620;--muted:#9cb0c5;--accent:#ffb86b;--accent2:#7be2ff}
+    :root{
+      --bg:#02040a; --muted:#9fb0c6;
+      --accent:#ffb86b; --accent2:#7be2ff;
+      --card-bg: rgba(255,255,255,0.02);
+    }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff}
-    a{color:inherit}
-    .wrap{max-width:1100px;margin:0 auto;padding:28px}
-    header{position:fixed;left:0;right:0;top:0;padding:10px 28px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg, rgba(2,4,10,0.7), rgba(2,4,10,0.05));z-index:80}
+    body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    header{
+      position:fixed;left:0;right:0;top:0;padding:12px 28px;
+      display:flex;justify-content:space-between;align-items:center;
+      background:linear-gradient(180deg, rgba(2,4,10,0.88), rgba(2,4,10,0.12));
+      z-index:140;backdrop-filter: blur(6px)
+    }
     .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:800}
-    nav{display:flex;gap:10px;align-items:center}
-    .btn{padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.03);font-weight:700}
+    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:800}
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:var(--muted);font-size:14px}
+    .btn{padding:8px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
 
-    /* hero */
-    .hero{margin-top:76px;display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:stretch}
-    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:26px;border-radius:14px}
-    h1{font-family:'Noto Serif SC',serif;margin:0;font-size:34px}
-    .subtitle{color:var(--muted);margin-top:6px}
-    .lead{color:var(--muted);margin-top:12px}
+    main{max-width:1300px;margin:0 auto;padding:120px 20px 80px}
+    h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
+    section{margin-top:36px}
 
-    /* small modules */
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .dossier{width:240px;height:150px;perspective:900px}
-    .dossier-inner{width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;position:relative}
-    .dossier:hover .dossier-inner{transform:rotateY(180deg)}
-    .face{position:absolute;inset:0;border-radius:8px;padding:12px;backface-visibility:hidden}
-    .front{background:linear-gradient(135deg,#071428,#0b1b2a)}
-    .back{background:#071018;transform:rotateY(180deg)}
+    /* HERO 大矩形海报（整块作为顶部背景） */
+    .hero-wrap{position:relative;margin-top:0}
+    .hero-plate{
+      width:100%;
+      height:82vh;
+      max-height:980px;
+      border-radius:12px;
+      margin:0 auto;
+      background-image: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('assets/images/大海报.png');
+      background-size:cover;
+      background-position:center;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .hero-inner{
+      width:92%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:28px;
+    }
+    .hero-brand{
+      width:220px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;
+      background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
+      padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)
+    }
+    .hero-brand img{width:72px;height:72px;object-fit:contain;background:#071428;padding:6px;border-radius:10px}
+    .hero-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px}
+    .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
+    .hero-sub{font-size:16px;color:var(--muted);max-width:760px;text-align:center}
+    .hero-cta{margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .hero-books{display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;overflow:auto;padding-bottom:6px}
 
-    svg{border-radius:8px}
-    footer{margin-top:28px;color:var(--muted);font-size:13px}
-    @media (max-width:980px){.hero{grid-template-columns:1fr}.grid-3{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:600px){.grid-3{grid-template-columns:1fr}}
+    .hero-bottom-strip{
+      position:absolute;left:50%;transform:translateX(-50%);bottom:18px;
+      background:linear-gradient(90deg, rgba(0,0,0,0.36), rgba(0,0,0,0.08));
+      padding:8px 18px;border-radius:999px;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.03);
+      display:flex;gap:10px;align-items:center;backdrop-filter: blur(4px)
+    }
+
+    /* 史诗基石（厚重视觉） */
+    .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
+    .epic{
+      position:relative;border-radius:12px;overflow:hidden;height:320px;
+      background-size:cover;background-position:center;
+      border:1px solid rgba(255,255,255,0.04)
+    }
+    /* 加一点“石质/厚重”效果 */
+    .epic::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(1,1,1,0.24), rgba(0,0,0,0.48));mix-blend-mode:multiply}
+    .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%}
+    .epic .meta small{display:block;color:#dfeeff;font-size:12px;margin-top:6px}
+
+    /* gene map card */
+    .map-card{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+    .map-visual{flex:1;height:340px;border-radius:10px;background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)}
+    .map-tools{width:320px}
+
+    /* novels */
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card-bg);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+
+    /* 主角：两排 8 人（轻快 / 亲和） */
+    .heroes{margin-top:24px}
+    .heroes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
+    .hero-card .pic{width:100%;height:180px;border-radius:8px;background-size:cover;background-position:center;box-shadow:0 6px 20px rgba(0,0,0,0.45)}
+    .hero-card .name{font-weight:700;margin-top:10px}
+    .hero-card .role{font-size:13px;color:var(--muted);margin-top:6px}
+
+    /* mascots */
+    .mascots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .mascot{background:#071428;border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
+
+    /* responsive */
+    @media (max-width:1100px){
+      .hero-inner{flex-direction:column;align-items:center}
+      .epic-grid{grid-template-columns:1fr}
+      .hero-brand{width:100%;flex-direction:row;justify-content:space-between;padding:10px}
+      .heroes-grid{grid-template-columns:repeat(2,1fr)}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      main{padding-top:140px}
+      .hero-plate{height:62vh}
+      .hero-title{font-size:26px}
+      .hero-sub{font-size:13px}
+      .heroes-grid{grid-template-columns:1fr}
+      .mascots{grid-template-columns:1fr}
+    }
+
+    footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
+    /* small util */
+    .muted{color:var(--muted)}
+    .tag{display:inline-block;background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
   </style>
 </head>
 <body>
   <header>
     <div class="brand">
-      <div class="logo">立</div>
-      <div>
-        <div style="font-weight:800">立维宇宙 <span style="font-weight:400;font-size:12px;color:var(--muted)">(Leviverse)</span></div>
-        <div style="font-size:12px;color:var(--muted)">世界神话融合 · 文明悬疑 · 史诗群像</div>
+      <div class="logo" aria-hidden="true">立</div>
+      <div style="font-weight:800;line-height:1">
+        <div>立维宇宙</div>
+        <div style="font-size:12px;color:var(--muted)">Leviverse</div>
       </div>
     </div>
     <nav>
-      <a class="btn" href="#map">世界观地图</a>
-      <a class="btn" href="#archive">研究档案</a>
-      <a class="btn" href="#novels">叙事作品</a>
-      <a class="btn" href="#shop">文创周边</a>
-      <a class="btn" href="#vigio">设计赋能（Vigio）</a>
-      <a class="btn" href="#contact">合作咨询</a>
+      <a href="#epic">史诗核心</a>
+      <a href="#map">图谱</a>
+      <a href="#novels">作品矩阵</a>
+      <a href="#heroes">人物</a>
+      <a href="#vigio">设计赋能</a>
+      <a href="#contact">合作</a>
     </nav>
   </header>
 
-  <main class="wrap">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-card">
-        <h1>立维宇宙 · Leviverse × 维杰设计 · Vigio Design</h1>
-        <div class="subtitle">文明的悬疑，神话的史诗。<span style="color:var(--muted);margin-left:8px">（英文名称用于国际交流：Leviverse / Vigio Design）</span></div>
-        <p class="lead">立维宇宙是一个融合东方神话与文明悬疑的文化科技平台，开发原创宇宙叙事、作品与跨媒介内容。维杰设计专注于规划与建筑，将文化叙事转化为可建成的空间与城市体验。我们联合打造「文化 × 设计」的创新路径：从文字到城市，从故事到场景。</p>
+  <main>
+    <!-- HERO TOP（整块海报）-->
+    <section class="hero-wrap" aria-label="首页首屏">
+      <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报（请替换 assets/images/hero_*.jpg）">
+        <div class="hero-inner">
+          <!-- 左侧：Leviverse 品牌 -->
+          <div class="hero-brand" aria-hidden="false">
+            <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
+            <div style="font-weight:700">立维宇宙</div>
+            <div class="muted" style="font-size:13px">原创文明悬疑宇宙</div>
+          </div>
 
-        <div style="display:flex;gap:10px;margin-top:14px;align-items:center">
-          <a class="btn" href="#archive">研究与档案</a>
-          <a class="btn" href="#prototype">体验原型</a>
-          <a class="btn" href="#rfp">下载 RFP / NDA</a>
-          <div style="margin-left:auto;color:var(--muted);font-size:13px">商务邮箱：<strong>business@leviverse.com</strong></div>
+          <!-- 中央标题 -->
+          <div class="hero-center" role="heading" aria-level="1">
+            <div class="hero-title">文明的悬疑 · 场景的史诗</div>
+            <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
+
+            <div class="hero-cta">
+              <button class="btn" onclick="location.href='#epic'">探索史诗基石</button>
+              <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
+              <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
+            </div>
+
+            <!-- 小书列（首屏预览） -->
+            <div class="hero-books" aria-hidden="false" style="margin-top:18px">
+              <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
+                <img src="assets/images/cover_juanqiu.jpg" alt="驹隙万秋" style="width:100%;height:120px;object-fit:cover;display:block">
+                <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
+              </div>
+              <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
+                <img src="assets/images/cover_yanhuang.jpg" alt="炎黄星曌" style="width:100%;height:120px;object-fit:cover;display:block">
+                <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
+              </div>
+              <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
+                <img src="assets/images/cover_butian.jpg" alt="补天之城" style="width:100%;height:120px;object-fit:cover;display:block">
+                <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">赛博神话 · 场景原型</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：Vigio 品牌 -->
+          <div class="hero-brand" aria-hidden="false">
+            <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
+            <div style="font-weight:700">维杰设计</div>
+            <div class="muted" style="font-size:13px">场景化设计 · 工程交付</div>
+          </div>
         </div>
 
-        <!-- 动态摘录 + 音频 -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px">
-          <div>
-            <div id="rotating-quote" style="font-style:italic;color:#e9f7ff">“时间有了裂口，故事便从那里流出。”</div>
-            <div style="color:var(--muted);font-size:13px;margin-top:6px">摘录 · 立维档案（可听样片）</div>
+        <div class="hero-bottom-strip">
+          联合呈现 · 文化 × 设计 · 叙事导向的场景化产品
+          <button class="btn ghost" style="margin-left:12px" onclick="openWhitepaperModal()">索取白皮书</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EPIC（史诗基石） -->
+    <section id="epic" aria-label="史诗基石">
+      <h2>史诗基石 · 炎帝 / 黄帝 / 蚩尤</h2>
+      <p class="muted">三条叙事主轴：起源、秩序、裂隙修复 —— 支撑宇宙的主题与改编线索。</p>
+
+      <div class="epic-grid" style="margin-top:12px">
+        <div class="epic" style="background-image:url('assets/images/epic_yandi.jpg')" data-id="yandi">
+          <div class="meta">
+            <strong>炎帝</strong>
+            <small>文化起源 · 技艺与火</small>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('yandi')">查看设定档</button></div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <button id="playAudio" class="btn">▶ 听样片</button>
-            <button id="muteBtn" class="btn">静音</button>
+        </div>
+
+        <div class="epic" style="background-image:url('assets/images/epic_huangdi.jpg')" data-id="huangdi">
+          <div class="meta">
+            <strong>黄帝</strong>
+            <small>文明秩序 · 技术与律令</small>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('huangdi')">查看设定档</button></div>
+          </div>
+        </div>
+
+        <div class="epic" style="background-image:url('assets/images/epic_chiyou.jpg')" data-id="chiyou">
+          <div class="meta">
+            <strong>蚩尤</strong>
+            <small>裂隙议题 · 修复与对抗</small>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('chiyou')">查看设定档</button></div>
           </div>
         </div>
       </div>
-
-      <aside class="card" style="width:360px">
-        <h4 style="margin:0">快速入口</h4>
-        <div style="color:var(--muted);font-size:13px;margin-top:8px">基因图谱 / 小说 / 有声 / 漫画 / 商城</div>
-        <div style="display:flex;gap:8px;flex-direction:column;margin-top:12px">
-          <a class="btn" href="#map">进入神话基因图谱</a>
-          <a class="btn" href="#novels">叙事作品</a>
-          <a class="btn" href="#shop">文创周边</a>
-        </div>
-        <div style="margin-top:12px;color:var(--muted);font-size:13px">关注：公众号 / 微信</div>
-        <div style="display:flex;gap:8px;margin-top:12px">
-                    <img src="/assets/images/qrcode_wechat.png" alt="微信公众号" style="width:120px;height:120px;object-fit:cover;border-radius:8px;">
-                    <img src="/assets/images/qrcode_corpwechat.png" alt="企业微信" style="width:120px;height:120px;object-fit:cover;border-radius:8px;">
-        </div>
-      </aside>
     </section>
 
     <!-- Gene Map -->
-    <section id="map" style="margin-top:20px">
-      <h2>世界神话基因图谱</h2>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <div class="card" style="flex:1; position:relative;">
-                    <img src="/assets/images/gene_map_bg.jpg" alt="世界神话基因图谱" style="width:100%; height:280px; object-fit:cover; border-radius:8px; position:absolute; inset:0;">
-                    <svg id="geneMap" viewBox="0 0 600 340" style="width:100%;height:280px;background:transparent;border-radius:8px;position:relative;">
-            <line x1="110" y1="60" x2="300" y2="160" stroke="rgba(123,226,255,0.25)" stroke-width="1.5" />
-            <g class="node" data-id="n1"><circle cx="110" cy="60" r="10" fill="#ffd8b5" /><text x="130" y="64" fill="#cfe8ff" font-size="12">炎黄系</text></g>
-            <g class="node" data-id="n2"><circle cx="300" cy="160" r="11" fill="#7be2ff" /><text x="320" y="164" fill="#cfe8ff" font-size="12">补天节点</text></g>
-            <g class="node" data-id="n3"><circle cx="460" cy="90" r="8" fill="#ffb86b" /><text x="480" y="94" fill="#cfe8ff" font-size="12">驹隙系</text></g>
-          </svg>
-        </div>
-        <div style="width:320px">
+    <section id="map" aria-label="世界神话基因图谱">
+      <h2>世界神话 · 基因图谱</h2>
+      <p class="muted">可视化节点与时间轴，支持导出数据与嵌入到展陈或报告中。</p>
+      <div class="card map-card" style="margin-top:12px">
+        <div class="map-visual" id="mapVisual" role="img" aria-label="基因图谱占位（支持交互）"></div>
+        <div class="map-tools">
           <div style="color:var(--muted);font-size:13px">时间轴</div>
-          <input id="eraSlider" type="range" min="0" max="3" value="0" style="width:100%" />
-          <div id="eraLabel" style="margin-top:8px;color:var(--muted)">时代：史前 · 神祇萌芽</div>
-          <div style="margin-top:8px;color:var(--muted);font-size:13px">提示：可接入 API，滑块控制节点权重和颜色，支持数据导出与可视化嵌入。</div>
+          <input id="eraSlider" type="range" min="0" max="3" value="0" style="width:100%;margin-top:6px"/>
+          <div id="eraLabel" style="color:var(--muted);margin-top:8px">时代：史前 · 神祇萌芽</div>
+          <div style="margin-top:12px;font-size:13px;color:var(--muted)">提示：支持 API 导出节点（CSV / JSON）以供研究或展陈使用。</div>
         </div>
       </div>
     </section>
 
-    <!-- Archive -->
-    <section id="archive" style="margin-top:18px">
-      <h2>档案 · 方法论</h2>
-      <p style="color:var(--muted)">将古籍、田野、口述、影像等材料结构化整理，形成可溯源的档案单元。每个档案背后都有清晰的研究逻辑，可作为文化开发与空间设计的底层支撑。</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <div class="dossier card">
-          <div class="dossier-inner">
-            <div class="face front"><div style="font-weight:700">档案：炎黄·起源碎片</div><div style="color:var(--muted);margin-top:8px">田野 · 文献 · 录音</div></div>
-            <div class="face back"><div style="font-weight:700">注释</div><div style="color:var(--muted);margin-top:8px">来源：古籍摘录；口述文件；录音编号 A-12。</div></div>
-          </div>
-        </div>
-        <div class="dossier card">
-          <div class="dossier-inner">
-            <div class="face front"><div style="font-weight:700">档案：补天·城市记忆</div><div style="color:var(--muted);margin-top:8px">原型 · AR</div></div>
-            <div class="face back"><div style="font-weight:700">注释</div><div style="color:var(--muted);margin-top:8px">AR 导览脚本、展览动线与用户场景。</div></div>
-          </div>
-        </div>
-        <div class="dossier card">
-          <div class="dossier-inner">
-            <div class="face front"><div style="font-weight:700">档案：驹隙·时间碎片</div><div style="color:var(--muted);margin-top:8px">叙事 · 场景</div></div>
-            <div class="face back"><div style="font-weight:700">注释</div><div style="color:var(--muted);margin-top:8px">叙事纲要、角色年谱、互动节点。</div></div>
-          </div>
-        </div>
-      </div>
-      <div style="margin-top:12px;display:flex;gap:8px"><button id="openWhitepaper" class="btn">申请白皮书</button><a class="btn ghost" href="/press-kit.zip">下载媒体包</a></div>
-    </section>
-
-    <!-- Novels / Comics / Audio -->
-    <section id="novels" style="margin-top:18px">
+    <!-- Novels -->
+    <section id="novels">
       <h2>叙事作品矩阵</h2>
-      <div class="grid-3">
-        <div class="card">
-            <img src="/assets/images/cover_juanqiu.jpg" alt="驹隙万秋" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
-            <div style="font-weight:700;margin-top:8px">《驹隙万秋》</div><div style="color:var(--muted);margin-top:6px">文明悬疑 · 科幻与神话融合。</div><div style="margin-top:8px;display:flex;gap:8px"><a class="btn" href="#">阅读样章</a><a class="btn ghost" href="#">听有声</a></div></div>
+      <div class="grid-3" style="margin-top:12px">
         <div class="card">
-            <img src="/assets/images/cover_yanhuang.jpg" alt="炎黄星曌" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
-            <div style="font-weight:700;margin-top:8px">《炎黄星曌》</div><div style="color:var(--muted);margin-top:6px">文明悬疑 ·  上古神话解密。</div><div style="margin-top:8px;display:flex;gap:8px"><a class="btn" href="#">阅读</a><a class="btn ghost" href="#">图集</a></div></div>
-        <div class="card">
-            <img src="/assets/images/cover_butian.jpg" alt="补天之城" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
-            <div style="font-weight:700;margin-top:8px">《补天之城：上海2074》</div><div style="color:var(--muted);margin-top:6px">文明悬疑 · 赛博补天。</div><div style="margin-top:8px;display:flex;gap:8px"><a class="btn" href="#">漫画</a><a class="btn ghost" href="#">原型</a></div></div>
-      </div>
-    </section>
-
-    <!-- Shop -->
-    <section id="shop" style="margin-top:18px">
-      <h2>文创与周边</h2>
-      <p style="color:var(--muted)">手办、画集与限量藏品。</p>
-      <div class="grid-3">
-        <div class="card"><div style="height:96px;background:#081426;border-radius:8px"></div><div style="font-weight:700;margin-top:8px">手办：时间碎片</div><div style="color:var(--muted);margin-top:6px">预售 · 限量发行</div><div style="margin-top:8px"><a class="btn" href="#">预定</a></div></div>
-        <div class="card"><div style="height:96px;background:#081426;border-radius:8px"></div><div style="font-weight:700;margin-top:8px">画集：基因图谱</div><div style="color:var(--muted);margin-top:6px">艺术集 · 小批</div><div style="margin-top:8px"><a class="btn" href="#">购买</a></div></div>
-        <div class="card"><div style="height:96px;background:#081426;border-radius:8px"></div><div style="font-weight:700;margin-top:8px">签名样章</div><div style="color:var(--muted);margin-top:6px">作者签名 · 限量</div><div style="margin-top:8px"><a class="btn" href="#">预定</a></div></div>
-      </div>
-    </section>
-
-    <!-- Vigio Design -->
-    <section id="vigio" style="margin-top:18px">
-      <h2>维杰设计（Vigio Design）— 从产业研究、规划涉及到空间实现，维杰设计将文化叙事与空间建设无缝结合。</h2>
-      <p style="color:var(--muted)">维杰（Vigio Design）专注于建筑规划、BIM 交付与展陈工程，实现从叙事到场景的工程化落地。</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <div class="card" style="min-width:260px"><strong>能力</strong><div style="color:var(--muted);margin-top:8px"> 产业研究 · 概念设计 · 规划设计 · </div></div>
-        <div class="card" style="min-width:260px"><strong>交付</strong><div style="color:var(--muted);margin-top:8px">提供 Revit/IFC 输出，支持云端协同与供应链对接。</div></div>
-        <div class="card" style="min-width:260px"><strong>合作入口</strong><div style="color:var(--muted);margin-top:8px">下载 RFP / 联系：business@leviverse.com</div></div>
-      </div>
-    </section>
-
-    <!-- Prototype / 3D -->
-    <section id="prototype" style="margin-top:18px">
-      <h2>原型 · 数字孪生</h2>
-      <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
-        <div style="flex:1" class="card"><div style="height:260px;background:#071218;border-radius:8px;display:grid;place-items:center;color:var(--muted)">3D 模型 / 视频 占位（支持 glTF / Sketchfab 嵌入）</div></div>
-        <div style="width:320px" class="card"><strong>原型节点</strong><ul style="color:var(--muted);margin-top:8px"><li>AR 导览脚本 · 3 条主线</li><li>数字孪生 · 展厅线上映射</li><li>交付物 实体模型 + 展陈文化包</li></ul></div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" style="margin-top:18px">
-      <h2>合作入口</h2>
-      <p style="color:var(--muted)">商务：<strong>business@leviverse.com</strong> · 设计对接：<strong>business@leviverse.com</strong></p>
-      <div style="display:grid;grid-template-columns:1fr 320px;gap:12px">
-        <div>
-          <form style="display:flex;flex-direction:column;gap:8px;max-width:680px">
-            <input placeholder="单位 / 工作室" />
-            <input placeholder="联系人与邮箱" />
-            <textarea placeholder="项目简述（200 字）" rows="4"></textarea>
-            <div style="display:flex;gap:8px"><button class="btn">提交</button><button class="btn ghost">下载 RFP 模板</button></div>
-          </form>
+          <img src="assets/images/cover_juanqiu.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <div style="font-weight:700;margin-top:8px">《驹隙万秋》</div>
+          <div class="muted" style="margin-top:6px">文明悬疑 · 群像叙事</div>
+          <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">获取样章</button></div>
         </div>
-        <aside class="card">
+
+        <div class="card">
+          <img src="assets/images/cover_yanhuang.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <div style="font-weight:700;margin-top:8px">《炎黄星曌》</div>
+          <div class="muted" style="margin-top:6px">神话史诗 · 体系化设定</div>
+          <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
+        </div>
+
+        <div class="card">
+          <img src="assets/images/cover_butian.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <div style="font-weight:700;margin-top:8px">《补天之城：上海2074》</div>
+          <div class="muted" style="margin-top:6px">都市科幻 · 场景原型</div>
+          <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">查看预览</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主角群像：两排 8 人 -->
+    <section id="heroes" class="heroes" aria-label="主角群像">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>主角群像</h2>
+        <div class="muted">八位核心角色 · 叙事轴心</div>
+      </div>
+
+      <div class="heroes-grid" style="margin-top:12px">
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_jiangyanming.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanxi.jpg')"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_mochuan.jpg')"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_ruiyan.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div></div>
+
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_luxiaoyun.jpg')"></div><div class="name">路霄雲</div><div class="role muted">远行者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_yulingxuan.jpg')"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_haishixin.jpg')"></div><div class="name">海世鑫</div><div class="role muted">海域行者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanqianduo.jpg')"></div><div class="name">蓝千朵</div><div class="role muted">庭园守望</div></div>
+      </div>
+    </section>
+
+    <!-- MASCOTS -->
+    <section id="mascots">
+      <h2>未来萌宠</h2>
+      <p class="muted">轻量社群入口 · AR、表情包与周边生态</p>
+      <div class="mascots">
+        <div class="mascot card"><div style="width:120px;height:120px;border-radius:12px;background:url('assets/images/mascot_xingling.jpg') center/cover"></div><div style="font-weight:700">星灵</div><div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button></div>
+        <div class="mascot card"><div style="width:120px;height:120px;border-radius:12px;background:url('assets/images/mascot_lidudu.jpg') center/cover"></div><div style="font-weight:700">狸嘟嘟</div><div class="muted" style="font-size:13px">城市守望 · 周边首选</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button></div>
+        <div class="mascot card"><div style="width:120px;height:120px;border-radius:12px;background:url('assets/images/mascot_shixiaosheng.jpg') center/cover"></div><div style="font-weight:700">石小圣</div><div class="muted" style="font-size:13px">古物萌宠 · 收藏</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button></div>
+      </div>
+    </section>
+
+    <!-- Merch & Prototype -->
+    <section id="shop">
+      <h2>文创 · 展陈与手办</h2>
+      <p class="muted">限量收藏、艺术画集与互动展陈原型。</p>
+      <div class="cards" style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+        <div class="card" style="width:320px"><strong>手办：时间碎片</strong><div class="muted" style="margin-top:8px">预售 · 限量发行</div></div>
+        <div class="card" style="width:320px"><strong>艺术画集：基因图谱</strong><div class="muted" style="margin-top:8px">小批精装印刷</div></div>
+        <div class="card" style="width:320px"><strong>AR / 数字孪生</strong><div class="muted" style="margin-top:8px">线上线下联动原型</div></div>
+      </div>
+    </section>
+
+    <!-- Vigio -->
+    <section id="vigio">
+      <h2>Vigio Design · 设计赋能</h2>
+      <p class="muted">维杰提供展陈工程、BIM 交付与场景化建设能力，承担从概念到施工的全流程交付。</p>
+      <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+        <div class="card" style="width:320px"><strong>能力</strong><div class="muted" style="margin-top:8px">产业研究 · 概念策划 · 规划与建筑</div></div>
+        <div class="card" style="width:320px"><strong>交付</strong><div class="muted" style="margin-top:8px">Revit / IFC · 数字孪生 · 施工图</div></div>
+        <div class="card" style="width:320px"><strong>合作</strong><div class="muted" style="margin-top:8px">RFP 对接 · 商务：business@leviverse.example</div></div>
+      </div>
+    </section>
+
+    <!-- Prototype -->
+    <section id="prototype">
+      <h2>原型 · 数字孪生</h2>
+      <div class="card" style="margin-top:12px">3D 模型 · 展陈演示 · 交付包（支持 glTF、Revit / IFC 输出）</div>
+    </section>
+
+    <!-- Contact & QR -->
+    <section id="contact">
+      <h2>合作与商务</h2>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;align-items:flex-start">
+        <div style="flex:1" class="card">
+          <div style="font-weight:700">商务与授权</div>
+          <div class="muted" style="margin-top:8px">business@leviverse.example</div>
+          <div class="muted" style="font-size:13px;margin-top:12px">请使用机构邮箱索取白皮书与授权要点文档，我们将提供机构级材料与对接流程。</div>
+          <div style="margin-top:12px"><button class="btn" onclick="openWhitepaperModal()">索取白皮书（机构邮箱）</button></div>
+        </div>
+
+        <aside class="card" style="width:320px">
           <div style="font-weight:700">扫码关注</div>
-          <div style="color:var(--muted);margin-top:8px">建议放：公众号（公众用户）与企业微信（商务对接）二维码</div>
-          <div style="display:flex;gap:8px;margin-top:12px"><div style="width:120px;height:120px;background:#071428;border-radius:8px;display:grid;place-items:center;color:var(--muted)">公众号</div><div style="width:120px;height:120px;background:#071428;border-radius:8px;display:grid;place-items:center;color:var(--muted)">企业微信</div></div>
+          <div class="muted" style="margin-top:8px">公众号（社群） · 企业微信（商务）</div>
+          <div style="display:flex;gap:8px;margin-top:12px;justify-content:center">
+            <img src="assets/images/qrcode_wechat.png" alt="公众号" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+            <img src="assets/images/qrcode_corpwechat.png" alt="企业微信" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+          </div>
         </aside>
       </div>
     </section>
 
-    <footer style="margin-top:24px">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
         <div>
-          <div style="font-weight:700">立维宇宙（Leviverse） · 维杰设计（Vigio Design）</div>
-          <div style="color:var(--muted);margin-top:6px">© 2025 Leviverse / Vigio Planning &amp; Architectural Design Co., Ltd. 保留所有权利。</div>
+          <div style="font-weight:700">Leviverse · 立维宇宙 · Vigio Design · 维杰设计</div>
+          <div class="muted" style="margin-top:6px">© 2025 Leviverse Global · Vigio Planning &amp; Architectural Design Co., Ltd. 保留所有权利。</div>
         </div>
-        <div style="display:flex;gap:12px;align-items:center">
-          <a href="#">隐私条款</a>
-          <a href="#">使用条款</a>
-          <a href="#">联系：business@leviverse.com</a>
-        </div>
+        <div class="muted" style="font-size:13px">Global Creative HQ · Shanghai · business@leviverse.example</div>
       </div>
     </footer>
   </main>
 
-  <!-- audio placeholder -->
-  <audio id="sampleAudio" preload="none"><source src="/assets/audio/sample_excerpt.mp3" type="audio/mpeg"></audio>
+  <!-- EPIC modal (档案/出处) -->
+  <div id="epicModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:200">
+    <div style="background:#07121a;padding:20px;border-radius:10px;width:min(920px,94%);max-height:86vh;overflow:auto;border:1px solid rgba(255,255,255,0.05)">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="epicModalTitle" style="margin:0">档案</h3>
+        <button onclick="closeEpicModal()" class="btn ghost">关闭</button>
+      </div>
+      <div id="epicModalBody" style="margin-top:12px;color:var(--muted)"></div>
+    </div>
+  </div>
 
-  <!-- modal 白皮书申请 -->
-  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center">
-    <div style="background:#07121a;padding:18px;border-radius:8px;max-width:560px;width:100%">
-      <h3 style="margin:0">申请白皮书 · 世界神话基因图谱（β）</h3>
-      <p style="color:var(--muted);margin-top:8px">填写邮箱后我们会发送下载链接（示例：请用工作邮箱以便申请机构包）。</p>
-      <input id="wpEmail" placeholder="邮箱" style="width:100%;padding:8px;margin-top:8px;border-radius:6px" />
-      <div style="display:flex;gap:8px;margin-top:10px"><button id="wpSend" class="btn">发送</button><button id="wpClose" class="btn ghost">关闭</button></div>
+  <!-- Whitepaper modal -->
+  <div id="whitepaperModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:210">
+    <div style="background:#07121a;padding:20px;border-radius:10px;width:520px;border:1px solid rgba(255,255,255,0.05)">
+      <h3 style="margin:0">申请：世界神话基因图谱 · 白皮书</h3>
+      <p class="muted" style="margin-top:8px">请输入工作邮箱（机构邮箱）以获取下载链接（示例：邮件发送需后端支持）。</p>
+      <input id="whiteEmail" placeholder="机构邮箱（示例：name@company.com）" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-top:8px;background:transparent;color:#eaf6ff">
+      <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+        <button class="btn" id="whiteSend">提交申请</button>
+        <button class="btn ghost" onclick="closeWhitepaperModal()">关闭</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // 轮换摘录
-    const quotes = ['“时间有了裂口，故事便从那里流出。”','“城，是补天的器物，也是记忆的容器。”','“一段神话可以成为一座广场的骨架。”'];
-    let idx=0; const rq=document.getElementById('rotating-quote'); setInterval(()=>{ idx=(idx+1)%quotes.length; rq.textContent=quotes[idx]; },4000);
+    // ---------- Hero slideshow ----------
+    (function(){
+      const plates = ['assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg'];
+      let idx = 0;
+      setInterval(()=> {
+        idx = (idx + 1) % plates.length;
+        const url = "linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('" + plates[idx] + "')";
+        document.getElementById('heroPlate').style.backgroundImage = url;
+      }, 7000);
+    })();
 
-    // 音频控制
-    const audio=document.getElementById('sampleAudio'); document.getElementById('playAudio').addEventListener('click', function(){ if(audio.paused){ audio.play(); this.textContent='▌▌ 停止'; } else { audio.pause(); audio.currentTime=0; this.textContent='▶ 听样片'; }});
-    document.getElementById('muteBtn').addEventListener('click', function(){ audio.muted=!audio.muted; this.textContent=audio.muted? '取消静音':'静音'; });
+    // ---------- Era slider ----------
+    (function(){
+      const eraLabel = document.getElementById('eraLabel');
+      const eraSlider = document.getElementById('eraSlider');
+      if(eraSlider && eraLabel){
+        eraSlider.addEventListener('input', e=>{
+          const v = e.target.value;
+          if(v==0) eraLabel.textContent='时代：史前 · 神祇萌芽';
+          else if(v==1) eraLabel.textContent='时代：古典 · 文化成形';
+          else if(v==2) eraLabel.textContent='时代：近代 · 记忆重写';
+          else eraLabel.textContent='时代：未来 · 城市神话';
+        });
+      }
+    })();
 
-    // gene map hover tooltip
-    document.querySelectorAll('#geneMap .node').forEach(n=>{ n.style.cursor='pointer'; n.addEventListener('mouseenter', e=>{ const id=n.getAttribute('data-id'); const t=document.createElement('div'); t.id='tt'; t.style.position='fixed'; t.style.background='rgba(2,6,10,0.92)'; t.style.color='#cfe8ff'; t.style.padding='8px'; t.style.borderRadius='6px'; t.style.fontSize='13px'; t.style.zIndex=9999; t.innerText = id==='n1'?'炎黄系：文化源流':''; if(id==='n2') t.innerText='补天节点：城市神话与修补叙事'; if(id==='n3') t.innerText='驹隙系：时间碎片与叙事线索'; document.body.appendChild(t); }); n.addEventListener('mousemove', e=>{ const t=document.getElementById('tt'); if(t){ t.style.left=(e.clientX+12)+'px'; t.style.top=(e.clientY+6)+'px'; }}); n.addEventListener('mouseleave', e=>{ const t=document.getElementById('tt'); if(t) t.remove(); }); });
+    // ---------- Epic modal content ----------
+    const epicData = {
+      'yandi': {
+        title: '炎帝 · 档案摘录',
+        body: `<p><strong>摘要：</strong>炎帝被视为文化与技艺的起点，在多种文献与口述中作为“火与耕作”系的象征，构成宇宙的起源线索。</p>
+               <p><strong>来源示例：</strong>文献节选 · 区域口述 · 考古图像（示例仅供预览）。</p>
+               <p class="muted">注：正式文献溯源与注释见白皮书（机构资料）。</p>
+               <p style="margin-top:8px"><a class="btn ghost" href="/assets/whitepapers/yandi_sample.pdf">下载样本（PDF）</a></p>`
+      },
+      'huangdi': {
+        title: '黄帝 · 档案摘录',
+        body: `<p><strong>摘要：</strong>黄帝象征秩序與技術體系，其意象在建制、禮俗與科技傳承的敘事線中被多重引用。</p>
+               <p><strong>来源示例：</strong>典籍考據 · 文化記憶材料。</p>
+               <p class="muted">注：白皮书将分别列出文献类型与可信度。</p>`
+      },
+      'chiyou': {
+        title: '蚩尤 · 档案摘录',
+        body: `<p><strong>摘要：</strong>蚩尤承载裂隙、冲突与修复议题，在叙事中常作为触发事件与情感张力的核心。</p>
+               <p><strong>来源示例：</strong>民间传说 · 区域性记忆。</p>`
+      }
+    };
 
-    // slider label
-    const eraLabel=document.getElementById('eraLabel'); document.getElementById('eraSlider').addEventListener('input', e=>{ const v=e.target.value; if(v==0) eraLabel.textContent='时代：史前 · 神祇萌芽'; else if(v==1) eraLabel.textContent='时代：古典 · 文化定型'; else if(v==2) eraLabel.textContent='时代：近代 · 记忆重写'; else eraLabel.textContent='时代：未来 · 城市神话'; });
+    function openEpicModal(id){
+      const modal = document.getElementById('epicModal');
+      const title = document.getElementById('epicModalTitle');
+      const body = document.getElementById('epicModalBody');
+      const d = epicData[id] || {title:'档案', body:'暂无数据'};
+      title.textContent = d.title;
+      body.innerHTML = d.body;
+      modal.style.display = 'flex';
+    }
+    function closeEpicModal(){ document.getElementById('epicModal').style.display = 'none'; }
 
-    // 白皮书 modal
-    document.getElementById('openWhitepaper').addEventListener('click', ()=>{ document.getElementById('modal').style.display='flex'; }); document.getElementById('wpClose').addEventListener('click', ()=>{ document.getElementById('modal').style.display='none'; }); document.getElementById('wpSend').addEventListener('click', ()=>{ const email=document.getElementById('wpEmail').value; if(!email){ alert('请填写邮箱'); return; } alert('白皮书申请已收到：'+email+'（示例提示，需后端支持发送）'); document.getElementById('modal').style.display='none'; });
+    // ---------- Whitepaper modal ----------
+    function openWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='flex'; }
+    function closeWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='none'; }
+    document.getElementById('whiteSend').addEventListener('click', ()=>{
+      const email = document.getElementById('whiteEmail').value.trim();
+      if(!email || !email.includes('@')){ alert('请填写有效的工作邮箱'); return; }
+      alert('白皮书申请已收到（示例）：' + email + '\n实际发送需后端支持以便验证与发送。');
+      closeWhitepaperModal();
+    });
+
+    // close modal when clicking outside content
+    document.getElementById('epicModal').addEventListener('click', function(e){ if(e.target === this) closeEpicModal(); });
+    document.getElementById('whitepaperModal').addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
+
+    // placeholder for forms (no backend)
+    (function(){
+      const forms = document.querySelectorAll('form');
+      forms.forEach(f=> f && f.addEventListener('submit', function(e){ e.preventDefault(); alert('表单已提交（示例）——请替换为实际后端 API'); }));
+    })();
   </script>
+
+  <!-- 图片与资源建议（放到 assets/images/）： 
+    hero_1.jpg, hero_2.jpg, hero_3.jpg  (推荐 2400x1200)
+    logo_leviverse.png, logo_vigio.png  (透明 PNG)
+    cover_juanqiu.jpg, cover_yanhuang.jpg, cover_butian.jpg
+    epic_yandi.jpg, epic_huangdi.jpg, epic_chiyou.jpg
+    gene_map_bg.jpg
+    char_jiangyanming.jpg, char_lanxi.jpg, char_mochuan.jpg, char_ruiyan.jpg,
+    char_luxiaoyun.jpg, char_yulingxuan.jpg, char_haishixin.jpg, char_lanqianduo.jpg
+    mascot_xingling.jpg, mascot_lidudu.jpg, mascot_shixiaosheng.jpg
+    qrcode_wechat.png, qrcode_corpwechat.png
+    (可选) assets/whitepapers/yandi_sample.pdf 作为样例下载
+  -->
+
 </body>
 </html>
