@@ -36,9 +36,9 @@
     /* HERO 大矩形海报（整块作为顶部背景） */
     .hero-wrap{position:relative;margin-top:0}
     .hero-plate{
-      width:100%;
-      height:82vh;
-      max-height:980px;
+      width:100%;
+      height:68vh; /* 修正高度，让出导航栏空间 */
+      max-height:850px; /* 修正最大高度 */
       border-radius:12px;
       margin:0 auto;
       background-image: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('assets/images/大海报.png');
@@ -394,17 +394,18 @@
   </div>
 
   <script>
-    // ---------- Hero slideshow ----------
-    (function(){
-      const plates = ['assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg'];
-      let idx = 0;
-      setInterval(()=> {
-        idx = (idx + 1) % plates.length;
-        const url = "linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('" + plates[idx] + "')";
-        document.getElementById('heroPlate').style.backgroundImage = url;
-      }, 7000);
-    })();
-
+    /*
+    // ---------- Hero slideshow (已停用) ----------
+    (function(){
+      const plates = ['assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg'];
+      let idx = 0;
+      setInterval(()=> {
+        idx = (idx + 1) % plates.length;
+        const url = "linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('" + plates[idx] + "')";
+        document.getElementById('heroPlate').style.backgroundImage = url;
+      }, 7000);
+    })();
+    */
     // ---------- Era slider ----------
     (function(){
       const eraLabel = document.getElementById('eraLabel');
