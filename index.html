@@ -38,41 +38,54 @@
     section{margin-top:36px}
 
     /* HERO 核心优化：解决按钮叠加问题（采用 margin-top: auto 靠底推入安全区） */
-    .hero-wrap {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* 整页高度 */
-  overflow: hidden;
-}
+    .hero-wrap{
+      position:relative;
+      margin-top:0;
+      isolation:isolate;
+      z-index:900;
+    }
 
-.hero-plate {
-  position: absolute; /* 背景充满整个 hero-wrap */
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('assets/images/hero_main.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1; /* 背景层 */
-  border-radius: 0; /* 去掉圆角，让整页铺满 */
-}
+    .hero-plate{
+      width:100%;
+      height:68vh;
+      min-height:550px;
+      max-height:850px;
+      border-radius:12px;
+      margin:0 auto;
+      position:relative;
+      display:flex;
+      align-items:flex-end; /* 让内容靠底部对齐 */
+      justify-content:center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+      border:1px solid rgba(255,255,255,0.03);
+      background:transparent;
+      overflow:hidden;
+      z-index:900;
+    }
 
-.hero-inner {
-  position: relative; /* 内容在背景上方 */
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
-  padding: 40px;
-}
+    .hero-plate .hero-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      border-radius:12px;
+      z-index:1;
+      pointer-events:none;
+      -webkit-user-select:none;
+      user-select:none;
+    }
 
-.hero-bottom-strip {
-  position: relative;
-  z-index: 2; /* 保证按钮在背景上方 */
-}
+    .hero-plate::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42));
+      z-index:2;
+      pointer-events:none;
+    }
 
     .hero-inner{
       width:92%;max-width:1200px;
@@ -255,55 +268,19 @@
   </header>
 
   <main>
-    <section class="hero-wrap" aria-label="首页首屏">
-      <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报">
+<section class="hero-wrap">
+  <div class="hero-plate"></div> <!-- 只保留背景图 -->
+</section>
 
-        <div class="hero-inner">
-          <div class="hero-brand" aria-hidden="false">
-            <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
-            <div style="font-weight:700">立维宇宙</div>
-            <div class="muted" style="font-size:13px">原创文明悬疑宇宙</div>
-          </div>
-
-          <div class="hero-center" role="heading" aria-level="1">
-            <div class="hero-title">文明的悬疑 · 场景的史诗</div>
-            <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
-
-            <div class="hero-cta">
-              <button class="btn" onclick="location.href='#epic'">探索史诗基石</button>
-              <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
-              <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
-            </div>
-
-            <div class="hero-books" aria-hidden="false">
-              <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;object-fit:cover;border-radius:8px">
-                <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
-              </div>
-              <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
-                <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
-              </div>
-              <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
-                <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-brand" aria-hidden="false">
-            <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
-            <div style="font-weight:700">维杰设计</div>
-            <div class="muted" style="font-size:13px">场景化设计 · 工程交付</div>
-          </div>
-        </div>
-
-        <div class="hero-bottom-strip">
-          联合呈现 · 文化 × 设计 · 叙事导向的场景化产品
-          <button class="btn ghost" style="margin-left:12px" onclick="openWhitepaperModal()">索取白皮书</button>
-        </div>
-      </div>
-    </section>
+<section class="hero-content"> <!-- 新增内容区，放按钮、书籍卡片、底部条 -->
+  <div class="hero-inner">
+    <!-- 原来的 hero-brand / hero-center / hero-books -->
+  </div>
+  <div class="hero-bottom-strip">
+    联合呈现 · 文化 × 设计 · 叙事导向的场景化产品
+    <button class="btn ghost" style="margin-left:12px" onclick="openWhitepaperModal()">索取白皮书</button>
+  </div>
+</section>
 
     <section id="epic" aria-label="史诗基石">
       <h2>史诗基石 · 炎帝 / 黄帝 / 蚩尤</h2>
