@@ -34,11 +34,17 @@
     section{margin-top:36px}
 
     /* HERO 大矩形海报（整块作为顶部背景） */
-    .hero-wrap{position:relative;margin-top:0}
+    /* 修改点：为 .hero-wrap 创建独立 stacking context（isolation），并设置 z-index */
+    .hero-wrap{
+      position:relative;
+      margin-top:0;
+      isolation:isolate; /* 关键：创建独立 stacking context，防止页面其他定位元素覆盖 */
+      z-index:110; /* 低于 header（140），高于默认内容层 */
+    }
     .hero-plate{
-      width:100%;
-      height:68vh; /* 修正高度，让出导航栏空间 */
-      max-height:850px; /* 修正最大高度 */
+      width:100%;
+      height:68vh; /* 修正高度，让出导航栏空间 */
+      max-height:850px; /* 修正最大高度 */
       border-radius:12px;
       margin:0 auto;
       background-image: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('assets/images/大海报.png');
@@ -50,6 +56,10 @@
       justify-content:center;
       box-shadow: 0 30px 80px rgba(0,0,0,0.55);
       border:1px solid rgba(255,255,255,0.03);
+
+      /* 修改点：确保海报处于独立堆叠层并裁切溢出元素 */
+      z-index:120;     /* 高于 .hero-wrap，确保海报内容在同一 stacking context 内处于顶层 */
+      overflow:hidden; /* 避免海报内部绝对定位或子元素溢出到页面其它部分 */
     }
     .hero-inner{
       width:92%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:28px;
@@ -70,7 +80,10 @@
       position:absolute;left:50%;transform:translateX(-50%);bottom:18px;
       background:linear-gradient(90deg, rgba(0,0,0,0.36), rgba(0,0,0,0.08));
       padding:8px 18px;border-radius:999px;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.03);
-      display:flex;gap:10px;align-items:center;backdrop-filter: blur(4px)
+      display:flex;gap:10px;align-items:center;backdrop-filter: blur(4px);
+
+      /* 修改点：确保底部条在海报内容之上，但仍低于 header */
+      z-index:125;
     }
 
     /* 史诗基石（厚重视觉） */
@@ -127,6 +140,12 @@
     /* small util */
     .muted{color:var(--muted)}
     .tag{display:inline-block;background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
+
+    /* 修改点：确保后续 section 的默认层级低于海报，避免它们以定位覆盖海报 */
+    main section{
+      position:relative;
+      z-index:0;
+    }
   </style>
 </head>
 <body>
@@ -395,17 +414,17 @@
 
   <script>
     /*
-    // ---------- Hero slideshow (已停用) ----------
-    (function(){
-      const plates = ['assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg'];
-      let idx = 0;
-      setInterval(()=> {
-        idx = (idx + 1) % plates.length;
-        const url = "linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('" + plates[idx] + "')";
-        document.getElementById('heroPlate').style.backgroundImage = url;
-      }, 7000);
-    })();
-    */
+    // ---------- Hero slideshow (已停用) ----------
+    (function(){
+      const plates = ['assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg'];
+      let idx = 0;
+      setInterval(()=> {
+        idx = (idx + 1) % plates.length;
+        const url = "linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('" + plates[idx] + "')";
+        document.getElementById('heroPlate').style.backgroundImage = url;
+      }, 7000);
+    })();
+    */
     // ---------- Era slider ----------
     (function(){
       const eraLabel = document.getElementById('eraLabel');
