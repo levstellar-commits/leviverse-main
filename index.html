@@ -35,7 +35,7 @@
     h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
     section{margin-top:36px}
 
-    /* HERO 核心优化：解决按钮叠加问题，恢复垂直居中 */
+    /* HERO 核心优化：解决按钮叠加问题（采用 margin-top: auto 靠底推入安全区） */
     .hero-wrap{
       position:relative;
       margin-top:0;
@@ -52,7 +52,7 @@
       margin:0 auto;
       position:relative;
       display:flex;
-      align-items:center; /* 恢复垂直居中 */
+      align-items:flex-end; /* 让内容靠底部对齐 */
       justify-content:center;
       box-shadow: 0 30px 80px rgba(0,0,0,0.55);
       border:1px solid rgba(255,255,255,0.03);
@@ -88,10 +88,11 @@
     .hero-inner{
       width:92%;max-width:1200px;
       display:flex;
-      align-items:center; /* 保持左右品牌对齐 */
+      align-items:flex-end; /* 左右品牌logo也靠底对齐 */
       justify-content:space-between;
       gap:18px;
-      padding:28px 28px 70px 28px; /* 底部填充保留给 hero-bottom-strip */
+      height: 100%; /* 占据整个高度 */
+      padding:28px 28px 70px 28px;
       position:relative;
       z-index:3;
     }
@@ -101,9 +102,11 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center; /* 确保核心内容在中间居中 */
+      justify-content:flex-end;
       gap:10px;
       padding:6px;
+      margin-top:auto; /* 核心：将内容推到安全区域 */
+      position: relative;
     }
 
     .hero-brand{
@@ -120,10 +123,7 @@
     .hero-books{
       display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;
       overflow:auto;padding-bottom:6px;
-      position:absolute; /* 重新启用绝对定位 */
-      bottom: 80px; /* 悬浮在底部条带上方 */
-      left: 0;
-      right: 0;
+      position: relative; /* 恢复相对定位，跟随 hero-center 的流 */
     }
 
     .hero-bottom-strip{
@@ -141,41 +141,43 @@
     #novels .card img {
         width: 100%; 
         height: auto;
-        aspect-ratio: 3 / 4;
-        object-fit: cover; /* 确保图片覆盖整个区域 */
-        /* 移除原有的 height 样式 */
-        /* height: 120px; 或 height: 220px; */
+        aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
+        object-fit: cover;
     }
 
-    /* 史诗基石：高度保持不变，但确保 object-fit 属性 */
+    /* 史诗基石：高度保持不变 */
     .epic{
       position:relative;border-radius:12px;overflow:hidden;height:320px;
       background-size:cover;background-position:center;
       border:1px solid rgba(255,255,255,0.04)
     }
-    /* 史诗基石的图片是通过背景图加载，object-fit:cover 相当于 background-size:cover */
 
     /* 主角人像：强制 3:4 比例 */
     .hero-card .pic {
         width: 100%;
         height: auto;
         aspect-ratio: 3 / 4; 
-        background-size: cover; /* 确保背景图覆盖整个区域 */
+        background-size: cover;
         background-position: center;
         border-radius:8px;
         box-shadow:0 6px 20px rgba(0,0,0,0.45);
-        /* 移除原有的 height: 180px; */
     }
 
     /* 吉祥物图片容器：强制 3:4 比例 */
     .mascot .card div:first-child {
-        width: 120px; 
+        width: 120px !important; /* 确保宽度不变 */
         height: auto !important; 
-        aspect-ratio: 3 / 4; 
+        aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
         border-radius:12px;
         background-size: cover;
     }
 
+    /* 3. 二维码背景美化 */
+    #contact .card img {
+        padding: 4px; 
+        border-radius: 8px; 
+        background: rgba(255, 255, 255, 0.9); /* 略带透明的白色背景 */
+    }
 
     /* 其他样式保持不变 */
     .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
@@ -207,7 +209,6 @@
       .hero-brand{width:100%;flex-direction:row;justify-content:space-between;padding:10px}
       .heroes-grid{grid-template-columns:repeat(2,1fr)}
       .grid-3{grid-template-columns:repeat(2,1fr)}
-      /* 小屏时取消 hero-books 绝对定位 */
       .hero-books{position:relative; bottom: auto; margin-top: 20px;}
     }
     @media (max-width:640px){
@@ -273,15 +274,15 @@
 
             <div class="hero-books" aria-hidden="false">
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;height:120px;object-fit:cover;border-radius:8px">
+                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;object-fit:cover;border-radius:8px">
                 <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;height:120px;object-fit:cover;border-radius:8px">
+                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
                 <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;height:120px;object-fit:cover;border-radius:8px">
+                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
                 <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">赛博神话 · 场景原型</div></div>
               </div>
             </div>
@@ -338,23 +339,20 @@
       <h2>叙事作品矩阵</h2>
       <div class="grid-3" style="margin-top:12px">
         <div class="card">
-          <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
-          <div style="font-weight:700;margin-top:8px">《驹隙万秋》</div>
-          <div class="muted" style="margin-top:6px">文明悬疑 · 群像叙事</div>
+          <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;object-fit:cover;border-radius:8px">
+          <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 群像叙事</div></div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">获取样章</button></div>
         </div>
 
         <div class="card">
-          <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
-          <div style="font-weight:700;margin-top:8px">《炎黄星曌》</div>
-          <div class="muted" style="margin-top:6px">神话史诗 · 体系化设定</div>
+          <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
+          <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话史诗 · 体系化设定</div></div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
         </div>
 
         <div class="card">
-          <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
-          <div style="font-weight:700;margin-top:8px">《补天之城：上海2074》</div>
-          <div class="muted" style="margin-top:6px">都市科幻 · 场景原型</div>
+          <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
+          <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">查看预览</button></div>
         </div>
       </div>
@@ -469,7 +467,7 @@
   </div>
 
   <script>
-    // ... (Scripts 部分保持不变) ...
+    // Scripts remain the same
     (function(){
       const eraLabel = document.getElementById('eraLabel');
       const eraSlider = document.getElementById('eraSlider');
