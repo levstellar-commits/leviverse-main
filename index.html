@@ -21,7 +21,7 @@
       position:fixed;left:0;right:0;top:0;padding:12px 28px;
       display:flex;justify-content:space-between;align-items:center;
       background:linear-gradient(180deg, rgba(2,4,10,0.88), rgba(2,4,10,0.12));
-      z-index:10000; /* 明确放 very top */
+      z-index:10000;
       backdrop-filter: blur(6px)
     }
     .brand{display:flex;gap:12px;align-items:center}
@@ -35,7 +35,7 @@
     h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
     section{margin-top:36px}
 
-    /* HERO 优化：解决重叠与图片路径问题 */
+    /* HERO 核心优化：解决重叠，通过 Flexbox 将内容推到底部上方 */
     .hero-wrap{
       position:relative;
       margin-top:0;
@@ -46,19 +46,18 @@
     .hero-plate{
       width:100%;
       height:68vh;
-      min-height:400px; /* 增加最小高度防止内容被压扁 */
+      min-height:550px; /* 增加最小高度以容纳所有内容 */
       max-height:850px;
       border-radius:12px;
       margin:0 auto;
       position:relative;
-      display:flex;
-      align-items:center;
+      display:flex; /* 启用 Flex 布局 */
+      align-items:flex-end; /* 底部对齐内容，这是关键 */
       justify-content:center;
       box-shadow: 0 30px 80px rgba(0,0,0,0.55);
       border:1px solid rgba(255,255,255,0.03);
       background:transparent;
       overflow:hidden;
-      /* 这里的 z-index 保持不变，关键在内部内容布局 */
       z-index:900;
     }
 
@@ -88,29 +87,25 @@
 
     .hero-inner{
       width:92%;max-width:1200px;
-      display:flex;align-items:center;justify-content:space-between;gap:18px;
-      padding:28px;
+      display:flex;align-items:flex-end;justify-content:space-between;gap:18px;
+      padding:28px 28px 70px 28px; /* 底部预留空间给 hero-bottom-strip */
       position:relative;
       z-index:3;
-      /* 确保内容能垂直铺满，以便 hero-center 能够占据中间部分 */
-      height:100%;
-      align-items:flex-start; /* 居中改为顶部对齐 */
     }
 
-    /* 内部布局调整：让 hero-center 占据大部分空间并居中其内容 */
+    /* 使用 margin-top: auto 将内容推到下方 */
     .hero-center{
       flex:1;
-      height:100%; /* 继承父级高度 */
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center; /* 垂直居中核心内容 */
+      justify-content:flex-end; /* 垂直居中核心内容 */
       gap:10px;
       padding:6px;
+      margin-top:auto; /* 核心：将此元素推到底部 */
     }
 
     .hero-brand{
-      /* 保持不变 */
       width:220px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;
       background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
       padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)
@@ -123,13 +118,7 @@
     .hero-books{
       display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;
       overflow:auto;padding-bottom:6px;
-      /* 确保小书列在底部，在 hero-center 内部 */
-      position:absolute;
-      bottom:80px; /* 向上移动，避免与 hero-bottom-strip 冲突 */
-      left:0;right:0;
-      width:100%;
-      /* 确保在小屏时小书列在 hero-center 内部 */
-      /* 垂直居中后的内容不会被小书列遮挡 */
+      position:relative; /* 恢复相对定位，让它跟随内容流，避免与绝对定位元素重叠 */
     }
 
 
@@ -149,7 +138,7 @@
       border:1px solid rgba(255,255,255,0.04)
     }
     .epic::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(1,1,1,0.24), rgba(0,0,0,0.48));mix-blend-mode:multiply}
-    .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%;z-index:5} /* 确保文字在渐变之上 */
+    .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%;z-index:5}
     .epic .meta small{display:block;color:#dfeeff;font-size:12px;margin-top:6px}
 
     /* gene map card */
@@ -175,30 +164,27 @@
 
     /* responsive */
     @media (max-width:1100px){
-      .hero-inner{flex-direction:column;align-items:center}
-      .hero-center{justify-content:flex-start} /* 小屏幕时顶部对齐 */
-      .hero-books{position:relative;bottom:auto;margin-top:20px} /* 小屏幕时恢复正常流 */
-      .epic-grid{grid-template-columns:1fr}
+      /* 修复小屏品牌logo对齐问题 */
+      .hero-inner{flex-direction:column;align-items:center;padding-bottom:100px;}
+      .hero-center{justify-content:flex-start;margin-top:20px}
       .hero-brand{width:100%;flex-direction:row;justify-content:space-between;padding:10px}
       .heroes-grid{grid-template-columns:repeat(2,1fr)}
       .grid-3{grid-template-columns:repeat(2,1fr)}
     }
     @media (max-width:640px){
       main{padding-top:140px}
-      .hero-plate{height:62vh}
+      .hero-plate{height:62vh;min-height:400px;}
       .hero-title{font-size:26px}
       .hero-sub{font-size:13px}
       .heroes-grid{grid-template-columns:1fr}
       .mascots{grid-template-columns:1fr}
-      .hero-books .card{width:180px !important} /* 小屏时略微缩小卡片宽度 */
+      .hero-books .card{width:160px !important}
     }
 
     footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
-    /* small util */
     .muted{color:var(--muted)}
     .tag{display:inline-block;background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
 
-    /* 保证后续 section 的默认层级低于 hero，避免它们以定位覆盖海报 */
     main section{
       position:relative;
       z-index:0;
@@ -226,8 +212,8 @@
 
   <main>
     <section class="hero-wrap" aria-label="首页首屏">
-      <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报（请替换 assets/images/hero_*.jpg）">
-        <img class="hero-bg" src="assets/images/hero_main.jpg" alt="海报背景" onerror="this.onerror=null;this.src='assets/images/大海报.png';">
+      <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报">
+        <img class="hero-bg" src="assets/images/hero_main.jpg" alt="海报背景" onerror="this.onerror=null;this.src='assets/images/hero_main.png';">
 
         <div class="hero-inner">
           <div class="hero-brand" aria-hidden="false">
@@ -248,15 +234,15 @@
 
             <div class="hero-books" aria-hidden="false">
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_驹隙万秋.jpg" alt="驹隙万秋" style="width:100%;height:120px;object-fit:cover;display:block">
+                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;height:120px;object-fit:cover;display:block">
                 <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_炎黄星曌.jpg" alt="炎黄星曌" style="width:100%;height:120px;object-fit:cover;display:block">
+                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;height:120px;object-fit:cover;display:block">
                 <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_补天之城.jpg" alt="补天之城" style="width:100%;height:120px;object-fit:cover;display:block">
+                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;height:120px;object-fit:cover;display:block">
                 <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">赛博神话 · 场景原型</div></div>
               </div>
             </div>
@@ -311,7 +297,7 @@
       <h2>世界神话 · 基因图谱</h2>
       <p class="muted">可视化节点与时间轴，支持导出数据与嵌入到展陈或报告中。</p>
       <div class="card map-card" style="margin-top:12px">
-        <div class="map-visual" id="mapVisual" role="img" aria-label="基因图谱占位（支持交互）"></div>
+        <div class="map-visual" id="mapVisual" role="img" aria-label="基因图谱占位（支持交互）" style="background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)"></div>
         <div class="map-tools">
           <div style="color:var(--muted);font-size:13px">时间轴</div>
           <input id="eraSlider" type="range" min="0" max="3" value="0" style="width:100%;margin-top:6px"/>
@@ -325,21 +311,21 @@
       <h2>叙事作品矩阵</h2>
       <div class="grid-3" style="margin-top:12px">
         <div class="card">
-          <img src="assets/images/cover_驹隙万秋.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <img src="assets/images/cover_juxiwangqiu.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
           <div style="font-weight:700;margin-top:8px">《驹隙万秋》</div>
           <div class="muted" style="margin-top:6px">文明悬疑 · 群像叙事</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">获取样章</button></div>
         </div>
 
         <div class="card">
-          <img src="assets/images/cover_炎黄星曌.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <img src="assets/images/cover_yanhuangxingzhao.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
           <div style="font-weight:700;margin-top:8px">《炎黄星曌》</div>
           <div class="muted" style="margin-top:6px">神话史诗 · 体系化设定</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
         </div>
 
         <div class="card">
-          <img src="assets/images/cover_补天之城.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <img src="assets/images/cover_butianzhicheng.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
           <div style="font-weight:700;margin-top:8px">《补天之城：上海2074》</div>
           <div class="muted" style="margin-top:6px">都市科幻 · 场景原型</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">查看预览</button></div>
@@ -354,10 +340,10 @@
       </div>
 
       <div class="heroes-grid" style="margin-top:12px">
-        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_姜炎洺.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div></div>
-        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_澜熙.jpg')"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div></div>
-        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_墨氚.jpg')"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div></div>
-        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_蕊琀.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_jiangyanming.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanxi.jpg')"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_mochuan.jpg')"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_rui han.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div></div>
 
         <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_luxiaoyun.jpg')"></div><div class="name">路霄雲</div><div class="role muted">远行者</div></div>
         <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_yulingxuan.jpg')"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div></div>
@@ -415,8 +401,8 @@
           <div style="font-weight:700">扫码关注</div>
           <div class="muted" style="margin-top:8px">公众号（社群） · 企业微信（商务）</div>
           <div style="display:flex;gap:8px;margin-top:12px;justify-content:center">
-            <img src="assets/images/qrcode_微信公众号.jpg" alt="公众号" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
-            <img src="assets/images/qrcode_企业微信t.png" alt="企业微信" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+            <img src="assets/images/qrcode_wechat.jpg" alt="公众号" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+            <img src="assets/images/qrcode_corpwechat.png" alt="企业微信" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
           </div>
         </aside>
       </div>
@@ -456,7 +442,7 @@
   </div>
 
   <script>
-    // ---------- Era slider ----------
+    // Era slider script...
     (function(){
       const eraLabel = document.getElementById('eraLabel');
       const eraSlider = document.getElementById('eraSlider');
@@ -471,7 +457,7 @@
       }
     })();
 
-    // ---------- Epic modal content ----------
+    // Epic modal content script...
     const epicData = {
       'yandi': {
         title: '炎帝 · 档案摘录',
@@ -504,7 +490,7 @@
     }
     function closeEpicModal(){ document.getElementById('epicModal').style.display = 'none'; }
 
-    // ---------- Whitepaper modal ----------
+    // Whitepaper modal script...
     function openWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='flex'; }
     function closeWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='none'; }
     document.getElementById('whiteSend') && document.getElementById('whiteSend').addEventListener('click', ()=>{
@@ -514,11 +500,9 @@
       closeWhitepaperModal();
     });
 
-    // close modal when clicking outside content
     document.getElementById('epicModal') && document.getElementById('epicModal').addEventListener('click', function(e){ if(e.target === this) closeEpicModal(); });
     document.getElementById('whitepaperModal') && document.getElementById('whitepaperModal').addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
 
-    // placeholder for forms (no backend)
     (function(){
       const forms = document.querySelectorAll('form');
       forms.forEach(f=> f && f.addEventListener('submit', function(e){ e.preventDefault(); alert('表单已提交（示例）——请替换为实际后端 API'); }));
