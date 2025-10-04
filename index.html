@@ -11,6 +11,8 @@
     :root{
       --bg:#02040a; --muted:#9fb0c6;
       --accent:#ffb86b; --accent2:#7be2ff;
+      --accent-rgb: 255, 184, 107; /* 新增 RGB 变量用于阴影 */
+      --accent2-rgb: 123, 226, 255; /* 新增 RGB 变量用于阴影 */
       --card-bg: rgba(255,255,255,0.02);
     }
     *{box-sizing:border-box}
@@ -136,7 +138,7 @@
 
     /* 2. 宽高比优化 */
     
-    /* 书籍封面：强制 3:4 比例 */
+    /* 书籍封面（小书列/作品矩阵）：强制 3:4 比例 */
     .hero-books .card img,
     #novels .card img {
         width: 100%; 
@@ -145,10 +147,14 @@
         object-fit: cover;
     }
 
-    /* 史诗基石：高度保持不变 */
+    /* 史诗基石（炎帝/黄帝/蚩尤）：移除固定高度，改为 3:4 宽高比 */
     .epic{
-      position:relative;border-radius:12px;overflow:hidden;height:320px;
-      background-size:cover;background-position:center;
+      position:relative;
+      border-radius:12px;
+      overflow:hidden;
+      aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
+      background-size:cover;
+      background-position:center;
       border:1px solid rgba(255,255,255,0.04)
     }
 
@@ -163,21 +169,32 @@
         box-shadow:0 6px 20px rgba(0,0,0,0.45);
     }
 
-    /* 吉祥物图片容器：强制 3:4 比例 */
+    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：强制 3:4 比例 */
     .mascot .card div:first-child {
-        width: 120px !important; /* 确保宽度不变 */
-        height: auto !important; 
+        width: 120px !important; 
+        height: auto; /* 确保 aspect-ratio 能正确生效 */
         aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
         border-radius:12px;
         background-size: cover;
+        background-position: center;
     }
 
     /* 3. 二维码背景美化 */
-    #contact .card img {
-        padding: 4px; 
-        border-radius: 8px; 
-        background: rgba(255, 255, 255, 0.9); /* 略带透明的白色背景 */
+    #contact aside.card {
+        position: relative;
+        overflow: hidden;
+        padding: 20px;
+        background: linear-gradient(135deg, rgba(var(--accent-rgb),0.08), rgba(var(--accent2-rgb),0.08)); /* 渐变背景 */
+        border: 1px solid rgba(255,255,255,0.05);
+        box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.05), 0 0 30px rgba(var(--accent2-rgb), 0.05); /* 微弱光晕 */
     }
+    #contact .card img {
+        padding: 6px; 
+        border-radius: 12px; 
+        background: #112036; /* 深蓝灰色背景 */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* 阴影 */
+    }
+
 
     /* 其他样式保持不变 */
     .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
@@ -283,7 +300,7 @@
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
                 <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
-                <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">赛博神话 · 场景原型</div></div>
+                <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
               </div>
             </div>
           </div>
@@ -346,7 +363,7 @@
 
         <div class="card">
           <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
-          <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话史诗 · 体系化设定</div></div>
+          <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
         </div>
 
