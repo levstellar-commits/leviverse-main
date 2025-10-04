@@ -35,7 +35,7 @@
     h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
     section{margin-top:36px}
 
-    /* HERO 核心优化：解决重叠，通过 Flexbox 将内容推到底部上方 */
+    /* HERO 核心优化：解决按钮叠加问题，恢复垂直居中 */
     .hero-wrap{
       position:relative;
       margin-top:0;
@@ -46,13 +46,13 @@
     .hero-plate{
       width:100%;
       height:68vh;
-      min-height:550px; /* 增加最小高度以容纳所有内容 */
+      min-height:550px;
       max-height:850px;
       border-radius:12px;
       margin:0 auto;
       position:relative;
-      display:flex; /* 启用 Flex 布局 */
-      align-items:flex-end; /* 底部对齐内容，这是关键 */
+      display:flex;
+      align-items:center; /* 恢复垂直居中 */
       justify-content:center;
       box-shadow: 0 30px 80px rgba(0,0,0,0.55);
       border:1px solid rgba(255,255,255,0.03);
@@ -87,22 +87,23 @@
 
     .hero-inner{
       width:92%;max-width:1200px;
-      display:flex;align-items:flex-end;justify-content:space-between;gap:18px;
-      padding:28px 28px 70px 28px; /* 底部预留空间给 hero-bottom-strip */
+      display:flex;
+      align-items:center; /* 保持左右品牌对齐 */
+      justify-content:space-between;
+      gap:18px;
+      padding:28px 28px 70px 28px; /* 底部填充保留给 hero-bottom-strip */
       position:relative;
       z-index:3;
     }
 
-    /* 使用 margin-top: auto 将内容推到下方 */
     .hero-center{
       flex:1;
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:flex-end; /* 垂直居中核心内容 */
+      justify-content:center; /* 确保核心内容在中间居中 */
       gap:10px;
       padding:6px;
-      margin-top:auto; /* 核心：将此元素推到底部 */
     }
 
     .hero-brand{
@@ -115,12 +116,15 @@
     .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
     .hero-sub{font-size:16px;color:var(--muted);max-width:760px;text-align:center}
     .hero-cta{margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    
     .hero-books{
       display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;
       overflow:auto;padding-bottom:6px;
-      position:relative; /* 恢复相对定位，让它跟随内容流，避免与绝对定位元素重叠 */
+      position:absolute; /* 重新启用绝对定位 */
+      bottom: 80px; /* 悬浮在底部条带上方 */
+      left: 0;
+      right: 0;
     }
-
 
     .hero-bottom-strip{
       position:absolute;left:50%;transform:translateX(-50%);bottom:18px;
@@ -130,46 +134,81 @@
       z-index:4;
     }
 
-    /* 史诗基石（厚重视觉） */
-    .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
+    /* 2. 宽高比优化 */
+    
+    /* 书籍封面：强制 3:4 比例 */
+    .hero-books .card img,
+    #novels .card img {
+        width: 100%; 
+        height: auto;
+        aspect-ratio: 3 / 4;
+        object-fit: cover; /* 确保图片覆盖整个区域 */
+        /* 移除原有的 height 样式 */
+        /* height: 120px; 或 height: 220px; */
+    }
+
+    /* 史诗基石：高度保持不变，但确保 object-fit 属性 */
     .epic{
       position:relative;border-radius:12px;overflow:hidden;height:320px;
       background-size:cover;background-position:center;
       border:1px solid rgba(255,255,255,0.04)
     }
+    /* 史诗基石的图片是通过背景图加载，object-fit:cover 相当于 background-size:cover */
+
+    /* 主角人像：强制 3:4 比例 */
+    .hero-card .pic {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4; 
+        background-size: cover; /* 确保背景图覆盖整个区域 */
+        background-position: center;
+        border-radius:8px;
+        box-shadow:0 6px 20px rgba(0,0,0,0.45);
+        /* 移除原有的 height: 180px; */
+    }
+
+    /* 吉祥物图片容器：强制 3:4 比例 */
+    .mascot .card div:first-child {
+        width: 120px; 
+        height: auto !important; 
+        aspect-ratio: 3 / 4; 
+        border-radius:12px;
+        background-size: cover;
+    }
+
+
+    /* 其他样式保持不变 */
+    .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
     .epic::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(1,1,1,0.24), rgba(0,0,0,0.48));mix-blend-mode:multiply}
     .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%;z-index:5}
     .epic .meta small{display:block;color:#dfeeff;font-size:12px;margin-top:6px}
 
-    /* gene map card */
     .map-card{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
     .map-visual{flex:1;height:340px;border-radius:10px;background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)}
     .map-tools{width:320px}
 
-    /* novels */
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .card{background:var(--card-bg);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
 
-    /* 主角：两排 8 人（轻快 / 亲和） */
     .heroes{margin-top:24px}
     .heroes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
-    .hero-card .pic{width:100%;height:180px;border-radius:8px;background-size:cover;background-position:center;box-shadow:0 6px 20px rgba(0,0,0,0.45)}
+    
     .hero-card .name{font-weight:700;margin-top:10px}
     .hero-card .role{font-size:13px;color:var(--muted);margin-top:6px}
 
-    /* mascots */
     .mascots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
     .mascot{background:#071428;border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
 
     /* responsive */
     @media (max-width:1100px){
-      /* 修复小屏品牌logo对齐问题 */
       .hero-inner{flex-direction:column;align-items:center;padding-bottom:100px;}
       .hero-center{justify-content:flex-start;margin-top:20px}
       .hero-brand{width:100%;flex-direction:row;justify-content:space-between;padding:10px}
       .heroes-grid{grid-template-columns:repeat(2,1fr)}
       .grid-3{grid-template-columns:repeat(2,1fr)}
+      /* 小屏时取消 hero-books 绝对定位 */
+      .hero-books{position:relative; bottom: auto; margin-top: 20px;}
     }
     @media (max-width:640px){
       main{padding-top:140px}
@@ -234,15 +273,15 @@
 
             <div class="hero-books" aria-hidden="false">
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;height:120px;object-fit:cover;display:block">
+                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;height:120px;object-fit:cover;border-radius:8px">
                 <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;height:120px;object-fit:cover;display:block">
+                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;height:120px;object-fit:cover;border-radius:8px">
                 <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;height:120px;object-fit:cover;display:block">
+                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;height:120px;object-fit:cover;border-radius:8px">
                 <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">赛博神话 · 场景原型</div></div>
               </div>
             </div>
@@ -268,27 +307,15 @@
 
       <div class="epic-grid" style="margin-top:12px">
         <div class="epic" style="background-image:url('assets/images/epic_yandi.jpg')" data-id="yandi">
-          <div class="meta">
-            <strong>炎帝</strong>
-            <small>文化起源 · 技艺与火</small>
-            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('yandi')">查看设定档</button></div>
-          </div>
+          <div class="meta"><strong>炎帝</strong><small>文化起源 · 技艺与火</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('yandi')">查看设定档</button></div></div>
         </div>
 
         <div class="epic" style="background-image:url('assets/images/epic_huangdi.jpg')" data-id="huangdi">
-          <div class="meta">
-            <strong>黄帝</strong>
-            <small>文明秩序 · 技术与律令</small>
-            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('huangdi')">查看设定档</button></div>
-          </div>
+          <div class="meta"><strong>黄帝</strong><small>文明秩序 · 技术与律令</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('huangdi')">查看设定档</button></div></div>
         </div>
 
         <div class="epic" style="background-image:url('assets/images/epic_chiyou.jpg')" data-id="chiyou">
-          <div class="meta">
-            <strong>蚩尤</strong>
-            <small>裂隙议题 · 修复与对抗</small>
-            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('chiyou')">查看设定档</button></div>
-          </div>
+          <div class="meta"><strong>蚩尤</strong><small>裂隙议题 · 修复与对抗</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('chiyou')">查看设定档</button></div></div>
         </div>
       </div>
     </section>
@@ -311,21 +338,21 @@
       <h2>叙事作品矩阵</h2>
       <div class="grid-3" style="margin-top:12px">
         <div class="card">
-          <img src="assets/images/cover_juxiwangqiu.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
           <div style="font-weight:700;margin-top:8px">《驹隙万秋》</div>
           <div class="muted" style="margin-top:6px">文明悬疑 · 群像叙事</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">获取样章</button></div>
         </div>
 
         <div class="card">
-          <img src="assets/images/cover_yanhuangxingzhao.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
           <div style="font-weight:700;margin-top:8px">《炎黄星曌》</div>
           <div class="muted" style="margin-top:6px">神话史诗 · 体系化设定</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
         </div>
 
         <div class="card">
-          <img src="assets/images/cover_butianzhicheng.jpg" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+          <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
           <div style="font-weight:700;margin-top:8px">《补天之城：上海2074》</div>
           <div class="muted" style="margin-top:6px">都市科幻 · 场景原型</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">查看预览</button></div>
@@ -343,7 +370,7 @@
         <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_jiangyanming.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div></div>
         <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanxi.jpg')"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div></div>
         <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_mochuan.jpg')"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div></div>
-        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_rui han.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div></div>
+        <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_ruihan.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div></div>
 
         <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_luxiaoyun.jpg')"></div><div class="name">路霄雲</div><div class="role muted">远行者</div></div>
         <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_yulingxuan.jpg')"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div></div>
@@ -442,7 +469,7 @@
   </div>
 
   <script>
-    // Era slider script...
+    // ... (Scripts 部分保持不变) ...
     (function(){
       const eraLabel = document.getElementById('eraLabel');
       const eraSlider = document.getElementById('eraSlider');
@@ -457,7 +484,6 @@
       }
     })();
 
-    // Epic modal content script...
     const epicData = {
       'yandi': {
         title: '炎帝 · 档案摘录',
@@ -490,7 +516,6 @@
     }
     function closeEpicModal(){ document.getElementById('epicModal').style.display = 'none'; }
 
-    // Whitepaper modal script...
     function openWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='flex'; }
     function closeWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='none'; }
     document.getElementById('whiteSend') && document.getElementById('whiteSend').addEventListener('click', ()=>{
