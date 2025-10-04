@@ -40,12 +40,13 @@
 
     /* ---- HERO 分离后的新样式 ---- */
 
-    /* 1. 海报背景区（占第一屏顶部位置） */
+    /* 1. 海报背景区 (极扁平 5:1 比例) */
     .hero-wrap{
       width: 100%;
-      height: 68vh; 
-      min-height: 400px; /* 调整最小高度，避免在小屏下过度压缩 */
-      max-height: 850px;
+      height: auto; /* 移除固定高度，使用 aspect-ratio */
+      aspect-ratio: 5 / 1; /* 极扁平 5:1 比例 */
+      min-height: 250px; /* 保证最小高度 */
+      max-height: 400px; /* 限制最大高度 */
       border-radius: 12px;
       margin: 0 auto;
       background-size: cover;
@@ -55,7 +56,7 @@
       border: 1px solid rgba(255,255,255,0.03);
       position: relative;
       overflow: hidden;
-      margin-top: 80px; /* 放在 main 顶部，需要留出 header 的空间 */
+      margin-top: 80px; 
       z-index: 900; 
     }
 
@@ -70,59 +71,69 @@
         pointer-events:none;
     }
 
-    /* 2. 海报内容区（在海报下方，跟随内容流） */
+    /* 2. 海报内容区（在海报下方，内容整合） */
     .hero-content{
         max-width: 1300px;
         margin: 0 auto;
-        padding: 40px 20px;
-        margin-top: 36px; /* 确保和下一 section 间隔一致 */
+        padding: 40px 20px 0; /* 底部移除内边距，避免和 bottom-strip 冲突 */
+        margin-top: 36px;
+        text-align: center; /* 确保内容居中 */
     }
 
     .hero-inner{
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start; /* 顶部对齐 */
-      gap: 18px;
-      max-width: 1200px;
+      flex-direction: column; /* 垂直堆叠 */
+      align-items: center; /* 中央对齐 */
+      gap: 12px;
+      max-width: 800px; /* 限制核心内容宽度 */
       margin: 0 auto;
     }
 
-    .hero-center{
-        flex: 1;
+    /* 品牌信息行 (整合后的 A/B 区) */
+    .hero-brand-strip {
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        gap: 10px;
-        padding: 6px;
-    }
-    
-    .hero-brand{
-      width:220px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;
-      background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
-      padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)
-    }
-    .hero-brand img{width:72px;height:72px;object-fit:contain;background:#071428;padding:6px;border-radius:10px}
-    
-    .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
-    .hero-sub{font-size:16px;color:var(--muted);max-width:760px;text-align:center}
-    .hero-cta{margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    
-    .hero-books{
-      display: flex;
-      gap: 12px;
-      margin-top: 18px;
-      align-items: center;
-      justify-content: center;
-      overflow: auto;
-      padding-bottom: 6px;
+        gap: 24px; /* 增加品牌间距 */
+        margin-bottom: 20px;
     }
 
+    .hero-brand {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.05); /* 轻微背景区分 */
+    }
+
+    .hero-brand img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+    
+    .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
+    .hero-sub{font-size:16px;color:var(--muted);max-width:760px;text-align:center; margin-bottom: 20px}
+    
+    .hero-cta{
+        margin-top:12px;
+        display:flex;
+        gap:12px;
+        flex-wrap:wrap;
+        justify-content:center;
+        margin-bottom: 36px; /* 增加按钮和底部条的距离 */
+    }
+
+    /* 移除 hero-books 样式，因为已删除 */
+    
     .hero-bottom-strip{
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 12px;
       margin-top: 36px;
-      padding-top: 12px; 
+      padding: 12px 20px; 
       border-top: 1px solid rgba(255, 255, 255, 0.05); 
     }
 
@@ -222,12 +233,11 @@
     }
     @media (max-width:640px){
       main{padding-top:140px}
-      .hero-wrap{height:50vh;min-height:350px; margin-top: 60px}
+      .hero-wrap{height:auto;min-height:200px; margin-top: 60px} /* 适应新的扁平比例 */
       .hero-title{font-size:26px}
       .hero-sub{font-size:13px}
       .heroes-grid{grid-template-columns:1fr}
       .mascots{grid-template-columns:1fr}
-      .hero-books .card{width:160px !important}
     }
 
     footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
@@ -264,10 +274,16 @@
 
     <section class="hero-content" aria-label="首页首屏">
       <div class="hero-inner">
-        <div class="hero-brand" aria-hidden="false">
-          <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
-          <div style="font-weight:700">立维宇宙</div>
-          <div class="muted" style="font-size:13px">原创文明悬疑宇宙</div>
+        
+        <div class="hero-brand-strip">
+            <div class="hero-brand">
+              <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
+              <div style="font-weight:700">立维宇宙</div>
+            </div>
+            <div class="hero-brand">
+              <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
+              <div style="font-weight:700">维杰设计</div>
+            </div>
         </div>
 
         <div class="hero-center" role="heading" aria-level="1">
@@ -279,28 +295,9 @@
             <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
             <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
           </div>
-
-          <div class="hero-books" aria-hidden="false">
-            <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-              <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;object-fit:cover;border-radius:8px">
-              <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
-            </div>
-            <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-              <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
-              <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
-            </div>
-            <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-              <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
-              <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
-            </div>
+          
           </div>
-        </div>
 
-        <div class="hero-brand" aria-hidden="false">
-          <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
-          <div style="font-weight:700">维杰设计</div>
-          <div class="muted" style="font-size:13px">场景化设计 · 工程交付</div>
-        </div>
       </div>
 
       <div class="hero-bottom-strip">
