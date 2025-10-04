@@ -16,11 +16,13 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff;-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
+    /* header 保持在最上层 */
     header{
       position:fixed;left:0;right:0;top:0;padding:12px 28px;
       display:flex;justify-content:space-between;align-items:center;
       background:linear-gradient(180deg, rgba(2,4,10,0.88), rgba(2,4,10,0.12));
-      z-index:140;backdrop-filter: blur(6px)
+      z-index:10000; /* 明确放 very top */
+      backdrop-filter: blur(6px)
     }
     .brand{display:flex;gap:12px;align-items:center}
     .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:800}
@@ -33,37 +35,61 @@
     h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
     section{margin-top:36px}
 
-    /* HERO 大矩形海报（整块作为顶部背景） */
-    /* 修改点：为 .hero-wrap 创建独立 stacking context（isolation），并设置 z-index */
+    /* HERO：使用绝对 <img> 作为背景，伪元素做渐变，严格控制 z-index */
     .hero-wrap{
       position:relative;
       margin-top:0;
-      isolation:isolate; /* 关键：创建独立 stacking context，防止页面其他定位元素覆盖 */
-      z-index:110; /* 低于 header（140），高于默认内容层 */
+      isolation:isolate; /* 创建独立 stacking context */
+      z-index:900; /* 低于 header，但高于页面其它常规内容 */
     }
+
     .hero-plate{
       width:100%;
-      height:68vh; /* 修正高度，让出导航栏空间 */
-      max-height:850px; /* 修正最大高度 */
+      height:68vh;
+      max-height:850px;
       border-radius:12px;
       margin:0 auto;
-      background-image: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('assets/images/大海报.png');
-      background-size:cover;
-      background-position:center;
       position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
       box-shadow: 0 30px 80px rgba(0,0,0,0.55);
       border:1px solid rgba(255,255,255,0.03);
-
-      /* 修改点：确保海报处于独立堆叠层并裁切溢出元素 */
-      z-index:120;     /* 高于 .hero-wrap，确保海报内容在同一 stacking context 内处于顶层 */
-      overflow:hidden; /* 避免海报内部绝对定位或子元素溢出到页面其它部分 */
+      background:transparent;
+      overflow:hidden;
+      z-index:900;
     }
+
+    .hero-plate .hero-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      border-radius:12px;
+      z-index:1; /* 背景图片层 */
+      pointer-events:none;
+      -webkit-user-select:none;
+      user-select:none;
+    }
+
+    .hero-plate::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42));
+      z-index:2;
+      pointer-events:none;
+    }
+
     .hero-inner{
       width:92%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:28px;
+      position:relative;
+      z-index:3;
     }
+
     .hero-brand{
       width:220px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;
       background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
@@ -81,9 +107,7 @@
       background:linear-gradient(90deg, rgba(0,0,0,0.36), rgba(0,0,0,0.08));
       padding:8px 18px;border-radius:999px;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.03);
       display:flex;gap:10px;align-items:center;backdrop-filter: blur(4px);
-
-      /* 修改点：确保底部条在海报内容之上，但仍低于 header */
-      z-index:125;
+      z-index:4; /* 确保条与按钮位于海报文字之上 */
     }
 
     /* 史诗基石（厚重视觉） */
@@ -93,7 +117,6 @@
       background-size:cover;background-position:center;
       border:1px solid rgba(255,255,255,0.04)
     }
-    /* 加一点“石质/厚重”效果 */
     .epic::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(1,1,1,0.24), rgba(0,0,0,0.48));mix-blend-mode:multiply}
     .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%}
     .epic .meta small{display:block;color:#dfeeff;font-size:12px;margin-top:6px}
@@ -141,7 +164,7 @@
     .muted{color:var(--muted)}
     .tag{display:inline-block;background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
 
-    /* 修改点：确保后续 section 的默认层级低于海报，避免它们以定位覆盖海报 */
+    /* 保证后续 section 的默认层级低于 hero，避免它们以定位覆盖海报 */
     main section{
       position:relative;
       z-index:0;
@@ -171,6 +194,9 @@
     <!-- HERO TOP（整块海报）-->
     <section class="hero-wrap" aria-label="首页首屏">
       <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报（请替换 assets/images/hero_*.jpg）">
+        <!-- 使用实际 <img> 作为背景，替代 background-image -->
+        <img class="hero-bg" src="assets/images/大海报.png" alt="海报背景">
+
         <div class="hero-inner">
           <!-- 左侧：Leviverse 品牌 -->
           <div class="hero-brand" aria-hidden="false">
@@ -413,18 +439,6 @@
   </div>
 
   <script>
-    /*
-    // ---------- Hero slideshow (已停用) ----------
-    (function(){
-      const plates = ['assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg'];
-      let idx = 0;
-      setInterval(()=> {
-        idx = (idx + 1) % plates.length;
-        const url = "linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url('" + plates[idx] + "')";
-        document.getElementById('heroPlate').style.backgroundImage = url;
-      }, 7000);
-    })();
-    */
     // ---------- Era slider ----------
     (function(){
       const eraLabel = document.getElementById('eraLabel');
@@ -476,7 +490,7 @@
     // ---------- Whitepaper modal ----------
     function openWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='flex'; }
     function closeWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='none'; }
-    document.getElementById('whiteSend').addEventListener('click', ()=>{
+    document.getElementById('whiteSend') && document.getElementById('whiteSend').addEventListener('click', ()=>{
       const email = document.getElementById('whiteEmail').value.trim();
       if(!email || !email.includes('@')){ alert('请填写有效的工作邮箱'); return; }
       alert('白皮书申请已收到（示例）：' + email + '\n实际发送需后端支持以便验证与发送。');
@@ -484,8 +498,8 @@
     });
 
     // close modal when clicking outside content
-    document.getElementById('epicModal').addEventListener('click', function(e){ if(e.target === this) closeEpicModal(); });
-    document.getElementById('whitepaperModal').addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
+    document.getElementById('epicModal') && document.getElementById('epicModal').addEventListener('click', function(e){ if(e.target === this) closeEpicModal(); });
+    document.getElementById('whitepaperModal') && document.getElementById('whitepaperModal').addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
 
     // placeholder for forms (no backend)
     (function(){
@@ -506,6 +520,5 @@
     qrcode_wechat.png, qrcode_corpwechat.png
     (可选) assets/whitepapers/yandi_sample.pdf 作为样例下载
   -->
-
 </body>
 </html>
