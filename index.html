@@ -246,6 +246,38 @@
       position:relative;
       z-index:0;
     }
+
+/* ---- 整页大海报 Hero ---- */
+.hero-wrap {
+  width: 100%;
+  height: 100vh; /* 占满整页 */
+  background-image: url('assets/images/hero_main.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-content {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-bottom-strip {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+
   </style>
 </head>
 <body>
@@ -268,19 +300,45 @@
   </header>
 
   <main>
-<section class="hero-wrap">
-  <div class="hero-plate"></div> <!-- 只保留背景图 -->
-</section>
+    <section class="hero-wrap" aria-label="首页首屏">
+<section class="hero-wrap"></section>
 
-<section class="hero-content"> <!-- 新增内容区，放按钮、书籍卡片、底部条 -->
+<section class="hero-content">
   <div class="hero-inner">
-    <!-- 原来的 hero-brand / hero-center / hero-books -->
+    <div class="hero-brand">
+      <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo">
+      <div style="font-weight:700">立维宇宙</div>
+      <div class="muted" style="font-size:13px">原创文明悬疑宇宙</div>
+    </div>
+
+    <div class="hero-center">
+      <div class="hero-title">文明的悬疑 · 场景的史诗</div>
+      <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
+
+      <div class="hero-cta">
+        <button class="btn" onclick="location.href='#epic'">探索史诗基石</button>
+        <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
+        <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
+      </div>
+
+      <div class="hero-books">
+        <!-- 原来书籍卡片复制过来 -->
+      </div>
+    </div>
+
+    <div class="hero-brand">
+      <img src="assets/images/logo_vigio.png" alt="Vigio Logo">
+      <div style="font-weight:700">维杰设计</div>
+      <div class="muted" style="font-size:13px">场景化设计 · 工程交付</div>
+    </div>
   </div>
+
   <div class="hero-bottom-strip">
     联合呈现 · 文化 × 设计 · 叙事导向的场景化产品
     <button class="btn ghost" style="margin-left:12px" onclick="openWhitepaperModal()">索取白皮书</button>
   </div>
 </section>
+
 
     <section id="epic" aria-label="史诗基石">
       <h2>史诗基石 · 炎帝 / 黄帝 / 蚩尤</h2>
