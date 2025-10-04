@@ -11,8 +11,8 @@
     :root{
       --bg:#02040a; --muted:#9fb0c6;
       --accent:#ffb86b; --accent2:#7be2ff;
-      --accent-rgb: 255, 184, 107; /* 新增 RGB 变量用于阴影 */
-      --accent2-rgb: 123, 226, 255; /* 新增 RGB 变量用于阴影 */
+      --accent-rgb: 255, 184, 107;
+      --accent2-rgb: 123, 226, 255;
       --card-bg: rgba(255,255,255,0.02);
     }
     *{box-sizing:border-box}
@@ -171,8 +171,8 @@
 
     /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：强制 3:4 比例 */
     .mascot .card div:first-child {
-        width: 120px !important; 
-        height: auto; /* 确保 aspect-ratio 能正确生效 */
+        width: 120px; 
+        height: auto;
         aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
         border-radius:12px;
         background-size: cover;
@@ -183,16 +183,16 @@
     #contact aside.card {
         position: relative;
         overflow: hidden;
-        padding: 20px;
-        background: linear-gradient(135deg, rgba(var(--accent-rgb),0.08), rgba(var(--accent2-rgb),0.08)); /* 渐变背景 */
+        padding: 24px; /* 增加内边距 */
+        background: linear-gradient(135deg, rgba(var(--accent-rgb),0.08), rgba(var(--accent2-rgb),0.08));
         border: 1px solid rgba(255,255,255,0.05);
-        box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.05), 0 0 30px rgba(var(--accent2-rgb), 0.05); /* 微弱光晕 */
+        box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.05), 0 0 30px rgba(var(--accent2-rgb), 0.05);
     }
     #contact .card img {
         padding: 6px; 
-        border-radius: 12px; 
-        background: #112036; /* 深蓝灰色背景 */
-        box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* 阴影 */
+        border-radius: 6px; 
+        background: #091a2e; /* 极深色的内衬背景 */
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, 0 4px 12px rgba(0,0,0,0.6); /* 增加内边框和明显阴影 */
     }
 
 
@@ -484,7 +484,6 @@
   </div>
 
   <script>
-    // Scripts remain the same
     (function(){
       const eraLabel = document.getElementById('eraLabel');
       const eraSlider = document.getElementById('eraSlider');
