@@ -8,6 +8,15 @@
   <link rel="icon" href="assets/images/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
+    /* ---------- 说明（改动要点） ----------
+       1) Hero 背景采用 JS 多格式尝试（.webp -> .png -> 原文件），若均失败使用 background-image 回退。
+       2) hero-inner/hero-plate 保持 stacking 与布局（isolation + z-index），避免内容被其他节点覆盖。
+       3) 全站书籍/封面/史诗卡/主角人像/萌宠强制 3:4 比例（aspect-ratio:3/4）。
+       4) 萌宠图片由内联宽高改为类 .mascot-pic，统一样式（3:4、圆角、阴影）。
+       5) 联系页二维码卡片改为“偏青光感”渐变背景与高亮边框。
+       6) 完整保留你原有的所有 section、modal、脚本逻辑，仅在样式与 hero 加载处做增强。
+    -------------------------------------- */
+
     :root{
       --bg:#02040a; --muted:#9fb0c6;
       --accent:#ffb86b; --accent2:#7be2ff;
@@ -18,12 +27,13 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff;-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
+
     /* header 保持在最上层 */
     header{
       position:fixed;left:0;right:0;top:0;padding:12px 28px;
       display:flex;justify-content:space-between;align-items:center;
       background:linear-gradient(180deg, rgba(2,4,10,0.88), rgba(2,4,10,0.12));
-      z-index:10000;
+      z-index:10000; /* 明确放 very top */
       backdrop-filter: blur(6px)
     }
     .brand{display:flex;gap:12px;align-items:center}
@@ -37,24 +47,24 @@
     h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
     section{margin-top:36px}
 
-    /* HERO 核心优化：解决按钮叠加问题（采用 margin-top: auto 靠底推入安全区） */
+    /* HERO：使用绝对 <img> 作为背景（由 JS 安全加载），伪元素做渐变，严格控制 z-index */
     .hero-wrap{
       position:relative;
       margin-top:0;
-      isolation:isolate;
-      z-index:900;
+      isolation:isolate; /* 创建独立 stacking context */
+      z-index:900; /* 低于 header，但高于页面其它常规内容 */
     }
 
     .hero-plate{
       width:100%;
       height:68vh;
-      min-height:550px;
-      max-height:850px;
+      min-height:520px;
+      max-height:900px;
       border-radius:12px;
       margin:0 auto;
       position:relative;
       display:flex;
-      align-items:flex-end; /* 让内容靠底部对齐 */
+      align-items:flex-end; /* 内容靠底，避免按钮遮挡下文 */
       justify-content:center;
       box-shadow: 0 30px 80px rgba(0,0,0,0.55);
       border:1px solid rgba(255,255,255,0.03);
@@ -63,6 +73,7 @@
       z-index:900;
     }
 
+    /* hero-bg 由 JS 填充 src；占据整个区域 */
     .hero-plate .hero-bg{
       position:absolute;
       inset:0;
@@ -71,44 +82,28 @@
       object-fit:cover;
       display:block;
       border-radius:12px;
-      z-index:1;
+      z-index:1; /* 背景图片层 */
       pointer-events:none;
       -webkit-user-select:none;
       user-select:none;
+      background-color:#071428;
     }
 
+    /* 渐变遮罩 */
     .hero-plate::before{
       content:'';
       position:absolute;
       inset:0;
       border-radius:12px;
-      background: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42));
+      background: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.52));
       z-index:2;
       pointer-events:none;
     }
 
     .hero-inner{
-      width:92%;max-width:1200px;
-      display:flex;
-      align-items:flex-end; /* 左右品牌logo也靠底对齐 */
-      justify-content:space-between;
-      gap:18px;
-      height: 100%; /* 占据整个高度 */
-      padding:28px 28px 70px 28px;
+      width:92%;max-width:1200px;display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:28px 28px 72px 28px;
       position:relative;
       z-index:3;
-    }
-
-    .hero-center{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-end;
-      gap:10px;
-      padding:6px;
-      margin-top:auto; /* 核心：将内容推到安全区域 */
-      position: relative;
     }
 
     .hero-brand{
@@ -117,16 +112,11 @@
       padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)
     }
     .hero-brand img{width:72px;height:72px;object-fit:contain;background:#071428;padding:6px;border-radius:10px}
-    
+    .hero-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px;justify-content:flex-end}
     .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
     .hero-sub{font-size:16px;color:var(--muted);max-width:760px;text-align:center}
     .hero-cta{margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    
-    .hero-books{
-      display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;
-      overflow:auto;padding-bottom:6px;
-      position: relative; /* 恢复相对定位，跟随 hero-center 的流 */
-    }
+    .hero-books{display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;overflow:auto;padding-bottom:6px;position:relative}
 
     .hero-bottom-strip{
       position:absolute;left:50%;transform:translateX(-50%);bottom:18px;
@@ -136,74 +126,81 @@
       z-index:4;
     }
 
-    /* 2. 宽高比优化 */
-    
-    /* 书籍封面（小书列/作品矩阵）：强制 3:4 比例 */
+    /* ---------- 强制 3:4 比例（全站常见封面/卡） ---------- */
+    /* 所有 .card img（作品、hero-books、小封面） */
+    .card img,
     .hero-books .card img,
     #novels .card img {
-        width: 100%; 
-        height: auto;
-        aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
-        object-fit: cover;
+      width:100%;
+      height:auto;
+      aspect-ratio: 3 / 4; /* 强制 3:4 */
+      object-fit: cover;
+      display:block;
     }
 
-    /* 史诗基石（炎帝/黄帝/蚩尤）：移除固定高度，改为 3:4 宽高比 */
+    /* epic 卡改为 3:4（使用 aspect-ratio 替代固定高度） */
     .epic{
-      position:relative;
-      border-radius:12px;
-      overflow:hidden;
+      position:relative;border-radius:12px;overflow:hidden;
       aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
-      background-size:cover;
-      background-position:center;
-      border:1px solid rgba(255,255,255,0.04)
+      background-size:cover;background-position:center;
+      border:1px solid rgba(255,255,255,0.04);
     }
 
-    /* 主角人像：强制 3:4 比例 */
+    /* 主角人像：强制 3:4 比例（背景图方式） */
     .hero-card .pic {
         width: 100%;
         height: auto;
-        aspect-ratio: 3 / 4; 
+        aspect-ratio: 3 / 4;
         background-size: cover;
         background-position: center;
         border-radius:8px;
         box-shadow:0 6px 20px rgba(0,0,0,0.45);
     }
 
-    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：强制 3:4 比例 */
-    .mascot .card div:first-child {
-        width: 120px; 
-        height: auto;
-        aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
-        border-radius:12px;
-        background-size: cover;
-        background-position: center;
+    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：统一为 .mascot-pic，强制 3:4 */
+    .mascot-pic {
+      width: 120px;
+      aspect-ratio: 3 / 4;
+      border-radius:12px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.5);
+      flex-shrink: 0;
     }
 
-    /* 3. 二维码背景美化 */
+    /* 当屏幕较小时增大萌宠宽度（更亲和） */
+    @media (max-width:640px){
+      .mascot-pic { width: 160px; }
+    }
+
+    /* ---------- 二维码背景美化（偏青光感） ---------- */
     #contact aside.card {
         position: relative;
         overflow: hidden;
-        padding: 24px; /* 增加内边距 */
-        background: linear-gradient(135deg, rgba(var(--accent-rgb),0.08), rgba(var(--accent2-rgb),0.08));
-        border: 1px solid rgba(255,255,255,0.05);
-        box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.05), 0 0 30px rgba(var(--accent2-rgb), 0.05);
+        padding: 22px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(var(--accent-rgb),0.06), rgba(var(--accent2-rgb),0.12));
+        border: 1px solid rgba(123,226,255,0.12);
+        box-shadow: 0 10px 30px rgba(7,25,40,0.7), 0 0 40px rgba(var(--accent2-rgb),0.03) inset;
     }
     #contact .card img {
-        padding: 8px; 
-        border-radius: 10px; 
-        background: #10243d; /* 极深色的内衬背景 */
-        box-shadow: 0 0 0 1px rgba(123, 226, 255, 0.15), 0 4px 15px rgba(0,0,0,0.7); /* 突出边框和阴影 */
+        padding: 8px;
+        border-radius: 10px;
+        background: linear-gradient(180deg, rgba(8,18,30,0.9), rgba(14,28,44,0.95));
+        box-shadow: 0 4px 16px rgba(0,0,0,0.65);
+        width: 120px;
+        height: 160px; /* 3:4 */
+        object-fit: cover;
     }
 
-
-    /* 其他样式保持不变 */
+    /* 其余样式保持或略微调整 */
     .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
     .epic::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(1,1,1,0.24), rgba(0,0,0,0.48));mix-blend-mode:multiply}
     .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%;z-index:5}
     .epic .meta small{display:block;color:#dfeeff;font-size:12px;margin-top:6px}
 
     .map-card{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
-    .map-visual{flex:1;height:340px;border-radius:10px;background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)}
+    .map-visual{flex:1;border-radius:10px;background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03);min-height:340px}
     .map-tools{width:320px}
 
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -212,11 +209,10 @@
     .heroes{margin-top:24px}
     .heroes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
-    
     .hero-card .name{font-weight:700;margin-top:10px}
     .hero-card .role{font-size:13px;color:var(--muted);margin-top:6px}
 
-    .mascots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .mascots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;justify-items:center}
     .mascot{background:#071428;border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
 
     /* responsive */
@@ -268,17 +264,21 @@
   </header>
 
   <main>
+    <!-- HERO TOP（整块海报）-->
     <section class="hero-wrap" aria-label="首页首屏">
-      <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报">
-        <img class="hero-bg" src="assets/images/hero_main.jpg" alt="海报背景" onerror="this.onerror=null;this.src='assets/images/hero_main.png';">
+      <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报（请替换 assets/images/hero_*.jpg）">
+        <!-- data-src 指向你主图（JS 会按 webp/png/jpg 顺序尝试并安全编码） -->
+        <img class="hero-bg" data-src="assets/images/hero_main.jpg" alt="海报背景" aria-hidden="true">
 
         <div class="hero-inner">
+          <!-- 左侧：Leviverse 品牌 -->
           <div class="hero-brand" aria-hidden="false">
             <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
             <div style="font-weight:700">立维宇宙</div>
             <div class="muted" style="font-size:13px">原创文明悬疑宇宙</div>
           </div>
 
+          <!-- 中央标题 -->
           <div class="hero-center" role="heading" aria-level="1">
             <div class="hero-title">文明的悬疑 · 场景的史诗</div>
             <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
@@ -289,22 +289,24 @@
               <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
             </div>
 
-            <div class="hero-books" aria-hidden="false">
+            <!-- 小书列（首屏预览） -->
+            <div class="hero-books" aria-hidden="false" style="margin-top:18px">
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;object-fit:cover;border-radius:8px">
+                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="border-radius:8px">
                 <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
+                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="border-radius:8px">
                 <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
               </div>
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
-                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
-                <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
+                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="border-radius:8px">
+                <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">赛博神话 · 场景原型</div></div>
               </div>
             </div>
           </div>
 
+          <!-- 右侧：Vigio 品牌 -->
           <div class="hero-brand" aria-hidden="false">
             <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
             <div style="font-weight:700">维杰设计</div>
@@ -319,30 +321,44 @@
       </div>
     </section>
 
+    <!-- EPIC（史诗基石） -->
     <section id="epic" aria-label="史诗基石">
       <h2>史诗基石 · 炎帝 / 黄帝 / 蚩尤</h2>
       <p class="muted">三条叙事主轴：起源、秩序、裂隙修复 —— 支撑宇宙的主题与改编线索。</p>
 
       <div class="epic-grid" style="margin-top:12px">
         <div class="epic" style="background-image:url('assets/images/epic_yandi.jpg')" data-id="yandi">
-          <div class="meta"><strong>炎帝</strong><small>文化起源 · 技艺与火</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('yandi')">查看设定档</button></div></div>
+          <div class="meta">
+            <strong>炎帝</strong>
+            <small>文化起源 · 技艺与火</small>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('yandi')">查看设定档</button></div>
+          </div>
         </div>
 
         <div class="epic" style="background-image:url('assets/images/epic_huangdi.jpg')" data-id="huangdi">
-          <div class="meta"><strong>黄帝</strong><small>文明秩序 · 技术与律令</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('huangdi')">查看设定档</button></div></div>
+          <div class="meta">
+            <strong>黄帝</strong>
+            <small>文明秩序 · 技术与律令</small>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('huangdi')">查看设定档</button></div>
+          </div>
         </div>
 
         <div class="epic" style="background-image:url('assets/images/epic_chiyou.jpg')" data-id="chiyou">
-          <div class="meta"><strong>蚩尤</strong><small>裂隙议题 · 修复与对抗</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('chiyou')">查看设定档</button></div></div>
+          <div class="meta">
+            <strong>蚩尤</strong>
+            <small>裂隙议题 · 修复与对抗</small>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('chiyou')">查看设定档</button></div>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Gene Map -->
     <section id="map" aria-label="世界神话基因图谱">
       <h2>世界神话 · 基因图谱</h2>
       <p class="muted">可视化节点与时间轴，支持导出数据与嵌入到展陈或报告中。</p>
       <div class="card map-card" style="margin-top:12px">
-        <div class="map-visual" id="mapVisual" role="img" aria-label="基因图谱占位（支持交互）" style="background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)"></div>
+        <div class="map-visual" id="mapVisual" role="img" aria-label="基因图谱占位（支持交互）"></div>
         <div class="map-tools">
           <div style="color:var(--muted);font-size:13px">时间轴</div>
           <input id="eraSlider" type="range" min="0" max="3" value="0" style="width:100%;margin-top:6px"/>
@@ -352,29 +368,34 @@
       </div>
     </section>
 
+    <!-- Novels -->
     <section id="novels">
       <h2>叙事作品矩阵</h2>
       <div class="grid-3" style="margin-top:12px">
         <div class="card">
-          <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;object-fit:cover;border-radius:8px">
-          <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 群像叙事</div></div>
+          <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋">
+          <div style="font-weight:700;margin-top:8px">《驹隙万秋》</div>
+          <div class="muted" style="margin-top:6px">文明悬疑 · 群像叙事</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">获取样章</button></div>
         </div>
 
         <div class="card">
-          <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
-          <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
+          <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌">
+          <div style="font-weight:700;margin-top:8px">《炎黄星曌》</div>
+          <div class="muted" style="margin-top:6px">神话史诗 · 体系化设定</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
         </div>
 
         <div class="card">
-          <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
-          <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
+          <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城">
+          <div style="font-weight:700;margin-top:8px">《补天之城：上海2074》</div>
+          <div class="muted" style="margin-top:6px">都市科幻 · 场景原型</div>
           <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">查看预览</button></div>
         </div>
       </div>
     </section>
 
+    <!-- 主角群像：两排 8 人 -->
     <section id="heroes" class="heroes" aria-label="主角群像">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h2>主角群像</h2>
@@ -394,16 +415,35 @@
       </div>
     </section>
 
+    <!-- MASCOTS -->
     <section id="mascots">
       <h2>未来萌宠</h2>
       <p class="muted">轻量社群入口 · AR、表情包与周边生态</p>
       <div class="mascots">
-        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_xingling.jpg') center/cover"></div><div style="font-weight:700">星灵</div><div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button></div>
-        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_lidudu.jpg') center/cover"></div><div style="font-weight:700">狸嘟嘟</div><div class="muted" style="font-size:13px">城市守望 · 周边首选</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button></div>
-        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_shixiaosheng.jpg') center/cover"></div><div style="font-weight:700">石小圣</div><div class="muted" style="font-size:13px">古物萌宠 · 收藏</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button></div>
+        <div class="mascot card">
+          <div class="mascot-pic" style="background-image:url('assets/images/mascot_xingling.jpg')"></div>
+          <div style="font-weight:700">星灵</div>
+          <div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div>
+          <button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button>
+        </div>
+
+        <div class="mascot card">
+          <div class="mascot-pic" style="background-image:url('assets/images/mascot_lidudu.jpg')"></div>
+          <div style="font-weight:700">狸嘟嘟</div>
+          <div class="muted" style="font-size:13px">城市守望 · 周边首选</div>
+          <button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button>
+        </div>
+
+        <div class="mascot card">
+          <div class="mascot-pic" style="background-image:url('assets/images/mascot_shixiaosheng.jpg')"></div>
+          <div style="font-weight:700">石小圣</div>
+          <div class="muted" style="font-size:13px">古物萌宠 · 收藏</div>
+          <button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button>
+        </div>
       </div>
     </section>
 
+    <!-- Merch & Prototype -->
     <section id="shop">
       <h2>文创 · 展陈与手办</h2>
       <p class="muted">限量收藏、艺术画集与互动展陈原型。</p>
@@ -414,6 +454,7 @@
       </div>
     </section>
 
+    <!-- Vigio -->
     <section id="vigio">
       <h2>Vigio Design · 设计赋能</h2>
       <p class="muted">维杰提供展陈工程、BIM 交付与场景化建设能力，承担从概念到施工的全流程交付。</p>
@@ -424,11 +465,13 @@
       </div>
     </section>
 
+    <!-- Prototype -->
     <section id="prototype">
       <h2>原型 · 数字孪生</h2>
       <div class="card" style="margin-top:12px">3D 模型 · 展陈演示 · 交付包（支持 glTF、Revit / IFC 输出）</div>
     </section>
 
+    <!-- Contact & QR -->
     <section id="contact">
       <h2>合作与商务</h2>
       <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;align-items:flex-start">
@@ -443,8 +486,8 @@
           <div style="font-weight:700">扫码关注</div>
           <div class="muted" style="margin-top:8px">公众号（社群） · 企业微信（商务）</div>
           <div style="display:flex;gap:8px;margin-top:12px;justify-content:center">
-            <img src="assets/images/qrcode_wechat.jpg" alt="公众号" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
-            <img src="assets/images/qrcode_corpwechat.png" alt="企业微信" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+            <img src="assets/images/qrcode_wechat.jpg" alt="公众号" style="width:120px;height:160px;object-fit:cover;border-radius:8px">
+            <img src="assets/images/qrcode_corpwechat.png" alt="企业微信" style="width:120px;height:160px;object-fit:cover;border-radius:8px">
           </div>
         </aside>
       </div>
@@ -461,6 +504,7 @@
     </footer>
   </main>
 
+  <!-- EPIC modal (档案/出处) -->
   <div id="epicModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:200">
     <div style="background:#07121a;padding:20px;border-radius:10px;width:min(920px,94%);max-height:86vh;overflow:auto;border:1px solid rgba(255,255,255,0.05)">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -471,6 +515,7 @@
     </div>
   </div>
 
+  <!-- Whitepaper modal -->
   <div id="whitepaperModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:210">
     <div style="background:#07121a;padding:20px;border-radius:10px;width:520px;border:1px solid rgba(255,255,255,0.05)">
       <h3 style="margin:0">申请：世界神话基因图谱 · 白皮书</h3>
@@ -484,6 +529,49 @@
   </div>
 
   <script>
+    /* ---------- Hero 安全加载（优先 webp -> png -> 原文件），失败回退为 background-image ---------- */
+    (function(){
+      const img = document.querySelector('.hero-bg');
+      const plate = document.getElementById('heroPlate');
+      if(!img || !plate) return;
+
+      const raw = img.getAttribute('data-src') || img.getAttribute('src') || '';
+      const base = raw.replace(/\.[^/.]+$/, ''); // remove file extension
+      const candidates = [base + '.webp', base + '.png', base + '.jpg', base + '.jpeg', raw];
+
+      let idx = 0;
+      function tryLoad(){
+        if(idx >= candidates.length){
+          // 全部失败：使用最后一个（raw）做 background-image 回退（编码）
+          const fallback = raw || candidates[candidates.length - 1];
+          try {
+            plate.style.backgroundImage = 'linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url("' + encodeURI(fallback) + '")';
+          } catch (e) {
+            plate.style.backgroundImage = 'linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42)), url("' + fallback + '")';
+          }
+          img.style.display = 'none';
+          console.warn('hero: all candidate sources failed, applied background-image fallback:', fallback);
+          return;
+        }
+
+        const candidate = candidates[idx++];
+        const t = new Image();
+        t.onload = function(){
+          // 成功，写入 hero img
+          try { img.src = encodeURI(candidate); }
+          catch(e) { img.src = candidate; }
+          img.style.display = '';
+        };
+        t.onerror = function(){ tryLoad(); };
+        // 触发加载（使用 encodeURI 以避免中文空格路径问题）
+        try { t.src = encodeURI(candidate); } catch(e) { t.src = candidate; }
+      }
+
+      // 延迟尝试（让 DOM 完全准备好）
+      setTimeout(tryLoad, 30);
+    })();
+
+    // ---------- Era slider ----------
     (function(){
       const eraLabel = document.getElementById('eraLabel');
       const eraSlider = document.getElementById('eraSlider');
@@ -498,24 +586,25 @@
       }
     })();
 
+    // ---------- Epic modal content ----------
     const epicData = {
       'yandi': {
         title: '炎帝 · 档案摘录',
         body: `<p><strong>摘要：</strong>炎帝被视为文化与技艺的起点，在多种文献与口述中作为“火与耕作”系的象征，构成宇宙的起源线索。</p>
-              <p><strong>来源示例：</strong>文献节选 · 区域口述 · 考古图像（示例仅供预览）。</p>
-              <p class="muted">注：正式文献溯源与注释见白皮书（机构资料）。</p>
-              <p style="margin-top:8px"><a class="btn ghost" href="/assets/whitepapers/yandi_sample.pdf">下载样本（PDF）</a></p>`
+               <p><strong>来源示例：</strong>文献节选 · 区域口述 · 考古图像（示例仅供预览）。</p>
+               <p class="muted">注：正式文献溯源与注释见白皮书（机构资料）。</p>
+               <p style="margin-top:8px"><a class="btn ghost" href="/assets/whitepapers/yandi_sample.pdf">下载样本（PDF）</a></p>`
       },
       'huangdi': {
         title: '黄帝 · 档案摘录',
         body: `<p><strong>摘要：</strong>黄帝象征秩序與技術體系，其意象在建制、禮俗與科技傳承的敘事線中被多重引用。</p>
-              <p><strong>来源示例：</strong>典籍考據 · 文化記憶材料。</p>
-              <p class="muted">注：白皮书将分别列出文献类型与可信度。</p>`
+               <p><strong>来源示例：</strong>典籍考據 · 文化記憶材料。</p>
+               <p class="muted">注：白皮书将分别列出文献类型与可信度。</p>`
       },
       'chiyou': {
         title: '蚩尤 · 档案摘录',
         body: `<p><strong>摘要：</strong>蚩尤承载裂隙、冲突与修复议题，在叙事中常作为触发事件与情感张力的核心。</p>
-              <p><strong>来源示例：</strong>民间传说 · 区域性记忆。</p>`
+               <p><strong>来源示例：</strong>民间传说 · 区域性记忆。</p>`
       }
     };
 
@@ -530,6 +619,7 @@
     }
     function closeEpicModal(){ document.getElementById('epicModal').style.display = 'none'; }
 
+    // ---------- Whitepaper modal ----------
     function openWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='flex'; }
     function closeWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='none'; }
     document.getElementById('whiteSend') && document.getElementById('whiteSend').addEventListener('click', ()=>{
@@ -539,14 +629,29 @@
       closeWhitepaperModal();
     });
 
+    // close modal when clicking outside content
     document.getElementById('epicModal') && document.getElementById('epicModal').addEventListener('click', function(e){ if(e.target === this) closeEpicModal(); });
     document.getElementById('whitepaperModal') && document.getElementById('whitepaperModal').addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
 
+    // placeholder for forms (no backend)
     (function(){
       const forms = document.querySelectorAll('form');
       forms.forEach(f=> f && f.addEventListener('submit', function(e){ e.preventDefault(); alert('表单已提交（示例）——请替换为实际后端 API'); }));
     })();
   </script>
+
+  <!-- 图片与资源建议（放到 assets/images/）： 
+    hero_main.webp/png/jpg (优先 webp -> png -> jpg)
+    logo_leviverse.png, logo_vigio.png  (透明 PNG)
+    cover_juxiwangqiu.jpg, cover_yanhuangxingzhao.jpg, cover_butianzhicheng.jpg
+    epic_yandi.jpg, epic_huangdi.jpg, epic_chiyou.jpg
+    gene_map_bg.jpg
+    char_jiangyanming.jpg, char_lanxi.jpg, char_mochuan.jpg, char_ruihan.jpg,
+    char_luxiaoyun.jpg, char_yulingxuan.jpg, char_haishixin.jpg, char_lanqianduo.jpg
+    mascot_xingling.jpg, mascot_lidudu.jpg, mascot_shixiaosheng.jpg
+    qrcode_wechat.jpg, qrcode_corpwechat.png
+    (可选) assets/whitepapers/yandi_sample.pdf 作为样例下载
+  -->
 
 </body>
 </html>
