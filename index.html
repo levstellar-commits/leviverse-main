@@ -31,21 +31,22 @@
     .btn{padding:8px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer}
     .ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
 
-    main{max-width:1300px;margin:0 auto;padding:160px 20px 80px} /* 增大顶部内边距 */
+    main{max-width:1300px;margin:0 auto;padding:160px 20px 80px}
     h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
     section{margin-top:36px}
 
-    /* HERO：使用绝对 <img> 作为背景，伪元素做渐变，严格控制 z-index */
+    /* HERO 优化：解决重叠与图片路径问题 */
     .hero-wrap{
       position:relative;
       margin-top:0;
-      isolation:isolate; /* 创建独立 stacking context */
-      z-index:900; /* 低于 header，但高于页面其它常规内容 */
+      isolation:isolate;
+      z-index:900;
     }
 
     .hero-plate{
       width:100%;
       height:68vh;
+      min-height:400px; /* 增加最小高度防止内容被压扁 */
       max-height:850px;
       border-radius:12px;
       margin:0 auto;
@@ -57,6 +58,7 @@
       border:1px solid rgba(255,255,255,0.03);
       background:transparent;
       overflow:hidden;
+      /* 这里的 z-index 保持不变，关键在内部内容布局 */
       z-index:900;
     }
 
@@ -68,7 +70,7 @@
       object-fit:cover;
       display:block;
       border-radius:12px;
-      z-index:1; /* 背景图片层 */
+      z-index:1;
       pointer-events:none;
       -webkit-user-select:none;
       user-select:none;
@@ -85,29 +87,58 @@
     }
 
     .hero-inner{
-      width:92%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:28px;
+      width:92%;max-width:1200px;
+      display:flex;align-items:center;justify-content:space-between;gap:18px;
+      padding:28px;
       position:relative;
       z-index:3;
+      /* 确保内容能垂直铺满，以便 hero-center 能够占据中间部分 */
+      height:100%;
+      align-items:flex-start; /* 居中改为顶部对齐 */
+    }
+
+    /* 内部布局调整：让 hero-center 占据大部分空间并居中其内容 */
+    .hero-center{
+      flex:1;
+      height:100%; /* 继承父级高度 */
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center; /* 垂直居中核心内容 */
+      gap:10px;
+      padding:6px;
     }
 
     .hero-brand{
+      /* 保持不变 */
       width:220px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;
       background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
       padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)
     }
     .hero-brand img{width:72px;height:72px;object-fit:contain;background:#071428;padding:6px;border-radius:10px}
-    .hero-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px}
+    
     .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
     .hero-sub{font-size:16px;color:var(--muted);max-width:760px;text-align:center}
     .hero-cta{margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    .hero-books{display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;overflow:auto;padding-bottom:6px}
+    .hero-books{
+      display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;
+      overflow:auto;padding-bottom:6px;
+      /* 确保小书列在底部，在 hero-center 内部 */
+      position:absolute;
+      bottom:80px; /* 向上移动，避免与 hero-bottom-strip 冲突 */
+      left:0;right:0;
+      width:100%;
+      /* 确保在小屏时小书列在 hero-center 内部 */
+      /* 垂直居中后的内容不会被小书列遮挡 */
+    }
+
 
     .hero-bottom-strip{
       position:absolute;left:50%;transform:translateX(-50%);bottom:18px;
       background:linear-gradient(90deg, rgba(0,0,0,0.36), rgba(0,0,0,0.08));
       padding:8px 18px;border-radius:999px;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.03);
       display:flex;gap:10px;align-items:center;backdrop-filter: blur(4px);
-      z-index:4; /* 确保条与按钮位于海报文字之上 */
+      z-index:4;
     }
 
     /* 史诗基石（厚重视觉） */
@@ -118,7 +149,7 @@
       border:1px solid rgba(255,255,255,0.04)
     }
     .epic::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(1,1,1,0.24), rgba(0,0,0,0.48));mix-blend-mode:multiply}
-    .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%}
+    .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%;z-index:5} /* 确保文字在渐变之上 */
     .epic .meta small{display:block;color:#dfeeff;font-size:12px;margin-top:6px}
 
     /* gene map card */
@@ -145,6 +176,8 @@
     /* responsive */
     @media (max-width:1100px){
       .hero-inner{flex-direction:column;align-items:center}
+      .hero-center{justify-content:flex-start} /* 小屏幕时顶部对齐 */
+      .hero-books{position:relative;bottom:auto;margin-top:20px} /* 小屏幕时恢复正常流 */
       .epic-grid{grid-template-columns:1fr}
       .hero-brand{width:100%;flex-direction:row;justify-content:space-between;padding:10px}
       .heroes-grid{grid-template-columns:repeat(2,1fr)}
@@ -157,6 +190,7 @@
       .hero-sub{font-size:13px}
       .heroes-grid{grid-template-columns:1fr}
       .mascots{grid-template-columns:1fr}
+      .hero-books .card{width:180px !important} /* 小屏时略微缩小卡片宽度 */
     }
 
     footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
@@ -191,21 +225,17 @@
   </header>
 
   <main>
-    <!-- HERO TOP（整块海报）-->
     <section class="hero-wrap" aria-label="首页首屏">
       <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报（请替换 assets/images/hero_*.jpg）">
-        <!-- 使用实际 <img> 作为背景，替代 background-image -->
-        <img class="hero-bg" src="assets/images/大海报.png" alt="海报背景">
+        <img class="hero-bg" src="assets/images/hero_main.jpg" alt="海报背景" onerror="this.onerror=null;this.src='assets/images/大海报.png';">
 
         <div class="hero-inner">
-          <!-- 左侧：Leviverse 品牌 -->
           <div class="hero-brand" aria-hidden="false">
             <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
             <div style="font-weight:700">立维宇宙</div>
             <div class="muted" style="font-size:13px">原创文明悬疑宇宙</div>
           </div>
 
-          <!-- 中央标题 -->
           <div class="hero-center" role="heading" aria-level="1">
             <div class="hero-title">文明的悬疑 · 场景的史诗</div>
             <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
@@ -216,8 +246,7 @@
               <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
             </div>
 
-            <!-- 小书列（首屏预览） -->
-            <div class="hero-books" aria-hidden="false" style="margin-top:18px">
+            <div class="hero-books" aria-hidden="false">
               <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
                 <img src="assets/images/cover_驹隙万秋.jpg" alt="驹隙万秋" style="width:100%;height:120px;object-fit:cover;display:block">
                 <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
@@ -233,7 +262,6 @@
             </div>
           </div>
 
-          <!-- 右侧：Vigio 品牌 -->
           <div class="hero-brand" aria-hidden="false">
             <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
             <div style="font-weight:700">维杰设计</div>
@@ -248,7 +276,6 @@
       </div>
     </section>
 
-    <!-- EPIC（史诗基石） -->
     <section id="epic" aria-label="史诗基石">
       <h2>史诗基石 · 炎帝 / 黄帝 / 蚩尤</h2>
       <p class="muted">三条叙事主轴：起源、秩序、裂隙修复 —— 支撑宇宙的主题与改编线索。</p>
@@ -280,7 +307,6 @@
       </div>
     </section>
 
-    <!-- Gene Map -->
     <section id="map" aria-label="世界神话基因图谱">
       <h2>世界神话 · 基因图谱</h2>
       <p class="muted">可视化节点与时间轴，支持导出数据与嵌入到展陈或报告中。</p>
@@ -295,7 +321,6 @@
       </div>
     </section>
 
-    <!-- Novels -->
     <section id="novels">
       <h2>叙事作品矩阵</h2>
       <div class="grid-3" style="margin-top:12px">
@@ -322,7 +347,6 @@
       </div>
     </section>
 
-    <!-- 主角群像：两排 8 人 -->
     <section id="heroes" class="heroes" aria-label="主角群像">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h2>主角群像</h2>
@@ -342,7 +366,6 @@
       </div>
     </section>
 
-    <!-- MASCOTS -->
     <section id="mascots">
       <h2>未来萌宠</h2>
       <p class="muted">轻量社群入口 · AR、表情包与周边生态</p>
@@ -353,7 +376,6 @@
       </div>
     </section>
 
-    <!-- Merch & Prototype -->
     <section id="shop">
       <h2>文创 · 展陈与手办</h2>
       <p class="muted">限量收藏、艺术画集与互动展陈原型。</p>
@@ -364,7 +386,6 @@
       </div>
     </section>
 
-    <!-- Vigio -->
     <section id="vigio">
       <h2>Vigio Design · 设计赋能</h2>
       <p class="muted">维杰提供展陈工程、BIM 交付与场景化建设能力，承担从概念到施工的全流程交付。</p>
@@ -375,13 +396,11 @@
       </div>
     </section>
 
-    <!-- Prototype -->
     <section id="prototype">
       <h2>原型 · 数字孪生</h2>
       <div class="card" style="margin-top:12px">3D 模型 · 展陈演示 · 交付包（支持 glTF、Revit / IFC 输出）</div>
     </section>
 
-    <!-- Contact & QR -->
     <section id="contact">
       <h2>合作与商务</h2>
       <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;align-items:flex-start">
@@ -397,7 +416,7 @@
           <div class="muted" style="margin-top:8px">公众号（社群） · 企业微信（商务）</div>
           <div style="display:flex;gap:8px;margin-top:12px;justify-content:center">
             <img src="assets/images/qrcode_微信公众号.jpg" alt="公众号" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
-            <img src="assets/images/qrcode_企业微信.png" alt="企业微信" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+            <img src="assets/images/qrcode_企业微信t.png" alt="企业微信" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
           </div>
         </aside>
       </div>
@@ -414,7 +433,6 @@
     </footer>
   </main>
 
-  <!-- EPIC modal (档案/出处) -->
   <div id="epicModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:200">
     <div style="background:#07121a;padding:20px;border-radius:10px;width:min(920px,94%);max-height:86vh;overflow:auto;border:1px solid rgba(255,255,255,0.05)">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -425,7 +443,6 @@
     </div>
   </div>
 
-  <!-- Whitepaper modal -->
   <div id="whitepaperModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:210">
     <div style="background:#07121a;padding:20px;border-radius:10px;width:520px;border:1px solid rgba(255,255,255,0.05)">
       <h3 style="margin:0">申请：世界神话基因图谱 · 白皮书</h3>
@@ -459,20 +476,20 @@
       'yandi': {
         title: '炎帝 · 档案摘录',
         body: `<p><strong>摘要：</strong>炎帝被视为文化与技艺的起点，在多种文献与口述中作为“火与耕作”系的象征，构成宇宙的起源线索。</p>
-               <p><strong>来源示例：</strong>文献节选 · 区域口述 · 考古图像（示例仅供预览）。</p>
-               <p class="muted">注：正式文献溯源与注释见白皮书（机构资料）。</p>
-               <p style="margin-top:8px"><a class="btn ghost" href="/assets/whitepapers/yandi_sample.pdf">下载样本（PDF）</a></p>`
+              <p><strong>来源示例：</strong>文献节选 · 区域口述 · 考古图像（示例仅供预览）。</p>
+              <p class="muted">注：正式文献溯源与注释见白皮书（机构资料）。</p>
+              <p style="margin-top:8px"><a class="btn ghost" href="/assets/whitepapers/yandi_sample.pdf">下载样本（PDF）</a></p>`
       },
       'huangdi': {
         title: '黄帝 · 档案摘录',
         body: `<p><strong>摘要：</strong>黄帝象征秩序與技術體系，其意象在建制、禮俗與科技傳承的敘事線中被多重引用。</p>
-               <p><strong>来源示例：</strong>典籍考據 · 文化記憶材料。</p>
-               <p class="muted">注：白皮书将分别列出文献类型与可信度。</p>`
+              <p><strong>来源示例：</strong>典籍考據 · 文化記憶材料。</p>
+              <p class="muted">注：白皮书将分别列出文献类型与可信度。</p>`
       },
       'chiyou': {
         title: '蚩尤 · 档案摘录',
         body: `<p><strong>摘要：</strong>蚩尤承载裂隙、冲突与修复议题，在叙事中常作为触发事件与情感张力的核心。</p>
-               <p><strong>来源示例：</strong>民间传说 · 区域性记忆。</p>`
+              <p><strong>来源示例：</strong>民间传说 · 区域性记忆。</p>`
       }
     };
 
@@ -508,17 +525,5 @@
     })();
   </script>
 
-  <!-- 图片与资源建议（放到 assets/images/）： 
-    hero_1.jpg, hero_2.jpg, hero_3.jpg  (推荐 2400x1200)
-    logo_leviverse.png, logo_vigio.png  (透明 PNG)
-    cover_驹隙万秋.jpg, cover_炎黄星曌.jpg, cover_补天之城.jpg
-    epic_炎帝.jpg, epic_黄帝.jpg, epic_蚩尤.jpg
-    世界神话基因图谱.jpg
-    char_姜炎洺.jpg, char_澜熙.jpg, char_墨氚.jpg, char_蕊琀.jpg,
-    char_luxiaoyun.jpg, char_yulingxuan.jpg, char_haishixin.jpg, char_lanqianduo.jpg
-    mascot_xingling.jpg, mascot_lidudu.jpg, mascot_shixiaosheng.jpg
-    qrcode_wechat.png, qrcode_corpwechat.png
-    (可选) assets/whitepapers/yandi_sample.pdf 作为样例下载
-  -->
 </body>
 </html>
