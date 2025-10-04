@@ -44,23 +44,25 @@
       isolation:isolate;
       z-index:900;
     }
-
-    .hero-plate{
-      width:100%;
-      height:68vh;
-      min-height:550px;
-      max-height:850px;
-      border-radius:12px;
-      margin:0 auto;
-      position:relative;
-      display:flex;
-      align-items:flex-end; /* 让内容靠底部对齐 */
-      justify-content:center;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
-      border:1px solid rgba(255,255,255,0.03);
-      background:transparent;
-      overflow:hidden;
-      z-index:900;
+    .hero-plate {
+  width:100%;
+  height:68vh;
+  min-height:550px;
+  max-height:850px;
+  border-radius:12px;
+  margin:0 auto;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+  border:1px solid rgba(255,255,255,0.03);
+  background-image: url('assets/images/hero_main.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow:hidden;
+  z-index:900;
     }
 
     .hero-plate .hero-bg{
@@ -169,16 +171,14 @@
         box-shadow:0 6px 20px rgba(0,0,0,0.45);
     }
 
-    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：移除固定宽度，让其撑满栅格，再应用 3:4 比例 */
+    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：强制 3:4 比例 */
     .mascot .card div:first-child {
-        /* 移除 width: 120px;!important; 让它自适应父容器的宽度 (1/3 栅格) */
-        width: 100%; 
+        width: 120px; 
         height: auto;
         aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
         border-radius:12px;
         background-size: cover;
         background-position: center;
-        margin-bottom: 8px; /* 增加一点底部间距，让图片和文字保持距离 */
     }
 
     /* 3. 二维码背景美化 */
@@ -272,7 +272,6 @@
   <main>
     <section class="hero-wrap" aria-label="首页首屏">
       <div class="hero-plate" id="heroPlate" role="img" aria-label="首页海报">
-        <img class="hero-bg" src="assets/images/hero_main.jpg" alt="海报背景" onerror="this.onerror=null;this.src='assets/images/hero_main.png';">
 
         <div class="hero-inner">
           <div class="hero-brand" aria-hidden="false">
@@ -400,9 +399,9 @@
       <h2>未来萌宠</h2>
       <p class="muted">轻量社群入口 · AR、表情包与周边生态</p>
       <div class="mascots">
-        <div class="mascot card"><div style="width:100%;border-radius:12px;background:url('assets/images/mascot_xingling.jpg') center/cover"></div><div style="font-weight:700">星灵</div><div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button></div>
-        <div class="mascot card"><div style="width:100%;border-radius:12px;background:url('assets/images/mascot_lidudu.jpg') center/cover"></div><div style="font-weight:700">狸嘟嘟</div><div class="muted" style="font-size:13px">城市守望 · 周边首选</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button></div>
-        <div class="mascot card"><div style="width:100%;border-radius:12px;background:url('assets/images/mascot_shixiaosheng.jpg') center/cover"></div><div style="font-weight:700">石小圣</div><div class="muted" style="font-size:13px">古物萌宠 · 收藏</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button></div>
+        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_xingling.jpg') center/cover"></div><div style="font-weight:700">星灵</div><div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button></div>
+        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_lidudu.jpg') center/cover"></div><div style="font-weight:700">狸嘟嘟</div><div class="muted" style="font-size:13px">城市守望 · 周边首选</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button></div>
+        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_shixiaosheng.jpg') center/cover"></div><div style="font-weight:700">石小圣</div><div class="muted" style="font-size:13px">古物萌宠 · 收藏</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button></div>
       </div>
     </section>
 
