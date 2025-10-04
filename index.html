@@ -43,10 +43,10 @@
     /* 1. 海报背景区 (极扁平 5:1 比例) */
     .hero-wrap{
       width: 100%;
-      height: auto; /* 移除固定高度，使用 aspect-ratio */
+      height: auto; 
       aspect-ratio: 5 / 1; /* 极扁平 5:1 比例 */
-      min-height: 250px; /* 保证最小高度 */
-      max-height: 400px; /* 限制最大高度 */
+      min-height: 250px; 
+      max-height: 400px; 
       border-radius: 12px;
       margin: 0 auto;
       background-size: cover;
@@ -75,42 +75,77 @@
     .hero-content{
         max-width: 1300px;
         margin: 0 auto;
-        padding: 40px 20px 0; /* 底部移除内边距，避免和 bottom-strip 冲突 */
+        padding: 40px 20px 0; 
         margin-top: 36px;
-        text-align: center; /* 确保内容居中 */
+        text-align: center; 
     }
 
     .hero-inner{
       display: flex;
-      flex-direction: column; /* 垂直堆叠 */
-      align-items: center; /* 中央对齐 */
-      gap: 12px;
-      max-width: 800px; /* 限制核心内容宽度 */
+      justify-content: center; /* A/B/C 三列居中 */
+      align-items: flex-start; /* 顶部对齐 */
+      gap: 18px; /* 调整 A/B/C 之间的间距 */
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    /* 品牌信息行 (整合后的 A/B 区) */
-    .hero-brand-strip {
+    /* A/B 品牌卡片样式 (新设计) */
+    .hero-brand-card {
+        width: 280px; /* 固定宽度，方便排版 */
+        min-height: 300px; /* 最小高度 */
+        background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
+        padding:15px;
+        border-radius:10px;
+        border:1px solid rgba(255,255,255,0.04);
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        gap: 24px; /* 增加品牌间距 */
-        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        z-index: 1; /* 确保在背景图上方 */
     }
-
-    .hero-brand {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        padding: 8px 12px;
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.05); /* 轻微背景区分 */
+    .hero-brand-card .bg-img {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15; /* 背景图透明度 */
+        z-index: 0;
     }
-
-    .hero-brand img {
-        width: 24px;
-        height: 24px;
+    .hero-brand-card .content {
+        position: relative; /* 确保内容在背景图上方 */
+        z-index: 2;
+        padding-top: 20px;
+    }
+    .hero-brand-card img { /* 卡片内的 logo */
+        width: 72px;
+        height: 72px;
         object-fit: contain;
+        background:#071428;
+        padding:6px;
+        border-radius:10px;
+        margin-bottom: 10px;
+    }
+    .hero-brand-card h3 {
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+    .hero-brand-card .muted {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+
+    .hero-center{
+        flex: 1; /* C 区块占据剩余空间 */
+        max-width: 600px; /* 限制核心内容宽度，防止过宽 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 6px;
     }
     
     .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
@@ -122,10 +157,8 @@
         gap:12px;
         flex-wrap:wrap;
         justify-content:center;
-        margin-bottom: 36px; /* 增加按钮和底部条的距离 */
+        margin-bottom: 36px; 
     }
-
-    /* 移除 hero-books 样式，因为已删除 */
     
     .hero-bottom-strip{
       display: flex;
@@ -171,17 +204,47 @@
         box-shadow:0 6px 20px rgba(0,0,0,0.45);
     }
 
-    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：移除固定宽度，让其撑满栅格，再应用 3:4 比例 */
+    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：修复 3:4 比例 */
     .mascot .card div:first-child {
-        width: 100%; /* 移除固定宽度 */
+        width: 100%; 
         height: auto;
         aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
         border-radius:12px;
         background-size: cover;
         background-position: center;
         margin-bottom: 8px; 
+        background-color: #071428; /* 兜底背景色 */
     }
 
+    /* 新增项目卡片样式 */
+    #architecture-projects .project-card {
+        background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));
+        border: 1px solid rgba(255,255,255,0.04);
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    #architecture-projects .project-card img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9; /* 项目图片常用 16:9 宽屏比例 */
+        object-fit: cover;
+        display: block;
+    }
+    #architecture-projects .project-card .info {
+        padding: 15px;
+        flex-grow: 1; /* 信息区自适应高度 */
+    }
+    #architecture-projects .project-card h4 {
+        margin: 0 0 8px 0;
+        font-weight: 700;
+        font-size: 18px;
+    }
+    #architecture-projects .project-card .muted {
+        font-size: 14px;
+        line-height: 1.5;
+    }
     /* 3. 二维码背景美化 */
     #contact aside.card {
         position: relative;
@@ -225,19 +288,21 @@
     /* responsive */
     @media (max-width:1100px){
       .hero-inner{flex-direction:column;align-items:center;padding:0 20px;}
-      .hero-center{justify-content:flex-start;margin-top:20px}
-      .hero-brand{width:100%;flex-direction:row;justify-content:space-between;padding:10px}
+      .hero-brand-card { width: 100%; } /* 小屏幕下 A/B 卡片占满宽度 */
+      .hero-center{justify-content:flex-start;margin-top:20px; max-width: 100%;} /* C 区块也占满 */
       .heroes-grid{grid-template-columns:repeat(2,1fr)}
       .grid-3{grid-template-columns:repeat(2,1fr)}
       .hero-books{position:relative; bottom: auto; margin-top: 20px;}
+      #architecture-projects .grid-3 { grid-template-columns: repeat(2,1fr); } /* 项目在小屏幕下两列 */
     }
     @media (max-width:640px){
       main{padding-top:140px}
-      .hero-wrap{height:auto;min-height:200px; margin-top: 60px} /* 适应新的扁平比例 */
+      .hero-wrap{height:auto;min-height:200px; margin-top: 60px} 
       .hero-title{font-size:26px}
       .hero-sub{font-size:13px}
       .heroes-grid{grid-template-columns:1fr}
       .mascots{grid-template-columns:1fr}
+      #architecture-projects .grid-3 { grid-template-columns: 1fr; } /* 项目在小屏幕下单列 */
     }
 
     footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
@@ -265,7 +330,7 @@
       <a href="#novels">作品矩阵</a>
       <a href="#heroes">人物</a>
       <a href="#vigio">设计赋能</a>
-      <a href="#contact">合作</a>
+      <a href="#architecture-projects">项目</a> <a href="#contact">合作</a>
     </nav>
   </header>
 
@@ -274,15 +339,13 @@
 
     <section class="hero-content" aria-label="首页首屏">
       <div class="hero-inner">
-        
-        <div class="hero-brand-strip">
-            <div class="hero-brand">
-              <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
-              <div style="font-weight:700">立维宇宙</div>
-            </div>
-            <div class="hero-brand">
-              <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
-              <div style="font-weight:700">维杰设计</div>
+        <div class="hero-brand-card">
+            <div class="bg-img" style="background-image:url('assets/images/logo_leviverse.png')"></div>
+            <div class="content">
+                <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
+                <h3>立维宇宙</h3>
+                <div class="muted">原创文明悬疑宇宙</div>
+                <button class="btn ghost" onclick="location.href='#epic'">探索文化核心</button>
             </div>
         </div>
 
@@ -295,9 +358,17 @@
             <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
             <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
           </div>
-          
-          </div>
-
+        </div>
+        
+        <div class="hero-brand-card">
+            <div class="bg-img" style="background-image:url('assets/images/logo_vigio.png')"></div>
+            <div class="content">
+                <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
+                <h3>维杰设计</h3>
+                <div class="muted">场景化设计 · 工程交付</div>
+                <button class="btn ghost" onclick="location.href='#vigio'">了解设计赋能</button>
+            </div>
+        </div>
       </div>
 
       <div class="hero-bottom-strip">
@@ -410,6 +481,38 @@
         <div class="card" style="width:320px"><strong>合作</strong><div class="muted" style="margin-top:8px">RFP 对接 · 商务：business@leviverse.example</div></div>
       </div>
     </section>
+
+    <section id="architecture-projects">
+        <h2>规划建筑设计项目</h2>
+        <p class="muted">提供从前期策划到施工交付的全流程设计与BIM服务，助力您的项目落地。</p>
+        <div class="grid-3" style="margin-top:12px">
+            <div class="project-card">
+                <img src="assets/images/project_example_1.jpg" alt="未来智慧城市规划">
+                <div class="info">
+                    <h4>未来智慧城市规划</h4>
+                    <p class="muted">概念规划与区域分析</p>
+                    <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/project_example_2.jpg" alt="文化旅游区数字孪生">
+                <div class="info">
+                    <h4>文化旅游区数字孪生</h4>
+                    <p class="muted">沉浸式体验与BIM交付</p>
+                    <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/project_example_3.jpg" alt="智慧场馆设计与工程">
+                <div class="info">
+                    <h4>智慧场馆设计与工程</h4>
+                    <p class="muted">建筑设计与智能化集成</p>
+                    <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section id="prototype">
       <h2>原型 · 数字孪生</h2>
