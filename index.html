@@ -33,84 +33,69 @@
     .btn{padding:8px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer}
     .ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
 
-    main{max-width:1300px;margin:0 auto;padding:160px 20px 80px}
+    /* 调整 main 的顶部内边距，适应固定 header */
+    main{max-width:1300px;margin:0 auto;padding:80px 20px 80px} 
     h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
     section{margin-top:36px}
 
-    /* HERO 核心优化：解决按钮叠加问题（采用 margin-top: auto 靠底推入安全区） */
+    /* ---- HERO 分离后的新样式 ---- */
+
+    /* 1. 海报背景区（占第一屏顶部位置） */
     .hero-wrap{
-      position:relative;
-      margin-top:0;
-      isolation:isolate;
-      z-index:900;
-    }
-
-    .hero-plate{
-      width:100%;
-      height:68vh;
-      min-height:550px;
-      max-height:850px;
-      border-radius:12px;
-      margin:0 auto;
-      position:relative;
-      display:flex;
-      align-items:flex-end; /* 让内容靠底部对齐 */
-      justify-content:center;
+      width: 100%;
+      height: 68vh; 
+      min-height: 400px; /* 调整最小高度，避免在小屏下过度压缩 */
+      max-height: 850px;
+      border-radius: 12px;
+      margin: 0 auto;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       box-shadow: 0 30px 80px rgba(0,0,0,0.55);
-      border:1px solid rgba(255,255,255,0.03);
-      background:transparent;
-      overflow:hidden;
-      z-index:900;
+      border: 1px solid rgba(255,255,255,0.03);
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px; /* 放在 main 顶部，需要留出 header 的空间 */
+      z-index: 900; 
     }
 
-    .hero-plate .hero-bg{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      border-radius:12px;
-      z-index:1;
-      pointer-events:none;
-      -webkit-user-select:none;
-      user-select:none;
+    /* 恢复海报背景的渐变叠加层 */
+    .hero-wrap::before{
+        content:'';
+        position:absolute;
+        inset:0;
+        border-radius:12px;
+        background: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42));
+        z-index:1;
+        pointer-events:none;
     }
 
-    .hero-plate::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42));
-      z-index:2;
-      pointer-events:none;
+    /* 2. 海报内容区（在海报下方，跟随内容流） */
+    .hero-content{
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        margin-top: 36px; /* 确保和下一 section 间隔一致 */
     }
 
     .hero-inner{
-      width:92%;max-width:1200px;
-      display:flex;
-      align-items:flex-end; /* 左右品牌logo也靠底对齐 */
-      justify-content:space-between;
-      gap:18px;
-      height: 100%; /* 占据整个高度 */
-      padding:28px 28px 70px 28px;
-      position:relative;
-      z-index:3;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start; /* 顶部对齐 */
+      gap: 18px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .hero-center{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-end;
-      gap:10px;
-      padding:6px;
-      margin-top:auto; /* 核心：将内容推到安全区域 */
-      position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 6px;
     }
-
+    
     .hero-brand{
       width:220px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;
       background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
@@ -123,18 +108,24 @@
     .hero-cta{margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
     
     .hero-books{
-      display:flex;gap:12px;margin-top:18px;align-items:center;justify-content:center;
-      overflow:auto;padding-bottom:6px;
-      position: relative; /* 恢复相对定位，跟随 hero-center 的流 */
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      padding-bottom: 6px;
     }
 
     .hero-bottom-strip{
-      position:absolute;left:50%;transform:translateX(-50%);bottom:18px;
-      background:linear-gradient(90deg, rgba(0,0,0,0.36), rgba(0,0,0,0.08));
-      padding:8px 18px;border-radius:999px;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.03);
-      display:flex;gap:10px;align-items:center;backdrop-filter: blur(4px);
-      z-index:4;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 36px;
+      padding-top: 12px; 
+      border-top: 1px solid rgba(255, 255, 255, 0.05); 
     }
+
 
     /* 2. 宽高比优化 */
     
@@ -143,7 +134,7 @@
     #novels .card img {
         width: 100%; 
         height: auto;
-        aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
+        aspect-ratio: 3 / 4; 
         object-fit: cover;
     }
 
@@ -152,7 +143,7 @@
       position:relative;
       border-radius:12px;
       overflow:hidden;
-      aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
+      aspect-ratio: 3 / 4; 
       background-size:cover;
       background-position:center;
       border:1px solid rgba(255,255,255,0.04)
@@ -169,21 +160,22 @@
         box-shadow:0 6px 20px rgba(0,0,0,0.45);
     }
 
-    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：强制 3:4 比例 */
+    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：移除固定宽度，让其撑满栅格，再应用 3:4 比例 */
     .mascot .card div:first-child {
-        width: 120px; 
+        width: 100%; /* 移除固定宽度 */
         height: auto;
         aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
         border-radius:12px;
         background-size: cover;
         background-position: center;
+        margin-bottom: 8px; 
     }
 
     /* 3. 二维码背景美化 */
     #contact aside.card {
         position: relative;
         overflow: hidden;
-        padding: 24px; /* 增加内边距 */
+        padding: 24px; 
         background: linear-gradient(135deg, rgba(var(--accent-rgb),0.08), rgba(var(--accent2-rgb),0.08));
         border: 1px solid rgba(255,255,255,0.05);
         box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.05), 0 0 30px rgba(var(--accent2-rgb), 0.05);
@@ -191,8 +183,8 @@
     #contact .card img {
         padding: 8px; 
         border-radius: 10px; 
-        background: #10243d; /* 极深色的内衬背景 */
-        box-shadow: 0 0 0 1px rgba(123, 226, 255, 0.15), 0 4px 15px rgba(0,0,0,0.7); /* 突出边框和阴影 */
+        background: #10243d; 
+        box-shadow: 0 0 0 1px rgba(123, 226, 255, 0.15), 0 4px 15px rgba(0,0,0,0.7); 
     }
 
 
@@ -221,7 +213,7 @@
 
     /* responsive */
     @media (max-width:1100px){
-      .hero-inner{flex-direction:column;align-items:center;padding-bottom:100px;}
+      .hero-inner{flex-direction:column;align-items:center;padding:0 20px;}
       .hero-center{justify-content:flex-start;margin-top:20px}
       .hero-brand{width:100%;flex-direction:row;justify-content:space-between;padding:10px}
       .heroes-grid{grid-template-columns:repeat(2,1fr)}
@@ -230,7 +222,7 @@
     }
     @media (max-width:640px){
       main{padding-top:140px}
-      .hero-plate{height:62vh;min-height:400px;}
+      .hero-wrap{height:50vh;min-height:350px; margin-top: 60px}
       .hero-title{font-size:26px}
       .hero-sub{font-size:13px}
       .heroes-grid{grid-template-columns:1fr}
@@ -246,38 +238,6 @@
       position:relative;
       z-index:0;
     }
-
-/* ---- 整页大海报 Hero ---- */
-.hero-wrap {
-  width: 100%;
-  height: 100vh; /* 占满整页 */
-  background-image: url('assets/images/hero_main.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.hero-content {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-.hero-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.hero-bottom-strip {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-
   </style>
 </head>
 <body>
@@ -300,45 +260,54 @@
   </header>
 
   <main>
-    <section class="hero-wrap" aria-label="首页首屏">
-<section class="hero-wrap"></section>
+    <section class="hero-wrap" style="background-image:url('assets/images/hero_main.jpg')"></section>
 
-<section class="hero-content">
-  <div class="hero-inner">
-    <div class="hero-brand">
-      <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo">
-      <div style="font-weight:700">立维宇宙</div>
-      <div class="muted" style="font-size:13px">原创文明悬疑宇宙</div>
-    </div>
+    <section class="hero-content" aria-label="首页首屏">
+      <div class="hero-inner">
+        <div class="hero-brand" aria-hidden="false">
+          <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
+          <div style="font-weight:700">立维宇宙</div>
+          <div class="muted" style="font-size:13px">原创文明悬疑宇宙</div>
+        </div>
 
-    <div class="hero-center">
-      <div class="hero-title">文明的悬疑 · 场景的史诗</div>
-      <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
+        <div class="hero-center" role="heading" aria-level="1">
+          <div class="hero-title">文明的悬疑 · 场景的史诗</div>
+          <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
 
-      <div class="hero-cta">
-        <button class="btn" onclick="location.href='#epic'">探索史诗基石</button>
-        <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
-        <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
+          <div class="hero-cta">
+            <button class="btn" onclick="location.href='#epic'">探索史诗基石</button>
+            <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
+            <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
+          </div>
+
+          <div class="hero-books" aria-hidden="false">
+            <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
+              <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;object-fit:cover;border-radius:8px">
+              <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 样章与有声</div></div>
+            </div>
+            <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
+              <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
+              <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
+            </div>
+            <div class="card" style="width:220px;border-radius:8px;overflow:hidden">
+              <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
+              <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-brand" aria-hidden="false">
+          <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
+          <div style="font-weight:700">维杰设计</div>
+          <div class="muted" style="font-size:13px">场景化设计 · 工程交付</div>
+        </div>
       </div>
 
-      <div class="hero-books">
-        <!-- 原来书籍卡片复制过来 -->
+      <div class="hero-bottom-strip">
+        联合呈现 · 文化 × 设计 · 叙事导向的场景化产品
+        <button class="btn ghost" style="margin-left:12px" onclick="openWhitepaperModal()">索取白皮书</button>
       </div>
-    </div>
-
-    <div class="hero-brand">
-      <img src="assets/images/logo_vigio.png" alt="Vigio Logo">
-      <div style="font-weight:700">维杰设计</div>
-      <div class="muted" style="font-size:13px">场景化设计 · 工程交付</div>
-    </div>
-  </div>
-
-  <div class="hero-bottom-strip">
-    联合呈现 · 文化 × 设计 · 叙事导向的场景化产品
-    <button class="btn ghost" style="margin-left:12px" onclick="openWhitepaperModal()">索取白皮书</button>
-  </div>
-</section>
-
+    </section>
 
     <section id="epic" aria-label="史诗基石">
       <h2>史诗基石 · 炎帝 / 黄帝 / 蚩尤</h2>
@@ -419,9 +388,9 @@
       <h2>未来萌宠</h2>
       <p class="muted">轻量社群入口 · AR、表情包与周边生态</p>
       <div class="mascots">
-        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_xingling.jpg') center/cover"></div><div style="font-weight:700">星灵</div><div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button></div>
-        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_lidudu.jpg') center/cover"></div><div style="font-weight:700">狸嘟嘟</div><div class="muted" style="font-size:13px">城市守望 · 周边首选</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button></div>
-        <div class="mascot card"><div style="width:120px;border-radius:12px;background:url('assets/images/mascot_shixiaosheng.jpg') center/cover"></div><div style="font-weight:700">石小圣</div><div class="muted" style="font-size:13px">古物萌宠 · 收藏</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button></div>
+        <div class="mascot card"><div style="border-radius:12px;background:url('assets/images/mascot_xingling.jpg') center/cover"></div><div style="font-weight:700">星灵</div><div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button></div>
+        <div class="mascot card"><div style="border-radius:12px;background:url('assets/images/mascot_lidudu.jpg') center/cover"></div><div style="font-weight:700">狸嘟嘟</div><div class="muted" style="font-size:13px">城市守望 · 周边首选</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button></div>
+        <div class="mascot card"><div style="border-radius:12px;background:url('assets/images/mascot_shixiaosheng.jpg') center/cover"></div><div style="font-weight:700">石小圣</div><div class="muted" style="font-size:13px">古物萌宠 · 收藏</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button></div>
       </div>
     </section>
 
