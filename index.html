@@ -6,7 +6,7 @@
   <title>立维宇宙 × 维杰设计 — Leviverse × Vigio Design</title>
   <meta name="description" content="立维宇宙（Leviverse）— 将东方神话与文明悬疑转化为可运营的文化宇宙；维杰设计（Vigio Design）— 提供场景化交付与工程化落地能力。" />
   <link rel="icon" href="assets/images/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel-stylesheet">
   <style>
     :root{
       --bg:#02040a; --muted:#9fb0c6;
@@ -36,13 +36,15 @@
     /* 调整 main 的顶部内边距，适应固定 header */
     main{max-width:1300px;margin:0 auto;padding:80px 20px 80px} 
     h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
-    section{margin-top:36px}
+    section{margin-top:36px} 
 
     /* ---- HERO 分离后的新样式 ---- */
+
+    /* 1. 海报背景区 (调整为 7:2 比例) */
     .hero-wrap{
       width: 100%;
       height: auto; 
-      aspect-ratio: 5 / 1; /* 极扁平 5:1 比例 */
+      aspect-ratio: 7 / 2; /* 调整为 7:2 比例 */
       min-height: 250px; 
       max-height: 400px; 
       border-radius: 12px;
@@ -81,6 +83,8 @@
       max-width: 1200px;
       margin: 0 auto;
     }
+
+    /* A/B 品牌卡片样式 (新设计) */
     .hero-brand-card {
         width: 280px; 
         min-height: 300px; 
@@ -96,7 +100,10 @@
         overflow: hidden;
         z-index: 1; 
     }
-    .hero-brand-card .bg-img {
+    /* 品牌卡片背景图占位和颜色 */
+    .hero-brand-card#leviverse-card .bg-img {
+        background-image: url('assets/images/brand_bg_leviverse.jpg'); /* 预留 Leviverse 背景图 */
+        background-color: #5d3a0c; /* 深棕色调，象征文化与历史 */
         position: absolute;
         inset: 0;
         background-size: cover;
@@ -104,6 +111,18 @@
         opacity: 0.15; 
         z-index: 0;
     }
+    .hero-brand-card#vigio-card .bg-img {
+        background-image: url('assets/images/brand_bg_vigio.jpg'); /* 预留 Vigio 背景图 */
+        background-color: #073a45; /* 深青色调，象征科技与设计 */
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15; 
+        z-index: 0;
+    }
+
+
     .hero-brand-card .content {
         position: relative; 
         z-index: 2;
@@ -127,6 +146,8 @@
         font-size: 13px;
         margin-bottom: 15px;
     }
+
+
     .hero-center{
         flex: 1; 
         max-width: 600px; 
@@ -155,6 +176,7 @@
       padding: 12px 20px; 
       border-top: 1px solid rgba(255, 255, 255, 0.05); 
     }
+
 
     /* 2. 宽高比优化 */
     
@@ -205,24 +227,8 @@
         background-size: cover;
         background-position: center;
         margin-bottom: 8px; 
-        background-color: #071428; 
+        background-color: #071428; /* 兜底背景色 */
     }
-
-    /* 短剧系列 5 列布局 */
-    .miniseries-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); 
-        gap: 16px;
-        margin-top: 12px;
-    }
-    .miniseries-grid img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3 / 4;
-        object-fit: cover;
-        border-radius: 6px;
-    }
-
 
     /* 新增项目卡片样式 */
     #architecture-projects .project-card,
@@ -238,7 +244,7 @@
     #spatial-narrative .project-card img {
         width: 100%;
         height: auto;
-        aspect-ratio: 3 / 4; /* 实体空间项目配图也改为 3:4 */
+        aspect-ratio: 3 / 4; /* 统一为 3:4 */
         object-fit: cover;
         display: block;
     }
@@ -247,7 +253,17 @@
         padding: 15px;
         flex-grow: 1; 
     }
-
+    #architecture-projects .project-card h4,
+    #spatial-narrative .project-card h4 {
+        margin: 0 0 8px 0;
+        font-weight: 700;
+        font-size: 18px;
+    }
+    #architecture-projects .project-card .muted,
+    #spatial-narrative .project-card .muted {
+        font-size: 14px;
+        line-height: 1.5;
+    }
     /* 卡牌展示的网格容器 */
     .card-gallery-grid {
         display: grid;
@@ -280,7 +296,7 @@
         gap: 10px; 
         margin-top: 12px;
     }
-    #ip-souvenir .souvenir-item {
+    .souvenir-item {
         background: var(--card-bg);
         padding: 8px;
         border-radius: 6px;
@@ -288,12 +304,12 @@
         text-align: center;
         font-size: 11px;
     }
-    #ip-souvenir .souvenir-item strong {
+    .souvenir-item strong {
         display: block;
         font-size: 13px;
         margin-bottom: 4px;
     }
-    #ip-souvenir .souvenir-item img {
+    .souvenir-item img {
         width: 100%;
         height: auto;
         aspect-ratio: 3 / 4; /* 统一为 3:4 */
@@ -301,7 +317,23 @@
         border-radius: 4px;
         margin-bottom: 6px;
     }
-
+    /* 短剧系列 5 列布局 */
+    .miniseries-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); 
+        gap: 16px;
+        margin-top: 12px;
+    }
+    .miniseries-grid .card {
+        padding: 8px;
+    }
+    .miniseries-grid img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        border-radius: 6px;
+    }
 
     /* 3. 二维码背景美化 */
     #contact aside.card {
@@ -386,6 +418,7 @@
       <a href="#philosophy-cards">哲学原型</a>
       <a href="#map">图谱</a>
       <a href="#novels">作品矩阵</a>
+      <a href="#heroes">人物</a>
       <a href="#ip-souvenir">伴手礼</a>
       <a href="#vigio">设计赋能</a>
       <a href="#architecture-projects">项目</a> 
@@ -399,8 +432,8 @@
     <section class="hero-content" aria-label="首页首屏">
       <div class="hero-inner">
         
-        <div class="hero-brand-card">
-            <div class="bg-img" style="background-image:url('assets/images/logo_leviverse.png')"></div>
+        <div class="hero-brand-card" id="leviverse-card">
+            <div class="bg-img"></div>
             <div class="content">
                 <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
                 <h3>立维宇宙</h3>
@@ -421,8 +454,8 @@
           </div>
         </div>
         
-        <div class="hero-brand-card">
-            <div class="bg-img" style="background-image:url('assets/images/logo_vigio.png')"></div>
+        <div class="hero-brand-card" id="vigio-card">
+            <div class="bg-img"></div>
             <div class="content">
                 <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
                 <h3>维杰设计</h3>
@@ -483,6 +516,26 @@
                 <img src="assets/images/miniseries_05.jpg" alt="短剧封面 05">
                 <div style="padding:8px"><strong>第五季：永恒之眼</strong><div class="muted" style="font-size:12px;margin-top:4px">群像预告 / 史诗</div></div>
             </div>
+            <div class="card">
+                <img src="assets/images/miniseries_06.jpg" alt="短剧封面 06">
+                <div style="padding:8px"><strong>第六季：归墟秘闻</strong><div class="muted" style="font-size:12px;margin-top:4px">海域主题 / 冒险</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/miniseries_07.jpg" alt="短剧封面 07">
+                <div style="padding:8px"><strong>第七季：裂隙边缘</strong><div class="muted" style="font-size:12px;margin-top:4px">蚩尤系 / 对抗</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/miniseries_08.jpg" alt="短剧封面 08">
+                <div style="padding:8px"><strong>第八季：神祇的低语</strong><div class="muted" style="font-size:12px;margin-top:4px">哲学系 / 悬念</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/miniseries_09.jpg" alt="短剧封面 09">
+                <div style="padding:8px"><strong>第九季：终极定理</strong><div class="muted" style="font-size:12px;margin-top:4px">未来科技 / 群像</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/miniseries_10.jpg" alt="短剧封面 10">
+                <div style="padding:8px"><strong>第十季：天轨重启</strong><div class="muted" style="font-size:12px;margin-top:4px">年度大片 / 总结</div></div>
+            </div>
         </div>
     </section>
 
@@ -530,6 +583,45 @@
     </section>
 
 
+    <section id="comic">
+        <h2>漫画系列 · 视觉解构</h2>
+        <p class="muted">将 IP 故事线和人物关系转化为漫画分镜与视觉资产，便于多媒体改编。</p>
+        <div class="grid-3" style="margin-top:12px">
+            <div class="card">
+                <img src="assets/images/comic_01.jpg" alt="漫画封面 01">
+                <div style="padding:8px"><strong>《时间碎片》</strong><div class="muted" style="font-size:13px;margin-top:6px">赛博悬疑 / 连载中</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/comic_02.jpg" alt="漫画封面 02">
+                <div style="padding:8px"><strong>《文明的囚徒》</strong><div class="muted" style="font-size:13px;margin-top:6px">末日科幻 / 已完结</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/comic_03.jpg" alt="漫画封面 03">
+                <div style="padding:8px"><strong>《基因图谱》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话起源 / 概念集</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="game">
+        <h2>数字内容 · 游戏原型</h2>
+        <p class="muted">基于 IP 世界观设计的游戏化概念及数字资产包，展示互动娱乐的潜力。</p>
+        <div class="grid-3" style="margin-top:12px">
+            <div class="card">
+                <img src="assets/images/game_01.jpg" alt="游戏原型 01">
+                <div style="padding:8px"><strong>动作 RPG：时空猎人</strong><div class="muted" style="font-size:13px;margin-top:6px">硬核战斗 / 角色扮演</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/game_02.jpg" alt="游戏原型 02">
+                <div style="padding:8px"><strong>策略卡牌：神祇战争</strong><div class="muted" style="font-size:13px;margin-top:6px">卡牌对战 / 策略部署</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/game_03.jpg" alt="游戏原型 03">
+                <div style="padding:8px"><strong>元宇宙：未来城市</strong><div class="muted" style="font-size:13px;margin-top:6px">虚拟空间 / 社区建造</div></div>
+            </div>
+        </div>
+    </section>
+
+
     <section id="novels">
         <h2>叙事作品矩阵</h2>
         <div class="grid-3" style="margin-top:12px">
@@ -554,10 +646,8 @@
     </section>
 
     <section id="heroes" class="heroes" aria-label="主角群像">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-            <h2>主角群像</h2>
-            <div class="muted">八位核心角色 · 叙事轴心</div>
-        </div>
+        <h2>主角群像</h2>
+        <p class="muted">八位核心角色 · 叙事轴心</p>
 
         <div class="heroes-grid" style="margin-top:12px">
             <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_jiangyanming.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div></div>
@@ -744,6 +834,34 @@
             </div>
         </div>
     </section>
+    
+    <section id="micro-model">
+        <h2>微观实体 · 概念模型与原型</h2>
+        <p class="muted">展示 1:10000 比例的微缩建筑或城市模型，实现数字资产到实体原型的转化，提供 3D 打印服务。</p>
+        <div class="grid-3" style="margin-top:12px">
+            <div class="project-card">
+                <img src="assets/images/micro_model_placeholder_1.jpg" alt="微观城市模型">
+                <div class="info">
+                    <h4>城市原型模型（1:10000）</h4>
+                    <p class="muted">提供微缩城市沙盘、主题展陈模型定制。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/micro_model_placeholder_2.jpg" alt="微缩建筑模型">
+                <div class="info">
+                    <h4>叙事建筑原型（3D 打印）</h4>
+                    <p class="muted">为 IP 手办和周边设计提供居住和展示空间。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/micro_model_placeholder_3.jpg" alt="主题展陈模型">
+                <div class="info">
+                    <h4>主题展陈模型（BIM 出图）</h4>
+                    <p class="muted">基于 BIM 数据的展陈设计与高精度模型输出。</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <section id="architecture-projects">
@@ -777,10 +895,34 @@
         </div>
     </section>
 
-    <section id="prototype">
-      <h2>原型 · 数字孪生</h2>
-      <div class="card" style="margin-top:12px">3D 模型 · 展陈演示 · 交付包（支持 glTF、Revit / IFC 输出）</div>
+    <section id="data-model">
+        <h2>市场数据 · 虚实空间指标</h2>
+        <p class="muted">从宏观市场趋势到微观实体模型，连接数据分析与实际交付。</p>
+        <div class="grid-3" style="margin-top:12px">
+            <div class="card" style="min-height: 250px;">
+                <strong>城市运行指标（天气）</strong>
+                <p class="muted" style="margin-top:8px">实时同步城市环境数据，作为未来城市原型设计的参考。</p>
+                <div style="margin-top:10px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <p style="color: var(--accent); font-size: 14px; padding-top: 40px; text-align: center;">[天气数据嵌入示例]</p>
+                </div>
+            </div>
+            <div class="card" style="min-height: 250px;">
+                <strong>市场情绪参数（股市）</strong>
+                <p class="muted" style="margin-top:8px">追踪 IP 衍生品市场热度，作为营销策略调整的依据。</p>
+                <div style="margin-top:10px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <p style="color: var(--accent2); font-size: 14px; padding-top: 40px; text-align: center;">[股市指数嵌入示例]</p>
+                </div>
+            </div>
+            <div class="card" style="min-height: 250px;">
+                <strong>原型 · 数字孪生</strong>
+                <p class="muted" style="margin-top:8px">3D 模型 · 展陈演示 · 交付包（支持 glTF、Revit / IFC 输出）。</p>
+                 <div style="margin-top:10px; height: 120px; background: url('assets/images/prototype_placeholder.jpg') center/cover; border-radius: 8px;">
+                    <p style="color: white; font-size: 14px; padding-top: 40px; text-shadow: 1px 1px 2px black; text-align: center;">[数字孪生图示]</p>
+                </div>
+            </div>
+        </div>
     </section>
+
 
     <section id="contact">
       <h2>合作与商务</h2>
@@ -834,8 +976,9 @@
         <button class="btn ghost" onclick="closeWhitepaperModal()">关闭</button>
       </div>
     </div>
-  </div
-  ><script>
+  </div>
+
+  <script>
     (function(){
       const eraLabel = document.getElementById('eraLabel');
       const eraSlider = document.getElementById('eraSlider');
