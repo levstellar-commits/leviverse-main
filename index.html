@@ -39,8 +39,6 @@
     section{margin-top:36px}
 
     /* ---- HERO 分离后的新样式 ---- */
-
-    /* 1. 海报背景区 (极扁平 5:1 比例) */
     .hero-wrap{
       width: 100%;
       height: auto; 
@@ -59,8 +57,6 @@
       margin-top: 80px; 
       z-index: 900; 
     }
-
-    /* 恢复海报背景的渐变叠加层 */
     .hero-wrap::before{
         content:'';
         position:absolute;
@@ -70,8 +66,6 @@
         z-index:1;
         pointer-events:none;
     }
-
-    /* 2. 海报内容区（在海报下方，内容整合） */
     .hero-content{
         max-width: 1300px;
         margin: 0 auto;
@@ -79,20 +73,17 @@
         margin-top: 36px;
         text-align: center; 
     }
-
     .hero-inner{
       display: flex;
-      justify-content: center; /* A/B/C 三列居中 */
-      align-items: flex-start; /* 顶部对齐 */
-      gap: 18px; /* 调整 A/B/C 之间的间距 */
+      justify-content: center; 
+      align-items: flex-start; 
+      gap: 18px; 
       max-width: 1200px;
       margin: 0 auto;
     }
-
-    /* A/B 品牌卡片样式 (新设计) */
     .hero-brand-card {
-        width: 280px; /* 固定宽度，方便排版 */
-        min-height: 300px; /* 最小高度 */
+        width: 280px; 
+        min-height: 300px; 
         background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
         padding:15px;
         border-radius:10px;
@@ -103,22 +94,22 @@
         text-align: center;
         position: relative;
         overflow: hidden;
-        z-index: 1; /* 确保在背景图上方 */
+        z-index: 1; 
     }
     .hero-brand-card .bg-img {
         position: absolute;
         inset: 0;
         background-size: cover;
         background-position: center;
-        opacity: 0.15; /* 背景图透明度 */
+        opacity: 0.15; 
         z-index: 0;
     }
     .hero-brand-card .content {
-        position: relative; /* 确保内容在背景图上方 */
+        position: relative; 
         z-index: 2;
         padding-top: 20px;
     }
-    .hero-brand-card img { /* 卡片内的 logo */
+    .hero-brand-card img { 
         width: 72px;
         height: 72px;
         object-fit: contain;
@@ -136,21 +127,17 @@
         font-size: 13px;
         margin-bottom: 15px;
     }
-
-
     .hero-center{
-        flex: 1; /* C 区块占据剩余空间 */
-        max-width: 600px; /* 限制核心内容宽度，防止过宽 */
+        flex: 1; 
+        max-width: 600px; 
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
         padding: 6px;
     }
-    
     .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
     .hero-sub{font-size:16px;color:var(--muted);max-width:760px;text-align:center; margin-bottom: 20px}
-    
     .hero-cta{
         margin-top:12px;
         display:flex;
@@ -159,7 +146,6 @@
         justify-content:center;
         margin-bottom: 36px; 
     }
-    
     .hero-bottom-strip{
       display: flex;
       justify-content: center;
@@ -170,11 +156,17 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05); 
     }
 
-
     /* 2. 宽高比优化 */
     
-    /* 书籍封面（小书列/作品矩阵）：强制 3:4 比例 */
-    .hero-books .card img,
+    /* 核心 3:4 比例样式 */
+    .has-3-4-ratio {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4; 
+        object-fit: cover;
+    }
+
+    /* 书籍封面（作品矩阵）：强制 3:4 比例 */
     #novels .card img {
         width: 100%; 
         height: auto;
@@ -182,7 +174,7 @@
         object-fit: cover;
     }
 
-    /* 史诗基石（炎帝/黄帝/蚩尤）：移除固定高度，改为 3:4 宽高比 */
+    /* 史诗基石（炎帝/黄帝/蚩尤）：改为 3:4 宽高比 */
     .epic{
       position:relative;
       border-radius:12px;
@@ -204,7 +196,7 @@
         box-shadow:0 6px 20px rgba(0,0,0,0.45);
     }
 
-    /* 吉祥物图片容器（星灵、狸嘟嘟、石小圣）：修复 3:4 比例 */
+    /* 吉祥物图片容器（萌宠）：修复 3:4 比例 */
     .mascot .card div:first-child {
         width: 100%; 
         height: auto;
@@ -213,11 +205,28 @@
         background-size: cover;
         background-position: center;
         margin-bottom: 8px; 
-        background-color: #071428; /* 兜底背景色 */
+        background-color: #071428; 
     }
 
+    /* 短剧系列 5 列布局 */
+    .miniseries-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); 
+        gap: 16px;
+        margin-top: 12px;
+    }
+    .miniseries-grid img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+
     /* 新增项目卡片样式 */
-    #architecture-projects .project-card {
+    #architecture-projects .project-card,
+    #spatial-narrative .project-card {
         background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));
         border: 1px solid rgba(255,255,255,0.04);
         border-radius: 12px;
@@ -225,30 +234,24 @@
         display: flex;
         flex-direction: column;
     }
-    #architecture-projects .project-card img {
+    #architecture-projects .project-card img,
+    #spatial-narrative .project-card img {
         width: 100%;
         height: auto;
-        aspect-ratio: 16 / 9; /* 项目图片常用 16:9 宽屏比例 */
+        aspect-ratio: 3 / 4; /* 实体空间项目配图也改为 3:4 */
         object-fit: cover;
         display: block;
     }
-    #architecture-projects .project-card .info {
+    #architecture-projects .project-card .info,
+    #spatial-narrative .project-card .info {
         padding: 15px;
-        flex-grow: 1; /* 信息区自适应高度 */
+        flex-grow: 1; 
     }
-    #architecture-projects .project-card h4 {
-        margin: 0 0 8px 0;
-        font-weight: 700;
-        font-size: 18px;
-    }
-    #architecture-projects .project-card .muted {
-        font-size: 14px;
-        line-height: 1.5;
-    }
-    /* 新增：卡牌展示的网格容器 */
+
+    /* 卡牌展示的网格容器 */
     .card-gallery-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 默认四列布局 */
+        grid-template-columns: repeat(4, 1fr); 
         gap: 16px;
         margin-top: 12px;
     }
@@ -270,6 +273,36 @@
         margin-bottom: 10px;
     }
 
+    /* 伴手礼商城 5 列布局 */
+    #ip-souvenir .souvenir-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5 列布局 */
+        gap: 10px; 
+        margin-top: 12px;
+    }
+    #ip-souvenir .souvenir-item {
+        background: var(--card-bg);
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid rgba(255,255,255,0.03);
+        text-align: center;
+        font-size: 11px;
+    }
+    #ip-souvenir .souvenir-item strong {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+    #ip-souvenir .souvenir-item img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4; /* 统一为 3:4 */
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 6px;
+    }
+
+
     /* 3. 二维码背景美化 */
     #contact aside.card {
         position: relative;
@@ -289,37 +322,31 @@
 
     /* 其他样式保持不变 */
     .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
-    .epic::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(1,1,1,0.24), rgba(0,0,0,0.48));mix-blend-mode:multiply}
-    .epic .meta{position:absolute;left:16px;bottom:16px;color:#fff;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(0,0,0,0.28), transparent);max-width:70%;z-index:5}
-    .epic .meta small{display:block;color:#dfeeff;font-size:12px;margin-top:6px}
-
     .map-card{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
     .map-visual{flex:1;height:340px;border-radius:10px;background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)}
     .map-tools{width:320px}
-
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .card{background:var(--card-bg);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-
     .heroes{margin-top:24px}
     .heroes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
-    
     .hero-card .name{font-weight:700;margin-top:10px}
     .hero-card .role{font-size:13px;color:var(--muted);margin-top:6px}
-
     .mascots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
     .mascot{background:#071428;border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
 
     /* responsive */
     @media (max-width:1100px){
       .hero-inner{flex-direction:column;align-items:center;padding:0 20px;}
-      .hero-brand-card { width: 100%; } /* 小屏幕下 A/B 卡片占满宽度 */
-      .hero-center{justify-content:flex-start;margin-top:20px; max-width: 100%;} /* C 区块也占满 */
+      .hero-brand-card { width: 100%; } 
+      .hero-center{justify-content:flex-start;margin-top:20px; max-width: 100%;} 
       .heroes-grid{grid-template-columns:repeat(2,1fr)}
       .grid-3{grid-template-columns:repeat(2,1fr)}
       .hero-books{position:relative; bottom: auto; margin-top: 20px;}
-      #architecture-projects .grid-3 { grid-template-columns: repeat(2,1fr); } /* 项目在小屏幕下两列 */
+      #architecture-projects .grid-3 { grid-template-columns: repeat(2,1fr); } 
       .card-gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      #ip-souvenir .souvenir-grid { grid-template-columns: repeat(3, 1fr); }
+      .miniseries-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width:640px){
       main{padding-top:140px}
@@ -328,8 +355,10 @@
       .hero-sub{font-size:13px}
       .heroes-grid{grid-template-columns:1fr}
       .mascots{grid-template-columns:1fr}
-      #architecture-projects .grid-3 { grid-template-columns: 1fr; } /* 项目在小屏幕下单列 */
+      #architecture-projects .grid-3 { grid-template-columns: 1fr; } 
       .card-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      #ip-souvenir .souvenir-grid { grid-template-columns: repeat(2, 1fr); }
+      .miniseries-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
@@ -353,10 +382,11 @@
     </div>
     <nav>
       <a href="#epic">史诗核心</a>
-      <a href="#story-cards">角色卡牌</a>
+      <a href="#miniseries">短剧系列</a>
+      <a href="#philosophy-cards">哲学原型</a>
       <a href="#map">图谱</a>
       <a href="#novels">作品矩阵</a>
-      <a href="#heroes">人物</a>
+      <a href="#ip-souvenir">伴手礼</a>
       <a href="#vigio">设计赋能</a>
       <a href="#architecture-projects">项目</a> 
       <a href="#contact">合作</a>
@@ -428,33 +458,34 @@
         </div>
     </section>
 
-    <section id="story-cards">
-        <h2>叙事核心 · 文明与角色卡牌</h2>
-        <p class="muted">核心角色和文明基柱的卡牌化呈现，展示 IP 叙事链条。</p>
+    <section id="miniseries">
+        <h2>微剧系列 · 故事孵化原型</h2>
+        <p class="muted">根据核心角色和文明基柱开发的短剧/短片原型，用于影视化变现与观众测试。</p>
         
-        <div class="card-gallery-grid">
-            <div class="gallery-item">
-                <img src="assets/images/char_jiangyanming.jpg" alt="姜炎洺卡牌原型">
-                <strong>姜炎洺</strong>
-                <div class="muted" style="font-size:12px">时间之眼 · 核心主角</div>
+        <div class="miniseries-grid">
+            <div class="card">
+                <img src="assets/images/miniseries_01.jpg" alt="短剧封面 01">
+                <div style="padding:8px"><strong>第一季：炎的火种</strong><div class="muted" style="font-size:12px;margin-top:4px">姜炎洺主题 / 动作</div></div>
             </div>
-            <div class="gallery-item">
-                <img src="assets/images/char_lanxi.jpg" alt="澜熙卡牌原型">
-                <strong>澜熙</strong>
-                <div class="muted" style="font-size:12px">神祇后裔 · 记忆行者</div>
+            <div class="card">
+                <img src="assets/images/miniseries_02.jpg" alt="短剧封面 02">
+                <div style="padding:8px"><strong>第二季：澜熙回眸</strong><div class="muted" style="font-size:12px;margin-top:4px">澜熙主题 / 悬疑</div></div>
             </div>
-            <div class="gallery-item">
-                <img src="assets/images/epic_yandi.jpg" alt="炎帝卡牌原型">
-                <strong>文明基柱：炎帝</strong>
-                <div class="muted" style="font-size:12px">文化起源 · 技艺系</div>
+            <div class="card">
+                <img src="assets/images/miniseries_03.jpg" alt="短剧封面 03">
+                <div style="padding:8px"><strong>第三季：墨氚的秘密</strong><div class="muted" style="font-size:12px;margin-top:4px">黄帝系 / 科技</div></div>
             </div>
-            <div class="gallery-item">
-                <img src="assets/images/epic_huangdi.jpg" alt="黄帝卡牌原型">
-                <strong>文明基柱：黄帝</strong>
-                <div class="muted" style="font-size:12px">秩序奠基 · 科技系</div>
+            <div class="card">
+                <img src="assets/images/miniseries_04.jpg" alt="短剧封面 04">
+                <div style="padding:8px"><strong>第四季：路霄云</strong><div class="muted" style="font-size:12px;margin-top:4px">未来都市 / 赛博</div></div>
+            </div>
+            <div class="card">
+                <img src="assets/images/miniseries_05.jpg" alt="短剧封面 05">
+                <div style="padding:8px"><strong>第五季：永恒之眼</strong><div class="muted" style="font-size:12px;margin-top:4px">群像预告 / 史诗</div></div>
             </div>
         </div>
     </section>
+
 
     <section id="map" aria-label="世界神话基因图谱">
         <h2>世界神话 · 基因图谱</h2>
@@ -554,24 +585,103 @@
     <section id="ip-souvenir">
         <h2>IP 沉浸式体验 · 伴手礼原型</h2>
         <p class="muted">展示 IP 衍生品包装及内容交付标准，提供品牌联名与定制方案。</p>
-        <div class="grid-3" style="margin-top:12px">
-            <div class="card" style="min-height: 180px;">
-                <strong>伴手礼：星门信物（高级定制）</strong>
-                <div class="muted" style="margin-top:8px">包含定制卡牌、原型手办和艺术画集。</div>
-                <div style="margin-top:8px"><button class="btn ghost">查看交付标准</button></div>
+        <div class="souvenir-grid">
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_tea.jpg" alt="茶叶礼盒">
+                <strong>主题茶叶礼盒</strong>
+                <div class="muted">包装设计 / 零售</div>
             </div>
-            <div class="card" style="min-height: 180px;">
-                <strong>IP 包装盒：古物封存（零售标准）</strong>
-                <div class="muted" style="margin-top:8px">IP 主题产品外包装设计、印刷与打样。</div>
-                <div style="margin-top:8px"><button class="btn ghost">查看设计资料</button></div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_notebook.jpg" alt="日记本">
+                <strong>概念日记本</strong>
+                <div class="muted">定制设计 / 收藏</div>
             </div>
-            <div class="card" style="min-height: 180px;">
-                <strong>内容交付：数字孪生礼品码</strong>
-                <div class="muted" style="margin-top:8px">实体产品中嵌入 AR 或数字内容，增强互动体验。</div>
-                <div style="margin-top:8px"><button class="btn ghost">了解数字赋能</button></div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_silk.jpg" alt="丝绸礼盒">
+                <strong>丝绸礼盒</strong>
+                <div class="muted">丝巾 / 旗袍元素</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_card.jpg" alt="卡牌盲盒">
+                <strong>定制卡牌盲盒</strong>
+                <div class="muted">文创 / 周边</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_pin.jpg" alt="胸针">
+                <strong>IP 主题胸针</strong>
+                <div class="muted">周边 / 礼品</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_box.jpg" alt="高级礼盒">
+                <strong>高级定制礼盒</strong>
+                <div class="muted">品牌联名 / VIP</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_tea_2.jpg" alt="茶叶礼盒">
+                <strong>IP 主题马克杯</strong>
+                <div class="muted">城市主题 / 实用</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_notebook_2.jpg" alt="日记本">
+                <strong>设计草图集</strong>
+                <div class="muted">艺术画集 / 收藏</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_silk_2.jpg" alt="丝绸礼盒">
+                <strong>数字孪生礼品码</strong>
+                <div class="muted">AR 赋能 / 互动</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_card_2.jpg" alt="卡牌盲盒">
+                <strong>游戏皮肤兑换券</strong>
+                <div class="muted">数字资产 / 合作</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_pin_2.jpg" alt="胸针">
+                <strong>金属徽章套装</strong>
+                <div class="muted">限量版 / 周边</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_box_2.jpg" alt="高级礼盒">
+                <strong>城市符号挂画</strong>
+                <div class="muted">展陈 / 艺术品</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_tea_3.jpg" alt="茶叶礼盒">
+                <strong>香水或香薰</strong>
+                <div class="muted">场景气味 / 嗅觉体验</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_notebook_3.jpg" alt="日记本">
+                <strong>主题钢笔套装</strong>
+                <div class="muted">商务礼品 / 定制</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_silk_3.jpg" alt="丝绸礼盒">
+                <strong>VR 体验券</strong>
+                <div class="muted">沉浸式内容 / 展陈</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_card_3.jpg" alt="卡牌盲盒">
+                <strong>迷你手办盒</strong>
+                <div class="muted">Q版 / 零售</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_pin_3.jpg" alt="胸针">
+                <strong>文化符号钥匙扣</strong>
+                <div class="muted">小周边 / 零售</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_box_3.jpg" alt="高级礼盒">
+                <strong>未来感耳机</strong>
+                <div class="muted">科技联名 / 硬件</div>
             </div>
         </div>
+        <div style="margin-top:24px; text-align: center;">
+             <button class="btn" onclick="location.href='#contact'">洽谈 IP 联名与定制</button>
+        </div>
     </section>
+
 
     <section id="shop">
         <h2>文创 · 展陈与手办</h2>
@@ -592,6 +702,49 @@
             <div class="card" style="width:320px"><strong>合作</strong><div class="muted" style="margin-top:8px">RFP 对接 · 商务：business@leviverse.example</div></div>
         </div>
     </section>
+    
+    <section id="spatial-narrative">
+        <h2>空间叙事 · 宏微观转化</h2>
+        <p class="muted">将 IP 故事转化为可设计的空间元素与数字资产，连接世界观与建筑设计。</p>
+        <div class="grid-3" style="margin-top:12px">
+            <div class="project-card">
+                <img src="assets/images/scene_concept_1.jpg" alt="世界观转化模型">
+                <div class="info">
+                    <h4>世界观转化模型</h4>
+                    <p class="muted">将文学设定解构为设计语言，定义场景风格与功能。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/scene_concept_2.jpg" alt="BIM 资产化链路">
+                <div class="info">
+                    <h4>BIM 资产化链路</h4>
+                    <p class="muted">将 IP 元素编码为 BIM 族库和数字孪生资产，高效复用。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/scene_concept_3.jpg" alt="沉浸式用户体验设计">
+                <div class="info">
+                    <h4>沉浸式体验设计</h4>
+                    <p class="muted">定义展陈、主题乐园等场景中，用户与 IP 故事的互动方式。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/scene_concept_4.jpg" alt="叙事空间布局">
+                <div class="info">
+                    <h4>叙事空间布局</h4>
+                    <p class="muted">根据故事线索，设计建筑与路径引导，强化体验感。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/scene_concept_5.jpg" alt="文化场域分析">
+                <div class="info">
+                    <h4>文化场域分析</h4>
+                    <p class="muted">结合地域文化，为建筑赋予叙事背景与符号学价值。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section id="architecture-projects">
         <h2>规划建筑设计项目</h2>
@@ -681,9 +834,8 @@
         <button class="btn ghost" onclick="closeWhitepaperModal()">关闭</button>
       </div>
     </div>
-  </div>
-
-  <script>
+  </div
+  ><script>
     (function(){
       const eraLabel = document.getElementById('eraLabel');
       const eraSlider = document.getElementById('eraSlider');
