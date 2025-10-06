@@ -289,6 +289,99 @@
         line-height: 1.5;
     }
     
+    /* ============================================= */
+    /* == 【新增】机器人与擂台板块样式 == */
+    /* ============================================= */
+
+    /* 机器人板块 */
+    .robot-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .robot-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+    .robot-card .pic {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .robot-card .name {
+      font-weight: 700;
+    }
+    .robot-card .tag {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    
+    /* 思想擂台板块 */
+    .arena-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-top: 12px;
+      align-items: start;
+    }
+    .arena-topic-card {
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), rgba(var(--accent2-rgb), 0.05));
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .arena-topic-card h3 {
+      font-size: 22px;
+    }
+    .arena-topic-card .tag {
+      margin-bottom: 12px;
+    }
+    .arena-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .arena-actions .btn {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+    }
+    .arena-actions .btn.stance-a {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    .arena-actions .btn.stance-b {
+      background: transparent;
+      border: 1px solid var(--accent2);
+      color: var(--accent2);
+    }
+    .arena-rules {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .arena-rules h4 {
+      margin: 0 0 10px 0;
+    }
+    .arena-rules ul {
+      padding-left: 20px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
     /* ------------------------------------------- */
     /* Other Styles                  */
     /* ------------------------------------------- */
@@ -369,11 +462,12 @@
       .hero-inner{flex-direction:column;align-items:center;padding:0 20px;}
       .hero-brand-card { width: 100%; } 
       .hero-center{justify-content:flex-start;margin-top:20px; max-width: 100%;} 
-      .heroes-grid{grid-template-columns:repeat(2,1fr)}
+      .heroes-grid, .robot-grid {grid-template-columns:repeat(2,1fr)} /* robot-grid added */
       .grid-3{grid-template-columns:repeat(2,1fr)}
       .card-gallery-grid { grid-template-columns: repeat(3, 1fr); }
       #ip-souvenir .souvenir-grid { grid-template-columns: repeat(3, 1fr); }
       .miniseries-grid { grid-template-columns: repeat(3, 1fr); }
+      .arena-layout { grid-template-columns: 1fr; } /* arena-layout added */
     }
     @media (max-width:640px){
       main{padding-top:140px}
@@ -382,8 +476,8 @@
       .hero-sub{font-size:13px}
       .heroes-grid{grid-template-columns:1fr}
       .mascots{grid-template-columns:1fr}
-      .grid-3{grid-template-columns:1fr} /* Makes all 3-column grids become 1 column */
-      .card-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-3{grid-template-columns:1fr}
+      .card-gallery-grid, .robot-grid { grid-template-columns: repeat(2, 1fr); } /* robot-grid added */
       #ip-souvenir .souvenir-grid { grid-template-columns: repeat(2, 1fr); }
       .miniseries-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -413,9 +507,10 @@
       <a href="#map">图谱</a>
       <a href="#novels">作品矩阵</a>
       <a href="#heroes">人物</a>
+      <a href="#robots">机器人</a>
       <a href="#ip-souvenir">伴手礼</a>
+      <a href="#arena">思想擂台</a>
       <a href="#vigio">设计赋能</a>
-      <a href="#architecture-projects">项目</a> 
       <a href="#contact">合作</a>
     </nav>
   </header>
@@ -425,7 +520,6 @@
 
     <section class="hero-content" aria-label="首页首屏">
       <div class="hero-inner">
-        
         <div class="hero-brand-card" id="leviverse-card">
             <div class="bg-img"></div>
             <div class="content">
@@ -436,18 +530,15 @@
                 <button class="btn ghost" onclick="location.href='#epic'">探索文化核心</button>
             </div>
         </div>
-
         <div class="hero-center" role="heading" aria-level="1">
           <div class="hero-title">文明的悬疑 · 场景的史诗</div>
           <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
-
           <div class="hero-cta">
             <button class="btn" onclick="location.href='#epic'">探索史诗基石</button>
             <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
             <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
           </div>
         </div>
-        
         <div class="hero-brand-card" id="vigio-card">
             <div class="bg-img"></div>
             <div class="content">
@@ -459,7 +550,6 @@
             </div>
         </div>
       </div>
-
       <div class="hero-bottom-strip">
         联合呈现 · 文化 × 设计 · 叙事导向的场景化产品
         <button class="btn ghost" style="margin-left:12px" onclick="openWhitepaperModal()">索取白皮书</button>
@@ -469,16 +559,13 @@
     <section id="epic" aria-label="史诗基石">
         <h2>史诗基石 · 炎帝 / 黄帝 / 蚩尤</h2>
         <p class="muted">三条叙事主轴：起源、秩序、裂隙修复 —— 支撑宇宙的主题与改编线索。</p>
-
         <div class="epic-grid" style="margin-top:12px">
             <div class="epic" style="background-image:url('assets/images/epic_yandi.jpg')" data-id="yandi">
                 <div class="meta"><strong>炎帝</strong><small>文化起源 · 技艺与火</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('yandi')">查看设定档</button></div></div>
             </div>
-
             <div class="epic" style="background-image:url('assets/images/epic_huangdi.jpg')" data-id="huangdi">
                 <div class="meta"><strong>黄帝</strong><small>文明秩序 · 技术与律令</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('huangdi')">查看设定档</button></div></div>
             </div>
-
             <div class="epic" style="background-image:url('assets/images/epic_chiyou.jpg')" data-id="chiyou">
                 <div class="meta"><strong>蚩尤</strong><small>裂隙议题 · 修复与对抗</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('chiyou')">查看设定档</button></div></div>
             </div>
@@ -488,7 +575,6 @@
     <section id="miniseries">
         <h2>微剧系列 · 故事孵化原型</h2>
         <p class="muted">根据核心角色和文明基柱开发的短剧/短片原型，用于影视化变现与观众测试。</p>
-        
         <div class="miniseries-grid">
             <div class="card">
                 <img src="assets/images/miniseries_01.jpg" alt="短剧封面 01">
@@ -533,7 +619,6 @@
         </div>
     </section>
 
-
     <section id="map" aria-label="世界神话基因图谱">
         <h2>世界神话 · 基因图谱</h2>
         <p class="muted">可视化节点与时间轴，支持导出数据与嵌入到展陈或报告中。</p>
@@ -551,7 +636,6 @@
     <section id="philosophy-cards">
         <h2>高维原型 · 哲学图谱</h2>
         <p class="muted">将不同文化中的神祇和哲学原型解构为宇宙能量、秩序或演化路径，强调 IP 普世价值。</p>
-        
         <div class="card-gallery-grid">
             <div class="gallery-item">
                 <img src="assets/images/philosophy_buddha.jpg" alt="佛祖原型卡牌">
@@ -575,7 +659,6 @@
             </div>
         </div>
     </section>
-
 
     <section id="comic">
         <h2>漫画系列 · 视觉解构</h2>
@@ -615,7 +698,6 @@
         </div>
     </section>
 
-
     <section id="novels">
         <h2>叙事作品矩阵</h2>
         <div class="grid-3" style="margin-top:12px">
@@ -624,13 +706,11 @@
                 <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 群像叙事</div></div>
                 <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">获取样章</button></div>
             </div>
-
             <div class="card">
                 <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌">
                 <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
                 <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
             </div>
-
             <div class="card">
                 <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城">
                 <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
@@ -642,13 +722,11 @@
     <section id="heroes" class="heroes" aria-label="主角群像">
         <h2>主角群像</h2>
         <p class="muted">八位核心角色 · 叙事轴心</p>
-
         <div class="heroes-grid" style="margin-top:12px">
             <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_jiangyanming.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div></div>
             <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanxi.jpg')"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div></div>
             <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_mochuan.jpg')"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div></div>
             <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_ruihan.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div></div>
-
             <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_luxiaoyun.jpg')"></div><div class="name">路霄雲</div><div class="role muted">远行者</div></div>
             <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_yulingxuan.jpg')"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div></div>
             <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_haishixin.jpg')"></div><div class="name">海世鑫</div><div class="role muted">海域行者</div></div>
@@ -677,6 +755,33 @@
               <div style="font-weight:700">石小圣</div>
               <div class="muted" style="font-size:13px">古物萌宠 · 收藏</div>
               <button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="robots">
+        <h2>机械纪元 · 未来机器人</h2>
+        <p class="muted">基于宇宙观核心技术衍生的多功能机器人原型，探索人机共生的未来形态。</p>
+        <div class="robot-grid">
+            <div class="robot-card">
+                <div class="pic" style="background-image:url('assets/images/robot_01.jpg')"></div>
+                <div class="name">烛龙-7型</div>
+                <div class="tag">深空探索 / 数据信使</div>
+            </div>
+            <div class="robot-card">
+                <div class="pic" style="background-image:url('assets/images/robot_02.jpg')"></div>
+                <div class="name">句芒-3型</div>
+                <div class="tag">生态改造 / 环境监测</div>
+            </div>
+            <div class="robot-card">
+                <div class="pic" style="background-image:url('assets/images/robot_03.jpg')"></div>
+                <div class="name">白泽-AI</div>
+                <div class="tag">文明资料库 / 决策辅助</div>
+            </div>
+            <div class="robot-card">
+                <div class="pic" style="background-image:url('assets/images/robot_04.jpg')"></div>
+                <div class="name">九凤-Mini</div>
+                <div class="tag">城市导航 / 个人伴侣</div>
             </div>
         </div>
     </section>
@@ -781,7 +886,6 @@
         </div>
     </section>
 
-
     <section id="shop">
         <h2>文创 · 展陈与手办</h2>
         <p class="muted">限量收藏、艺术画集与互动展陈原型。</p>
@@ -872,7 +976,6 @@
         </div>
     </section>
 
-
     <section id="architecture-projects">
         <h2>规划建筑设计项目</h2>
         <p class="muted">提供从前期策划到施工交付的全流程设计与BIM服务，助力您的项目落地。</p>
@@ -932,6 +1035,31 @@
         </div>
     </section>
 
+    <section id="arena">
+        <h2>思想擂台 · 文明辩场</h2>
+        <p class="muted">这里是观点的竞技场，是创意的孵化地。选择你的立场，加入关于宇宙未来的核心辩论。</p>
+        <div class="arena-layout">
+            <div class="arena-topic-card">
+                <div class="tag">本期议题</div>
+                <h3>炎帝的“火”与普罗米修斯的“火”，谁对文明的形态影响更为深远？</h3>
+                <p class="muted" style="margin-top: 12px; line-height: 1.6;">前者是源于内部、惠及社群的技艺传承之火，后者是源于外部、挑战权威的智慧启蒙之火。在立维宇宙的未来叙事中，哪一种“火”的隐喻更能代表人类文明的终极走向？</p>
+                <div class="arena-actions">
+                    <button class="btn stance-a">加入正方：炎帝之火</button>
+                    <button class="btn stance-b">加入反方：普氏之火</button>
+                </div>
+            </div>
+            <div class="arena-rules">
+                <h4>擂台规则</h4>
+                <ul>
+                    <li>选择立场并发表观点。</li>
+                    <li>你的论据将接受全网用户的评判。</li>
+                    <li>优秀观点将被收录至“宇宙编年史”。</li>
+                    <li>参与创意赛，共筑世界观。</li>
+                </ul>
+                <button class="btn ghost" style="width: 100%; margin-top: 15px;">查看往期议题</button>
+            </div>
+        </div>
+    </section>
 
     <section id="contact">
       <h2>合作与商务</h2>
@@ -942,7 +1070,6 @@
           <div class="muted" style="font-size:13px;margin-top:12px">请使用机构邮箱索取白皮书与授权要点文档，我们将提供机构级材料与对接流程。</div>
           <div style="margin-top:12px"><button class="btn" onclick="openWhitepaperModal()">索取白皮书（机构邮箱）</button></div>
         </div>
-
         <aside class="card" style="width:320px">
           <div style="font-weight:700">扫码关注</div>
           <div class="muted" style="margin-top:8px">公众号（社群） · 企业微信（商务）</div>
@@ -964,7 +1091,7 @@
       </div>
     </footer>
   </main>
-
+  
   <div id="epicModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:200">
     <div style="background:#07121a;padding:20px;border-radius:10px;width:min(920px,94%);max-height:86vh;overflow:auto;border:1px solid rgba(255,255,255,0.05)">
       <div style="display:flex;justify-content:space-between;align-items:center">
