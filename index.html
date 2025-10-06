@@ -56,7 +56,7 @@
       border: 1px solid rgba(255,255,255,0.03);
       position: relative;
       overflow: hidden;
-      margin-top: 80px; 
+      /* 【修复】移除了多余的 margin-top，解决黑边A */
       z-index: 900; 
     }
     .hero-wrap::before{
@@ -72,7 +72,7 @@
         max-width: 1300px;
         margin: 0 auto;
         padding: 40px 20px 0; 
-        margin-top: 36px;
+        margin-top: 0; /* 【修复】将 margin-top 改为 0，解决黑边B */
         text-align: center; 
     }
     .hero-inner{
@@ -180,20 +180,13 @@
 
     /* 2. 宽高比优化 */
     
-    /* 核心 3:4 比例样式 */
-    .has-3-4-ratio {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3 / 4; 
-        object-fit: cover;
-    }
-
-    /* 书籍封面（作品矩阵）：强制 3:4 比例 */
+    /* 书籍封面（作品矩阵）：强制 3:4 比例，并包含从内联样式移来的样式 */
     #novels .card img {
         width: 100%; 
         height: auto;
         aspect-ratio: 3 / 4; 
         object-fit: cover;
+        border-radius: 8px; /* 从内联样式移入 */
     }
 
     /* 史诗基石（炎帝/黄帝/蚩尤）：改为 3:4 宽高比 */
@@ -218,21 +211,33 @@
         box-shadow:0 6px 20px rgba(0,0,0,0.45);
     }
 
-    /* 吉祥物图片容器（萌宠）：修复 3:4 比例 */
+    /* 吉祥物图片容器（萌宠）：修复 3:4 比例，并包含从内联样式移来的样式 */
     .mascot .card div:first-child {
         width: 100%; 
         height: auto;
         aspect-ratio: 3 / 4; /* 强制 3:4 比例 */
-        border-radius:12px;
-        background-size: cover;
-        background-position: center;
+        border-radius:12px;  /* 从内联样式移入 */
+        background-size: cover; /* 从内联样式移入 */
+        background-position: center; /* 从内联样式移入 */
         margin-bottom: 8px; 
         background-color: #071428; /* 兜底背景色 */
     }
 
-    /* 新增项目卡片样式 */
+    /* 【修复】为漫画和游戏系列添加 3:4 比例 */
+    #comic .card img,
+    #game .card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    /* 项目卡片样式 */
     #architecture-projects .project-card,
-    #spatial-narrative .project-card {
+    #spatial-narrative .project-card,
+    #micro-model .project-card { /* 【修复】确保 micro-model 也被包含 */
         background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));
         border: 1px solid rgba(255,255,255,0.04);
         border-radius: 12px;
@@ -241,7 +246,8 @@
         flex-direction: column;
     }
     #architecture-projects .project-card img,
-    #spatial-narrative .project-card img {
+    #spatial-narrative .project-card img,
+    #micro-model .project-card img {
         width: 100%;
         height: auto;
         aspect-ratio: 3 / 4; /* 统一为 3:4 */
@@ -249,18 +255,21 @@
         display: block;
     }
     #architecture-projects .project-card .info,
-    #spatial-narrative .project-card .info {
+    #spatial-narrative .project-card .info,
+    #micro-model .project-card .info {
         padding: 15px;
         flex-grow: 1; 
     }
     #architecture-projects .project-card h4,
-    #spatial-narrative .project-card h4 {
+    #spatial-narrative .project-card h4,
+    #micro-model .project-card h4 {
         margin: 0 0 8px 0;
         font-weight: 700;
         font-size: 18px;
     }
     #architecture-projects .project-card .muted,
-    #spatial-narrative .project-card .muted {
+    #spatial-narrative .project-card .muted,
+    #micro-model .project-card .muted {
         font-size: 14px;
         line-height: 1.5;
     }
@@ -626,19 +635,19 @@
         <h2>叙事作品矩阵</h2>
         <div class="grid-3" style="margin-top:12px">
             <div class="card">
-                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋" style="width:100%;object-fit:cover;border-radius:8px">
+                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋">
                 <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 群像叙事</div></div>
                 <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">获取样章</button></div>
             </div>
 
             <div class="card">
-                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌" style="width:100%;object-fit:cover;border-radius:8px">
+                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌">
                 <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
                 <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
             </div>
 
             <div class="card">
-                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城" style="width:100%;object-fit:cover;border-radius:8px">
+                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城">
                 <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
                 <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">查看预览</button></div>
             </div>
@@ -666,9 +675,24 @@
         <h2>未来萌宠</h2>
         <p class="muted">轻量社群入口 · AR、表情包与周边生态</p>
         <div class="mascots">
-            <div class="mascot card"><div style="border-radius:12px;background:url('assets/images/mascot_xingling.jpg') center/cover"></div><div style="font-weight:700">星灵</div><div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button></div>
-            <div class="mascot card"><div style="border-radius:12px;background:url('assets/images/mascot_lidudu.jpg') center/cover"></div><div style="font-weight:700">狸嘟嘟</div><div class="muted" style="font-size:13px">城市守望 · 周边首选</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button></div>
-            <div class="mascot card"><div style="border-radius:12px;background:url('assets/images/mascot_shixiaosheng.jpg') center/cover"></div><div style="font-weight:700">石小圣</div><div class="muted" style="font-size:13px">古物萌宠 · 收藏</div><button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button></div>
+            <div class="mascot card">
+              <div style="background-image: url('assets/images/mascot_xingling.jpg')"></div>
+              <div style="font-weight:700">星灵</div>
+              <div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div>
+              <button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button>
+            </div>
+            <div class="mascot card">
+              <div style="background-image: url('assets/images/mascot_lidudu.jpg')"></div>
+              <div style="font-weight:700">狸嘟嘟</div>
+              <div class="muted" style="font-size:13px">城市守望 · 周边首选</div>
+              <button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button>
+            </div>
+            <div class="mascot card">
+              <div style="background-image: url('assets/images/mascot_shixiaosheng.jpg')"></div>
+              <div style="font-weight:700">石小圣</div>
+              <div class="muted" style="font-size:13px">古物萌宠 · 收藏</div>
+              <button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button>
+            </div>
         </div>
     </section>
 
@@ -997,20 +1021,20 @@
       'yandi': {
         title: '炎帝 · 档案摘录',
         body: `<p><strong>摘要：</strong>炎帝被视为文化与技艺的起点，在多种文献与口述中作为“火与耕作”系的象征，构成宇宙的起源线索。</p>
-              <p><strong>来源示例：</strong>文献节选 · 区域口述 · 考古图像（示例仅供预览）。</p>
-              <p class="muted">注：正式文献溯源与注释见白皮书（机构资料）。</p>
-              <p style="margin-top:8px"><a class="btn ghost" href="/assets/whitepapers/yandi_sample.pdf">下载样本（PDF）</a></p>`
+                <p><strong>来源示例：</strong>文献节选 · 区域口述 · 考古图像（示例仅供预览）。</p>
+                <p class="muted">注：正式文献溯源与注释见白皮书（机构资料）。</p>
+                <p style="margin-top:8px"><a class="btn ghost" href="/assets/whitepapers/yandi_sample.pdf">下载样本（PDF）</a></p>`
       },
       'huangdi': {
         title: '黄帝 · 档案摘录',
         body: `<p><strong>摘要：</strong>黄帝象征秩序與技術體系，其意象在建制、禮俗與科技傳承的敘事線中被多重引用。</p>
-              <p><strong>来源示例：</strong>典籍考據 · 文化記憶材料。</p>
-              <p class="muted">注：白皮书将分别列出文献类型与可信度。</p>`
+                <p><strong>来源示例：</strong>典籍考據 · 文化記憶材料。</p>
+                <p class="muted">注：白皮书将分别列出文献类型与可信度。</p>`
       },
       'chiyou': {
         title: '蚩尤 · 档案摘录',
         body: `<p><strong>摘要：</strong>蚩尤承载裂隙、冲突与修复议题，在叙事中常作为触发事件与情感张力的核心。</p>
-              <p><strong>来源示例：</strong>民间传说 · 区域性记忆。</p>`
+                <p><strong>来源示例：</strong>民间传说 · 区域性记忆。</p>`
       }
     };
 
