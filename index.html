@@ -383,7 +383,7 @@
     }
 
     /* ------------------------------------------- */
-    /* Other Styles                  */
+    /* Other Styles                       */
     /* ------------------------------------------- */
 
     #contact aside.card {
@@ -404,14 +404,18 @@
     .map-card{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
     .map-visual{flex:1;height:340px;border-radius:10px;background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)}
     .map-tools{width:320px}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    
+    .grid-3{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
     .card{background:var(--card-bg);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
     .heroes{margin-top:24px}
     .heroes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
     .hero-card .name{font-weight:700;margin-top:10px}
     .hero-card .role{font-size:13px;color:var(--muted);margin-top:6px}
-    .mascots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    
+    .mascots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+    
     .mascot{background:#071428;border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
     .card-gallery-grid {
         display: grid;
@@ -468,6 +472,7 @@
       #ip-souvenir .souvenir-grid { grid-template-columns: repeat(3, 1fr); }
       .miniseries-grid { grid-template-columns: repeat(3, 1fr); }
       .arena-layout { grid-template-columns: 1fr; } /* arena-layout added */
+      .mascots {grid-template-columns:repeat(2,1fr)}
     }
     @media (max-width:640px){
       main{padding-top:140px}
@@ -676,7 +681,11 @@
                 <img src="assets/images/comic_03.jpg" alt="漫画封面 03">
                 <div style="padding:8px"><strong>《基因图谱》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话起源 / 概念集</div></div>
             </div>
-        </div>
+            <div class="card">
+                <img src="assets/images/comic_04.jpg" alt="漫画封面 04">
+                <div style="padding:8px"><strong>《深渊信标》</strong><div class="muted" style="font-size:13px;margin-top:6px">克苏鲁科幻 / 新连载</div></div>
+            </div>
+            </div>
     </section>
 
     <section id="game">
@@ -695,7 +704,11 @@
                 <img src="assets/images/game_03.jpg" alt="游戏原型 03">
                 <div style="padding:8px"><strong>元宇宙：未来城市</strong><div class="muted" style="font-size:13px;margin-top:6px">虚拟空间 / 社区建造</div></div>
             </div>
-        </div>
+            <div class="card">
+                <img src="assets/images/game_04.jpg" alt="游戏原型 04">
+                <div style="padding:8px"><strong>解谜冒险：归墟之声</strong><div class="muted" style="font-size:13px;margin-top:6px">叙事驱动 / 沉浸探索</div></div>
+            </div>
+            </div>
     </section>
 
     <section id="novels">
@@ -716,7 +729,12 @@
                 <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
                 <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">查看预览</button></div>
             </div>
-        </div>
+            <div class="card">
+                <img src="assets/images/cover_stardust.jpg" alt="星尘编年史">
+                <div style="padding:8px"><strong>《星尘编年史》</strong><div class="muted" style="font-size:13px;margin-top:6px">宇宙歌剧 · 设定集</div></div>
+                <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">开发日志</button></div>
+            </div>
+            </div>
     </section>
 
     <section id="heroes" class="heroes" aria-label="主角群像">
@@ -756,7 +774,13 @@
               <div class="muted" style="font-size:13px">古物萌宠 · 收藏</div>
               <button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button>
             </div>
-        </div>
+            <div class="mascot card">
+              <div style="background-image: url('assets/images/mascot_mechling.jpg')"></div>
+              <div style="font-weight:700">械灵</div>
+              <div class="muted" style="font-size:13px">赛博伙伴 · 动态壁纸</div>
+              <button class="btn" style="margin-top:8px" onclick="location.href='#'">下载</button>
+            </div>
+            </div>
     </section>
 
     <section id="robots">
@@ -880,7 +904,17 @@
                 <strong>未来感耳机</strong>
                 <div class="muted">科技联名 / 硬件</div>
             </div>
-        </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_holo_lamp.jpg" alt="全息投影台灯">
+                <strong>全息投影台灯</strong>
+                <div class="muted">桌面级互动 / 氛围营造</div>
+            </div>
+            <div class="souvenir-item">
+                <img src="assets/images/souvenir_art_print.jpg" alt="限定版艺术版画">
+                <strong>限定版艺术版画</strong>
+                <div class="muted">带编号 / 收藏级</div>
+            </div>
+            </div>
         <div style="margin-top:24px; text-align: center;">
              <button class="btn" onclick="location.href='#contact'">洽谈 IP 联名与定制</button>
         </div>
@@ -945,7 +979,28 @@
                     <p class="muted">结合地域文化，为建筑赋予叙事背景与符号学价值。</p>
                 </div>
             </div>
-        </div>
+            <div class="project-card">
+                <img src="assets/images/scene_concept_6.jpg" alt="数字光影艺术">
+                <div class="info">
+                    <h4>数字光影艺术</h4>
+                    <p class="muted">为实体空间设计动态光影叙事，提升沉浸感与互动性。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/scene_concept_7.jpg" alt="模块化展陈系统">
+                <div class="info">
+                    <h4>模块化展陈系统</h4>
+                    <p class="muted">开发可重构的展陈单元，适应不同主题与场地需求。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/images/scene_concept_8.jpg" alt="五感交互设计">
+                <div class="info">
+                    <h4>五感交互设计</h4>
+                    <p class="muted">结合声、光、气味、触感，构建全方位的感官体验场景。</p>
+                </div>
+            </div>
+            </div>
     </section>
     
     <section id="micro-model">
@@ -973,7 +1028,14 @@
                     <p class="muted">基于 BIM 数据的展陈设计与高精度模型输出。</p>
                 </div>
             </div>
-        </div>
+            <div class="project-card">
+                <img src="assets/images/micro_model_placeholder_4.jpg" alt="核心建筑剖面模型">
+                <div class="info">
+                    <h4>核心建筑剖面模型</h4>
+                    <p class="muted">高精度展示关键建筑内部结构，用于技术研讨与展示。</p>
+                </div>
+            </div>
+            </div>
     </section>
 
     <section id="architecture-projects">
@@ -1004,7 +1066,15 @@
                     <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
                 </div>
             </div>
-        </div>
+            <div class="project-card">
+                <img src="assets/images/project_example_4.jpg" alt="IP主题复合商业体">
+                <div class="info">
+                    <h4>IP主题复合商业体</h4>
+                    <p class="muted">零售、娱乐、文创一体化</p>
+                    <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
+                </div>
+            </div>
+            </div>
     </section>
 
     <section id="data-model">
