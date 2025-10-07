@@ -4,10 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>立维宇宙 × 维杰设计 — Leviverse × Vigio Design</title>
-  <meta name="description" content="立维宇宙（Leviverse）— 将东方神话与文明悬疑转化为可运营的文化宇宙；维杰设计（Vigio Design）— 提供场景化交付与工程化落地能力。" />
+  <meta name="description" content="将东方神话转化为可运营的文化宇宙，并通过空间设计让故事在现实中落地。" />
   <link rel="icon" href="assets/images/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel-stylesheet">
+  
   <style>
+    /* ---------- 基础与新架构样式 ---------- */
     :root{
       --bg:#02040a; --muted:#9fb0c6;
       --accent:#ffb86b; --accent2:#7be2ff;
@@ -18,482 +20,61 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff;-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
-    /* header 保持在最上层 */
-    header{
-      position:fixed;left:0;right:0;top:0;padding:12px 28px;
-      display:flex;justify-content:space-between;align-items:center;
-      background:linear-gradient(180deg, rgba(2,4,10,0.88), rgba(2,4,10,0.12));
-      z-index:10000;
-      backdrop-filter: blur(6px)
-    }
+    header{position:fixed;left:0;right:0;top:0;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg, rgba(2,4,10,0.9), rgba(2,4,10,0.12));z-index:10000;backdrop-filter: blur(6px)}
     .brand{display:flex;gap:12px;align-items:center}
     .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:800}
-    nav{display:flex;gap:12px;align-items:center}
-    nav a{color:var(--muted);font-size:14px}
+    nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px}
     .btn{padding:8px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer}
     .ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
-
-    /* 调整 main 的顶部内边距，适应固定 header */
-    main{max-width:1300px;margin:0 auto;padding:80px 20px 80px} 
-    h1,h2,h3{font-family:'Noto Serif SC',serif;margin:0}
-    section{margin-top:36px} 
-
-    /* ---- HERO BANNER ---- */
-    .hero-wrap{
-      width: 100%;
-      height: auto; 
-      aspect-ratio: 7 / 2;
-      min-height: 250px; 
-      max-height: 400px; 
-      border-radius: 12px;
-      margin: 0 auto;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.03);
-      position: relative;
-      overflow: hidden;
-      z-index: 900; 
-    }
-    .hero-wrap::before{
-        content:'';
-        position:absolute;
-        inset:0;
-        border-radius:12px;
-        background: linear-gradient(180deg, rgba(3,6,10,0.16), rgba(3,6,10,0.42));
-        z-index:1;
-        pointer-events:none;
-    }
-    .hero-content{
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 40px 20px 0; 
-        margin-top: 0; /* 移除与海报的间距 */
-        text-align: center; 
-    }
-    .hero-inner{
-      display: flex;
-      justify-content: center; 
-      align-items: flex-start; 
-      gap: 18px; 
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .hero-brand-card {
-        width: 280px; 
-        min-height: 300px; 
-        background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.08));
-        padding:15px;
-        border-radius:10px;
-        border:1px solid rgba(255,255,255,0.04);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        z-index: 1; 
-    }
-    .hero-brand-card#leviverse-card .bg-img {
-        background-image: url('assets/images/brand_bg_leviverse.jpg');
-        background-color: #5d3a0c;
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        opacity: 0.15; 
-        z-index: 0;
-    }
-    .hero-brand-card#vigio-card .bg-img {
-        background-image: url('assets/images/brand_bg_vigio.jpg');
-        background-color: #073a45;
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        opacity: 0.15; 
-        z-index: 0;
-    }
-    .hero-brand-card .content {
-        position: relative; 
-        z-index: 2;
-        padding-top: 20px;
-    }
-    .hero-brand-card img { 
-        width: 72px;
-        height: 72px;
-        object-fit: contain;
-        background:#071428;
-        padding:6px;
-        border-radius:10px;
-        margin-bottom: 10px;
-    }
-    .hero-brand-card h3 {
-        font-weight: 700;
-        font-size: 20px;
-        margin-bottom: 8px;
-    }
-    .hero-brand-card .muted {
-        font-size: 13px;
-        margin-bottom: 15px;
-    }
-    .hero-center{
-        flex: 1; 
-        max-width: 600px; 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        padding: 6px;
-    }
-    .hero-title{font-size:44px;font-weight:700;letter-spacing:0.3px}
-    .hero-sub{font-size:16px;color:var(--muted);max-width:760px;text-align:center; margin-bottom: 20px}
-    .hero-cta{
-        margin-top:12px;
-        display:flex;
-        gap:12px;
-        flex-wrap:wrap;
-        justify-content:center;
-        margin-bottom: 36px; 
-    }
-    .hero-bottom-strip{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      margin-top: 36px;
-      padding: 12px 20px; 
-      border-top: 1px solid rgba(255, 255, 255, 0.05); 
-    }
-
-    /* ======================================================= */
-    /* == 全站图片 3:4 比例最终修正样式 == */
-    /* ======================================================= */
-
-    /* 史诗基石 */
-    .epic {
-      position:relative;
-      border-radius:12px;
-      overflow:hidden;
-      aspect-ratio: 3 / 4; 
-      background-size:cover;
-      background-position:center;
-      border:1px solid rgba(255,255,255,0.04);
-    }
-
-    /* 微剧系列 */
-    #miniseries .miniseries-grid .card img {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-    
-    /* 高维原型 · 哲学图谱 */
-    #philosophy-cards .card-gallery-grid .gallery-item img {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-
-    /* 漫画、游戏、叙事作品矩阵 */
-    #comic .card img,
-    #game .card img,
-    #novels .card img {
-        display: block;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3 / 4;
-        object-fit: cover;
-        border-radius: 8px;
-    }
-    
-    /* 主角群像 */
-    .hero-card .pic {
-        width: 100%;
-        aspect-ratio: 3 / 4; 
-        background-size: cover;
-        background-position: center;
-        border-radius: 8px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.45);
-    }
-
-    /* 未来萌宠 */
-    #mascots .mascot.card > div:first-child {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 3 / 4;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: 12px;
-      margin-bottom: 8px; 
-      background-color: #071428;
-    }
-    
-    /* IP 沉浸式体验 · 伴手礼原型 */
-    #ip-souvenir .souvenir-grid .souvenir-item img {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-bottom: 6px;
-    }
-
-    /* 项目卡片通用样式：空间叙事, 微观实体, 规划建筑项目 */
-    #architecture-projects .project-card,
-    #spatial-narrative .project-card,
-    #micro-model .project-card {
-        background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));
-        border: 1px solid rgba(255,255,255,0.04);
-        border-radius: 12px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
-    #architecture-projects .project-card img,
-    #spatial-narrative .project-card img,
-    #micro-model .project-card img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3 / 4;
-        object-fit: cover;
-        display: block;
-    }
-    #architecture-projects .project-card .info,
-    #spatial-narrative .project-card .info,
-    #micro-model .project-card .info {
-        padding: 15px;
-        flex-grow: 1; 
-    }
-    #architecture-projects .project-card h4,
-    #spatial-narrative .project-card h4,
-    #micro-model .project-card h4 {
-        margin: 0 0 8px 0;
-        font-weight: 700;
-        font-size: 18px;
-    }
-    #architecture-projects .project-card .muted,
-    #spatial-narrative .project-card .muted,
-    #micro-model .project-card .muted {
-        font-size: 14px;
-        line-height: 1.5;
-    }
-    
-    /* ============================================= */
-    /* == 【新增】机器人与擂台板块样式 == */
-    /* ============================================= */
-
-    /* 机器人板块 */
-    .robot-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 12px;
-    }
-    .robot-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(255,255,255,0.03);
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-    }
-    .robot-card .pic {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      background-size: cover;
-      background-position: center;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-    .robot-card .name {
-      font-weight: 700;
-    }
-    .robot-card .tag {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-    
-    /* 思想擂台板块 */
-    .arena-layout {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 24px;
-      margin-top: 12px;
-      align-items: start;
-    }
-    .arena-topic-card {
-      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), rgba(var(--accent2-rgb), 0.05));
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 24px;
-    }
-    .arena-topic-card h3 {
-      font-size: 22px;
-    }
-    .arena-topic-card .tag {
-      margin-bottom: 12px;
-    }
-    .arena-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    .arena-actions .btn {
-      flex: 1;
-      padding: 12px;
-      font-size: 16px;
-    }
-    .arena-actions .btn.stance-a {
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-    }
-    .arena-actions .btn.stance-b {
-      background: transparent;
-      border: 1px solid var(--accent2);
-      color: var(--accent2);
-    }
-    .arena-rules {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 20px;
-      font-size: 14px;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    .arena-rules h4 {
-      margin: 0 0 10px 0;
-    }
-    .arena-rules ul {
-      padding-left: 20px;
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* ------------------------------------------- */
-    /* Other Styles                       */
-    /* ------------------------------------------- */
-
-    #contact aside.card {
-        position: relative;
-        overflow: hidden;
-        padding: 24px; 
-        background: linear-gradient(135deg, rgba(var(--accent-rgb),0.08), rgba(var(--accent2-rgb),0.08));
-        border: 1px solid rgba(255,255,255,0.05);
-        box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.05), 0 0 30px rgba(var(--accent2-rgb), 0.05);
-    }
-    #contact .card img {
-        padding: 8px; 
-        border-radius: 10px; 
-        background: #10243d; 
-        box-shadow: 0 0 0 1px rgba(123, 226, 255, 0.15), 0 4px 15px rgba(0,0,0,0.7); 
-    }
-    .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
-    .map-card{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
-    .map-visual{flex:1;height:340px;border-radius:10px;background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)}
-    .map-tools{width:320px}
-    
-    .grid-3{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-
-    .card{background:var(--card-bg);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-    .heroes{margin-top:24px}
-    .heroes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
-    .hero-card .name{font-weight:700;margin-top:10px}
-    .hero-card .role{font-size:13px;color:var(--muted);margin-top:6px}
-    
-    .mascots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
-    
-    .mascot{background:#071428;border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
-    .card-gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); 
-        gap: 16px;
-        margin-top: 12px;
-    }
-    .card-gallery-grid .gallery-item {
-        background: var(--card-bg);
-        padding: 15px;
-        border-radius: 10px;
-        border: 1px solid rgba(255,255,255,0.03);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    #ip-souvenir .souvenir-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px; 
-        margin-top: 12px;
-    }
-    .souvenir-item {
-        background: var(--card-bg);
-        padding: 8px;
-        border-radius: 6px;
-        border: 1px solid rgba(255,255,255,0.03);
-        text-align: center;
-        font-size: 11px;
-    }
-    .souvenir-item strong {
-        display: block;
-        font-size: 13px;
-        margin-bottom: 4px;
-    }
-    .miniseries-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); 
-        gap: 16px;
-        margin-top: 12px;
-    }
-    .miniseries-grid .card {
-        padding: 8px;
-    }
-
-    /* responsive */
-    @media (max-width:1100px){
-      .hero-inner{flex-direction:column;align-items:center;padding:0 20px;}
-      .hero-brand-card { width: 100%; } 
-      .hero-center{justify-content:flex-start;margin-top:20px; max-width: 100%;} 
-      .heroes-grid, .robot-grid {grid-template-columns:repeat(2,1fr)} /* robot-grid added */
-      .grid-3{grid-template-columns:repeat(2,1fr)}
-      .card-gallery-grid { grid-template-columns: repeat(3, 1fr); }
-      #ip-souvenir .souvenir-grid { grid-template-columns: repeat(3, 1fr); }
-      .miniseries-grid { grid-template-columns: repeat(3, 1fr); }
-      .arena-layout { grid-template-columns: 1fr; } /* arena-layout added */
-      .mascots {grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width:640px){
-      main{padding-top:140px}
-      .hero-wrap{height:auto;min-height:200px; margin-top: 60px} 
-      .hero-title{font-size:26px}
-      .hero-sub{font-size:13px}
-      .heroes-grid{grid-template-columns:1fr}
-      .mascots{grid-template-columns:1fr}
-      .grid-3{grid-template-columns:1fr}
-      .card-gallery-grid, .robot-grid { grid-template-columns: repeat(2, 1fr); } /* robot-grid added */
-      #ip-souvenir .souvenir-grid { grid-template-columns: repeat(2, 1fr); }
-      .miniseries-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
+    main{max-width:1300px;margin:0 auto;padding:100px 20px 80px}
+    h1,h2,h3,h4{font-family:'Noto Serif SC',serif;margin:0}
+    section{margin-top:48px; position:relative; z-index:0;}
+    .hero-wrap{width:100%;aspect-ratio: 7/2; min-height: 400px; max-height:450px; border-radius:12px;background-image:url('assets/images/hero_main.jpg');background-size:cover;background-position:center;box-shadow:0 30px 80px rgba(0,0,0,0.55);position:relative;overflow:hidden;margin-top:0;}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(3,6,10,0.2), rgba(3,6,10,0.65));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+    .hero-core{max-width:1000px;text-align:center}
+    .kicker{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .hero-title{font-size:38px;font-weight:800;line-height:1.2;margin-bottom:12px; text-shadow: 0 2px 20px rgba(0,0,0,0.5);}
+    .hero-sub{font-size:16px;color:var(--muted);max-width:820px;margin:0 auto;margin-bottom:24px}
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .flow{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:36px}
+    .flow .step{background:var(--card-bg);padding:12px 18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);min-width:180px;text-align:center}
+    .flow .arrow{font-size:20px;color:var(--muted)}
+    .three-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+    .four-cols {display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+    .five-cols {display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:16px}
+    .six-cols {display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:16px}
+    .card{background:var(--card-bg);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column;}
+    .card .info {flex-grow: 1;}
     .muted{color:var(--muted)}
     .tag{display:inline-block;background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
-    main section{
-      position:relative;
-      z-index:0;
-    }
+    .section-divider { margin-top: 60px; padding-top: 60px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+    /* ---------- 复用原文件中的详细组件样式 (部分调整以适应新布局) ---------- */
+    .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+    .epic{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3 / 4;background-size:cover;background-position:center;border:1px solid rgba(255,255,255,0.04)}
+    .gallery-item{background:var(--card-bg);padding:15px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);text-align:center;position:relative;overflow:hidden}
+    .gallery-item img{display:block;width:100%;height:auto;aspect-ratio:3 / 4;object-fit:cover;border-radius:6px;margin-bottom:10px}
+    .hero-card, .mascot-card {background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
+    .hero-card .pic, .mascot-card .pic {width:100%;aspect-ratio:3/4;background-size:cover;background-position:center;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.45)}
+    .hero-card .name, .mascot-card .name {font-weight:700;margin-top:10px}
+    .hero-card .role, .mascot-card .role {font-size:13px;color:var(--muted);margin-top:6px}
+    .card img.card-img-top {display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:8px; margin-bottom: 10px;}
+    .project-card{background:linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));border:1px solid rgba(255,255,255,0.04);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    .project-card img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;display:block}
+    .project-card .info{padding:15px;flex-grow:1}
+    .project-card h4{margin:0 0 8px 0;font-weight:700;font-size:16px}
+    .souvenir-item{background:var(--card-bg);padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);text-align:center;font-size:11px}
+    .souvenir-item img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:4px;margin-bottom:6px}
+    .souvenir-item strong{display:block;font-size:13px;margin-bottom:4px}
+    .arena-layout{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-top:16px;align-items:start}
+    .arena-topic-card{background:linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), rgba(var(--accent2-rgb), 0.05));border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:24px}
+    .arena-topic-card h3{font-size:22px}
+    .arena-actions{display:flex;gap:12px;margin-top:20px}
+    .arena-rules{background:var(--card-bg);border-radius:12px;padding:20px;font-size:14px;border:1px solid rgba(255,255,255,0.03)}
+    footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
+    @media(max-width:1200px){.five-cols{grid-template-columns:repeat(4,1fr)}.six-cols{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:980px){.three-cols,.four-cols, .epic-grid {grid-template-columns:repeat(2,1fr)}.five-cols{grid-template-columns:repeat(3,1fr)}.hero-title{font-size:28px}.arena-layout{grid-template-columns:1fr}}
+    @media(max-width:640px){main{padding-top:120px}.three-cols,.four-cols,.five-cols,.six-cols, .epic-grid {grid-template-columns:1fr}.hero-wrap{height:auto;padding-bottom:20px; min-height: 450px;}.flow{flex-direction:column;gap:0;}.flow .arrow{transform:rotate(90deg);margin:4px 0}}
   </style>
 </head>
 <body>
@@ -506,642 +87,275 @@
       </div>
     </div>
     <nav>
-      <a href="#epic">史诗核心</a>
-      <a href="#miniseries">短剧系列</a>
-      <a href="#philosophy-cards">哲学原型</a>
-      <a href="#map">图谱</a>
-      <a href="#novels">作品矩阵</a>
-      <a href="#heroes">人物</a>
-      <a href="#robots">机器人</a>
-      <a href="#ip-souvenir">伴手礼</a>
-      <a href="#arena">思想擂台</a>
-      <a href="#vigio">设计赋能</a>
-      <a href="#contact">合作</a>
+      <a href="#what">我们做什么</a>
+      <a href="#universe">文化宇宙</a>
+      <a href="#spatial">空间共创</a>
+      <a href="#lab">衍生与实验室</a>
+      <a href="#contact">联系我们</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero-wrap" style="background-image:url('assets/images/hero_main.jpg')"></section>
-
-    <section class="hero-content" aria-label="首页首屏">
-      <div class="hero-inner">
-        <div class="hero-brand-card" id="leviverse-card">
-            <div class="bg-img"></div>
-            <div class="content">
-                <img src="assets/images/logo_leviverse.png" alt="Leviverse Logo" onerror="this.style.display='none'">
-                <h3>立维宇宙</h3>
-                <div class="muted">原创文明悬疑宇宙</div>
-                <p style="font-size:14px;color:var(--muted);margin-bottom: 20px">依托东方神话基底，构建科幻IP体系与叙事逻辑，实现文化资产化。</p>
-                <button class="btn ghost" onclick="location.href='#epic'">探索文化核心</button>
-            </div>
-        </div>
-        <div class="hero-center" role="heading" aria-level="1">
-          <div class="hero-title">文明的悬疑 · 场景的史诗</div>
-          <div class="hero-sub">立维宇宙 × 维杰设计 — 以叙事为内核、以空间为载体，把可改编的故事体系交付为产品与场景。</div>
-          <div class="hero-cta">
-            <button class="btn" onclick="location.href='#epic'">探索史诗基石</button>
-            <button class="btn ghost" onclick="location.href='#map'">打开世界图谱</button>
+    <section class="hero-wrap" aria-label="首屏">
+      <div class="hero-overlay">
+        <div class="hero-core">
+          <div class="kicker">立维宇宙 × 维杰设计</div>
+          <h1 class="hero-title">将东方神话变成可以走进去、运营与商业化的世界</h1>
+          <p class="hero-sub">我们把文化研究与叙事体系化，再通过场景化设计与工程化交付把故事“做成”建筑、展陈与可运营产品。</p>
+          <div class="hero-actions">
+            <button class="btn" onclick="location.href='#universe'">探索文化宇宙</button>
             <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
           </div>
         </div>
-        <div class="hero-brand-card" id="vigio-card">
-            <div class="bg-img"></div>
-            <div class="content">
-                <img src="assets/images/logo_vigio.png" alt="Vigio Logo" onerror="this.style.display='none'">
-                <h3>维杰设计</h3>
-                <div class="muted">场景化设计 · 工程交付</div>
-                <p style="font-size:14px;color:var(--muted);margin-bottom: 20px">提供 BIM、数字孪生与工程化落地能力，将概念转化为可运营的实体场景。</p>
-                <button class="btn ghost" onclick="location.href='#vigio'">了解设计赋能</button>
-            </div>
-        </div>
-      </div>
-      <div class="hero-bottom-strip">
-        联合呈现 · 文化 × 设计 · 叙事导向的场景化产品
-        <button class="btn ghost" style="margin-left:12px" onclick="openWhitepaperModal()">索取白皮书</button>
       </div>
     </section>
 
-    <section id="epic" aria-label="史诗基石">
-        <h2>史诗基石 · 炎帝 / 黄帝 / 蚩尤</h2>
-        <p class="muted">三条叙事主轴：起源、秩序、裂隙修复 —— 支撑宇宙的主题与改编线索。</p>
-        <div class="epic-grid" style="margin-top:12px">
-            <div class="epic" style="background-image:url('assets/images/epic_yandi.jpg')" data-id="yandi">
-                <div class="meta"><strong>炎帝</strong><small>文化起源 · 技艺与火</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('yandi')">查看设定档</button></div></div>
-            </div>
-            <div class="epic" style="background-image:url('assets/images/epic_huangdi.jpg')" data-id="huangdi">
-                <div class="meta"><strong>黄帝</strong><small>文明秩序 · 技术与律令</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('huangdi')">查看设定档</button></div></div>
-            </div>
-            <div class="epic" style="background-image:url('assets/images/epic_chiyou.jpg')" data-id="chiyou">
-                <div class="meta"><strong>蚩尤</strong><small>裂隙议题 · 修复与对抗</small><div style="margin-top:8px"><button class="btn ghost" onclick="openEpicModal('chiyou')">查看设定档</button></div></div>
-            </div>
+    <section id="what" aria-label="我们做什么">
+      <h2>我们如何把文化变成现实</h2>
+      <p class="muted">三步方法论：从文化内核到可运营产品与场景。</p>
+      <div class="three-cols">
+        <div class="card">
+          <h3>1. 解构文化基因</h3>
+          <p class="muted">整理神话原型、地域记忆与考据，形成可改编的“叙事骨架”。</p>
         </div>
+        <div class="card">
+          <h3>2. 内容孵化与测试</h3>
+          <p class="muted">孵化短剧、漫画、互动剧本与游戏原型，做观众验证与IP打磨。</p>
+        </div>
+        <div class="card">
+          <h3>3. 场景化交付</h3>
+          <p class="muted">将叙事要素编码为 BIM/数字孪生并落地为展陈、主题空间与可运营产品。</p>
+        </div>
+      </div>
     </section>
 
-    <section id="miniseries">
-        <h2>微剧系列 · 故事孵化原型</h2>
-        <p class="muted">根据核心角色和文明基柱开发的短剧/短片原型，用于影视化变现与观众测试。</p>
-        <div class="miniseries-grid">
-            <div class="card">
-                <img src="assets/images/miniseries_01.jpg" alt="短剧封面 01">
-                <div style="padding:8px"><strong>第一季：炎的火种</strong><div class="muted" style="font-size:12px;margin-top:4px">姜炎洺主题 / 动作</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_02.jpg" alt="短剧封面 02">
-                <div style="padding:8px"><strong>第二季：澜熙回眸</strong><div class="muted" style="font-size:12px;margin-top:4px">澜熙主题 / 悬疑</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_03.jpg" alt="短剧封面 03">
-                <div style="padding:8px"><strong>第三季：墨氚的秘密</strong><div class="muted" style="font-size:12px;margin-top:4px">黄帝系 / 科技</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_04.jpg" alt="短剧封面 04">
-                <div style="padding:8px"><strong>第四季：路霄云</strong><div class="muted" style="font-size:12px;margin-top:4px">未来都市 / 赛博</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_05.jpg" alt="短剧封面 05">
-                <div style="padding:8px"><strong>第五季：永恒之眼</strong><div class="muted" style="font-size:12px;margin-top:4px">群像预告 / 史诗</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_06.jpg" alt="短剧封面 06">
-                <div style="padding:8px"><strong>第六季：归墟秘闻</strong><div class="muted" style="font-size:12px;margin-top:4px">海域主题 / 冒险</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_07.jpg" alt="短剧封面 07">
-                <div style="padding:8px"><strong>第七季：裂隙边缘</strong><div class="muted" style="font-size:12px;margin-top:4px">蚩尤系 / 对抗</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_08.jpg" alt="短剧封面 08">
-                <div style="padding:8px"><strong>第八季：神祇的低语</strong><div class="muted" style="font-size:12px;margin-top:4px">哲学系 / 悬念</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_09.jpg" alt="短剧封面 09">
-                <div style="padding:8px"><strong>第九季：终极定理</strong><div class="muted" style="font-size:12px;margin-top:4px">未来科技 / 群像</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/miniseries_10.jpg" alt="短剧封面 10">
-                <div style="padding:8px"><strong>第十季：天轨重启</strong><div class="muted" style="font-size:12px;margin-top:4px">年度大片 / 总结</div></div>
-            </div>
-        </div>
+    <section id="universe-summary" aria-label="文化宇宙摘要">
+      <h2>立维宇宙 · 文化与叙事</h2>
+      <div class="three-cols">
+        <div class="card"><strong>史诗基石</strong><div class="muted" style="margin-top:8px">炎帝/黄帝/蚩尤 · 世界观核心</div></div>
+        <div class="card"><strong>作品矩阵</strong><div class="muted" style="margin-top:8px">微剧/漫画/游戏/小说</div></div>
+        <div class="card"><strong>哲学原型</strong><div class="muted" style="margin-top:8px">跨文化符号 · 普世价值</div></div>
+      </div>
+      <div style="margin-top:16px;text-align:center"><button class="btn ghost" onclick="location.href='#universe'">进入文化宇宙全览</button></div>
     </section>
 
-    <section id="map" aria-label="世界神话基因图谱">
-        <h2>世界神话 · 基因图谱</h2>
-        <p class="muted">可视化节点与时间轴，支持导出数据与嵌入到展陈或报告中。</p>
-        <div class="card map-card" style="margin-top:12px">
-            <div class="map-visual" id="mapVisual" role="img" aria-label="基因图谱占位（支持交互）" style="background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)"></div>
-            <div class="map-tools">
-                <div style="color:var(--muted);font-size:13px">时间轴</div>
-                <input id="eraSlider" type="range" min="0" max="3" value="0" style="width:100%;margin-top:6px"/>
-                <div id="eraLabel" style="color:var(--muted);margin-top:8px">时代：史前 · 神祇萌芽</div>
-                <div style="margin-top:12px;font-size:13px;color:var(--muted)">提示：支持 API 导出节点（CSV / JSON）以供研究或展陈使用。</div>
-            </div>
-        </div>
+    <section id="design-summary" aria-label="设计赋能摘要">
+      <h2>维杰设计 · 场景化落地</h2>
+      <div class="three-cols">
+        <div class="card"><h3>空间叙事</h3><p class="muted">把故事拆成可设计的建筑元素与路径。</p></div>
+        <div class="card"><h3>数字孪生 & BIM</h3><p class="muted">资产化设计库，支持 Revit/IFC 输出。</p></div>
+        <div class="card"><h3>实体交付</h3><p class="muted">施工图、展陈工程与主题空间落地。</p></div>
+      </div>
+      <div style="margin-top:16px;text-align:center"><button class="btn" onclick="location.href='#spatial'">查看空间共创案例</button></div>
     </section>
     
-    <section id="philosophy-cards">
-        <h2>高维原型 · 哲学图谱</h2>
-        <p class="muted">将不同文化中的神祇和哲学原型解构为宇宙能量、秩序或演化路径，强调 IP 普世价值。</p>
-        <div class="card-gallery-grid">
-            <div class="gallery-item">
-                <img src="assets/images/philosophy_buddha.jpg" alt="佛祖原型卡牌">
-                <strong>高维原型：觉者</strong>
-                <div class="muted" style="font-size:12px">能量流转 · 涅槃系</div>
+    <section id="universe" class="section-divider" aria-label="宇宙观">
+      <h2>宇宙观 (Universe)</h2>
+      
+      <div id="epic" style="margin-top:24px">
+          <h3>史诗基石 (炎帝/黄帝/蚩尤)</h3>
+          <p class="muted">三条叙事主轴：起源、秩序、裂隙修复 —— 支撑宇宙的主题与改编线索。</p>
+          <div class="epic-grid">
+              <div class="epic" style="background-image:url('assets/images/epic_yandi.jpg')"></div>
+              <div class="epic" style="background-image:url('assets/images/epic_huangdi.jpg')"></div>
+              <div class="epic" style="background-image:url('assets/images/epic_chiyou.jpg')"></div>
+          </div>
+      </div>
+
+      <div id="philosophy-cards" style="margin-top:36px">
+          <h3>高维原型 · 哲学图谱</h3>
+          <p class="muted">将不同文化中的神祇和哲学原型解构为宇宙能量、秩序或演化路径，强调 IP 普世价值。</p>
+          <div class="four-cols">
+              <div class="gallery-item"><img src="assets/images/philosophy_buddha.jpg" alt="佛祖原型卡牌"><strong>高维原型：觉者</strong><div class="muted" style="font-size:12px">能量流转 · 涅槃系</div></div>
+              <div class="gallery-item"><img src="assets/images/philosophy_deva.jpg" alt="天王原型卡牌"><strong>秩序原型：天王</strong><div class="muted" style="font-size:12px">维度守护 · 戒律系</div></div>
+              <div class="gallery-item"><img src="assets/images/philosophy_angel.jpg" alt="天使原型卡牌"><strong>信源代码：天使</strong><div class="muted" style="font-size:12px">认知偏差 · 演化系</div></div>
+              <div class="gallery-item"><img src="assets/images/philosophy_chaos.jpg" alt="混沌原型卡牌"><strong>混沌基点：原始</strong><div class="muted" style="font-size:12px">熵增原理 · 裂隙系</div></div>
+          </div>
+      </div>
+      
+      <div id="heroes" style="margin-top:36px">
+          <h3>主角群像 & 未来萌宠</h3>
+          <p class="muted">宇宙的核心角色与轻量化社群入口。</p>
+          <div class="four-cols">
+              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_jiangyanming.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div></div>
+              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanxi.jpg')"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div></div>
+              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_mochuan.jpg')"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div></div>
+              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_ruihan.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div></div>
+              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_luxiaoyun.jpg')"></div><div class="name">路霄雲</div><div class="role muted">远行者</div></div>
+              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_yulingxuan.jpg')"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div></div>
+              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_haishixin.jpg')"></div><div class="name">海世鑫</div><div class="role muted">海域行者</div></div>
+              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanqianduo.jpg')"></div><div class="name">蓝千朵</div><div class="role muted">庭园守望</div></div>
+              <div class="mascot-card"><div class="pic" style="background-image:url('assets/images/mascot_xingling.jpg')"></div><div class="name">星灵</div><div class="role muted">星域萌宠 · AR体验</div></div>
+              <div class="mascot-card"><div class="pic" style="background-image:url('assets/images/mascot_lidudu.jpg')"></div><div class="name">狸嘟嘟</div><div class="role muted">城市守望 · 周边</div></div>
+              <div class="mascot-card"><div class="pic" style="background-image:url('assets/images/mascot_shixiaosheng.jpg')"></div><div class="name">石小圣</div><div class="role muted">古物萌宠 · 收藏</div></div>
+              <div class="mascot-card"><div class="pic" style="background-image:url('assets/images/mascot_placeholder.jpg')"></div><div class="name">玄水宝宝</div><div class="role muted">数字生命 · 互动</div></div>
+          </div>
+      </div>
+    </section>
+
+    <section id="matrix" class="section-divider" aria-label="叙事矩阵">
+        <h2>叙事矩阵 (Matrix)</h2>
+
+        <div id="miniseries" style="margin-top:24px">
+            <h3>微剧 (短剧原型)</h3>
+            <p class="muted">根据核心角色和文明基柱开发的短剧/短片原型，用于影视化变现与观众测试。</p>
+            <div class="five-cols">
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="短剧封面 01"><div class="info"><strong>炎的火种</strong><div class="muted" style="font-size:12px">动作 / 姜炎洺</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="短剧封面 02"><div class="info"><strong>澜熙回眸</strong><div class="muted" style="font-size:12px">悬疑 / 澜熙</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="短剧封面 03"><div class="info"><strong>墨氚的秘密</strong><div class="muted" style="font-size:12px">科技 / 黄帝系</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="短剧封面 04"><div class="info"><strong>路霄云</strong><div class="muted" style="font-size:12px">未来都市 / 赛博</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="短剧封面 05"><div class="info"><strong>永恒之眼</strong><div class="muted" style="font-size:12px">群像预告 / 史诗</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_06.jpg" alt="短剧封面 06"><div class="info"><strong>归墟秘闻</strong><div class="muted" style="font-size:12px">海域主题 / 冒险</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_07.jpg" alt="短剧封面 07"><div class="info"><strong>裂隙边缘</strong><div class="muted" style="font-size:12px">蚩尤系 / 对抗</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_08.jpg" alt="短剧封面 08"><div class="info"><strong>神祇的低语</strong><div class="muted" style="font-size:12px">哲学系 / 悬念</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_09.jpg" alt="短剧封面 09"><div class="info"><strong>终极定理</strong><div class="muted" style="font-size:12px">未来科技 / 群像</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_10.jpg" alt="短剧封面 10"><div class="info"><strong>天轨重启</strong><div class="muted" style="font-size:12px">年度大片 / 总结</div></div></div>
             </div>
-            <div class="gallery-item">
-                <img src="assets/images/philosophy_deva.jpg" alt="天王原型卡牌">
-                <strong>秩序原型：天王</strong>
-                <div class="muted" style="font-size:12px">维度守护 · 戒律系</div>
+        </div>
+
+        <div id="comic" style="margin-top:36px">
+            <h3>漫画 (视觉作品)</h3>
+            <p class="muted">将 IP 故事线和人物关系转化为漫画分镜与视觉资产，便于多媒体改编。</p>
+            <div class="five-cols">
+                <div class="card"><img class="card-img-top" src="assets/images/comic_01.jpg" alt="漫画封面 01"><div class="info"><strong>《时间碎片》</strong><div class="muted" style="font-size:13px">赛博悬疑 / 连载中</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_02.jpg" alt="漫画封面 02"><div class="info"><strong>《文明的囚徒》</strong><div class="muted" style="font-size:13px">末日科幻 / 已完结</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_03.jpg" alt="漫画封面 03"><div class="info"><strong>《基因图谱》</strong><div class="muted" style="font-size:13px">神话起源 / 概念集</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_1.jpg" alt="漫画封面 04"><div class="info"><strong>《蚩尤之心》</strong><div class="muted" style="font-size:13px">战争史诗 / 连载中</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_2.jpg" alt="漫画封面 05"><div class="info"><strong>《归墟航线》</strong><div class="muted" style="font-size:13px">海洋冒险 / 第一季</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_3.jpg" alt="漫画封面 06"><div class="info"><strong>《补天轶事》</strong><div class="muted" style="font-size:13px">都市奇幻 / 单元剧</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_4.jpg" alt="漫画封面 07"><div class="info"><strong>《天轨计划》</strong><div class="muted" style="font-size:13px">硬核科幻 / 概念集</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_5.jpg" alt="漫画封面 08"><div class="info"><strong>《白泽笔记》</strong><div class="muted" style="font-size:13px">科普条漫 / 连载中</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_6.jpg" alt="漫画封面 09"><div class="info"><strong>《神农百草》</strong><div class="muted" style="font-size:13px">前传故事 / 已完结</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_7.jpg" alt="漫画封面 10"><div class="info"><strong>《九凤奇谭》</strong><div class="muted" style="font-size:13px">角色外传 / 预告</div></div></div>
             </div>
-            <div class="gallery-item">
-                <img src="assets/images/philosophy_angel.jpg" alt="天使原型卡牌">
-                <strong>信源代码：天使</strong>
-                <div class="muted" style="font-size:12px">认知偏差 · 演化系</div>
+        </div>
+
+        <div id="game" style="margin-top:36px">
+            <h3>游戏 (原型)</h3>
+            <p class="muted">基于 IP 世界观设计的游戏化概念及数字资产包，展示互动娱乐的潜力。</p>
+            <div class="four-cols">
+                <div class="card"><img class="card-img-top" src="assets/images/game_01.jpg" alt="游戏原型 01"><div class="info"><strong>动作 RPG：时空猎人</strong><div class="muted" style="font-size:13px">硬核战斗 / 角色扮演</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/game_02.jpg" alt="游戏原型 02"><div class="info"><strong>策略卡牌：神祇战争</strong><div class="muted" style="font-size:13px">卡牌对战 / 策略部署</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/game_03.jpg" alt="游戏原型 03"><div class="info"><strong>元宇宙：未来城市</strong><div class="muted" style="font-size:13px">虚拟空间 / 社区建造</div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/game_placeholder_1.jpg" alt="游戏原型 04"><div class="info"><strong>叙事解谜：神祇代码</strong><div class="muted" style="font-size:13px">互动电影 / 探案</div></div></div>
             </div>
-            <div class="gallery-item">
-                <img src="assets/images/philosophy_chaos.jpg" alt="混沌原型卡牌">
-                <strong>混沌基点：原始</strong>
-                <div class="muted" style="font-size:12px">熵增原理 · 裂隙系</div>
+        </div>
+
+        <div id="novels" style="margin-top:36px">
+            <h3>小说 (样章/概念)</h3>
+            <p class="muted">IP世界观的文学母体，提供丰富的改编土壤。</p>
+             <div class="four-cols">
+                <div class="card"><img class="card-img-top" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋"><div class="info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 群像叙事</div></div><div style="margin-top:12px"><button class="btn ghost">获取样章</button></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌"><div class="info"><strong>《炎黄星曌》</strong><div class="muted">神话与科技的史诗</div></div><div style="margin-top:12px"><button class="btn ghost">概念资料</button></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城"><div class="info"><strong>《补天之城》</strong><div class="muted">都市科幻 · 场景原型</div></div><div style="margin-top:12px"><button class="btn ghost">查看预览</button></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/cover_placeholder_1.jpg" alt="昆仑镜"><div class="info"><strong>《昆仑镜：重启》</strong><div class="muted">法器神话 · 动作冒险</div></div><div style="margin-top:12px"><button class="btn ghost">敬请期待</button></div></div>
             </div>
         </div>
     </section>
 
-    <section id="comic">
-        <h2>漫画系列 · 视觉解构</h2>
-        <p class="muted">将 IP 故事线和人物关系转化为漫画分镜与视觉资产，便于多媒体改编。</p>
-        <div class="grid-3" style="margin-top:12px">
-            <div class="card">
-                <img src="assets/images/comic_01.jpg" alt="漫画封面 01">
-                <div style="padding:8px"><strong>《时间碎片》</strong><div class="muted" style="font-size:13px;margin-top:6px">赛博悬疑 / 连载中</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/comic_02.jpg" alt="漫画封面 02">
-                <div style="padding:8px"><strong>《文明的囚徒》</strong><div class="muted" style="font-size:13px;margin-top:6px">末日科幻 / 已完结</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/comic_03.jpg" alt="漫画封面 03">
-                <div style="padding:8px"><strong>《基因图谱》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话起源 / 概念集</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/comic_04.jpg" alt="漫画封面 04">
-                <div style="padding:8px"><strong>《深渊信标》</strong><div class="muted" style="font-size:13px;margin-top:6px">克苏鲁科幻 / 新连载</div></div>
-            </div>
-            </div>
-    </section>
+    <section id="spatial" class="section-divider" aria-label="空间共创">
+        <h2>空间共创 (Spatial)</h2>
 
-    <section id="game">
-        <h2>数字内容 · 游戏原型</h2>
-        <p class="muted">基于 IP 世界观设计的游戏化概念及数字资产包，展示互动娱乐的潜力。</p>
-        <div class="grid-3" style="margin-top:12px">
-            <div class="card">
-                <img src="assets/images/game_01.jpg" alt="游戏原型 01">
-                <div style="padding:8px"><strong>动作 RPG：时空猎人</strong><div class="muted" style="font-size:13px;margin-top:6px">硬核战斗 / 角色扮演</div></div>
+        <div id="spatial-narrative" style="margin-top:24px">
+            <h3>空间叙事 (Concept → BIM)</h3>
+            <p class="muted">将 IP 故事转化为可设计的空间元素与数字资产，连接世界观与建筑设计。</p>
+            <div class="four-cols">
+                <div class="project-card"><img src="assets/images/scene_concept_1.jpg" alt="世界观转化模型"><div class="info"><h4>世界观转化模型</h4><p class="muted">将文学设定解构为设计语言。</p></div></div>
+                <div class="project-card"><img src="assets/images/scene_concept_2.jpg" alt="BIM 资产化链路"><div class="info"><h4>BIM 资产化链路</h4><p class="muted">将 IP 元素编码为 BIM 族库。</p></div></div>
+                <div class="project-card"><img src="assets/images/scene_concept_3.jpg" alt="沉浸式体验设计"><div class="info"><h4>沉浸式体验设计</h4><p class="muted">定义用户与 IP 故事的互动方式。</p></div></div>
+                <div class="project-card"><img src="assets/images/scene_concept_4.jpg" alt="叙事空间布局"><div class="info"><h4>叙事空间布局</h4><p class="muted">根据故事线索，设计建筑与路径。</p></div></div>
             </div>
-            <div class="card">
-                <img src="assets/images/game_02.jpg" alt="游戏原型 02">
-                <div style="padding:8px"><strong>策略卡牌：神祇战争</strong><div class="muted" style="font-size:13px;margin-top:6px">卡牌对战 / 策略部署</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/game_03.jpg" alt="游戏原型 03">
-                <div style="padding:8px"><strong>元宇宙：未来城市</strong><div class="muted" style="font-size:13px;margin-top:6px">虚拟空间 / 社区建造</div></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/game_04.jpg" alt="游戏原型 04">
-                <div style="padding:8px"><strong>解谜冒险：归墟之声</strong><div class="muted" style="font-size:13px;margin-top:6px">叙事驱动 / 沉浸探索</div></div>
-            </div>
-            </div>
-    </section>
-
-    <section id="novels">
-        <h2>叙事作品矩阵</h2>
-        <div class="grid-3" style="margin-top:12px">
-            <div class="card">
-                <img src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋">
-                <div style="padding:8px"><strong>《驹隙万秋》</strong><div class="muted" style="font-size:13px;margin-top:6px">文明悬疑 · 群像叙事</div></div>
-                <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">获取样章</button></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌">
-                <div style="padding:8px"><strong>《炎黄星曌》</strong><div class="muted" style="font-size:13px;margin-top:6px">神话与科技的史诗</div></div>
-                <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">概念资料</button></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/cover_butianzhicheng.jpg" alt="补天之城">
-                <div style="padding:8px"><strong>《补天之城：上海2074》</strong><div class="muted" style="font-size:13px;margin-top:6px">都市科幻 · 场景原型</div></div>
-                <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">查看预览</button></div>
-            </div>
-            <div class="card">
-                <img src="assets/images/cover_stardust.jpg" alt="星尘编年史">
-                <div style="padding:8px"><strong>《星尘编年史》</strong><div class="muted" style="font-size:13px;margin-top:6px">宇宙歌剧 · 设定集</div></div>
-                <div style="margin-top:8px"><button class="btn ghost" onclick="location.href='#'">开发日志</button></div>
-            </div>
-            </div>
-    </section>
-
-    <section id="heroes" class="heroes" aria-label="主角群像">
-        <h2>主角群像</h2>
-        <p class="muted">八位核心角色 · 叙事轴心</p>
-        <div class="heroes-grid" style="margin-top:12px">
-            <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_jiangyanming.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div></div>
-            <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanxi.jpg')"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div></div>
-            <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_mochuan.jpg')"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div></div>
-            <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_ruihan.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div></div>
-            <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_luxiaoyun.jpg')"></div><div class="name">路霄雲</div><div class="role muted">远行者</div></div>
-            <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_yulingxuan.jpg')"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div></div>
-            <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_haishixin.jpg')"></div><div class="name">海世鑫</div><div class="role muted">海域行者</div></div>
-            <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanqianduo.jpg')"></div><div class="name">蓝千朵</div><div class="role muted">庭园守望</div></div>
         </div>
-    </section>
 
-    <section id="mascots">
-        <h2>未来萌宠</h2>
-        <p class="muted">轻量社群入口 · AR、表情包与周边生态</p>
-        <div class="mascots">
-            <div class="mascot card">
-              <div style="background-image: url('assets/images/mascot_xingling.jpg')"></div>
-              <div style="font-weight:700">星灵</div>
-              <div class="muted" style="font-size:13px">星域萌灵 · AR 体验</div>
-              <button class="btn" style="margin-top:8px" onclick="location.href='#'">了解</button>
+        <div id="architecture-projects" style="margin-top:36px">
+            <h3>规划建筑 (项目样例)</h3>
+            <p class="muted">提供从前期策划到施工交付的全流程设计与BIM服务，助力您的项目落地。</p>
+            <div class="four-cols">
+                <div class="project-card"><img src="assets/images/project_example_1.jpg" alt="未来智慧城市规划"><div class="info"><h4>未来智慧城市规划</h4><p class="muted">概念规划与区域分析</p></div></div>
+                <div class="project-card"><img src="assets/images/project_example_2.jpg" alt="文化旅游区数字孪生"><div class="info"><h4>文化旅游区数字孪生</h4><p class="muted">沉浸式体验与BIM交付</p></div></div>
+                <div class="project-card"><img src="assets/images/project_example_3.jpg" alt="智慧场馆设计与工程"><div class="info"><h4>智慧场馆设计与工程</h4><p class="muted">建筑设计与智能化集成</p></div></div>
+                 <div class="project-card"><img src="assets/images/project_placeholder_1.jpg" alt="赛博东方主题公园"><div class="info"><h4>赛博东方主题公园</h4><p class="muted">IP 落地与文旅融合</p></div></div>
             </div>
-            <div class="mascot card">
-              <div style="background-image: url('assets/images/mascot_lidudu.jpg')"></div>
-              <div style="font-weight:700">狸嘟嘟</div>
-              <div class="muted" style="font-size:13px">城市守望 · 周边首选</div>
-              <button class="btn" style="margin-top:8px" onclick="location.href='#'">周边</button>
-            </div>
-            <div class="mascot card">
-              <div style="background-image: url('assets/images/mascot_shixiaosheng.jpg')"></div>
-              <div style="font-weight:700">石小圣</div>
-              <div class="muted" style="font-size:13px">古物萌宠 · 收藏</div>
-              <button class="btn" style="margin-top:8px" onclick="location.href='#'">收集</button>
-            </div>
-            <div class="mascot card">
-              <div style="background-image: url('assets/images/mascot_mechling.jpg')"></div>
-              <div style="font-weight:700">械灵</div>
-              <div class="muted" style="font-size:13px">赛博伙伴 · 动态壁纸</div>
-              <button class="btn" style="margin-top:8px" onclick="location.href='#'">下载</button>
-            </div>
-            </div>
-    </section>
-
-    <section id="robots">
-        <h2>机械纪元 · 未来机器人</h2>
-        <p class="muted">基于宇宙观核心技术衍生的多功能机器人原型，探索人机共生的未来形态。</p>
-        <div class="robot-grid">
-            <div class="robot-card">
-                <div class="pic" style="background-image:url('assets/images/robot_01.jpg')"></div>
-                <div class="name">烛龙-7型</div>
-                <div class="tag">深空探索 / 数据信使</div>
-            </div>
-            <div class="robot-card">
-                <div class="pic" style="background-image:url('assets/images/robot_02.jpg')"></div>
-                <div class="name">句芒-3型</div>
-                <div class="tag">生态改造 / 环境监测</div>
-            </div>
-            <div class="robot-card">
-                <div class="pic" style="background-image:url('assets/images/robot_03.jpg')"></div>
-                <div class="name">白泽-AI</div>
-                <div class="tag">文明资料库 / 决策辅助</div>
-            </div>
-            <div class="robot-card">
-                <div class="pic" style="background-image:url('assets/images/robot_04.jpg')"></div>
-                <div class="name">九凤-Mini</div>
-                <div class="tag">城市导航 / 个人伴侣</div>
+        </div>
+        
+        <div id="micro-model" style="margin-top:36px">
+            <h3>微观实体 (模型/3D打印)</h3>
+            <p class="muted">实现数字资产到实体原型的转化，提供 3D 打印服务。</p>
+            <div class="four-cols">
+                <div class="project-card"><img src="assets/images/micro_model_placeholder_1.jpg" alt="微观城市模型"><div class="info"><h4>城市原型模型</h4><p class="muted">微缩城市沙盘定制</p></div></div>
+                <div class="project-card"><img src="assets/images/micro_model_placeholder_2.jpg" alt="微缩建筑模型"><div class="info"><h4>叙事建筑原型</h4><p class="muted">手办场景 3D 打印</p></div></div>
+                <div class="project-card"><img src="assets/images/micro_model_placeholder_3.jpg" alt="主题展陈模型"><div class="info"><h4>主题展陈模型</h4><p class="muted">BIM 数据高精度输出</p></div></div>
+                <div class="project-card"><img src="assets/images/micro_model_placeholder_4.jpg" alt="神祇战舰模型"><div class="info"><h4>神祇战舰模型</h4><p class="muted">科幻载具原型制作</p></div></div>
             </div>
         </div>
     </section>
 
-    <section id="ip-souvenir">
-        <h2>IP 沉浸式体验 · 伴手礼原型</h2>
-        <p class="muted">展示 IP 衍生品包装及内容交付标准，提供品牌联名与定制方案。</p>
-        <div class="souvenir-grid">
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_tea.jpg" alt="茶叶礼盒">
-                <strong>主题茶叶礼盒</strong>
-                <div class="muted">包装设计 / 零售</div>
+    <section id="lab" class="section-divider" aria-label="衍生与实验室">
+        <h2>衍生与实验室 (Lab)</h2>
+
+        <div id="ip-souvenir" style="margin-top:24px">
+            <h3>文创周边 (伴手礼)</h3>
+            <p class="muted">展示 IP 衍生品与品牌联名方案。</p>
+            <div class="six-cols">
+                <div class="souvenir-item"><img src="assets/images/souvenir_tea.jpg" alt="礼盒"><strong>炎帝·火纹香薰</strong><div class="muted">气味体验 / 收藏</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_notebook.jpg" alt="日记本"><strong>黄帝·阵法桌垫</strong><div class="muted">实用办公 / 设计品</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_pin_3.jpg" alt="书签"><strong>蚩尤·兵主符书签</strong><div class="muted">金属工艺 / 文创</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_card.jpg" alt="卡牌"><strong>主角群像塔罗牌</strong><div class="muted">收藏卡牌 / 娱乐</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_pin.jpg" alt="胸针"><strong>神祇符号金属徽章</strong><div class="muted">周边 / 礼品</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_box_3.jpg" alt="耳机"><strong>白泽AI联名耳机</strong><div class="muted">科技联名 / 硬件</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_notebook_3.jpg" alt="钢笔"><strong>“天轨”主题钢笔</strong><div class="muted">商务礼品 / 定制</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_box.jpg" alt="礼盒"><strong>补天之城建筑积木</strong><div class="muted">微缩模型 / 潮玩</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_silk.jpg" alt="丝巾"><strong>澜熙·记忆图谱丝巾</strong><div class="muted">时尚单品 / 设计</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_tea_3.jpg" alt="浴盐"><strong>归墟主题深海浴盐</strong><div class="muted">生活方式 / 体验</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_card_3.jpg" alt="手办"><strong>Q版迷你手办盲盒</strong><div class="muted">潮玩 / 零售</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_card_2.jpg" alt="兑换券"><strong>游戏皮肤兑换券</strong><div class="muted">数字资产 / 合作</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_pin_2.jpg" alt="钥匙扣"><strong>九凤无人机钥匙扣</strong><div class="muted">科幻周边 / 零售</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_tea_2.jpg" alt="马克杯"><strong>赛博城市马克杯</strong><div class="muted">城市主题 / 实用</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_silk_3.jpg" alt="VR券"><strong>VR 沉浸体验券</strong><div class="muted">数字内容 / 展陈</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_notebook_2.jpg" alt="画集"><strong>《基因图谱》画集</strong><div class="muted">艺术设定 / 收藏</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_box_2.jpg" alt="挂画"><strong>城市符号装饰挂画</strong><div class="muted">展陈 / 艺术品</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_silk_2.jpg" alt="礼品码"><strong>数字孪生礼品码</strong><div class="muted">AR 赋能 / 互动</div></div>
             </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_notebook.jpg" alt="日记本">
-                <strong>概念日记本</strong>
-                <div class="muted">定制设计 / 收藏</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_silk.jpg" alt="丝绸礼盒">
-                <strong>丝绸礼盒</strong>
-                <div class="muted">丝巾 / 旗袍元素</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_card.jpg" alt="卡牌盲盒">
-                <strong>定制卡牌盲盒</strong>
-                <div class="muted">文创 / 周边</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_pin.jpg" alt="胸针">
-                <strong>IP 主题胸针</strong>
-                <div class="muted">周边 / 礼品</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_box.jpg" alt="高级礼盒">
-                <strong>高级定制礼盒</strong>
-                <div class="muted">品牌联名 / VIP</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_tea_2.jpg" alt="茶叶礼盒">
-                <strong>IP 主题马克杯</strong>
-                <div class="muted">城市主题 / 实用</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_notebook_2.jpg" alt="日记本">
-                <strong>设计草图集</strong>
-                <div class="muted">艺术画集 / 收藏</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_silk_2.jpg" alt="丝绸礼盒">
-                <strong>数字孪生礼品码</strong>
-                <div class="muted">AR 赋能 / 互动</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_card_2.jpg" alt="卡牌盲盒">
-                <strong>游戏皮肤兑换券</strong>
-                <div class="muted">数字资产 / 合作</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_pin_2.jpg" alt="胸针">
-                <strong>金属徽章套装</strong>
-                <div class="muted">限量版 / 周边</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_box_2.jpg" alt="高级礼盒">
-                <strong>城市符号挂画</strong>
-                <div class="muted">展陈 / 艺术品</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_tea_3.jpg" alt="茶叶礼盒">
-                <strong>香水或香薰</strong>
-                <div class="muted">场景气味 / 嗅觉体验</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_notebook_3.jpg" alt="日记本">
-                <strong>主题钢笔套装</strong>
-                <div class="muted">商务礼品 / 定制</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_silk_3.jpg" alt="丝绸礼盒">
-                <strong>VR 体验券</strong>
-                <div class="muted">沉浸式内容 / 展陈</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_card_3.jpg" alt="卡牌盲盒">
-                <strong>迷你手办盒</strong>
-                <div class="muted">Q版 / 零售</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_pin_3.jpg" alt="胸针">
-                <strong>文化符号钥匙扣</strong>
-                <div class="muted">小周边 / 零售</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_box_3.jpg" alt="高级礼盒">
-                <strong>未来感耳机</strong>
-                <div class="muted">科技联名 / 硬件</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_holo_lamp.jpg" alt="全息投影台灯">
-                <strong>全息投影台灯</strong>
-                <div class="muted">桌面级互动 / 氛围营造</div>
-            </div>
-            <div class="souvenir-item">
-                <img src="assets/images/souvenir_art_print.jpg" alt="限定版艺术版画">
-                <strong>限定版艺术版画</strong>
-                <div class="muted">带编号 / 收藏级</div>
-            </div>
-            </div>
-        <div style="margin-top:24px; text-align: center;">
-             <button class="btn" onclick="location.href='#contact'">洽谈 IP 联名与定制</button>
         </div>
-    </section>
 
-    <section id="shop">
-        <h2>文创 · 展陈与手办</h2>
-        <p class="muted">限量收藏、艺术画集与互动展陈原型。</p>
-        <div class="cards" style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-            <div class="card" style="width:320px"><strong>手办：时间碎片</strong><div class="muted" style="margin-top:8px">预售 · 限量发行</div></div>
-            <div class="card" style="width:320px"><strong>艺术画集：基因图谱</strong><div class="muted" style="margin-top:8px">小批精装印刷</div></div>
-            <div class="card" style="width:320px"><strong>AR / 数字孪生</strong><div class="muted" style="margin-top:8px">线上线下联动原型</div></div>
-        </div>
-    </section>
-
-    <section id="vigio">
-        <h2>Vigio Design · 设计赋能</h2>
-        <p class="muted">维杰提供展陈工程、BIM 交付与场景化建设能力，承担从概念到施工的全流程交付。</p>
-        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
-            <div class="card" style="width:320px"><strong>能力</strong><div class="muted" style="margin-top:8px">产业研究 · 概念策划 · 规划与建筑</div></div>
-            <div class="card" style="width:320px"><strong>交付</strong><div class="muted" style="margin-top:8px">Revit / IFC · 数字孪生 · 施工图</div></div>
-            <div class="card" style="width:320px"><strong>合作</strong><div class="muted" style="margin-top:8px">RFP 对接 · 商务：business@leviverse.example</div></div>
-        </div>
-    </section>
-    
-    <section id="spatial-narrative">
-        <h2>空间叙事 · 宏微观转化</h2>
-        <p class="muted">将 IP 故事转化为可设计的空间元素与数字资产，连接世界观与建筑设计。</p>
-        <div class="grid-3" style="margin-top:12px">
-            <div class="project-card">
-                <img src="assets/images/scene_concept_1.jpg" alt="世界观转化模型">
-                <div class="info">
-                    <h4>世界观转化模型</h4>
-                    <p class="muted">将文学设定解构为设计语言，定义场景风格与功能。</p>
+        <div id="arena" style="margin-top:36px">
+            <h3>思想擂台 · 文明辩场</h3>
+            <p class="muted">这里是观点的竞技场，是创意的孵化地。选择你的立场，加入关于宇宙未来的核心辩论。</p>
+            <div class="arena-layout">
+                <div class="arena-topic-card">
+                    <div class="tag">本期议题</div>
+                    <h3>炎帝的“火”与普罗米修斯的“火”，谁对文明的形态影响更为深远？</h3>
+                    <p class="muted" style="margin-top: 12px; line-height: 1.6;">前者是源于内部、惠及社群的技艺传承之火，后者是源于外部、挑战权威的智慧启蒙之火。在立维宇宙的未来叙事中，哪一种“火”的隐喻更能代表人类文明的终极走向？</p>
+                    <div class="arena-actions">
+                        <button class="btn ghost" style="border-color:var(--accent); color:var(--accent)">加入正方：炎帝之火</button>
+                        <button class="btn ghost" style="border-color:var(--accent2); color:var(--accent2)">加入反方：普氏之火</button>
+                    </div>
                 </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/scene_concept_2.jpg" alt="BIM 资产化链路">
-                <div class="info">
-                    <h4>BIM 资产化链路</h4>
-                    <p class="muted">将 IP 元素编码为 BIM 族库和数字孪生资产，高效复用。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/scene_concept_3.jpg" alt="沉浸式用户体验设计">
-                <div class="info">
-                    <h4>沉浸式体验设计</h4>
-                    <p class="muted">定义展陈、主题乐园等场景中，用户与 IP 故事的互动方式。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/scene_concept_4.jpg" alt="叙事空间布局">
-                <div class="info">
-                    <h4>叙事空间布局</h4>
-                    <p class="muted">根据故事线索，设计建筑与路径引导，强化体验感。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/scene_concept_5.jpg" alt="文化场域分析">
-                <div class="info">
-                    <h4>文化场域分析</h4>
-                    <p class="muted">结合地域文化，为建筑赋予叙事背景与符号学价值。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/scene_concept_6.jpg" alt="数字光影艺术">
-                <div class="info">
-                    <h4>数字光影艺术</h4>
-                    <p class="muted">为实体空间设计动态光影叙事，提升沉浸感与互动性。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/scene_concept_7.jpg" alt="模块化展陈系统">
-                <div class="info">
-                    <h4>模块化展陈系统</h4>
-                    <p class="muted">开发可重构的展陈单元，适应不同主题与场地需求。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/scene_concept_8.jpg" alt="五感交互设计">
-                <div class="info">
-                    <h4>五感交互设计</h4>
-                    <p class="muted">结合声、光、气味、触感，构建全方位的感官体验场景。</p>
-                </div>
-            </div>
-            </div>
-    </section>
-    
-    <section id="micro-model">
-        <h2>微观实体 · 概念模型与原型</h2>
-        <p class="muted">展示 1:10000 比例的微缩建筑或城市模型，实现数字资产到实体原型的转化，提供 3D 打印服务。</p>
-        <div class="grid-3" style="margin-top:12px">
-            <div class="project-card">
-                <img src="assets/images/micro_model_placeholder_1.jpg" alt="微观城市模型">
-                <div class="info">
-                    <h4>城市原型模型（1:10000）</h4>
-                    <p class="muted">提供微缩城市沙盘、主题展陈模型定制。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/micro_model_placeholder_2.jpg" alt="微缩建筑模型">
-                <div class="info">
-                    <h4>叙事建筑原型（3D 打印）</h4>
-                    <p class="muted">为 IP 手办和周边设计提供居住和展示空间。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/micro_model_placeholder_3.jpg" alt="主题展陈模型">
-                <div class="info">
-                    <h4>主题展陈模型（BIM 出图）</h4>
-                    <p class="muted">基于 BIM 数据的展陈设计与高精度模型输出。</p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/micro_model_placeholder_4.jpg" alt="核心建筑剖面模型">
-                <div class="info">
-                    <h4>核心建筑剖面模型</h4>
-                    <p class="muted">高精度展示关键建筑内部结构，用于技术研讨与展示。</p>
-                </div>
-            </div>
-            </div>
-    </section>
-
-    <section id="architecture-projects">
-        <h2>规划建筑设计项目</h2>
-        <p class="muted">提供从前期策划到施工交付的全流程设计与BIM服务，助力您的项目落地。</p>
-        <div class="grid-3" style="margin-top:12px">
-            <div class="project-card">
-                <img src="assets/images/project_example_1.jpg" alt="未来智慧城市规划">
-                <div class="info">
-                    <h4>未来智慧城市规划</h4>
-                    <p class="muted">概念规划与区域分析</p>
-                    <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/project_example_2.jpg" alt="文化旅游区数字孪生">
-                <div class="info">
-                    <h4>文化旅游区数字孪生</h4>
-                    <p class="muted">沉浸式体验与BIM交付</p>
-                    <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/project_example_3.jpg" alt="智慧场馆设计与工程">
-                <div class="info">
-                    <h4>智慧场馆设计与工程</h4>
-                    <p class="muted">建筑设计与智能化集成</p>
-                    <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="assets/images/project_example_4.jpg" alt="IP主题复合商业体">
-                <div class="info">
-                    <h4>IP主题复合商业体</h4>
-                    <p class="muted">零售、娱乐、文创一体化</p>
-                    <div style="margin-top:10px"><button class="btn ghost">了解详情</button></div>
-                </div>
-            </div>
-            </div>
-    </section>
-
-    <section id="data-model">
-        <h2>市场数据 · 虚实空间指标</h2>
-        <p class="muted">从宏观市场趋势到微观实体模型，连接数据分析与实际交付。</p>
-        <div class="grid-3" style="margin-top:12px">
-            <div class="card" style="min-height: 250px;">
-                <strong>城市运行指标（天气）</strong>
-                <p class="muted" style="margin-top:8px">实时同步城市环境数据，作为未来城市原型设计的参考。</p>
-                <div style="margin-top:10px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                    <p style="color: var(--accent); font-size: 14px; padding-top: 40px; text-align: center;">[天气数据嵌入示例]</p>
-                </div>
-            </div>
-            <div class="card" style="min-height: 250px;">
-                <strong>市场情绪参数（股市）</strong>
-                <p class="muted" style="margin-top:8px">追踪 IP 衍生品市场热度，作为营销策略调整的依据。</p>
-                <div style="margin-top:10px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                    <p style="color: var(--accent2); font-size: 14px; padding-top: 40px; text-align: center;">[股市指数嵌入示例]</p>
-                </div>
-            </div>
-            <div class="card" style="min-height: 250px;">
-                <strong>原型 · 数字孪生</strong>
-                <p class="muted" style="margin-top:8px">3D 模型 · 展陈演示 · 交付包（支持 glTF、Revit / IFC 输出）。</p>
-                 <div style="margin-top:10px; height: 120px; background: url('assets/images/prototype_placeholder.jpg') center/cover; border-radius: 8px;">
-                    <p style="color: white; font-size: 14px; padding-top: 40px; text-shadow: 1px 1px 2px black; text-align: center;">[数字孪生图示]</p>
+                <div class="arena-rules">
+                    <h4>擂台规则</h4>
+                    <ul>
+                        <li>选择立场并发表观点。</li>
+                        <li>你的论据将接受全网用户的评判。</li>
+                        <li>优秀观点将被收录至“宇宙编年史”。</li>
+                        <li>参与创意赛，共筑世界观。</li>
+                    </ul>
+                    <button class="btn ghost" style="width: 100%; margin-top: 15px;">查看往期议题</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="arena">
-        <h2>思想擂台 · 文明辩场</h2>
-        <p class="muted">这里是观点的竞技场，是创意的孵化地。选择你的立场，加入关于宇宙未来的核心辩论。</p>
-        <div class="arena-layout">
-            <div class="arena-topic-card">
-                <div class="tag">本期议题</div>
-                <h3>炎帝的“火”与普罗米修斯的“火”，谁对文明的形态影响更为深远？</h3>
-                <p class="muted" style="margin-top: 12px; line-height: 1.6;">前者是源于内部、惠及社群的技艺传承之火，后者是源于外部、挑战权威的智慧启蒙之火。在立维宇宙的未来叙事中，哪一种“火”的隐喻更能代表人类文明的终极走向？</p>
-                <div class="arena-actions">
-                    <button class="btn stance-a">加入正方：炎帝之火</button>
-                    <button class="btn stance-b">加入反方：普氏之火</button>
-                </div>
-            </div>
-            <div class="arena-rules">
-                <h4>擂台规则</h4>
-                <ul>
-                    <li>选择立场并发表观点。</li>
-                    <li>你的论据将接受全网用户的评判。</li>
-                    <li>优秀观点将被收录至“宇宙编年史”。</li>
-                    <li>参与创意赛，共筑世界观。</li>
-                </ul>
-                <button class="btn ghost" style="width: 100%; margin-top: 15px;">查看往期议题</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-      <h2>合作与商务</h2>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;align-items:flex-start">
+    <section id="contact" class="section-divider" aria-label="合作">
+      <h2>合作与联系</h2>
+      <p class="muted">我们为机构伙伴提供白皮书、授权要点与 RFP 对接流程。</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;align-items:flex-start">
         <div style="flex:1" class="card">
-          <div style="font-weight:700">商务与授权</div>
-          <div class="muted" style="margin-top:8px">business@leviverse.example</div>
-          <div class="muted" style="font-size:13px;margin-top:12px">请使用机构邮箱索取白皮书与授权要点文档，我们将提供机构级材料与对接流程。</div>
+          <div style="font-weight:700">合作路径</div>
+          <p class="muted" style="margin-top:8px">请使用机构邮箱索取白皮书与授权要点文档，开启合作流程。</p>
           <div style="margin-top:12px"><button class="btn" onclick="openWhitepaperModal()">索取白皮书（机构邮箱）</button></div>
         </div>
         <aside class="card" style="width:320px">
-          <div style="font-weight:700">扫码关注</div>
+          <div style="font-weight:700">联系方式</div>
           <div class="muted" style="margin-top:8px">公众号（社群） · 企业微信（商务）</div>
           <div style="display:flex;gap:8px;margin-top:12px;justify-content:center">
             <img src="assets/images/qrcode_wechat.jpg" alt="公众号" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
@@ -1151,8 +365,18 @@
       </div>
     </section>
 
+    <section id="about" class="section-divider" aria-label="关于我们">
+        <h2>关于 (About)</h2>
+        <p class="muted">我们是立维宇宙（文化科技）与维杰设计（规划建筑）的联合体。</p>
+        <div class="three-cols">
+            <div class="card"><strong>公司介绍</strong><p class="muted" style="margin-top:8px">致力于将东方文化基因转化为可运营的、具备全球影响力的IP宇宙，并通过实体设计赋能文旅、商业与城市更新项目。</p></div>
+            <div class="card"><strong>团队与资质</strong><p class="muted" style="margin-top:8px">核心团队由叙事设计师、建筑师、工程师与商业策略师组成，具备全流程交付能力。</p></div>
+            <div class="card"><strong>法务信息</strong><p class="muted" style="margin-top:8px">© 2025 Leviverse Global · Vigio Planning & Architectural Design Co., Ltd. 保留所有权利。</p></div>
+        </div>
+    </section>
+
     <footer>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 28px;">
         <div>
           <div style="font-weight:700">Leviverse · 立维宇宙 · Vigio Design · 维杰设计</div>
           <div class="muted" style="margin-top:6px">© 2025 Leviverse Global · Vigio Planning &amp; Architectural Design Co., Ltd. 保留所有权利。</div>
@@ -1161,21 +385,11 @@
       </div>
     </footer>
   </main>
-  
-  <div id="epicModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:200">
-    <div style="background:#07121a;padding:20px;border-radius:10px;width:min(920px,94%);max-height:86vh;overflow:auto;border:1px solid rgba(255,255,255,0.05)">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3 id="epicModalTitle" style="margin:0">档案</h3>
-        <button onclick="closeEpicModal()" class="btn ghost">关闭</button>
-      </div>
-      <div id="epicModalBody" style="margin-top:12px;color:var(--muted)"></div>
-    </div>
-  </div>
 
-  <div id="whitepaperModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:210">
-    <div style="background:#07121a;padding:20px;border-radius:10px;width:520px;border:1px solid rgba(255,255,255,0.05)">
+  <div id="whitepaperModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:21000">
+    <div style="background:#07121a;padding:20px;border-radius:10px;width:min(520px, 94%);border:1px solid rgba(255,255,255,0.05)">
       <h3 style="margin:0">申请：世界神话基因图谱 · 白皮书</h3>
-      <p class="muted" style="margin-top:8px">请输入工作邮箱（机构邮箱）以获取下载链接（示例：邮件发送需后端支持）。</p>
+      <p class="muted" style="margin-top:8px">请输入工作邮箱（机构邮箱）以获取下载链接。</p>
       <input id="whiteEmail" placeholder="机构邮箱（示例：name@company.com）" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-top:8px;background:transparent;color:#eaf6ff">
       <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
         <button class="btn" id="whiteSend">提交申请</button>
@@ -1185,69 +399,17 @@
   </div>
 
   <script>
-    (function(){
-      const eraLabel = document.getElementById('eraLabel');
-      const eraSlider = document.getElementById('eraSlider');
-      if(eraSlider && eraLabel){
-        eraSlider.addEventListener('input', e=>{
-          const v = e.target.value;
-          if(v==0) eraLabel.textContent='时代：史前 · 神祇萌芽';
-          else if(v==1) eraLabel.textContent='时代：古典 · 文化成形';
-          else if(v==2) eraLabel.textContent='时代：近代 · 记忆重写';
-          else eraLabel.textContent='时代：未来 · 城市神话';
-        });
-      }
-    })();
-
-    const epicData = {
-      'yandi': {
-        title: '炎帝 · 档案摘录',
-        body: `<p><strong>摘要：</strong>炎帝被视为文化与技艺的起点，在多种文献与口述中作为“火与耕作”系的象征，构成宇宙的起源线索。</p>
-                <p><strong>来源示例：</strong>文献节选 · 区域口述 · 考古图像（示例仅供预览）。</p>
-                <p class="muted">注：正式文献溯源与注释见白皮书（机构资料）。</p>
-                <p style="margin-top:8px"><a class="btn ghost" href="/assets/whitepapers/yandi_sample.pdf">下载样本（PDF）</a></p>`
-      },
-      'huangdi': {
-        title: '黄帝 · 档案摘录',
-        body: `<p><strong>摘要：</strong>黄帝象征秩序與技術體系，其意象在建制、禮俗與科技傳承的敘事線中被多重引用。</p>
-                <p><strong>来源示例：</strong>典籍考據 · 文化記憶材料。</p>
-                <p class="muted">注：白皮书将分别列出文献类型与可信度。</p>`
-      },
-      'chiyou': {
-        title: '蚩尤 · 档案摘录',
-        body: `<p><strong>摘要：</strong>蚩尤承载裂隙、冲突与修复议题，在叙事中常作为触发事件与情感张力的核心。</p>
-                <p><strong>来源示例：</strong>民间传说 · 区域性记忆。</p>`
-      }
-    };
-
-    function openEpicModal(id){
-      const modal = document.getElementById('epicModal');
-      const title = document.getElementById('epicModalTitle');
-      const body = document.getElementById('epicModalBody');
-      const d = epicData[id] || {title:'档案', body:'暂无数据'};
-      title.textContent = d.title;
-      body.innerHTML = d.body;
-      modal.style.display = 'flex';
-    }
-    function closeEpicModal(){ document.getElementById('epicModal').style.display = 'none'; }
-
     function openWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='flex'; }
     function closeWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='none'; }
-    document.getElementById('whiteSend') && document.getElementById('whiteSend').addEventListener('click', ()=>{
+    
+    document.getElementById('whiteSend')?.addEventListener('click', ()=>{
       const email = document.getElementById('whiteEmail').value.trim();
       if(!email || !email.includes('@')){ alert('请填写有效的工作邮箱'); return; }
       alert('白皮书申请已收到（示例）：' + email + '\n实际发送需后端支持以便验证与发送。');
       closeWhitepaperModal();
     });
-
-    document.getElementById('epicModal') && document.getElementById('epicModal').addEventListener('click', function(e){ if(e.target === this) closeEpicModal(); });
-    document.getElementById('whitepaperModal') && document.getElementById('whitepaperModal').addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
-
-    (function(){
-      const forms = document.querySelectorAll('form');
-      forms.forEach(f=> f && f.addEventListener('submit', function(e){ e.preventDefault(); alert('表单已提交（示例）——请替换为实际后端 API'); }));
-    })();
+    
+    document.getElementById('whitepaperModal')?.addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
   </script>
-
 </body>
 </html>
