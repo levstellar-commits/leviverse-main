@@ -3,15 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>立维宇宙 × 维杰设计 — Levythos × Vigio Design</title>
-  <meta name="description" content="将东方神话转化为可运营的文化宇宙，并通过空间设计让故事在现实中落地。" />
-  <meta name="keywords" content="东方玄幻, 文化IP, 神话宇宙, 规划设计, 文旅项目, 立维宇宙, 维杰设计" />
-  <meta property="og:title" content="立维宇宙 × 维杰设计 - 东方神话IP宇宙" />
-  <meta property="og:description" content="将东方神话转化为可运营的文化宇宙，通过空间设计落地为建筑与文旅项目。" />
-  <meta property="og:image" content="https://levythos.com/assets/images/hero_main.jpg" />
-  <meta property="og:url" content="https://levythos.com" />
+  
+  <title>立维宇宙 — 将东方神话做成可进入的世界</title>
+  
+  <meta name="description" content="立维宇宙：将东方神话系统化为可进入、可运营的世界。我们提供世界观构建、场景化落地与商业化交付方案。"/>
+  
+  <meta name="keywords" content="东方玄幻, 文化IP, 神话宇宙, 规划设计, 文旅项目, 立维宇宙, 维杰设计, 世界观构建, 场景化落地" />
+
+  <meta property="og:title" content="立维宇宙 — 将东方神话做成可进入的世界" />
+  <meta property="og:description" content="我们把文化原型系统化并通过空间与工程落地，让神话成为可运营的现实。" />
+  <meta property="og:image" content="https://levythos.com/assets/images/og-image.jpg" />
+  <meta property="og:url" content="https://levythos.com/" />
+  <meta property="og:type" content="website" />
+  
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="assets/images/favicon.png" />
+  
+  <link rel="preload" as="image" href="assets/images/hero_main.jpg">
+  
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
   
   <style>
@@ -89,8 +98,7 @@
     #world-echoes .card img { aspect-ratio: 16 / 9; }
     #what .card img { margin: 0 0 14px 0; aspect-ratio: 4 / 3; }
     .media-card .media-type-tag {
-      position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.5);
-      color: #fff; padding: 2px 8px;
+      position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.5); color: #fff; padding: 2px 8px;
       font-size: 11px; font-weight: 700; border-radius: 999px; backdrop-filter: blur(4px);
     }
     .media-card.hidden { display: none; }
@@ -127,33 +135,62 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       transition: transform 0.3s, box-shadow 0.3s;
     }
+    /* 优化：为引导文案添加样式 */
+    .levythos-hero-hook, .levythos-section-hook {
+        text-align: center;
+        margin: 0 auto 24px auto;
+        padding: 16px;
+        max-width: 800px;
+        background: rgba(255,255,255,0.01);
+        border-left: 3px solid rgba(var(--accent-rgb), 0.2);
+        border-right: 3px solid rgba(var(--accent2-rgb), 0.2);
+        border-radius: 4px;
+    }
+    .levythos-hero-hook { margin-top: 48px; margin-bottom: 48px; }
+    .levythos-section-hook { margin-bottom: 32px; }
+    .levythos-epigraph {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 18px;
+        color: var(--accent);
+        margin: 0 0 12px 0;
+    }
+    .levythos-sub {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+    }
   </style>
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@graph": [
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"立维宇宙 — 东方神话世界化方案",
+    "description":"立维宇宙：将东方神话系统化为可进入、可运营的世界，提供世界观构建、场景化落地与商业化交付方案。",
+    "url":"https://levythos.com/",
+    "mainEntity": [
       {
-        "@type": "Organization",
-        "name": "Levythos × Vigio Design",
-        "url": "https://levythos.com",
-        "description": "将东方神话转化为可运营的文化IP宇宙，并通过空间设计落地为建筑、文旅项目。",
-        "sameAs": ["https://x.com/levythos", "https://weibo.com/levythos"]
+        "@type": "CreativeWork",
+        "name": "世界观",
+        "description": "世界观结构与时间线"
       },
       {
-        "@type": "Book",
-        "name": "《驹隙万秋》",
-        "author": {
-          "@type": "Person",
-          "name": "王泽华"
-        },
-        "genre": "文明悬疑, 群像叙事, 科幻",
-        "publisher": {
-          "@type": "Organization",
-          "name": "Levythos"
-        }
+        "@type": "CreativeWork",
+        "name": "角色库",
+        "description": "角色档案与商业延展"
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "场景化交付",
+        "description": "将叙事转化为可运营的空间与产品"
       }
-    ]
+    ],
+    "publisher": {
+      "@type":"Organization",
+      "name":"立维宇宙",
+      "logo": {"@type":"ImageObject","url":"https://levythos.com/assets/logo.png"}
+    }
   }
   </script>
 </head>
@@ -176,27 +213,29 @@
   </header>
 
   <main>
-    <nav aria-label="breadcrumb">
-      <ol>
-        <li><a href="/">首页</a></li>
-      </ol>
-    </nav>
-
     <section class="hero-wrap" aria-label="首屏" role="region">
       <div class="hero-overlay">
         <div class="hero-core">
           <div class="kicker">立维宇宙 × 维杰设计</div>
-          <h1 class="hero-title">将东方神话变成可以走进去、运营与商业化的世界</h1>
-          <p class="hero-sub">我们把文化研究与叙事体系化，再通过场景化设计与工程化交付把故事“做成”建筑、展陈与可运营产品。</p>
+          <h1 class="hero-title">我们不再讲述神话，而是构建神话的现实入口</h1>
+          <p class="hero-sub">在立维宇宙，古老的东方传说被重构为可以体验、互动、并与现实商业结合的世界观系统。我们通过空间设计、数字内容与实体产品，邀请您步入一个活着的、持续演进的神话宇宙。</p>
           <div class="hero-actions">
-            <button class="btn" onclick="location.href='#universe'">探索文化宇宙</button>
-            <button class="btn ghost" onclick="openWhitepaperModal()">索取白皮书</button>
+            <button class="btn" onclick="location.href='#universe'">探索世界观</button>
+            <button class="btn ghost" onclick="openWhitepaperModal()">获取宇宙手册</button>
           </div>
         </div>
       </div>
     </section>
 
+    <div class="levythos-hero-hook">
+      <p class="levythos-epigraph">在神话被称作“故事”之前，它本是文明的构造蓝图。</p>
+      <p class="levythos-sub">此卷档案，记录着立维宇宙的第一次文明构建。我们以华夏始祖为基石，尝试追溯其叙事逻辑与可被感知的现实形态。请按章节指引，阅览其中的线索与证据。</p>
+    </div>
+
     <section id="media-hub" role="region" aria-label="媒体资讯">
+      <div class="levythos-section-hook">
+        <p class="levythos-epigraph">宇宙的回响，在此聆听。</p>
+      </div>
       <h2>Media · 资讯与自媒体</h2>
       <p class="muted">短视频与深度文稿并行，展示立维宇宙的持续产出。</p>
       <div class="media-tabs" style="margin-top:12px; display: flex; flex-wrap: wrap; gap: 8px;">
@@ -208,7 +247,7 @@
       </div>
       <div class="five-cols" style="margin-top:16px;">
         <article class="card media-card" data-type="news">
-          <img src="assets/images/media_news_01.jpg" alt="东方神话主题分享会现场照片" loading="lazy" class="card-img-top">
+          <img src="assets/images/media_news_01.jpg" alt="东方神话主题分享会现场照片" loading="lazy" width="400" height="300" class="card-img-top">
           <div class="info" style="font-size: 14px;">
             <span class="media-type-tag">新闻</span>
             <time datetime="2025-09-28" class="muted" style="font-size: 12px;">2025-09-28</time>
@@ -217,7 +256,7 @@
           <a class="btn ghost" href="/media/news-001" style="margin-top: 12px; width: 100%;">阅读更多</a>
         </article>
         <article class="card media-card" data-type="self-media video">
-          <img src="assets/images/media_video_01.jpg" alt="炎帝的火主题短片" loading="lazy" class="card-img-top">
+          <img src="assets/images/media_video_01.jpg" alt="炎帝的火主题短片" loading="lazy" width="400" height="300" class="card-img-top">
           <div class="info" style="font-size: 14px;">
             <span class="media-type-tag">Self-media</span>
             <time datetime="2025-09-20" class="muted" style="font-size: 12px;">2025-09-20</time>
@@ -226,7 +265,7 @@
           <a class="btn ghost" href="/media/video-001" style="margin-top: 12px; width: 100%;">立即播放</a>
         </article>
         <article class="card media-card" data-type="news">
-          <img src="assets/images/media_news_02.jpg" alt="补天之城概念设计图" loading="lazy" class="card-img-top">
+          <img src="assets/images/media_news_02.jpg" alt="补天之城概念设计图" loading="lazy" width="400" height="300" class="card-img-top">
           <div class="info" style="font-size: 14px;">
             <span class="media-type-tag">新闻</span>
             <time datetime="2025-09-15" class="muted" style="font-size: 12px;">2025-09-15</time>
@@ -235,7 +274,7 @@
           <a class="btn ghost" href="/media/news-002" style="margin-top: 12px; width: 100%;">阅读更多</a>
         </article>
         <article class="card media-card" data-type="news">
-            <img src="assets/images/media_news_03.jpg" alt="智慧文旅项目规划设计" loading="lazy" class="card-img-top">
+            <img src="assets/images/media_news_03.jpg" alt="智慧文旅项目规划设计" loading="lazy" width="400" height="300" class="card-img-top">
             <div class="info" style="font-size: 14px;">
                 <span class="media-type-tag">新闻</span>
                 <time datetime="2025-08-30" class="muted" style="font-size: 12px;">2025-08-30</time>
@@ -244,7 +283,7 @@
             <a class="btn ghost" href="/media/news-003" style="margin-top: 12px; width: 100%;">阅读更多</a>
         </article>
         <article class="card media-card" data-type="article">
-          <img src="assets/images/media_article_01.jpg" alt="宇宙观图谱" loading="lazy" class="card-img-top">
+          <img src="assets/images/media_article_01.jpg" alt="宇宙观图谱" loading="lazy" width="400" height="300" class="card-img-top">
           <div class="info" style="font-size: 14px;">
             <span class="media-type-tag">文章</span>
             <time datetime="2025-08-20" class="muted" style="font-size: 12px;">2025-08-20</time>
@@ -259,21 +298,24 @@
     </section>
 
     <section id="what" aria-label="我们做什么" role="region">
+      <div class="levythos-section-hook">
+        <p class="levythos-epigraph">世界，是这样构成的...</p>
+      </div>
       <h2>核心流程：三步构建一个世界</h2>
       <p class="muted">从文化内核到可运营产品与场景。</p>
       <div class="three-cols">
         <div class="card">
-          <img src="assets/images/concept_method_01.jpg" alt="解构文化基因概念图，展示女娲补天叙事提炼过程" class="card-img-top">
+          <img src="assets/images/concept_method_01.jpg" alt="解构文化基因概念图，展示女娲补天叙事提炼过程" loading="lazy" width="400" height="300" class="card-img-top">
           <h3><span style="font-size:24px">①</span> 解构文化基因</h3>
           <p class="muted">整理神话原型、地域记忆与考据，形成可改编的“叙事骨架”。示例：女娲补天如何提炼为<a href="#novels">补天之城</a>主题。</p>
         </div>
         <div class="card">
-          <img src="assets/images/concept_method_02.jpg" alt="内容孵化概念图，展示小说改编短剧过程" class="card-img-top">
+          <img src="assets/images/concept_method_02.jpg" alt="内容孵化概念图，展示小说改编短剧过程" loading="lazy" width="400" height="300" class="card-img-top">
           <h3><span style="font-size:24px">②</span> 内容孵化与测试</h3>
           <p class="muted">孵化短剧、漫画、互动剧本与游戏原型，做观众验证与IP打磨。示例：《驹隙万秋》章节改编为短剧片段。</p>
         </div>
         <div class="card">
-          <img src="assets/images/concept_method_03.jpg" alt="场景化交付概念图，展示规划设计截图" class="card-img-top">
+          <img src="assets/images/concept_method_03.jpg" alt="场景化交付概念图，展示规划设计截图" loading="lazy" width="400" height="300" class="card-img-top">
           <h3><span style="font-size:24px">③</span> 场景化交付</h3>
           <p class="muted">通过规划设计与项目管理，将叙事转化为可运营的空间与产品。示例：<a href="#novels">补天之城</a>主题转化为文旅项目。</p>
         </div>
@@ -281,6 +323,9 @@
     </section>
     
     <section id="themes" class="section-divider" aria-label="核心主题" role="region">
+        <div class="levythos-section-hook">
+          <p class="levythos-epigraph">驱动宇宙运转的核心思辨。</p>
+        </div>
         <h2>核心主题 · 哲学思辨</h2>
         <p class="muted">立维宇宙不仅是故事的集合，更是探索宏大命题的思想实验场。</p>
         <div class="two-cols" style="margin-top:16px; align-items: stretch;">
@@ -296,17 +341,22 @@
     </section>
 
     <section id="universe-summary" aria-label="文化宇宙摘要" role="region">
+      <div class="levythos-section-hook">
+        <p class="levythos-epigraph">宇宙概览</p>
+      </div>
       <h2>立维宇宙 · 文化与叙事</h2>
       <div class="three-cols">
         <div class="card"><strong>史诗基石</strong><div class="muted" style="margin-top:8px">十大始祖 · 世界观核心</div></div>
         <div class="card"><strong>作品矩阵</strong><div class="muted" style="margin-top:8px">微剧/漫画/游戏/小说</div></div>
         <div class="card"><strong>全球视野</strong><div class="muted" style="margin-top:8px">跨文化原型 · 普世价值</div></div>
       </div>
-      
       <div style="margin-top:16px;text-align:center"><button class="btn ghost" onclick="location.href='#universe'">进入文化宇宙全览</button></div>
     </section>
 
     <section id="design-summary" aria-label="设计赋能摘要" role="region">
+      <div class="levythos-section-hook">
+        <p class="levythos-epigraph">设计赋能</p>
+      </div>
       <h2>维杰设计 · 场景化落地</h2>
       <div class="three-cols">
         <div class="card"><h3>空间叙事</h3><p class="muted">将故事拆解为建筑元素与体验路径，融入规划设计。</p></div>
@@ -317,20 +367,38 @@
     </section>
     
     <section id="universe" class="section-divider" aria-label="宇宙观" role="region">
-      <h2>我们的宇宙：一个从东方神话中诞生的世界</h2>
-      <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
-        任何宏大的世界都需要一个坚实的起点。我们的宇宙并非凭空构建，而是根植于东方文化中最深刻、最富戏剧性的原型。我们从华夏文明的源点出发，追溯那些塑造了我们文化基因的始祖与先贤。
-      </p>
+      <div style="text-align: center;">
+        <h2 style="font-size: 24px;">【原型基石 · 初始文明模组】</h2>
+        <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
+          这些原型不是静止的图鉴，而是可以为现实项目、空间设计、乃至商业活动注入特定文化情感与叙事力量的源泉。
+        </p>
+      </div>
 
       <div id="epic" style="margin-top:24px">
-          <h3>文明基石：十大始祖原型</h3>
-          <p class="muted">十位核心始祖原型，他们之间的冲突、融合与传承，构成了立维宇宙世界观的基石与所有故事的出发点。</p>
-          <div class="five-cols" style="gap: 16px;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif;">第一层 · 源点 | 创世双核</h3>
+            <p class="muted">他们是第一次为世界“设定规则”的意志，用于打造任何具有“起源感”与“仪式感”的开场。</p>
+          </div>
+          <div class="two-cols" style="gap: 16px; justify-content: center; max-width: 500px; margin: 0 auto;">
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_fuxi.jpg')"></div><div class="name">伏羲</div><div class="role muted">人文始祖 · 八卦创作者</div></div>
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_nuwa.jpg')"></div><div class="name">女娲</div><div class="role muted">大地之母 · 生命守护者</div></div>
+          </div>
+
+          <div style="text-align: center; margin-top: 36px; margin-bottom: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif;">第二层 · 秩序 | 三权争鸣</h3>
+            <p class="muted">世界的叙事始于冲突与力量的制衡，适合构建具有戏剧张力的体验与故事。</p>
+          </div>
+          <div class="three-cols" style="gap: 16px; max-width: 750px; margin: 0 auto;">
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_yandi.jpg')"></div><div class="name">炎帝</div><div class="role muted">农耕始祖 · 医药之神</div></div>
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_huangdi.jpg')"></div><div class="name">黄帝</div><div class="role muted">文明始祖 · 秩序建立者</div></div>
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_chiyou.jpg')"></div><div class="name">蚩尤</div><div class="role muted">兵主 · 变革之力</div></div>
+          </div>
+
+          <div style="text-align: center; margin-top: 36px; margin-bottom: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif;">第三层 · 拓展 | 文明基奠</h3>
+            <p class="muted">他们是文明中具体社会功能的化身，代表了开拓、传承、区隔与融合的力量。</p>
+          </div>
+          <div class="five-cols" style="gap: 16px;">
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_zhuanxu.jpg')"></div><div class="name">颛顼</div><div class="role muted">绝地天通 · 历法革新者</div></div>
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_diku.jpg')"></div><div class="name">帝喾</div><div class="role muted">承上启下 · 华夏共主</div></div>
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_yao.jpg')"></div><div class="name">尧</div><div class="role muted">禅让典范 · 德化天下</div></div>
@@ -338,572 +406,37 @@
               <div class="hero-card"><div class="pic" style="background-image:url('assets/images/ancestor_yu.jpg')"></div><div class="name">禹</div><div class="role muted">治水英雄 · 天下开拓者</div></div>
            </div>
       </div>
-
-      <section id="world-echoes" style="margin-top: 48px;" role="region">
-        <h2>世界回响：同一原型下的不同故事</h2>
-        <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
-            我们的宇宙观认为，世界各地的神话并非孤立存在，而是对同一宇宙原型在不同文明中的“方言式表达”。立维宇宙的核心，就是用东方的哲学框架去解读和重构这些全人类共有的精神财富。
-        </p>
-        <div class="two-cols" style="margin-top: 24px; align-items: stretch;">
-            <div class="card">
-                <img src="assets/images/echo_yandi.jpg" alt="东方原型炎帝之火图像" class="card-img-top">
-                <div class="info">
-                    <h4>东方原型：炎帝之火</h4>
-                    <p class="muted">代表源于内部、惠及社群、注重传承与创造的“文明之火”。它温暖、内敛，是生存与发展的基石。</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/images/echo_prometheus.jpg" alt="世界回响普罗米修斯之火图像" class="card-img-top">
-                <div class="info">
-                    <h4>世界回响：普罗米修斯之火</h4>
-                    <p class="muted">代表源于外部、挑战权威、带来智慧与风险的“启蒙之火”。它炽热、激进，是变革与思想的开端。</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/images/echo_nuwa.jpg" alt="东方原型女娲补天图像" class="card-img-top">
-                <div class="info">
-                    <h4>东方原型：女娲补天</h4>
-                    <p class="muted">慈悲的创世母神，通过“修复”宇宙裂隙来守护生命。核心是维持宇宙的和谐与平衡。</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/images/echo_gaia.jpg" alt="世界回响盖亚之力图像" class="card-img-top">
-                <div class="info">
-                    <h4>世界回响：盖亚之力</h4>
-                    <p class="muted">原始的大地母神，通过“孕育”万物来展现力量。其力量既能创造也能诞生毁灭者（如堤丰）。</p>
-                </div>
-            </div>
-        </div>
-        <div style="margin-top:24px; text-align:center;">
-            <a href="#arena" class="btn ghost">参与思想擂台辩论</a>
-        </div>
-      </section>
       
-      <section id="map" aria-label="世界神话基因图谱" style="margin-top: 36px;" role="region">
-        <h2>世界神话 · 基因图谱</h2>
-        <p class="muted">可视化节点与时间轴，追踪神话原型在全球的迁徙与演变，支持导出数据与嵌入到展陈或报告中。</p>
-        <div class="card map-card" style="margin-top:12px">
-            <div class="map-visual" id="mapVisual" role="img" aria-label="交互式神话基因图谱" style="background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)">
-                <svg width="100%" height="100%" viewBox="0 0 600 340">
-                    <g class="links">
-                        <path class="link" d="M150,100 Q300,50 450,100" />
-                        <path class="link" d="M150,240 Q300,290 450,240" />
-                        <path class="link" d="M200,120 Q300,170 400,120" />
-                        <path class="link" d="M100,180 Q200,200 300,180" />
-                        <path class="link" d="M300,180 Q400,160 500,180" />
-                    </g>
-                    <g class="nodes">
-                        <g class="node" transform="translate(150,100)">
-                            <circle r="10" fill="var(--accent)" />
-                            <text class="label" y="25">女娲补天</text>
-                        </g>
-                        <g class="node" transform="translate(450,100)">
-                            <circle r="10" fill="var(--accent2)" />
-                            <text class="label" y="25">盖亚之力</text>
-                        </g>
-                        <g class="node" transform="translate(200,120)">
-                            <circle r="8" fill="var(--muted)" />
-                            <text class="label" y="25">大洪水</text>
-                        </g>
-                        <g class="node" transform="translate(400,120)">
-                            <circle r="8" fill="var(--muted)" />
-                            <text class="label" y="25">诺亚方舟</text>
-                        </g>
-                        <g class="node" transform="translate(150,240)">
-                            <circle r="10" fill="var(--accent)" />
-                            <text class="label" y="25">炎帝之火</text>
-                        </g>
-                        <g class="node" transform="translate(450,240)">
-                            <circle r="10" fill="var(--accent2)" />
-                            <text class="label" y="25">普罗米修斯</text>
-                        </g>
-                        <g class="node" transform="translate(100,180)">
-                            <circle r="8" fill="var(--muted)" />
-                            <text class="label" y="25">盘古开天</text>
-                        </g>
-                        <g class="node" transform="translate(300,180)">
-                            <circle r="8" fill="var(--muted)" />
-                            <text class="label" y="25">混沌初开</text>
-                        </g>
-                        <g class="node" transform="translate(500,180)">
-                            <circle r="8" fill="var(--muted)" />
-                            <text class="label" y="25">卡俄斯</text>
-                        </g>
-                    </g>
-                </svg>
-            </div>
-            <div class="map-tools">
-                <div style="color:var(--muted);font-size:13px">时间轴</div>
-                <input id="eraSlider" type="range" min="0" max="4" value="0" style="width:100%;margin-top:6px"/>
-                <div id="eraLabel" style="color:var(--muted);margin-top:8px">时代：史前 · 神祇萌芽</div>
-                <div style="margin-top:12px;font-size:13px;color:var(--muted)">选择叙事原型进行追溯</div>
-                <select id="mythSelector" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: var(--card-bg); color: #eaf6ff; margin-top: 4px;">
-                    <option value="flood">原型：大洪水 (大禹/诺亚/乌特纳皮什提姆)</option>
-                    <option value="mother">原型：创世母神 (女娲/盖亚/提亚马特)</option>
-                    <option value="trickster">原型：搅局者 (蚩尤/洛基/阿南西)</option>
-                    <option value="creation">原型：开天辟地 (盘古/卡俄斯/梵天)</option>
-                </select>
-                <div style="margin-top:12px;font-size:13px;color:var(--muted)">提示：支持 API 导出节点（CSV / JSON）以供研究或展陈使用。</div>
-                <button class="btn ghost" style="margin-top: 12px; width: 100%;">导出数据</button>
-            </div>
-        </div>
       </section>
-
-      <div id="philosophy-cards" style="margin-top:36px">
-          <h3>高维原型 · 哲学图谱</h3>
-          <p class="muted">我们将不同文化中的神祇和哲学原型解构为宇宙能量、秩序或演化路径。这不仅是为了寻找共性，更是为了探索东方哲学如何为这些普世母题提供独特的解答。</p>
-          <div class="four-cols">
-              <div class="gallery-item">
-                <img src="assets/images/philosophy_buddha.jpg" alt="佛祖原型卡牌图像">
-                <strong>高维原型：觉者</strong>
-                <div class="muted" style="font-size:12px">能量流转 · 涅槃系</div>
-                <div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 普罗米修斯 (盗火者), 奥丁 (献祭智慧)</div>
-              </div>
-              <div class="gallery-item">
-                <img src="assets/images/philosophy_deva.jpg" alt="天王原型卡牌图像">
-                <strong>秩序原型：天王</strong>
-                <div class="muted" style="font-size:12px">维度守护 · 戒律系</div>
-                <div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 宙斯 (奥林匹斯之王), 拉 (埃及太阳神)</div>
-              </div>
-              <div class="gallery-item">
-                <img src="assets/images/philosophy_angel.jpg" alt="天使原型卡牌图像">
-                <strong>信源代码：天使</strong>
-                <div class="muted" style="font-size:12px">认知偏差 · 演化系</div>
-                <div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 赫尔墨斯 (信使), 加百列 (报喜者)</div>
-              </div>
-              <div class="gallery-item">
-                <img src="assets/images/philosophy_chaos.jpg" alt="混沌原型卡牌图像">
-                <strong>混沌基点：原始</strong>
-                <div class="muted" style="font-size:12px">熵增原理 · 裂隙系</div>
-                <div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 提亚马特 (巴比伦创世母神), 洛基 (北欧搅局者)</div>
-              </div>
-          </div>
-      </div>
-      
-      <div id="heroes" style="margin-top:36px">
-          <h3>主角群像 & 未来萌宠</h3>
-          <p class="muted">宇宙的核心角色与轻量化社群入口。他们不仅仅是代号，更是承载我们核心主题的灵魂。</p>
-          <div class="four-cols">
-              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_luxiaoyun.jpg')"></div><div class="name">路霄雲</div><div class="role muted">远行者</div><p class="muted" style="font-size:12px; margin-top:8px;">来自<a href="#novels">《补天之城》</a>的未来，他的出现本身就是一个待解的谜团。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_yulingxuan.jpg')"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div><p class="muted" style="font-size:12px; margin-top:8px;">她的能力连接着数字风暴与远古的记忆微粒，是新旧世界的信使。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_haishixin.jpg')"></div><div class="name">海世鑫</div><div class="role muted">海域行者</div><p class="muted" style="font-size:12px; margin-top:8px;">在“归墟”中探索未知航线，他的船承载着失落的文明碎片。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanqianduo.jpg')"></div><div class="name">蓝千朵</div><div class="role muted">庭园守望</div><p class="muted" style="font-size:12px; margin-top:8px;">她守护的不仅是赛博园林，更是人类情感的最后一片“自然”样本。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_jiangyanming.jpg')"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div><p class="muted" style="font-size:12px; margin-top:8px;">他的旅程与“<a href="#themes">炎帝之火</a>”的哲学思辨紧密相连，迫使他在创造与毁灭间做出抉择。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_lanxi.jpg')"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div><p class="muted" style="font-size:12px; margin-top:8px;">作为神话的守护者，她必须在保护与重写文明记忆的悖论中寻找真相。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_mochuan.jpg')"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div><p class="muted" style="font-size:12px; margin-top:8px;">他相信一切皆可编码，包括命运。但他自己错综复杂的过去，能否被算法解构？</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic" style="background-image:url('assets/images/char_ruihan.jpg')"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div><p class="muted" style="font-size:12px; margin-top:8px;">“历史中没有偶然。” 她于尘封的档案中追寻蛛丝马迹，揭示被掩盖的联系。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="mascot-card"><div class="pic" style="background-image:url('assets/images/mascot_xingling.jpg')"></div><div class="name">星灵</div><div class="role muted">星域萌宠 · AR体验</div></div>
-              <div class="mascot-card"><div class="pic" style="background-image:url('assets/images/mascot_lidudu.jpg')"></div><div class="name">狸嘟嘟</div><div class="role muted">城市守望 · 周边</div></div>
-              <div class="mascot-card"><div class="pic" style="background-image:url('assets/images/mascot_shixiaosheng.jpg')"></div><div class="name">石小圣</div><div class="role muted">古物萌宠 · 收藏</div></div>
-              <div class="mascot-card"><div class="pic" style="background-image:url('assets/images/mascot_placeholder.jpg')"></div><div class="name">玄水宝宝</div><div class="role muted">数字生命 · 互动</div></div>
-          </div>
-      </div>
-    </section>
-
-    <section id="matrix" class="section-divider" aria-label="叙事孵化器" role="region">
-        <h2>叙事孵化器：从文字到多维体验</h2>
-        <p class="muted">我们将已发布的文学作品作为母体，孵化漫画、游戏、短剧等多种形态的IP内容，构成一个完整的叙事网络。</p>
-        
-        <div id="novels" style="margin-top:36px">
-             <h3>核心文学 <span class="status-tag status-published">已发布</span></h3>
-            <p class="muted">IP世界观的文学母体，提供丰富的改编土壤。</p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面"><div class="info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 群像叙事</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面"><div class="info"><strong>《炎黄星曌》</strong><div class="muted">神话与科技的史诗</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面"><div class="info"><strong>《补天之城》</strong><div class="muted">都市科幻 · 场景原型</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面"><div class="info"><strong>《都市妖精图鉴：我的相亲对象不是人！》</strong><div class="muted">都市奇幻 · 男生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-yaojing-preview.pdf" download>查看预览</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面"><div class="info"><strong>《都市神兽考察报告：今天相亲又遇见了哪只奇葩？》</strong><div class="muted">都市奇幻 · 女生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div></div>
-            </div>
-        </div>
-         
-        <div id="miniseries" style="margin-top:36px">
-            <h3>微剧开发蓝图 <span class="status-tag status-dev">开发中</span></h3>
-            <p class="muted">我们正基于以下成熟故事原型，进行影视化开发与合作伙伴接洽。</p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="短剧封面炎的弥赛亚"><div class="info"><strong>炎的弥赛亚</strong><div class="muted" style="font-size:12px">动作 / <a href="#heroes">姜炎洺</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="短剧封面回溯者之眸"><div class="info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜熙</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="短剧封面编码者悖论"><div class="info"><strong>编码者悖论</strong><div class="muted" style="font-size:12px">科幻 / <a href="#heroes">墨氚</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="短剧封面霓虹下的低语"><div class="info"><strong>霓虹下的低语</strong><div class="muted" style="font-size:12px">赛博 / <a href="#heroes">路霄雲</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战"><div class="info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
-            </div>
-        </div>
-
-        <div id="comic" style="margin-top:36px">
-            <h3>漫画 <span class="status-tag status-concept">概念设计</span></h3>
-            <p class="muted">基于核心故事线，我们已完成以下作品的概念设计，并逐步推进产品化。我们相信过程即展示。</p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/comic_01.jpg" alt="漫画封面时间碎片"><div class="info"><strong>《时间碎片》</strong><div class="muted" style="font-size:13px">赛博悬疑</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_02.jpg" alt="漫画封面文明的囚徒"><div class="info"><strong>《文明的囚徒》</strong><div class="muted" style="font-size:13px">末日科幻</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_03.jpg" alt="漫画封面基因图谱"><div class="info"><strong>《基因图谱》</strong><div class="muted" style="font-size:13px">神话起源</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_1.jpg" alt="漫画封面蚩尤之心"><div class="info"><strong>《蚩尤之心》</strong><div class="muted" style="font-size:13px">战争史诗</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_guixu.jpg" alt="归墟航线漫画精选集封面"><div class="info"><strong>《归墟航线》</strong><div class="muted" style="font-size:13px">海洋冒险</div></div></div>
-            </div>
-        </div>
-
-        <div id="game" style="margin-top:36px">
-            <h3>游戏 <span class="status-tag status-concept">原型</span></h3>
-            <p class="muted">基于IP世界观设计的游戏化概念及数字资产包，展示互动娱乐的潜力。</p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/game_01.jpg" alt="游戏原型时空猎人"><div class="info"><strong>动作 RPG：时空猎人</strong><p class="muted" style="font-size:12px">核心玩法：基于五行理论的动态战斗系统。</p></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/game_02.jpg" alt="游戏原型神祇战争"><div class="info"><strong>策略卡牌：神祇战争</strong><p class="muted" style="font-size:12px">核心玩法：组合始祖原型卡牌，重演文明冲突。</p></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/game_03.jpg" alt="游戏原型未来城市"><div class="info"><strong>元宇宙：未来城市</strong><p class="muted" style="font-size:12px">核心玩法：在<a href="#novels">补天之城</a>中建设与社交。</p></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/game_placeholder_1.jpg" alt="游戏原型神祇代码"><div class="info"><strong>叙事解谜：神祇代码</strong><p class="muted" style="font-size:12px">核心玩法：扮演<a href="#heroes">蕊琀</a>，解开历史谜案。</p></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/game_placeholder_2.jpg" alt="游戏原型海洋冒险"><div class="info"><strong>冒险游戏：归墟探险</strong><p class="muted" style="font-size:12px">核心玩法：开放世界海洋探索。</p></div></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="spatial" class="section-divider" aria-label="空间叙事" role="region">
-        <h2>空间叙事：将世界观‘建’为现实</h2>
-        <div id="spatial-narrative" style="margin-top:24px">
-            <h3>空间叙事 (从故事到场景)</h3>
-            <p class="muted">将IP故事拆解为空间元素与体验路径，通过规划设计实现文化与现实的连接。</p>
-            <div class="four-cols">
-                <div class="project-card"><img src="assets/images/scene_concept_1.jpg" alt="世界观转化模型图像"><div class="info"><h4>世界观转化模型</h4><p class="muted">将文学设定解构为空间设计语言。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_2.jpg" alt="规划设计链路图像"><div class="info"><h4>规划设计链路</h4><p class="muted">将IP元素转化为空间规划与场景设计。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_3.jpg" alt="沉浸式体验设计图像"><div class="info"><h4>沉浸式体验设计</h4><p class="muted">定义用户与IP故事的互动路径。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_4.jpg" alt="叙事空间布局图像"><div class="info"><h4>叙事空间布局</h4><p class="muted">根据故事线索，设计建筑与功能分区。</p></div></div>
-            </div>
-        </div>
-        <div id="architecture-projects" style="margin-top:36px">
-            <h3>规划建筑 (项目样例)</h3>
-            <p class="muted">提供从前期策划到施工交付的全流程规划设计服务，助力您的项目落地。</p>
-            <div class="four-cols">
-                <div class="project-card"><img src="assets/images/project_example_1.jpg" alt="未来智慧城市规划图像"><div class="info"><h4>未来智慧城市规划</h4><p class="muted">概念规划与区域功能设计</p></div></div>
-                <div class="project-card"><img src="assets/images/project_example_2.jpg" alt="文化旅游区规划设计图像"><div class="info"><h4>文化旅游区规划设计</h4><p class="muted">沉浸式体验与场景化设计</p></div></div>
-                <div class="project-card"><img src="assets/images/project_example_3.jpg" alt="智慧场馆设计与工程图像"><div class="info"><h4>智慧场馆设计与工程</h4><p class="muted">建筑设计与功能集成</p></div></div>
-                <div class="project-card"><img src="assets/images/project_placeholder_1.jpg" alt="赛博东方主题公园概念图像"><div class="info"><h4>赛博东方主题公园</h4><p class="muted">IP落地与文旅融合</p></div></div>
-            </div>
-        </div>
-        <div id="micro-model" style="margin-top:36px">
-            <h3>微观实体 (模型/3D打印)</h3>
-            <p class="muted">实现数字资产到实体原型的转化，提供3D打印与场景模型服务。</p>
-            <div class="four-cols">
-                <div class="project-card"><img src="assets/images/micro_model_placeholder_1.jpg" alt="微观城市模型图像"><div class="info"><h4>城市原型模型</h4><p class="muted">微缩城市沙盘定制</p></div></div>
-                <div class="project-card"><img src="assets/images/micro_model_placeholder_2.jpg" alt="微缩建筑模型图像"><div class="info"><h4>叙事建筑原型</h4><p class="muted">手办场景3D打印</p></div></div>
-                <div class="project-card"><img src="assets/images/micro_model_placeholder_3.jpg" alt="主题展陈模型图像"><div class="info"><h4>主题展陈模型</h4><p class="muted">高精度场景输出</p></div></div>
-                <div class="project-card"><img src="assets/images/micro_model_placeholder_4.jpg" alt="神祇战舰模型图像"><div class="info"><h4>神祇战舰模型</h4><p class="muted">科幻载具原型制作</p></div></div>
-            </div>
-        </div>
-    </section>
-	
-	<section id="ip-souvenir-section" class="section-divider" aria-label="宇宙回响" role="region">
-        <h2>宇宙回响：当世界观融入生活</h2>
-        <div id="ip-souvenir" style="margin-top:24px">
-            <h3>文创周边 (伴手礼) <span class="status-tag status-concept">概念设计</span></h3>
-            <p class="muted">展示IP衍生品与品牌联名方案。</p>
-            <div class="six-cols">
-                <div class="souvenir-item"><img src="assets/images/souvenir_tea.jpg" alt="炎帝火纹香薰礼盒图像"><strong>炎帝·火纹香薰</strong><div class="muted">气味体验 / 收藏</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_notebook.jpg" alt="黄帝阵法桌垫图像"><strong>黄帝·阵法桌垫</strong><div class="muted">实用办公 / 设计品</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_pin_3.jpg" alt="蚩尤兵主符书签图像"><strong>蚩尤·兵主符书签</strong><div class="muted">金属工艺 / 文创</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_card.jpg" alt="主角群像塔罗牌图像"><strong>主角群像塔罗牌</strong><div class="muted">收藏卡牌 / 娱乐</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_pin.jpg" alt="神祇符号金属徽章图像"><strong>神祇符号金属徽章</strong><div class="muted">周边 / 礼品</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_box_3.jpg" alt="白泽AI联名耳机图像"><strong>白泽AI联名耳机</strong><div class="muted">科技联名 / 硬件</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_notebook_3.jpg" alt="天轨主题钢笔图像"><strong>“天轨”主题钢笔</strong><div class="muted">商务礼品 / 定制</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_box.jpg" alt="补天之城建筑积木图像"><strong>补天之城建筑积木</strong><div class="muted">微缩模型 / 潮玩</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_silk.jpg" alt="澜熙记忆图谱丝巾图像"><strong>澜熙·记忆图谱丝巾</strong><div class="muted">时尚单品 / 设计</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_tea_3.jpg" alt="归墟主题深海浴盐图像"><strong>归墟主题深海浴盐</strong><div class="muted">生活方式 / 体验</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_card_3.jpg" alt="Q版迷你手办盲盒图像"><strong>Q版迷你手办盲盒</strong><div class="muted">潮玩 / 零售</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_card_2.jpg" alt="游戏皮肤兑换券图像"><strong>游戏皮肤兑换券</strong><div class="muted">数字资产 / 合作</div></div>
-            </div>
-        </div>
-	</section>
-
-    <section id="team" class="section-divider" role="region">
-        <h2>核心创作与研究团队</h2>
-        <p class="muted">我们的世界观由资深作家、历史顾问与跨文化研究者共同构建，确保其深度与严谨性。</p>
-        <div class="six-cols" style="margin-top:18px;">
-            <div class="expert-card card">
-                <img src="assets/images/expert_writer.webp" alt="作家头像" loading="lazy">
-                <h3>王泽华 (作家)</h3>
-                <p class="muted">首席世界观架构师 / 签约作家</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_yanhuang.webp" alt="炎黄研究专家头像" loading="lazy">
-                <h3>李明轩 (炎黄研究)</h3>
-                <p class="muted">历史顾问 / XX 大学历史系</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_placeholder.webp" alt="跨文化研究专家头像" loading="lazy">
-                <h3>张瀚文 (跨文化研究)</h3>
-                <p class="muted">叙事顾问 / ZZ 符号学实验室</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_placeholder_2.webp" alt="叙事设计师头像" loading="lazy">
-                <h3>陈思琪 (叙事设计)</h3>
-                <p class="muted">叙事设计师 / YY 创意工作室</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_placeholder_3.webp" alt="规划设计师头像" loading="lazy">
-                <h3>赵宇辰 (规划设计)</h3>
-                <p class="muted">空间规划师 / Vigio 设计中心</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_placeholder_4.webp" alt="数字资产专家头像" loading="lazy">
-                <h3>林若溪 (数字资产)</h3>
-                <p class="muted">数字资产顾问 / XX 科技实验室</p>
-            </div>
-        </div>
-    </section>
-        
-    <section id="wellness" class="module-wellness section-divider" role="region">
-        <h2>Wellness · 黄帝内经 · 生命系统</h2>
-        <p class="muted">以《黄帝内经》的文化脉络为灵感，结合东方哲学与现代生活方式，设计健康与养生的产品与体验。本站内容为文化/生活方式解读，并非医疗建议。《黄帝内经》如何启发《炎黄星曌》的养生科技设定。</p>
-        <p style="color:var(--accent);margin-top:6px;font-weight:600">免责声明：本站内容仅为文化与生活方式参考，不构成医学诊断或治疗建议。如需医疗服务，请咨询有资质的医疗从业者。</p>
-        <div class="six-cols" style="margin-top:18px;">
-            <div class="expert-card card">
-                <img src="assets/images/expert_wang.webp" alt="王泽华中医学专家头像" loading="lazy">
-                <h3>王泽华</h3>
-                <p class="muted">中医学博士 · XX 中医研究所</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_li.webp" alt="李明轩中医养生专家头像" loading="lazy">
-                <h3>李明轩</h3>
-                <p class="muted">康养策划人 · YY 康养实验室</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_zhang.webp" alt="张瀚文传统医学研究员头像" loading="lazy">
-                <h3>张瀚文</h3>
-                <p class="muted">传统医学研究员 · ZZ 学术中心</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_placeholder_5.webp" alt="周雨婷养生产品设计师头像" loading="lazy">
-                <h3>周雨婷</h3>
-                <p class="muted">养生产品设计师 · WW 健康科技</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_placeholder_6.webp" alt="徐梓涵文化养生顾问头像" loading="lazy">
-                <h3>徐梓涵</h3>
-                <p class="muted">文化养生顾问 · VV 文化研究所</p>
-            </div>
-            <div class="expert-card card">
-                <img src="assets/images/expert_placeholder_7.webp" alt="杨晨曦健康体验策划头像" loading="lazy">
-                <h3>杨晨曦</h3>
-                <p class="muted">健康体验策划 · UU 体验设计中心</p>
-            </div>
-        </div>
-        <div style="margin-top:16px;">
-            <a class="btn" href="/wellness">进入康养专题页了解更多</a>
-        </div>
-    </section>
-
-    <section id="press" class="module-press section-divider" role="region">
-        <h2>Press · 媒体与背书</h2>
-        <p class="muted">展示合作伙伴、孵化与媒体报道，作为项目权威性与可信度的证据墙。</p>
-        <div id="for-awards" class="card" style="margin-top: 24px; border-left: 3px solid var(--accent); background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.05), transparent);">
-            <h3 style="font-size: 20px;">为雨果奖、星云奖、轨迹奖与银河奖：一份创作宣言</h3>
-            <p class="muted" style="margin-top: 12px; line-height: 1.7;">
-                立维宇宙不仅是一个商业IP，更是一场严肃的文学实验。我们根植于东方神话的古老土壤，旨在探讨关于<a href="#themes">文明、记忆与存在</a>等一系列宏大命题。我们试图通过一个跨越小说、设计乃至空间体验的多维叙事网络，重塑‘神话’在当代的可能性。我们相信，真正伟大的幻想作品，是用想象力对现实提出的最深刻的质问。在此，我们呈上核心文学文本，诚邀您进入这个正在构建中的世界，我们愿意接受最严苛的审阅。
-            </p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
-               <a class="btn ghost" href="/press/review-sample.pdf" download>下载评审样章 (PDF)</a>
-                <a class="btn ghost" href="mailto:business@levythos.com?subject=Request%20for%20Full%20Manuscript%20(Award%20Consideration)">申请完整版手稿 (评委邮箱)</a>
-                <a class="btn ghost" href="mailto:business@levythos.com?subject=Contact%20Creative%20Team">联系创作团队</a>
-            </div>
-        </div>
-        <div class="logo-wall card" style="margin-top: 36px;">
-            <h4>合作伙伴</h4>
-            <ul class="partner-list" style="margin-top:18px;">
-                <li>中国传统文化促进会</li>
-                <li>中国炎黄文化研究会</li>
-                <li>北京炎黄研究院</li>
-                <li>上海市作家协会</li>
-                <li>上海市住建委</li>
-                <li>中国建筑</li>
-                <li>上海建工</li>
-                <li>阿特金斯 (Atkins)</li>
-                <li>AECOM</li>
-                <li>复旦大学</li>
-                <li>上海交通大学</li>
-                <li>同济大学</li>
-            </ul>
-        </div>
-        <section id="awards" class="gemini-added" data-added-by="gemini" style="margin-top: 24px; margin-bottom: 24px; padding: 20px; border-radius: 10px; background: var(--card-bg);">
-        <h3>Awards & Festivals</h3>
-        <p class="muted">参赛资料包与提交指南。节展/评审可从此处下载样章与授权文件。如需协助请发送邮件至 business@levythos.com</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
-            <a class="btn ghost" href="/press/submission-kit.pdf" download>下载参赛资料包</a>
-            <a class="btn" href="mailto:business@levythos.com?subject=Submission%20Inquiry">咨询 / 评审协助</a>
-        </div>
-        </section>
-        <div class="three-cols" style="margin-top:18px; align-items: start;">
-            <div class="card">
-            <h3>孵化协议</h3>
-            <p class="muted">已与机构签署初步孵化协议，扫描件展示。</p>
-            <img src="assets/images/press_agreement_placeholder.jpg" alt="孵化协议扫描件" loading="lazy" style="width:100%;border-radius:6px; margin-top:12px;">
-            </div>
-            <div class="card">
-            <h3>媒体报道</h3>
-            <p class="muted">部分媒体对项目进行了报道，以下为示例截图。</p>
-            <img src="assets/images/press_media_placeholder.jpg" alt="媒体报道截图" loading="lazy" style="width:100%;border-radius:6px; margin-top:12px;">
-            </div>
-            <div class="card">
-            <h3>媒体包 / 白皮书</h3>
-            <p class="muted">下载媒体包或索取完整白皮书（机构邮箱申请）。</p>
-            <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
-                <a class="btn" href="/press/media-kit.pdf" download>下载媒体包（PDF）</a>
-                <a class="btn ghost" href="#whitepaperModal" onclick="openWhitepaperModal()">索取白皮书（机构邮箱）</a>
-            </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="arena" class="section-divider" aria-label="思想擂台" role="region">
-        <div id="arena-content">
-           <h3>思想擂台 · 文明辩场</h3>
-            <p class="muted">这里是观点的竞技场，是创意的孵化地。选择你的立场，加入关于宇宙未来的核心辩论。</p>
-            <div class="arena-layout">
-                <div class="arena-topic-card">
-                    <div class="tag">本期议题</div>
-                    <h3>炎帝的“火”与普罗米修斯的“火”，谁对文明的形态影响更为深远？</h3>
-                    <p class="muted" style="margin-top: 12px; line-height: 1.6;">前者是源于内部、惠及社群的技艺传承之火，后者是源于外部、挑战权威的智慧启蒙之火。在立维宇宙的未来叙事中，哪一种“火”的隐喻更能代表人类文明的终极走向？</p>
-                    <div class="arena-actions">
-                        <button class="btn ghost" style="border-color:var(--accent); color:var(--accent)">加入正方：炎帝之火</button>
-                        <button class="btn ghost" style="border-color:var(--accent2); color:var(--accent2)">加入反方：普氏之火</button>
-                    </div>
-                </div>
-                <div class="arena-rules">
-                    <h4>擂台规则</h4>
-                    <ul style="padding-left: 20px; font-size: 14px; color: var(--muted);">
-                        <li style="margin-bottom: 8px;">选择立场并发表观点。</li>
-                        <li style="margin-bottom: 8px;">你的论据将接受全网用户的评判。</li>
-                        <li style="margin-bottom: 8px;">优秀观点将被收录至“宇宙编年史”。</li>
-                        <li>参与创意赛，共筑世界观。</li>
-                    </ul>
-                    <button class="btn ghost" style="width: 100%; margin-top: 15px;">查看往期议题</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="stories" class="module-stories section-divider">
-        <h2>Human Romance Engine · 《都市情感奇遇记》</h2>
-        <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
-            宇宙的宏大，由无数微小的“奇遇”构成。我们相信，**最深刻的叙事原型就隐藏在真实的生命体验之中**。
-            因此，我们正式启动《都市情感奇遇记》内容共创计划，邀请您分享那些生命中不期而遇的、独特的、甚至超乎想象的情感瞬间。
-            <br><br>
-            <strong>这不是简单的投稿，这是您为立维宇宙注入灵魂的时刻。</strong>
-        </p>
-        <div class="two-cols" style="margin-top: 36px; align-items: flex-start; gap: 24px;">
-            <div class="card" style="padding: 20px;">
-                <img src="assets/images/romance_engine_visual.jpg" alt="都市情感奇遇记插图" style="width: 100%; border-radius: 8px; aspect-ratio: 4/3; object-fit: cover;">
-                <h3 style="margin-top: 16px;">你的故事，是宇宙的光</h3>
-                <p class="muted" style="margin-top: 12px; line-height: 1.8;">我们相信，每一个看似平凡的瞬间，都可能蕴含着足以撼动世界的叙事原型。无论是尴尬的相亲，还是深刻的家庭联结，都是构成我们宏大宇宙的宝贵素材。<br><br>您的每一个分享，都将成为我们“人类情感样本库”的一部分，为作家提供灵感，为AI注入灵魂，甚至可能成为未来电影中的经典一幕。期待你的分享。</p>
-                <div class="card" style="margin-top: 24px;">
-                    <h4 style="margin-bottom: 12px;">社区投票</h4>
-                    <p class="muted" style="font-size: 14px; margin-bottom: 12px;">我们的宇宙未来，更应由哪种力量主导？</p>
-                    <div style="font-size: 14px;">
-                        <label style="display: block; margin-bottom: 8px;"><input type="radio" name="theme_poll" value="internal"> 内生动力 (炎帝之火：传承与社群)</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="radio" name="theme_poll" value="external"> 外部颠覆 (普氏之火：启蒙与个体)</label>
-                        <label style="display: block; margin-bottom: 8px;"><input type="radio" name="theme_poll" value="balance"> 两者共存的微妙平衡</label>
-                    </div>
-                    <button class="btn" style="margin-top: 12px; width: 100%;">投票</button>
-                </div>
-            </div>
-            <div class="stories-submit card" style="padding: 20px;">
-                <form id="storySubmit" onsubmit="return handleStorySubmit(event)" method="post" action="/api/submit-story">
-                <h3 style="margin-bottom: 16px;">分享你的“奇遇”</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 10px;">
-                    <label>故事类型 (必选)<br>
-                        <select name="story_category" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;">
-                            <option value="romance_dating">两性情感 (相亲/恋爱)</option>
-                            <option value="family">亲情故事</option>
-                            <option value="friendship">真挚友情</option>
-                            <option value="eternal_love">关于“永恒之爱”的遐想</option>
-                        </select>
-                    </label>
-                    <label>你的视角 (选填)<br>
-                        <select name="gender_view" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;">
-                        <option value="">未选择</option>
-                        <option value="male">男性</option>
-                        <option value="female">女性</option>
-                        <option value="other">其他</option>
-                        </select>
-                    </label>
-                </div>
-                <label>标题（必填）<br>
-                    <input name="title" type="text" required placeholder="例如：相亲时我遇到了一个“时间旅行者”" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;">
-                </label>
-                <label style="display: block; margin-top: 10px;">正文（必填）<br>
-                    <textarea name="content" rows="6" required placeholder="请描述你的经历或故事，无论是温馨、尴尬还是超乎寻常的遭遇，都是我们珍视的样本。" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></textarea>
-                </label>
-                <label style="display: block; margin-top: 10px;">标签 (选填, 逗号分隔)<br>
-                    <input name="tags" type="text" placeholder="例如: 尴尬, 家庭, 幽默" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;">
-                </label>
-                <label style="display: block; margin-top: 10px;">
-                    <input type="checkbox" name="anonymous" value="1" checked> 匿名投稿（默认勾选）
-                </label>
-                <label style="display: block; margin-top: 10px;">
-                    联系邮箱（建议填写便于我们联系，非必填）：<br>
-                    <input name="contactEmail" type="email" placeholder="name@company.com" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;">
-                </label>
-                <label style="display: block; margin-top: 10px;">
-                    <input type="checkbox" id="storyConsent" required> 我已阅读并同意授权
-                    <span class="muted" style="font-size: 12px;">（我们承诺对您的故事进行专业脱敏和隐私保护，仅将匿名化后的版本用于学术研究、内容创作与出版计划。）</span>
-                </label>
-                <div style="display:flex;gap:8px;margin-top:10px;">
-                    <button type="submit" class="btn">提交我的奇遇</button>
-                    <button type="button" class="btn ghost" onclick="document.getElementById('storySubmit').reset()">重置</button>
-                </div>
-                </form>
-            </div>
-        </div>
-        <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), rgba(var(--accent2-rgb), 0.05));">
-            <h4 style="text-align: center;">贡献者回报计划</h4>
-            <ul style="padding-left: 20px; color: var(--muted); line-height: 1.8; font-size: 14px;">
-                <li><strong>参与者：</strong>所有有效提交者，都将获得一枚“宇宙情感样本贡献者”数字徽章。</li>
-                <li><strong>入选者：</strong>故事样本被采纳用于线上展示或短视频素材，将获赠立维宇宙周边文创一份。</li>
-                <li><strong>核心贡献者：</strong>故事被《都市情感奇遇记》系列小说收录为核心章节，您将：
-                    <ul style="padding-left: 20px;">
-                        <li>获赠小说出版后的**首版作者签名精装本**。</li>
-                        <li>您的署名（或匿名ID）将有机会被收录在书籍的“特别鸣谢”章节中。</li>
-                        <li>获得“立维宇宙创世贡献者”高级会员身份及专属权益。</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="stories-list" style="margin-top:18px;">
-            <article class="card" style="margin-bottom: 16px;">
-            <a href="/stories/m-001" style="display:block; padding: 10px;">
-                <h3 style="margin-bottom:8px;">样本 #M-001：当面试话术进入相亲现场 <span class="tag" style="font-size: 10px; background-color: rgba(var(--accent-rgb), 0.1); color: var(--accent);">情感奇遇</span></h3>
-                <p class="muted" style="font-size:13px;">分类: 两性情感 / 视角: 男性 / 标签: 尴尬, 职场化</p>
-                <p style="margin-top:8px;line-height:1.6;">简短摘要：本以为是普通见面，结果对方把面试官的套路统统带到了相亲桌上……</p>
-            </a>
-            </article>
-        </div>
-    </section>
-
+    
     <section id="contact" class="section-divider" aria-label="合作" role="region">
+      <div class="levythos-section-hook">
+        <p class="levythos-epigraph">连接真实世界，共建神话宇宙。</p>
+      </div>
       <h2>合作与联系</h2>
       <p class="muted">我们为机构伙伴提供白皮书、授权要点与 RFP 对接流程。</p>
       <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;align-items:flex-start">
         <div style="flex:1" class="card">
           <div style="font-weight:700">合作路径</div>
-         <p class="muted" style="margin-top:8px">请使用机构邮箱索取白皮书与授权要点文档，开启合作流程。</p>
-          <div style="margin-top:12px"><button class="btn" onclick="openWhitepaperModal()">索取白皮书（机构邮箱）</button></div>
+         <p class="muted" style="margin-top:8px">请使用机构邮箱索取《宇宙手册》与合作纲要，开启合作流程。</p>
+          <div style="margin-top:12px"><button class="btn" onclick="openWhitepaperModal()">获取合作资料</button></div>
         </div>
         <aside class="card" style="width:320px">
-          <div style="font-weight:700">联系方式</div>
+          <div style="font-weight:700">联系我们</div>
           <div class="muted" style="margin-top:8px">公众号（社群） · 企业微信（商务）</div>
           <div style="display:flex;gap:8px;margin-top:12px;justify-content:center">
-            <img src="assets/images/qrcode_wechat.jpg" alt="公众号二维码" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
-            <img src="assets/images/qrcode_corpwechat.png" alt="企业微信二维码" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+            <img src="assets/images/qrcode_wechat.jpg" alt="公众号二维码" loading="lazy" width="120" height="120" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+            <img src="assets/images/qrcode_corpwechat.png" alt="企业微信二维码" loading="lazy" width="120" height="120" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
           </div>
         </aside>
       </div>
     </section>
 
-    <section id="about" class="section-divider" aria-label="关于我们" role="region">
-        <h2>关于 (About)</h2>
-        <p class="muted">我们是立维宇宙（文化科技）与维杰设计（规划建筑）的联合体。</p>
-        <div class="three-cols">
-            <div class="card"><strong>公司介绍</strong><p class="muted" style="margin-top:8px">致力于将东方文化基因转化为可运营的、具备全球影响力的IP宇宙，并通过实体设计赋能文旅、商业与城市更新项目。</p></div>
-            <div class="card"><strong>团队与资质</strong><p class="muted" style="margin-top:8px">核心团队由叙事设计师、建筑师、工程师与商业策略师组成，具备全流程交付能力。</p></div>
-           <div class="card"><strong>法务信息</strong><p class="muted" style="margin-top:8px">© 2025 Levythos Global · Vigio Planning &amp; Architectural Design Co., Ltd. 保留所有权利。</p></div>
-        </div>
-    </section>
-
     <footer>
+      <div style="text-align: center; padding: 20px 0;">
+        <p class="levythos-epigraph" style="font-size: 16px;">世界观不是故事，而是等待被共同构建的宏伟蓝图。</p>
+        <p class="levythos-sub" style="font-size: 13px;">若您拥有空间、场馆、品牌、产品或文化资产 —— 欢迎您成为这个宇宙的新节点。</p>
+      </div>
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 28px;">
         <div>
           <div style="font-weight:700">Levythos · 立维宇宙 · Vigio Design · 维杰设计</div>
@@ -916,7 +449,7 @@
 
   <div id="whitepaperModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,10,0.7);align-items:center;justify-content:center;z-index:21000">
     <div style="background:#07121a;padding:20px;border-radius:10px;width:min(520px, 94%);border:1px solid rgba(255,255,255,0.05)">
-      <h3 style="margin:0">申请：世界神话基因图谱 · 白皮书</h3>
+      <h3 style="margin:0">获取：宇宙手册</h3>
       <p class="muted" style="margin-top:8px">请输入工作邮箱（机构邮箱）以获取下载链接。</p>
       <input id="whiteEmail" placeholder="机构邮箱（示例：name@company.com）" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-top:8px;background:transparent;color:#eaf6ff">
       <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
@@ -933,7 +466,7 @@
     document.getElementById('whiteSend')?.addEventListener('click', ()=>{
       const email = document.getElementById('whiteEmail').value.trim();
       if(!email || !email.includes('@')){ alert('请填写有效的工作邮箱'); return; }
-      alert('白皮书申请已收到（示例）：' + email + '\n实际发送需后端支持以便验证与发送。');
+      alert('您的申请已收到（示例）：' + email + '\n手册将发送至您的邮箱，实际发送需后端支持。');
       closeWhitepaperModal();
     });
     document.getElementById('whitepaperModal')?.addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
@@ -952,7 +485,7 @@
                 event.target.classList.add('active');
                 mediaCards.forEach(card => {
                     const cardTypes = card.getAttribute('data-type').split(' ');
-       
+     
                     const shouldShow = filterValue === 'all' || cardTypes.includes(filterValue);
                     card.classList.toggle('hidden', !shouldShow);
                 });
@@ -969,7 +502,6 @@
           if(v==0) eraLabel.textContent='时代：史前 · 神祇萌芽';
           else if(v==1) eraLabel.textContent='时代：古典 · 文化成形';
           else if(v==2) eraLabel.textContent='时代：近代 · 记忆重写';
-      
           else eraLabel.textContent='时代：未来 · 城市神话';
         });
       }
