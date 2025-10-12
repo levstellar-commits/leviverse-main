@@ -117,6 +117,8 @@
       .btn { min-width: 120px; font-size: 14px; padding: 10px 18px;}
     }
 
+  /* ---------- [新增] 史诗级始祖神格布局样式 ---------- */
+
 .ancestor-lineage-epic {
     margin-top: 48px;
     display: flex;
@@ -188,6 +190,243 @@
     .ancestor-tier.tier-5 {
         max-width: 80%;
         grid-template-columns: 1fr;
+    }
+}
+
+
+/* ---------- [新增] 史诗级“思想擂台”增强布局样式 ---------- */
+.arena-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.arena-layout-enhanced {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 左右两栏布局 */
+    gap: 32px;
+    align-items: start; /* 顶部对齐 */
+}
+
+.arena-visual {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.arena-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4; /* 让图片本身是竖版，更具海报感 */
+    object-fit: cover;
+}
+
+.arena-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.arena-topic-card-enhanced {
+    background: var(--card-bg);
+    padding: 24px;
+    border-radius: 12px;
+    border-left: 3px solid var(--accent);
+}
+
+.arena-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.arena-actions .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.faction-icon {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.btn-faction-yandi { border-color:var(--accent); color:var(--accent) }
+.btn-faction-yandi:hover { background: rgba(var(--accent-rgb), 0.1); }
+.btn-faction-prometheus { border-color:var(--accent2); color:var(--accent2) }
+.btn-faction-prometheus:hover { background: rgba(var(--accent2-rgb), 0.1); }
+
+
+.arena-rules {
+    background: rgba(255,255,255,0.02);
+    padding: 16px;
+    border-radius: 10px;
+}
+
+/* 响应式设计 */
+@media (max-width: 980px) {
+    .arena-layout-enhanced {
+        grid-template-columns: 1fr; /* 在平板和手机上变为单栏布局 */
+    }
+    .arena-visual img {
+        aspect-ratio: 16 / 9; /* 在单栏时，图片变为横版以节省空间 */
+    }
+}
+
+/* ---------- [新增] “从图纸到地标”增强布局样式 ---------- */
+.bridge-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.bridge-process-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.bridge-step {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    width: 100%;
+}
+
+/* 奇数行：图左文右；偶数行：文左图右 */
+.bridge-step.step-reverse {
+    grid-template-areas: "text visual";
+}
+.bridge-step.step-reverse .bridge-visual { grid-area: visual; }
+.bridge-step.step-reverse .bridge-text { grid-area: text; }
+
+
+.bridge-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.bridge-text {
+    position: relative;
+    padding: 24px;
+}
+
+.bridge-character {
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 100px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.05); /* 让字变成巨大、半透明的背景符号 */
+    z-index: -1;
+    line-height: 1;
+}
+
+.bridge-connector {
+    width: 2px;
+    height: 80px;
+    background: linear-gradient(180deg, rgba(var(--accent-rgb), 0), rgba(var(--accent-rgb), 0.4), rgba(var(--accent-rgb), 0));
+    opacity: 0.5;
+}
+
+/* 响应式设计 */
+@media (max-width: 980px) {
+    .bridge-step, .bridge-step.step-reverse {
+        grid-template-columns: 1fr; /* 在平板和手机上变为单栏布局 */
+        grid-template-areas: unset;
+        gap: 16px;
+    }
+    .bridge-text {
+        text-align: center;
+    }
+    .bridge-character {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+
+/* ---------- [新增] “空间叙事”动态流程图布局样式 ---------- */
+.spatial-narrative-flow {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px; /* 步骤之间的间距 */
+}
+
+.flow-step {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* 图文比例，文字部分稍宽 */
+    gap: 32px;
+    align-items: center;
+    width: 100%;
+    padding: 24px 0;
+}
+
+/* 关键：让偶数行的图文位置反转，形成交错感 */
+.flow-step.reverse {
+    grid-template-columns: 1.2fr 1fr;
+    direction: rtl; /* 让布局从右到左 */
+}
+.flow-step.reverse > * {
+    direction: ltr; /* 恢复内部元素的正常方向 */
+}
+
+.flow-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.flow-text {
+    position: relative;
+}
+
+.flow-step-number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+.flow-connector {
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(180deg, rgba(var(--accent2-rgb), 0), rgba(var(--accent2-rgb), 0.5), rgba(var(--accent2-rgb), 0));
+    opacity: 0.6;
+}
+
+/* 响应式设计 */
+@media (max-width: 980px) {
+    .flow-step, .flow-step.reverse {
+        grid-template-columns: 1fr; /* 在平板和手机上变为单栏布局 */
+        gap: 16px;
+        direction: ltr; /* 恢复正常布局方向 */
+    }
+    .flow-text {
+        text-align: center;
     }
 }
 
@@ -405,6 +644,53 @@
       </section>
     </section>
 
+<section id="high-archetypes" class="section-divider" aria-label="高维原型" role="region">
+    <div style="text-align: center;">
+        <h2>高维原型 · 神话的底层代码</h2>
+        <p class="muted" style="max-width: 800px; margin: 16px auto;">
+            如果说“基因图谱”是我们探索文明关联的星图，那么“高维原型”就是解读这张图谱的 Rosetta Stone (罗塞塔石碑)。我们在此解构神话的共通内核，揭示驱动所有故事的“底层代码”。
+        </p>
+    </div>
+
+    <div class="four-cols" style="margin-top: 36px; align-items: stretch;">
+        <article class="archetype-card">
+            <img src="assets/images/philosophy_buddha.jpg" alt="觉者原型卡牌图像" loading="lazy">
+            <div class="archetype-content">
+                <h4>觉者原型: 释迦牟尼</h4>
+                <p class="source-code"><strong>底层代码:</strong> 自我牺牲以换取群体升维</p>
+                <p class="world-echoes"><strong>世界回响:</strong> 普罗米修斯 (盗火者), 奥丁 (献祭智慧)</p>
+            </div>
+        </article>
+
+        <article class="archetype-card">
+            <img src="assets/images/philosophy_deva.jpg" alt="天王原型卡牌图像" loading="lazy">
+            <div class="archetype-content">
+                <h4>君王原型: 毗沙门天</h4>
+                <p class="source-code"><strong>底层代码:</strong> 建立秩序以对抗物理/熵之混沌</p>
+                <p class="world-echoes"><strong>世界回响:</strong> 宙斯 (奥林匹斯之王), 拉 (埃及太阳神)</p>
+            </div>
+        </article>
+
+        <article class="archetype-card">
+            <img src="assets/images/philosophy_angel.jpg" alt="信使原型卡牌图像" loading="lazy">
+            <div class="archetype-content">
+                <h4>信使原型: 飞天</h4>
+                <p class="source-code"><strong>底层代码:</strong> 跨越维度以传递关键信息</p>
+                <p class="world-echoes"><strong>世界回响:</strong> 赫尔墨斯 (希腊神使), 加百列 (报喜天使)</p>
+            </div>
+        </article>
+        
+        <article class="archetype-card">
+            <img src="assets/images/philosophy_chaos.jpg" alt="混沌原型卡牌图像" loading="lazy">
+            <div class="archetype-content">
+                <h4>混沌原型: 盘古</h4>
+                <p class="source-code"><strong>底层代码:</strong> 无法被定义的、一切可能性的起点</p>
+                <p class="world-echoes"><strong>世界回响:</strong> 提亚马特 (巴比伦母神), 卡俄斯 (希腊虚空)</p>
+            </div>
+        </article>
+    </div>
+</section>
+
     <style>
       .archaeology-grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
       .arch-item { background: var(--card-bg); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.03); overflow: hidden; display: flex; flex-direction: row; align-items: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
@@ -469,39 +755,110 @@
       .bridge-card .icon { font-size: 40px; line-height: 1; color: var(--accent); font-family: 'Noto Serif SC', serif;}
       .bridge-card h3 { margin-top: 12px; }
     </style>
-    <section id="ip-to-reality-bridge" class="section-divider" aria-label="叙事转译之桥">
-        <h2 style="text-align: center;">从图纸到地标：文化IP的实体化之旅</h2>
-        <p class="muted" style="text-align:center;">我们的核心能力，是将抽象的文化符号，“转译”为可体验的物理空间。这不仅是建造，更是文化的转码与重塑。</p>
-        <div class="three-cols">
-            <div class="card bridge-card">
-                <div class="icon">符</div>
+
+<section id="ip-to-reality-bridge" class="section-divider" aria-label="叙事转译之桥">
+    <div class="bridge-header">
+        <h2>从图纸到地标：文化IP的实体化之旅</h2>
+        <p class="muted">我们的核心能力，是将抽象的文化符号，“转译”为可体验的物理空间。这不仅是建造，更是文化的转码与重塑。</p>
+    </div>
+
+    <div class="bridge-process-container">
+        <div class="bridge-step">
+            <div class="bridge-visual">
+                <img src="assets/images/bridge_symbol.jpg" alt="提取文化符号的概念图" loading="lazy">
+            </div>
+            <div class="bridge-text">
+                <div class="bridge-character">符</div>
                 <h3>① 提取符号</h3>
-                <p class="muted" style="font-size: 14px;">从神话角色的服饰纹样，到古籍中的阵法图谱，我们将其解构为可被现代设计语言理解的视觉元素与空间母题。</p>
-            </div>
-            <div class="card bridge-card">
-                <div class="icon">景</div>
-                <h3>② 转译场景</h3>
-                <p class="muted" style="font-size: 14px;">将小说中的“云中之城”或“归墟航线”，转化为主题展陈的叙事动线，或是商业综合体的中庭设计概念。</p>
-            </div>
-            <div class="card bridge-card">
-                <div class="icon">境</div>
-                <h3>③ 注入意境</h3>
-                <p class="muted" style="font-size: 14px;">最终，通过光影、材质与互动装置，将文化意境注入物理空间，让身处其中的人，能够真实地“步入”我们所构筑的世界。</p>
+                <p class="muted" style="font-size: 15px;">从神话角色的服饰纹样，到古籍中的阵法图谱，我们将其解构为可被现代设计语言理解的视觉元素与空间母题。</p>
             </div>
         </div>
-    </section>
 
-    <section id="spatial" class="section-divider" aria-label="空间叙事" role="region">
-        <h2>铸城：如女娲炼石，我们将叙事化为永恒</h2>
-        <p class="muted" style="text-align: center;"><em>我们的画布，是真实的物理空间。</em></p>
-        <div id="spatial-narrative" style="margin-top:24px">
-            <h3>空间叙事 (从故事到场景)</h3>
-            <p class="muted">将IP故事拆解为空间元素与体验路径，通过规划设计实现文化与现实的连接。</p>
-            <div class="four-cols">
-                <div class="project-card"><img src="assets/images/scene_concept_1.jpg" alt="世界观转化模型图像" loading="lazy"><div class="info"><h4>世界观转化模型</h4><p class="muted">将文学设定解构为空间设计语言。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_2.jpg" alt="规划设计链路图像" loading="lazy"><div class="info"><h4>规划设计链路</h4><p class="muted">将IP元素转化为空间规划与场景设计。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_3.jpg" alt="沉浸式体验设计图像" loading="lazy"><div class="info"><h4>沉浸式体验设计</h4><p class="muted">定义用户与IP故事的互动路径。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_4.jpg" alt="叙事空间布局图像" loading="lazy"><div class="info"><h4>叙事空间布局</h4><p class="muted">根据故事线索，设计建筑与功能分区。</p></div></div>
+        <div class="bridge-connector"></div>
+
+        <div class="bridge-step step-reverse">
+            <div class="bridge-visual">
+                <img src="assets/images/bridge_scene.jpg" alt="转译场景为空间蓝图的概念图" loading="lazy">
+            </div>
+            <div class="bridge-text">
+                <div class="bridge-character">景</div>
+                <h3>② 转译场景</h3>
+                <p class="muted" style="font-size: 15px;">将小说中的“云中之城”或“归墟航线”，转化为主题展陈的叙事动线，或是商业综合体的中庭设计概念。</p>
+            </div>
+        </div>
+
+        <div class="bridge-connector"></div>
+
+        <div class="bridge-step">
+            <div class="bridge-visual">
+                <img src="assets/images/bridge_atmosphere.jpg" alt="注入文化意境的实体空间概念图" loading="lazy">
+            </div>
+            <div class="bridge-text">
+                <div class="bridge-character">境</div>
+                <h3>③ 注入意境</h3>
+                <p class="muted" style="font-size: 15px;">最终，通过光影、材质与互动装置，将文化意境注入物理空间，让身处其中的人，能够真实地“步入”我们所构筑的世界。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div id="spatial-narrative" style="margin-top:24px">
+    <h3>空间叙事：从故事到场景的四步转化</h3>
+    <p class="muted">我们将抽象的世界观，通过一个严谨的四步流程，“翻译”为可指导实体建造的创意蓝图。</p>
+
+    <div class="spatial-narrative-flow">
+        <div class="flow-step">
+            <div class="flow-visual">
+                <img src="assets/images/scene_concept_1.jpg" alt="世界观母体转化模型" loading="lazy">
+            </div>
+            <div class="flow-text">
+                <div class="flow-step-number">①</div>
+                <h4>万物之源：世界观母体</h4>
+                <p class="muted">将文学设定、神话原型等非结构化文本，转化为包含法则、阵营、能量体系的结构化空间语言。</p>
+            </div>
+        </div>
+
+        <div class="flow-connector"></div>
+
+        <div class="flow-step reverse">
+            <div class="flow-visual">
+                <img src="assets/images/scene_concept_2.jpg" alt="IP符号转译与规划" loading="lazy">
+            </div>
+            <div class="flow-text">
+                <div class="flow-step-number">②</div>
+                <h4>提炼图腾：IP符号转译</h4>
+                <p class="muted">从世界观中提取最具代表性的视觉符号（如神鸟、阵法），将其定义为贯穿整个空间的核心设计母题。</p>
+            </div>
+        </div>
+
+        <div class="flow-connector"></div>
+
+        <div class="flow-step">
+            <div class="flow-visual">
+                <img src="assets/images/scene_concept_3.jpg" alt="叙事动线与体验设计" loading="lazy">
+            </div>
+            <div class="flow-text">
+                <div class="flow-step-number">③</div>
+                <h4>规划路径：叙事动线设计</h4>
+                <p class="muted">将IP的核心故事情节，转化为游客或用户的物理体验路径，定义关键的互动节点与情感高潮。</p>
+            </div>
+        </div>
+
+        <div class="flow-connector"></div>
+
+        <div class="flow-step reverse">
+            <div class="flow-visual">
+                <img src="assets/images/scene_concept_4.jpg" alt="功能场景生成与布局" loading="lazy">
+            </div>
+            <div class="flow-text">
+                <div class="flow-step-number">④</div>
+                <h4>空间落位：功能场景生成</h4>
+                <p class="muted">最终，根据故事线索、核心母题和体验路径，生成具体的建筑形态与功能分区，形成完整的创意蓝图。</p>
+            </div>
+        </div>
+    </div>
+</div>
             </div>
         </div>
         <div id="architecture-projects" style="margin-top:36px">
@@ -738,31 +1095,48 @@
         </div>
     </section>
 
-    <section id="arena" class="section-divider" aria-label="思想擂台" role="region">
+<section id="arena" class="section-divider" aria-label="思想擂台" role="region">
+    <div class="arena-header">
         <h2>思想擂台 · 文明辩场</h2>
-        <div id="arena-content">
-            <p class="muted">这里是观点的竞技场，是创意的孵化地。选择你的立场，加入关于宇宙未来的核心辩论。</p>
-            <div class="arena-layout">
-                <div class="arena-topic-card" style="background-image: url('assets/images/concept_arena_fire.jpg');">
-                    <div class="tag">本期议题</div>
-                    <h3>炎帝的“火”与普罗米修斯的“火”，谁对文明的形态影响更为深远？</h3>
-                    <p class="muted" style="margin-top: 12px; line-height: 1.6;">前者是源于内部、惠及社群的技艺传承之火，后者是源于外部、挑战权威的智慧启蒙之火。在立维宇宙的未来叙事中，哪一种“火”的隐喻更能代表人类文明的终极走向？</p>
-                    <div class="arena-actions">
-                        <button class="btn ghost" style="border-color:var(--accent); color:var(--accent)" aria-label="加入正方：炎帝之火">加入正方：炎帝之火</button>
-                        <button class="btn ghost" style="border-color:var(--accent2); color:var(--accent2)" aria-label="加入反方：普罗米修斯之火">加入反方：普氏之火</button>
-                    </div>
-                </div>
-                <div class="arena-rules">
-                    <h4>擂台规则</h4>
-                    <ul style="padding-left: 20px; font-size: 14px; color: var(--muted);">
-                        <li style="margin-bottom: 8px;">选择立场并发表观点。</li><li style="margin-bottom: 8px;">你的论据将接受全网用户的评判。</li>
-                        <li style="margin-bottom: 8px;">优秀观点将被收录至“宇宙编年史”。</li><li>参与创意赛，共筑世界观。</li>
-                    </ul>
-                    <button class="btn ghost" style="width: 100%; margin-top: 15px;">查看往期议题</button>
-                </div>
+        <p class="muted">这里是观点的竞技场，是创意的孵化地。选择你的立场，加入关于宇宙未来的核心辩论。</p>
+    </div>
+    
+    <div class="arena-layout-enhanced">
+        <div class="arena-visual">
+            <img src="assets/images/concept_arena_fire.jpg" alt="炎帝之火与普罗米修斯之火的思想碰撞概念图" loading="lazy">
+        </div>
+
+        <div class="arena-content">
+            <div class="arena-topic-card-enhanced">
+                <div class="tag">本期议题</div>
+                <h3>炎帝的“火”与普罗米修斯的“火”，谁对文明的形态影响更为深远？</h3>
+                <p class="muted" style="margin-top: 12px; line-height: 1.7; font-size: 15px;">
+                    前者是源于内部、惠及社群的技艺传承之火，后者是源于外部、挑战权威的智慧启蒙之火。在立维宇宙的未来叙事中，哪一种“火”的隐喻更能代表人类文明的终极走向？
+                </p>
+            </div>
+            <div class="arena-actions">
+                <button class="btn ghost btn-faction-yandi" aria-label="加入正方：炎帝之火">
+                    <span class="faction-icon">炎</span>
+                    <span>加入正方：炎帝之火</span>
+                </button>
+                <button class="btn ghost btn-faction-prometheus" aria-label="加入反方：普罗米修斯之火">
+                    <span class="faction-icon">P</span>
+                    <span>加入反方：普氏之火</span>
+                </button>
+            </div>
+            <div class="arena-rules">
+                <h4>擂台规则</h4>
+                <ul style="padding-left: 20px; font-size: 14px; color: var(--muted);">
+                    <li style="margin-bottom: 8px;">选择立场并发表观点。</li>
+                    <li style="margin-bottom: 8px;">你的论据将接受全网用户的评判。</li>
+                    <li style="margin-bottom: 8px;">优秀观点将被收录至“宇宙编年史”。</li>
+                    <li>参与创意赛，共筑世界观。</li>
+                </ul>
+                <button class="btn ghost" style="width: 100%; margin-top: 15px;">查看往期议题</button>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="stories" class="module-stories section-divider">
         <h2>Human Romance Engine · 《都市情感奇遇记》</h2>
@@ -775,7 +1149,7 @@
             <div class="card" style="padding: 20px;">
                 <img src="assets/images/romance_engine_visual.jpg" alt="都市情感奇遇记插图" loading="lazy" style="width: 100%; border-radius: 8px; aspect-ratio: 4/3; object-fit: cover;">
                 <h3 style="margin-top: 16px;">你的故事，是宇宙的光</h3>
-                <p class="muted" style="margin-top: 12px; line-height: 1.8;">我们相信，每一个看似平凡的瞬间，都可能蕴含着足以撼动世界的叙事原型。无论是尴尬的相亲，还是深刻的家庭联结，都是构成我们宏大宇宙的宝贵素材。<br><br>您的每一个分享，都将成为我们“人类情感样本库”的一部分，为作家提供灵感，为AI注入灵魂，甚至可能成为未来电影中的经典一幕。期待你的分享。</p>
+                <p class="muted" style="margin-top: 12px; line-height: 1.8;">我们相信，每一个看似平凡的瞬间，都可能蕴含着足以撼动世界的叙事原型。无论是尴尬的相亲，还是深刻的家庭联结，都是构成我们宏大宇宙的宝贵素材。<br><br>您的每一个分享，都将成为我们“人类情感样本库”的一部分，为作家提供灵感，为宇宙注入灵魂，甚至可能成为未来电影中的经典一幕。期待你的分享。</p>
                 <div class="card" style="margin-top: 24px;">
                     <h4 style="margin-bottom: 12px;">社区投票</h4>
                     <p class="muted" style="font-size: 14px; margin-bottom: 12px;">我们的宇宙未来，更应由哪种力量主导？</p>
