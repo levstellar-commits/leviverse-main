@@ -117,7 +117,83 @@
       .ancestor-tier-5 { grid-template-columns: repeat(2, 1fr); }
       .btn { min-width: 120px; font-size: 14px; padding: 10px 18px;}
     }
+
+.ancestor-lineage-epic {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.lineage-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: -10px; /* 让标题更贴近它的层级 */
+}
+
+.ancestor-tier {
+    display: grid;
+    gap: 24px; /* 增大卡片间距以增强史诗感 */
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* 关键：通过控制每一层的总宽度，来反向定义卡片的大小 */
+.ancestor-tier.tier-2 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 60%; /* 两个卡片，总宽度设为60%，单卡片宽度为总宽的30% */
+}
+
+.ancestor-tier.tier-3 {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 90%; /* 三个卡片，总宽度设为90%，单卡片宽度也为总宽的30% */
+}
+
+.ancestor-tier.tier-5 {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 100%; /* 五个卡片，总宽度100%，单卡片宽度为总宽的20% */
+    gap: 16px; /* 底层卡片较多，间距稍小一些 */
+}
+
+/* 视觉焦点：为中间层的核心人物卡片增加光环效果 */
+.ancestor-tier.tier-3 .hero-card {
+    border: 1px solid rgba(var(--accent-rgb), 0.3);
+    box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.2);
+}
+
+.lineage-connector {
+    width: 1px;
+    height: 60px; /* 增加连接线长度 */
+    background: linear-gradient(180deg, rgba(159, 176, 198, 0), rgba(159, 176, 198, 0.3), rgba(159, 176, 198, 0));
+    margin: 10px 0;
+}
+
+/* 响应式设计：在小屏幕上，所有层级都变为两列 */
+@media (max-width: 980px) {
+    .ancestor-tier.tier-2,
+    .ancestor-tier.tier-3,
+    .ancestor-tier.tier-5 {
+        max-width: 90%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 在更小的移动屏幕上，所有层级都变为一列 */
+@media (max-width: 640px) {
+    .ancestor-tier.tier-2,
+    .ancestor-tier.tier-3,
+    .ancestor-tier.tier-5 {
+        max-width: 80%;
+        grid-template-columns: 1fr;
+    }
+}
+
   </style>
+
 </head>
 <body>
   <header>
@@ -241,29 +317,40 @@
         欢迎来到宇宙的星图室。这里展示的不仅是神话，更是将传奇拆解为法则、势力、时序与冲突的宇宙骨架。循此图谱，您将洞见故事如何被赋予秩序，并最终生成可踏入的空间节点与生生不息的商业脉络。
       </p>
 
-      <div id="epic" style="margin-top:24px">
-          <h3>文明源流：十大始祖神格</h3>
-          <p class="muted">十尊原初神格，是构筑我们宇宙的基石。他们之间的冲突、融合与传承，既是世界观的逻辑起点，也是一切史诗的最初回响。</p>
-          <div class="ancestor-lineage">
-             <div class="ancestor-tier ancestor-tier-5">
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_fuxi.jpg"></div><div class="name">伏羲</div><div class="role muted">人文始祖</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_nuwa.jpg"></div><div class="name">女娲</div><div class="role muted">大地之母</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yandi.jpg"></div><div class="name">炎帝</div><div class="role muted">农耕始祖</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_huangdi.jpg"></div><div class="name">黄帝</div><div class="role muted">文明始祖</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_chiyou.jpg"></div><div class="name">蚩尤</div><div class="role muted">变革之力</div></div>
-            </div>
-            <div class="lineage-connector"></div>
-            <div class="ancestor-tier ancestor-tier-5">
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_zhuanxu.jpg"></div><div class="name">颛顼</div><div class="role muted">绝地天通</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_diku.jpg"></div><div class="name">帝喾</div><div class="role muted">华夏共主</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yao.jpg"></div><div class="name">尧</div><div class="role muted">禅让典范</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_shun.jpg"></div><div class="name">舜</div><div class="role muted">孝德楷模</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yu.jpg"></div><div class="name">禹</div><div class="role muted">治水英雄</div></div>
-            </div>
-          </div>
-      </div>
-  
-      <section id="world-echoes" style="margin-top: 48px;" role="region">
+<div id="epic" style="margin-top:24px">
+    <h3 style="text-align:center;">文明源流：十大始祖神格</h3>
+    <p class="muted" style="text-align:center;">十尊原初神格，是构筑我们宇宙的基石。他们之间的冲突、融合与传承，既是世界观的逻辑起点，也是一切史诗的最初回响。</p>
+    
+    <div class="ancestor-lineage-epic">
+        <div class="lineage-title">太初 · 创世源流</div>
+        <div class="ancestor-tier tier-2">
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_fuxi.jpg"></div><div class="name">伏羲</div><div class="role muted">人文始祖</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_nuwa.jpg"></div><div class="name">女娲</div><div class="role muted">大地之母</div></div>
+        </div>
+
+        <div class="lineage-connector"></div>
+
+        <div class="lineage-title">洪荒 · 文明冲突</div>
+        <div class="ancestor-tier tier-3">
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yandi.jpg"></div><div class="name">炎帝</div><div class="role muted">农耕始祖</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_huangdi.jpg"></div><div class="name">黄帝</div><div class="role muted">文明始祖</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_chiyou.jpg"></div><div class="name">蚩尤</div><div class="role muted">变革之力</div></div>
+        </div>
+
+        <div class="lineage-connector"></div>
+
+        <div class="lineage-title">传承 · 华夏共主</div>
+        <div class="ancestor-tier tier-5">
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_zhuanxu.jpg"></div><div class="name">颛顼</div><div class="role muted">绝地天通</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_diku.jpg"></div><div class="name">帝喾</div><div class="role muted">华夏共主</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yao.jpg"></div><div class="name">尧</div><div class="role muted">禅让典范</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_shun.jpg"></div><div class="name">舜</div><div class="role muted">孝德楷模</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yu.jpg"></div><div class="name">禹</div><div class="role muted">治水英雄</div></div>
+        </div>
+    </div>
+</div>
+
+          <section id="world-echoes" style="margin-top: 48px;" role="region">
         <h2>世界回响：同一原型下的不同故事</h2>
         <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
             我们的宇宙观认为，世界各地的神话并非孤立存在，而是对同一宇宙原型在不同文明中的“<em>方言式表达</em>”。立维宇宙的核心，就是用东方的哲学框架去解读和重构这些全人类共有的精神财富。
@@ -463,32 +550,82 @@
 	</section>
 
 <section id="team" class="section-divider" role="region">
-        <h2>蓝图的绘制者</h2>
-        <p class="muted">我们的世界观由资深作家、历史顾问与跨文化研究者共同构建，确保其深度与严谨性。</p>
-        <div class="six-cols" style="margin-top:18px;">
-            <div class="expert-card card"><img src="assets/images/expert_writer.webp" alt="作家头像" loading="lazy"><h3>王泽华 (作家)</h3><p class="muted">首席世界观架构师</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_yanhuang.webp" alt="炎黄研究专家头像" loading="lazy"><h3>李明轩 (炎黄研究)</h3><p class="muted">历史顾问</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder.webp" alt="跨文化研究专家头像" loading="lazy"><h3>张瀚文 (跨文化研究)</h3><p class="muted">叙事顾问</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_2.webp" alt="叙事设计师头像" loading="lazy"><h3>陈思琪 (叙事设计)</h3><p class="muted">叙事设计师</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_3.webp" alt="规划设计师头像" loading="lazy"><h3>赵宇辰 (规划设计)</h3><p class="muted">空间规划师</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_4.webp" alt="数字资产专家头像" loading="lazy"><h3>林若溪 (数字资产)</h3><p class="muted">数字资产顾问</p></div>
+    <h2>蓝图的绘制者</h2>
+    <p class="muted">一个伟大宇宙的诞生，需要跨学科的智慧共同点亮。我们的蓝图由以下核心领域的专家共同构建与诠释。</p>
+    <div class="six-cols" style="margin-top:18px;">
+        <div class="expert-card card">
+            <img src="assets/images/archetype_narrative.jpg" alt="叙事与世界观架构原型" loading="lazy">
+            <h3>世界观架构师</h3>
+            <p class="muted">负责定义宇宙的基础法则、文明谱系与核心冲突。</p>
         </div>
-    </section>
-        
-    <section id="wellness" class="module-wellness section-divider" role="region">
-        <h2>Wellness · 黄帝内经 · 生命系统</h2>
-        <p class="muted">以《黄帝内经》的文化脉络为灵感，结合东方哲学与现代生活方式，设计健康与养生的产品与体验。本站内容为文化/生活方式解读，并非医疗建议。</p>
-        <p style="color:var(--accent);margin-top:6px;font-weight:600">免责声明：本站内容仅为文化与生活方式参考，不构成医学诊断或治疗建议。如需医疗服务，请咨询有资质的医疗从业者。</p>
-        <div class="six-cols" style="margin-top:18px;">
-            <div class="expert-card card"><img src="assets/images/expert_wang.webp" alt="王泽华中医学专家头像" loading="lazy"><h3>王泽华</h3><p class="muted">中医学博士</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_li.webp" alt="李明轩中医养生专家头像" loading="lazy"><h3>李明轩</h3><p class="muted">康养策划人</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_zhang.webp" alt="张瀚文传统医学研究员头像" loading="lazy"><h3>张瀚文</h3><p class="muted">传统医学研究员</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_5.webp" alt="周雨婷养生产品设计师头像" loading="lazy"><h3>周雨婷</h3><p class="muted">养生产品设计师</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_6.webp" alt="徐梓涵文化养生顾问头像" loading="lazy"><h3>徐梓涵</h3><p class="muted">文化养生顾问</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_7.webp" alt="杨晨曦健康体验策划头像" loading="lazy"><h3>杨晨曦</h3><p class="muted">健康体验策划</p></div>
+        <div class="expert-card card">
+            <img src="assets/images/archetype_history.jpg" alt="历史与神话顾问原型" loading="lazy">
+            <h3>历史顾问</h3>
+            <p class="muted">确保世界观的每一个细节，都植根于真实可考的文化母体。</p>
         </div>
-        <div style="margin-top:16px;"><a class="btn" href="/wellness">进入康养专题页了解更多</a></div>
-    </section>
+        <div class="expert-card card">
+            <img src="assets/images/archetype_culture.jpg" alt="跨文化研究原型" loading="lazy">
+            <h3>跨文化研究</h3>
+            <p class="muted">解读不同文明神话的共通原型，构建全球共鸣的叙事。</p>
+        </div>
+        <div class="expert-card card">
+            <img src="assets/images/archetype_design.jpg" alt="叙事设计师原型" loading="lazy">
+            <h3>叙事设计师</h3>
+            <p class="muted">将宏大的世界观，转化为可体验、可互动的故事节点。</p>
+        </div>
+        <div class="expert-card card">
+            <img src="assets/images/archetype_spatial.jpg" alt="空间规划师原型" loading="lazy">
+            <h3>空间规划师</h3>
+            <p class="muted">将虚构的场景，“翻译”为可落地建造的物理空间蓝图。</p>
+        </div>
+        <div class="expert-card card" style="border-style: dashed; border-color: rgba(255,255,255,0.2);">
+            <img src="assets/images/archetype_join.jpg" alt="开放合作席位" loading="lazy">
+            <h3>期待加入</h3>
+            <p class="muted">我们持续邀请各领域顶尖人才，共同探索宇宙的边界。</p>
+        </div>
+    </div>
+</section>
+
+        <section id="wellness" class="module-wellness section-divider" role="region">
+    <h2>Wellness · 黄帝内经 · 生命系统</h2>
+    <p class="muted">一个源于古老智慧的生命系统，需要多维度的思想共同激活。我们的康养体系由以下核心领域的智慧原型共同构建。</p>
+    <p style="color:var(--accent);margin-top:6px;font-weight:600">免责声明：本站内容仅为文化与生活方式参考，不构成医学诊断或治疗建议。如需医疗服务，请咨询有资质的医疗从业者。</p>
+    
+    <div class="six-cols" style="margin-top:18px;">
+        <div class="expert-card card">
+            <img src="assets/images/archetype_wellness_theory.jpg" alt="医理源流研究原型" loading="lazy">
+            <h3>医理源流研究</h3>
+            <p class="muted">溯源《黄帝内经》核心思想，构建生命系统的哲学基石。</p>
+        </div>
+        <div class="expert-card card">
+            <img src="assets/images/archetype_wellness_design.jpg" alt="现代养生设计原型" loading="lazy">
+            <h3>现代养生设计</h3>
+            <p class="muted">将古老智慧转译为符合现代生活方式的康养产品与体验。</p>
+        </div>
+        <div class="expert-card card">
+            <img src="assets/images/archetype_wellness_academic.jpg" alt="学术顾问原型" loading="lazy">
+            <h3>学术顾问</h3>
+            <p class="muted">链接权威学术资源，确保文化解读的严谨性与前沿性。</p>
+        </div>
+        <div class="expert-card card">
+            <img src="assets/images/archetype_wellness_product.jpg" alt="产品体验设计原型" loading="lazy">
+            <h3>产品体验设计</h3>
+            <p class="muted">从五感到五行，打造可感知、可沉浸的健康生活美学。</p>
+        </div>
+        <div class="expert-card card">
+            <img src="assets/images/archetype_wellness_culture.jpg" alt="文化内涵诠释原型" loading="lazy">
+            <h3>文化内涵诠释</h3>
+            <p class="muted">深入解读东方生命观，为品牌与内容注入深厚文化价值。</p>
+        </div>
+        <div class="expert-card card" style="border-style: dashed; border-color: rgba(255,255,255,0.2);">
+            <img src="assets/images/archetype_wellness_join.jpg" alt="开放合作席位" loading="lazy">
+            <h3>期待合作</h3>
+            <p class="muted">我们持续寻找顶尖的康养专家与机构，共建生命系统。</p>
+        </div>
+    </div>
+
+    <div style="margin-top:24px;"><a class="btn" href="/wellness">进入康养专题页了解更多</a></div>
+</section>
 
     <style>
       .manifesto-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; align-items: center; }
