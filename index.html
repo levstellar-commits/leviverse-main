@@ -887,6 +887,36 @@ nav a:hover::after {
 }
 
 
+/* ---------- [全局金边] 为指定的重要卡片统一添加金色边框和光晕 ---------- */
+
+.ancestor-tier .hero-card, /* 十大始祖 */
+#architecture-projects .project-card, /* 规划建筑 */
+#micro-model .project-card, /* 微观实体 */
+.souvenir-item, /* 伴手礼 */
+#team .expert-card, /* 蓝图绘制者 */
+#wellness .expert-card, /* 黄帝内经 */
+#for-awards, /* 为雨果奖宣言 */
+.archetype-card /* 高维原型(为了统一，也加上) */
+{
+    border: 1px solid rgba(var(--accent-rgb), 0.5); /* 统一的金色边框 */
+    box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.2); /* 统一的金色光晕 */
+    transition: all 0.3s ease-in-out; /* 确保悬停动画平滑 */
+}
+
+/* 优化悬停效果，让金边更亮 */
+.ancestor-tier .hero-card:hover,
+#architecture-projects .project-card:hover,
+#micro-model .project-card:hover,
+.souvenir-item:hover,
+#team .expert-card:hover,
+#wellness .expert-card:hover,
+#for-awards:hover,
+.archetype-card:hover
+{
+    border-color: rgba(var(--accent-rgb), 0.8);
+    box-shadow: 0 12px 35px rgba(var(--accent-rgb), 0.3); /* 悬停时光晕更强 */
+}
+
 
   </style>
 
