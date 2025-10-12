@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -20,7 +19,7 @@
   <link rel="preload" as="image" href="assets/images/hero_main.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
   
   <style>
     /* ---------- [最终优化] 基础与新架构样式 ---------- */
@@ -33,7 +32,7 @@
     a{color:inherit;text-decoration:none}
     header{position:fixed;left:0;right:0;top:0;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg, rgba(2,4,10,0.9), rgba(2,4,10,0.12));z-index:10000;backdrop-filter: blur(6px)}
     .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:800;font-family: 'ZCOOL XiaoWei', serif;}
+    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:700;}
     nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px; transition: color 0.3s ease;} nav a:hover{color:#fff;}
     .btn{padding:8px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;}
     .btn:hover{transform: translateY(-2px); box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.25);}
@@ -41,7 +40,7 @@
     .ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
     .ghost:hover { background: rgba(255,255,255,0.05); color: #fff; box-shadow: none;}
     main{max-width:1300px;margin:0 auto;padding:120px 24px 80px}
-    h1,h2,h3,h4{font-family:'ZCOOL XiaoWei', 'Noto Serif SC', serif;margin:0}
+    h1,h2,h3,h4{font-family:'Noto Serif SC', serif;margin:0}
     h2 { font-size: 32px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
     p.muted { font-size: 16px; line-height: 1.8; }
     .muted em, .card em { color: var(--accent); font-style: normal; font-weight: 600; }
@@ -72,52 +71,47 @@
     .hero-card .name, .mascot-card .name {font-weight:700;margin-top:10px}
     .hero-card .role, .mascot-card .role {font-size:13px;color:var(--muted);margin-top:6px}
     /* [优化] 统一大部分卡片图为3:4 */
-    .card img.card-img-top {display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:8px 8px 0 0; margin: -20px -20px 14px -20px;}
-    #media-hub .card-img-top { aspect-ratio: 4/3; /* 新闻图保持4:3 */}
-    #world-echoes .card img { aspect-ratio: 16/9; /* 世界回响图保持16:9 */}
+    .card img.card-img-top, .project-card img, .souvenir-item img {display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;}
+    .card img.card-img-top {border-radius:8px 8px 0 0; margin: -20px -20px 14px -20px;}
+    .project-card img {border-radius: 0;}
+    .souvenir-item img {border-radius: 4px; margin-bottom: 6px;}
+    #media-hub .card-img-top { aspect-ratio: 4/3; }
+    #world-echoes .card img { aspect-ratio: 16/9; }
+
     .status-tag { display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: bold; border-radius: 999px; margin-left: 8px; vertical-align: middle; border: 1px solid transparent; }
     .status-published { background-color: rgba(var(--accent2-rgb), 0.1); color: var(--accent2); border-color: rgba(var(--accent2-rgb), 0.3); }
     .status-concept { background-color: rgba(255,255,255,0.05); color: var(--muted); border-color: rgba(255,255,255,0.1); }
     .status-dev { background-color: rgba(var(--accent-rgb), 0.1); color: var(--accent); border-color: rgba(var(--accent-rgb), 0.3); }
-    .blueprint-step { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; align-items: center; margin-top: 32px; }
-    .blueprint-step .content { text-align: left; }
-    .blueprint-step .visual { border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
-    .blueprint-step .visual img { display: block; width: 100%; height: auto; object-fit: cover; }
-    .blueprint-step.reverse .content { grid-column: 2; grid-row: 1; }
-    .blueprint-step.reverse .visual { grid-column: 1; grid-row: 1; }
+    
+    /* [优化] 始祖布局，统一前五位始祖尺寸 */
     .ancestor-lineage { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
     .ancestor-tier { width: 100%; }
     .lineage-connector { width: 1px; height: 40px; background: linear-gradient(180deg, rgba(159, 176, 198, 0), rgba(159, 176, 198, 0.2), rgba(159, 176, 198, 0)); }
-    .ancestor-tier-1 { display: flex; justify-content: center; align-items: center; gap: 15%; }
-    .ancestor-tier-1 .hero-card { max-width: 30%; flex-shrink: 0; }
-    .ancestor-tier-2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .ancestor-tier-3 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .ancestor-tier-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+
     /* [优化] 合作伙伴横向滚动布局 */
-    .partner-list-container { overflow-x: auto; padding-bottom: 10px; }
-    .partner-list { list-style: none; padding: 0; margin: 0; display: flex; gap: 32px; width: max-content; }
-    .partner-list li { white-space: nowrap; }
+    .partner-logo-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+    .partner-track { display: flex; width: max-content; gap: 16px; animation: scroll 60s linear infinite; }
+    .partner-track:hover { animation-play-state: paused; }
+    .partner-logo { background: rgba(255,255,255,0.03); border-radius: 8px; width: 100px; height: 100px; display: grid; place-items:center; color: var(--muted); font-size: 12px; text-align: center; padding: 5px; }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     @media(max-width:1200px){.five-cols{grid-template-columns:repeat(4,1fr)}.six-cols{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:980px){
       .two-cols, .three-cols,.four-cols, .five-cols {grid-template-columns:repeat(2,1fr)}
       .hero-title{font-size:32px}
-      .ancestor-tier-3 { grid-template-columns: repeat(3, 1fr); }
+      .ancestor-tier-5 { grid-template-columns: repeat(3, 1fr); }
     }
     @media(max-width:768px){
       h2 { font-size: 28px; }
-      .two-cols {grid-template-columns:1fr}
-      .blueprint-step, .blueprint-step.reverse { grid-template-columns: 1fr; gap: 24px; }
-      .blueprint-step.reverse .content { grid-column: 1; }
-      .blueprint-step .content { text-align: center; }
+      .two-cols, #what .three-cols {grid-template-columns:1fr}
     }
     @media(max-width:640px){
       main{padding-top:100px; padding-left: 16px; padding-right: 16px;}
       section { margin-top: 60px; }
       .three-cols,.four-cols,.five-cols,.six-cols {grid-template-columns:1fr}
       .hero-wrap{height:auto;padding-bottom:20px; min-height: 450px;}
-      .ancestor-tier-1 { flex-direction: column; gap: 24px; }
-      .ancestor-tier-1 .hero-card { max-width: 70%; }
-      .ancestor-tier-2, .ancestor-tier-3 { grid-template-columns: repeat(2, 1fr); }
+      .ancestor-tier-5 { grid-template-columns: repeat(2, 1fr); }
       .btn { min-width: 120px; font-size: 14px; padding: 10px 18px;}
     }
   </style>
@@ -132,10 +126,10 @@
       </div>
     </div>
     <nav>
-      <a href="#what" title="我们的核心方法论">世界蓝图</a>
-      <a href="#universe" title="进入立维宇宙世界观">宇宙观</a>
       <a href="#matrix" title="浏览我们的IP作品矩阵">IP矩阵</a>
+      <a href="#universe" title="进入立维宇宙世界观">宇宙观</a>
       <a href="#spatial" title="查看文化落地实体案例">场景降临</a>
+      <a href="#what" title="我们的核心方法论">世界蓝图</a>
       <a href="#contact" title="与我们建立合作">合作共建</a>
     </nav>
   </header>
@@ -156,136 +150,72 @@
       </div>
     </section>
 
-    <section id="what" aria-label="我们的核心方法论" role="region">
+    <section id="heroes" aria-label="角色库" role="region">
+        <h2>与传奇相遇</h2>
+        <p class="muted">从核心角色到周边配角，我们为每个角色定义视觉设定、商业延展与故事触点。他们不只是画像，而是等待被唤醒的灵魂。</p>
+        <div class="four-cols">
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_luxiaoyun.jpg"></div><div class="name">路霄雲</div><div class="role muted">远行者</div><p class="muted" style="font-size:12px; margin-top:8px;">来自<a href="#novels">《补天之城》</a>的未来，他的出现本身就是一个待解的谜团。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_yulingxuan.jpg"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div><p class="muted" style="font-size:12px; margin-top:8px;">她的能力连接着数字风暴与远古的记忆微粒，是新旧世界的信使。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_haishixin.jpg"></div><div class="name">海世鑫</div><div class="role muted">海域行者</div><p class="muted" style="font-size:12px; margin-top:8px;">在“归墟”中探索未知航线，他的船承载着失落的文明碎片。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_lanqianduo.jpg"></div><div class="name">蓝千朵</div><div class="role muted">庭园守望</div><p class="muted" style="font-size:12px; margin-top:8px;">她守护的不仅是赛博园林，更是人类情感的最后一片“自然”样本。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
+        </div>
+        <h3 style="margin-top: 36px;">宇宙萌宠</h3>
+        <div class="four-cols">
+             <div class="mascot-card"><div class="pic lazy-bg" data-bg="assets/images/mascot_xingling.jpg"></div><div class="name">星灵</div><div class="role muted">星域萌宠 · AR体验</div></div>
+             <div class="mascot-card"><div class="pic lazy-bg" data-bg="assets/images/mascot_lidudu.jpg"></div><div class="name">狸嘟嘟</div><div class="role muted">城市守望 · 周边</div></div>
+             <div class="mascot-card"><div class="pic lazy-bg" data-bg="assets/images/mascot_shixiaosheng.jpg"></div><div class="name">石小圣</div><div class="role muted">古物萌宠 · 收藏</div></div>
+             <div class="mascot-card"><div class="pic lazy-bg" data-bg="assets/images/mascot_placeholder.jpg"></div><div class="name">玄水宝宝</div><div class="role muted">数字生命 · 互动</div></div>
+        </div>
+    </section>
+
+    <section id="matrix" class="section-divider" aria-label="叙事孵化器" role="region">
+        <h2>IP矩阵：从文字到多维体验</h2>
+        <p class="muted" style="text-align:center;"><em>想象一下，你的阅读如何点燃一个宇宙？从文字出发，我们共同孵化多维故事。</em></p>
+        <div id="novels" style="margin-top:36px">
+             <h3>核心文学 <span class="status-tag status-published">已发布</span></h3>
+            <p class="muted">IP世界观的文学母体，提供丰富的改编土壤。</p>
+             <div class="five-cols">
+                <div class="card"><img class="card-img-top" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面" loading="lazy"><div class="info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 群像叙事</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy"><div class="info"><strong>《炎黄星曌》</strong><div class="muted">神话与科技的史诗</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy"><div class="info"><strong>《补天之城》</strong><div class="muted">都市科幻 · 场景原型</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面" loading="lazy"><div class="info"><strong>《都市妖精图鉴...》</strong><div class="muted">都市奇幻 · 男生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-yaojing-preview.pdf" download>查看预览</a></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy"><div class="info"><strong>《都市神兽考察报告...》</strong><div class="muted">都市奇幻 · 女生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div></div>
+            </div>
+        </div>
+        <div id="miniseries" style="margin-top:36px">
+            <h3>微剧开发蓝图 <span class="status-tag status-dev">开发中</span></h3>
+            <p class="muted">我们正基于以下成熟故事原型，进行影视化开发与合作伙伴接洽。</p>
+            <div class="five-cols">
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="短剧封面炎的弥赛亚" loading="lazy"><div class="info"><strong>炎的弥赛亚</strong><div class="muted" style="font-size:12px">动作 / <a href="#heroes">姜炎洺</a></div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="短剧封面回溯者之眸" loading="lazy"><div class="info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜熙</a></div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="短剧封面编码者悖论" loading="lazy"><div class="info"><strong>编码者悖论</strong><div class="muted" style="font-size:12px">科幻 / <a href="#heroes">墨氚</a></div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="短剧封面霓虹下的低语" loading="lazy"><div class="info"><strong>霓虹下的低语</strong><div class="muted" style="font-size:12px">赛博 / <a href="#heroes">路霄雲</a></div></div></div>
+                <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战" loading="lazy"><div class="info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="what" aria-label="我们的核心方法论" class="section-divider" role="region">
       <h2 style="text-align: center;">从神话之核到现实之城：三步铸就宇宙</h2>
       <p class="muted" style="text-align: center; max-width: 700px; margin: 16px auto 0 auto;">一个世界的诞生分三步：始于文明的基因，终于可运营的奇境。</p>
       
-      <div class="blueprint-step">
-        <div class="visual">
-          <img src="assets/images/concept_method_01.jpg" alt="解构文化基因概念图" loading="lazy">
-        </div>
-        <div class="content">
-          <h3><span style="font-size:24px">①</span> 解码原型：潜入记忆之海</h3>
-          <p class="muted">整理神话原型、地域记忆与典籍考据，提炼出可无限衍生的“<em>叙事骨架</em>”与“<em>文明基因</em>”。例如，我们将“女娲补天”的古老母题，重塑为未来都市<a href="#novels">《补天之城》</a>的核心设定。</p>
-        </div>
-      </div>
-
-      <div class="blueprint-step reverse">
-        <div class="visual">
-          <img src="assets/images/concept_method_02.jpg" alt="内容孵化概念图" loading="lazy">
-        </div>
-        <div class="content">
-          <h3><span style="font-size:24px">②</span> 构建叙事：种下故事的种子</h3>
-          <p class="muted">将世界观的设定，培育成短剧、漫画、互动体验乃至游戏原型，在与观众的真实互动中，打磨<em>IP的生命力</em>。例如，《驹隙万秋》的核心章节，已孵化为可供演绎的短剧片段。</p>
-        </div>
-      </div>
-
-      <div class="blueprint-step">
-        <div class="visual">
-          <img src="assets/images/concept_method_03.jpg" alt="场景化交付概念图" loading="lazy">
-        </div>
-        <div class="content">
-          <h3><span style="font-size:24px">③</span> 链接现实：让想象照进现实</h3>
-          <p class="muted">通过精密的规划设计与项目管理，将虚构的叙事转化为可真实体验、可持续运营的空间与产品。例如，<a href="#novels">《补天之城》</a>的主题，正转化为一个<em>多维度的文旅项目</em>。</p>
-        </div>
-      </div>
-    </section>
-    
-    <section id="media-hub" role="region" aria-label="媒体资讯" class="section-divider">
-      <h2>来自外界的回响</h2>
-      <p class="muted">我们的每一次发声，都是宇宙构建进程中的一块拼图。通过短视频与深度文稿，见证立维宇宙的持续演化。</p>
-      <div class="media-tabs" style="margin-top:12px; display: flex; flex-wrap: wrap; gap: 8px;">
-        <button class="btn ghost active" data-filter="all">全部</button>
-        <button class="btn ghost" data-filter="news">新闻</button>
-        <button class="btn ghost" data-filter="article">文章</button>
-        <button class="btn ghost" data-filter="video">视频</button>
-        <button class="btn ghost" data-filter="self-media">自媒体</button>
-      </div>
-      <div class="five-cols" style="margin-top:16px;">
-        <article class="card media-card" data-type="news">
-          <img src="assets/images/media_news_01.jpg" alt="东方神话主题分享会现场照片" loading="lazy" class="card-img-top" width="400" height="300">
-          <div class="info" style="font-size: 14px;">
-            <span class="media-type-tag">新闻</span>
-            <time datetime="2025-09-28" class="muted" style="font-size: 12px;">2025-09-28</time>
-            <h4 style="margin-top: 8px; font-size: 15px;">东方神话的现代转译主题分享会成功举办</h4>
-          </div>
-          <a class="btn ghost" href="/media/news-001" style="margin-top: 12px; width: 100%;">阅读更多</a>
-        </article>
-        <article class="card media-card" data-type="self-media video">
-          <img src="assets/images/media_video_01.jpg" alt="炎帝的火主题短片" loading="lazy" class="card-img-top" width="400" height="300">
-          <div class="info" style="font-size: 14px;">
-            <span class="media-type-tag">Self-media</span>
-            <time datetime="2025-09-20" class="muted" style="font-size: 12px;">2025-09-20</time>
-            <h4 style="margin-top: 8px; font-size: 15px;">自媒体短辑：炎帝的火 · 30s</h4>
-          </div>
-          <a class="btn ghost" href="/media/video-001" style="margin-top: 12px; width: 100%;">立即播放</a>
-        </article>
-        <article class="card media-card" data-type="news">
-          <img src="assets/images/media_news_02.jpg" alt="补天之城概念设计图" loading="lazy" class="card-img-top" width="400" height="300">
-          <div class="info" style="font-size: 14px;">
-            <span class="media-type-tag">新闻</span>
-            <time datetime="2025-09-15" class="muted" style="font-size: 12px;">2025-09-15</time>
-            <h4 style="margin-top: 8px; font-size: 15px;">“<a href="#novels">补天之城</a>”概念设计发布，获业内关注</h4>
-          </div>
-          <a class="btn ghost" href="/media/news-002" style="margin-top: 12px; width: 100%;">阅读更多</a>
-        </article>
-        <article class="card media-card" data-type="news">
-            <img src="assets/images/media_news_03.jpg" alt="智慧文旅项目规划设计" loading="lazy" class="card-img-top" width="400" height="300">
-            <div class="info" style="font-size: 14px;">
-                <span class="media-type-tag">新闻</span>
-                <time datetime="2025-08-30" class="muted" style="font-size: 12px;">2025-08-30</time>
-                <h4 style="margin-top: 8px; font-size: 15px;">立维宇宙 × 维杰设计启动“智慧文旅叙事框架”联合研究</h4>
-            </div>
-            <a class="btn ghost" href="/media/news-003" style="margin-top: 12px; width: 100%;">阅读更多</a>
-        </article>
-        <article class="card media-card" data-type="article">
-          <img src="assets/images/media_article_01.jpg" alt="宇宙观图谱" loading="lazy" class="card-img-top" width="400" height="300">
-          <div class="info" style="font-size: 14px;">
-            <span class="media-type-tag">文章</span>
-            <time datetime="2025-08-20" class="muted" style="font-size: 12px;">2025-08-20</time>
-            <h4 style="margin-top: 8px; font-size: 15px;">长文节选：《宇宙观·起源与秩序》</h4>
-          </div>
-          <a class="btn ghost" href="/media/article-001" style="margin-top: 12px; width: 100%;">阅读节选</a>
-        </article>
-      </div>
-      <div style="text-align: center; margin-top: 24px;">
-          <a href="/media" class="btn">查看更多媒体资讯</a>
-      </div>
-    </section>
-
-    <section id="themes" class="section-divider" aria-label="核心主题" role="region">
-        <h2>宇宙核心 · 哲学思辨</h2>
-        <p class="muted">立维宇宙不仅是故事的集合，更是一座探索宏大命题的思想实验场。</p>
-        <div class="two-cols" style="margin-top:16px; align-items: stretch;">
-            <div class="card">
-                <h3>文明模式的冲突</h3>
-                <p class="muted">我们的核心叙事，源于两种文明发展模式的根本冲突。以“<a href="#world-echoes">炎帝之火</a>”为象征的、源于内部传承与社群福祉的“<em>内生型文明</em>”，与以“<a href="#world-echoes">普罗米修斯之火</a>”为隐喻的、来自外部颠覆与个体启蒙的“<em>外求型文明</em>”——二者之间的共存、竞争与融合，构成了我们世界观中一切戏剧冲突的基石。</p>
-            </div>
-            <div class="card">
-                <h3>神话作为记忆技术</h3>
-                <p class="muted">我们不将神话视为尘封的往事，而是一种跨越世代、高效存储“<em>文明基因</em>”的古老技术。宇宙中的关键角色，如<a href="#heroes">“记忆行者”澜熙</a>，其使命便是解读、重写或守护这些承载着文明密码的神话原型。这背后是我们对一个终极问题的探讨：记忆如何塑造现实？<em>历史是否可以被“编码”</em>？</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="universe-summary" aria-label="文化宇宙摘要" role="region">
-      <h2>立维宇宙 · 文化与叙事</h2>
       <div class="three-cols">
-        <div class="card"><strong>史诗基石</strong><div class="muted" style="margin-top:8px">十大始祖 · 世界观核心</div></div>
-        <div class="card"><strong>作品矩阵</strong><div class="muted" style="margin-top:8px">微剧/漫画/游戏/小说</div></div>
-        <div class="card"><strong>全球视野</strong><div class="muted" style="margin-top:8px">跨文化原型 · 普世价值</div></div>
+        <div class="card">
+          <img src="assets/images/concept_method_01.jpg" alt="解构文化基因概念图" loading="lazy" class="card-img-top" style="aspect-ratio: 4/3;">
+          <h3><span style="font-size:24px">①</span> 解码原型</h3>
+          <p class="muted" style="font-size:14px;">整理神话原型、地域记忆与典籍考据，提炼出可无限衍生的“<em>叙事骨架</em>”与“<em>文明基因</em>”。</p>
+        </div>
+        <div class="card">
+          <img src="assets/images/concept_method_02.jpg" alt="内容孵化概念图" loading="lazy" class="card-img-top" style="aspect-ratio: 4/3;">
+          <h3><span style="font-size:24px">②</span> 构建叙事</h3>
+          <p class="muted" style="font-size:14px;">将世界观的设定，培育成短剧、漫画、互动体验乃至游戏原型，在与观众的真实互动中，打磨<em>IP的生命力</em>。</p>
+        </div>
+        <div class="card">
+          <img src="assets/images/concept_method_03.jpg" alt="场景化交付概念图" loading="lazy" class="card-img-top" style="aspect-ratio: 4/3;">
+          <h3><span style="font-size:24px">③</span> 链接现实</h3>
+          <p class="muted" style="font-size:14px;">通过精密的规划设计，将虚构的叙事转化为可真实体验、可持续运营的空间与产品。</p>
+        </div>
       </div>
-       <div style="margin-top:16px;text-align:center"><button class="btn ghost" onclick="location.href='#universe'">进入文化宇宙全览</button></div>
-    </section>
-
-    <section id="design-summary" aria-label="设计赋能摘要" role="region">
-      <h2>维杰设计 · 场景化落地</h2>
-      <div class="three-cols">
-        <div class="card"><h3>空间叙事</h3><p class="muted">将故事拆解为建筑元素与体验路径，融入规划设计。</p></div>
-        <div class="card"><h3>规划设计</h3><p class="muted">通过前期策划与场景设计，确保文化IP精准落地。</p></div>
-        <div class="card"><h3>项目交付</h3><p class="muted">从概念到施工，提供全流程设计与工程管理。</p></div>
-      </div>
-      <div style="margin-top:16px;text-align:center"><button class="btn" onclick="location.href='#spatial'">查看空间共创案例</button></div>
     </section>
 
     <section id="universe" class="section-divider" aria-label="宇宙观" role="region">
@@ -298,23 +228,20 @@
           <h3>文明源流：十大始祖神格</h3>
           <p class="muted">十尊原初神格，是构筑我们宇宙的基石。他们之间的冲突、融合与传承，既是世界观的逻辑起点，也是一切史诗的最初回响。</p>
           <div class="ancestor-lineage">
-             <div class="ancestor-tier ancestor-tier-1">
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_fuxi.jpg"></div><div class="name">伏羲</div><div class="role muted">人文始祖 · 八卦创作者</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_nuwa.jpg"></div><div class="name">女娲</div><div class="role muted">大地之母 · 生命守护者</div></div>
+             <div class="ancestor-tier ancestor-tier-5">
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_fuxi.jpg"></div><div class="name">伏羲</div><div class="role muted">人文始祖</div></div>
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_nuwa.jpg"></div><div class="name">女娲</div><div class="role muted">大地之母</div></div>
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yandi.jpg"></div><div class="name">炎帝</div><div class="role muted">农耕始祖</div></div>
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_huangdi.jpg"></div><div class="name">黄帝</div><div class="role muted">文明始祖</div></div>
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_chiyou.jpg"></div><div class="name">蚩尤</div><div class="role muted">变革之力</div></div>
             </div>
             <div class="lineage-connector"></div>
-            <div class="ancestor-tier ancestor-tier-2">
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yandi.jpg"></div><div class="name">炎帝</div><div class="role muted">农耕始祖 · 医药之神</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_huangdi.jpg"></div><div class="name">黄帝</div><div class="role muted">文明始祖 · 秩序建立者</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_chiyou.jpg"></div><div class="name">蚩尤</div><div class="role muted">兵主 · 变革之力</div></div>
-            </div>
-            <div class="lineage-connector"></div>
-            <div class="ancestor-tier ancestor-tier-3">
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_zhuanxu.jpg"></div><div class="name">颛顼</div><div class="role muted">绝地天通 · 历法革新者</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_diku.jpg"></div><div class="name">帝喾</div><div class="role muted">承上启下 · 华夏共主</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yao.jpg"></div><div class="name">尧</div><div class="role muted">禅让典范 · 德化天下</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_shun.jpg"></div><div class="name">舜</div><div class="role muted">孝德楷模 · 制度完善者</div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yu.jpg"></div><div class="name">禹</div><div class="role muted">治水英雄 · 天下开拓者</div></div>
+            <div class="ancestor-tier ancestor-tier-5">
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_zhuanxu.jpg"></div><div class="name">颛顼</div><div class="role muted">绝地天通</div></div>
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_diku.jpg"></div><div class="name">帝喾</div><div class="role muted">华夏共主</div></div>
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yao.jpg"></div><div class="name">尧</div><div class="role muted">禅让典范</div></div>
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_shun.jpg"></div><div class="name">舜</div><div class="role muted">孝德楷模</div></div>
+              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yu.jpg"></div><div class="name">禹</div><div class="role muted">治水英雄</div></div>
             </div>
           </div>
       </div>
@@ -373,36 +300,6 @@
         </div>
         <p class="map-footnote">“每一个节点，都是通往一个失落世界的入口。每一次连接，都是对人类集体记忆的重新发现。”</p>
       </section>
-
-      <div id="philosophy-cards" style="margin-top:36px">
-          <h3>高维原型 · 哲学图谱</h3>
-          <p class="muted">我们将不同文化中的神祇和哲学原型，解构为宇宙能量、秩序法则或演化路径。</p>
-          <div class="four-cols">
-              <div class="gallery-item"><img src="assets/images/philosophy_buddha.jpg" alt="佛祖原型卡牌图像" loading="lazy" width="300" height="400"><strong>高维原型：觉者</strong><div class="muted" style="font-size:12px">能量流转 · 涅槃系</div><div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 普罗米修斯 (盗火者), 奥丁 (献祭智慧)</div></div>
-              <div class="gallery-item"><img src="assets/images/philosophy_deva.jpg" alt="天王原型卡牌图像" loading="lazy" width="300" height="400"><strong>秩序原型：天王</strong><div class="muted" style="font-size:12px">维度守护 · 戒律系</div><div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 宙斯 (奥林匹斯之王), 拉 (埃及太阳神)</div></div>
-              <div class="gallery-item"><img src="assets/images/philosophy_angel.jpg" alt="天使原型卡牌图像" loading="lazy" width="300" height="400"><strong>信源代码：天使</strong><div class="muted" style="font-size:12px">认知偏差 · 演化系</div><div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 赫尔墨斯 (信使), 加百列 (报喜者)</div></div>
-              <div class="gallery-item"><img src="assets/images/philosophy_chaos.jpg" alt="混沌原型卡牌图像" loading="lazy" width="300" height="400"><strong>混沌基点：原始</strong><div class="muted" style="font-size:12px">熵增原理 · 裂隙系</div><div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 提亚马特 (巴比伦创世母神), 洛基 (北欧搅局者)</div></div>
-          </div>
-      </div>
-      
-      <div id="heroes" style="margin-top:36px">
-          <h2>角色库 · 与传奇相遇</h2>
-          <p class="muted">从核心角色到周边配角，我们为每个角色定义视觉设定、商业延展与故事触点。他们不只是画像，而是等待被唤醒的灵魂。</p>
-          <div class="four-cols">
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_luxiaoyun.jpg"></div><div class="name">路霄雲</div><div class="role muted">远行者</div><p class="muted" style="font-size:12px; margin-top:8px;">来自<a href="#novels">《补天之城》</a>的未来，他的出现本身就是一个待解的谜团。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_yulingxuan.jpg"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div><p class="muted" style="font-size:12px; margin-top:8px;">她的能力连接着数字风暴与远古的记忆微粒，是新旧世界的信使。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_haishixin.jpg"></div><div class="name">海世鑫</div><div class="role muted">海域行者</div><p class="muted" style="font-size:12px; margin-top:8px;">在“归墟”中探索未知航线，他的船承载着失落的文明碎片。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_lanqianduo.jpg"></div><div class="name">蓝千朵</div><div class="role muted">庭园守望</div><p class="muted" style="font-size:12px; margin-top:8px;">她守护的不仅是赛博园林，更是人类情感的最后一片“自然”样本。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_jiangyanming.jpg"></div><div class="name">姜炎洺</div><div class="role muted">时间之眼 · 破局者</div><p class="muted" style="font-size:12px; margin-top:8px;">他的旅程与“<a href="#themes">炎帝之火</a>”的哲学思辨紧密相连，迫使他在创造与毁灭间做出抉择。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_lanxi.jpg"></div><div class="name">澜熙</div><div class="role muted">神祇后裔 · 记忆行者</div><p class="muted" style="font-size:12px; margin-top:8px;">作为神话的守护者，她必须在保护与重写文明记忆的悖论中寻找真相。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_mochuan.jpg"></div><div class="name">墨氚</div><div class="role muted">叙事工程师</div><p class="muted" style="font-size:12px; margin-top:8px;">他相信一切皆可编码，包括命运。但他自己错综复杂的过去，能否被算法解构？</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_ruihan.jpg"></div><div class="name">蕊琀</div><div class="role muted">线索守护者</div><p class="muted" style="font-size:12px; margin-top:8px;">“历史中没有偶然。” 她于尘封的档案中追寻蛛丝马迹，揭示被掩盖的联系。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
-              <div class="mascot-card"><div class="pic lazy-bg" data-bg="assets/images/mascot_xingling.jpg"></div><div class="name">星灵</div><div class="role muted">星域萌宠 · AR体验</div></div>
-              <div class="mascot-card"><div class="pic lazy-bg" data-bg="assets/images/mascot_lidudu.jpg"></div><div class="name">狸嘟嘟</div><div class="role muted">城市守望 · 周边</div></div>
-              <div class="mascot-card"><div class="pic lazy-bg" data-bg="assets/images/mascot_shixiaosheng.jpg"></div><div class="name">石小圣</div><div class="role muted">古物萌宠 · 收藏</div></div>
-              <div class="mascot-card"><div class="pic lazy-bg" data-bg="assets/images/mascot_placeholder.jpg"></div><div class="name">玄水宝宝</div><div class="role muted">数字生命 · 互动</div></div>
-          </div>
-      </div>
     </section>
 
     <style>
@@ -464,51 +361,29 @@
         </div>
     </section>
 
-    <section id="matrix" class="section-divider" aria-label="叙事孵化器" role="region">
-        <h2>IP矩阵：从文字到多维体验</h2>
-        <p class="muted" style="text-align:center;"><em>想象一下，你的阅读如何点燃一个宇宙？从文字出发，我们共同孵化多维故事。</em></p>
-        <div id="novels" style="margin-top:36px">
-             <h3>核心文学 <span class="status-tag status-published">已发布</span></h3>
-            <p class="muted">IP世界观的文学母体，提供丰富的改编土壤。</p>
-             <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 群像叙事</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《炎黄星曌》</strong><div class="muted">神话与科技的史诗</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《补天之城》</strong><div class="muted">都市科幻 · 场景原型</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《都市妖精图鉴...》</strong><div class="muted">都市奇幻 · 男生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-yaojing-preview.pdf" download>查看预览</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《都市神兽考察报告...》</strong><div class="muted">都市奇幻 · 女生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div></div>
+    <style>
+      .bridge-card { text-align: center;}
+      .bridge-card .icon { font-size: 40px; line-height: 1; color: var(--accent); font-family: 'Noto Serif SC', serif;}
+      .bridge-card h3 { margin-top: 12px; }
+    </style>
+    <section id="ip-to-reality-bridge" class="section-divider" aria-label="叙事转译之桥">
+        <h2 style="text-align: center;">从图纸到地标：文化IP的实体化之旅</h2>
+        <p class="muted" style="text-align:center;">我们的核心能力，是将抽象的文化符号，“转译”为可体验的物理空间。这不仅是建造，更是文化的转码与重塑。</p>
+        <div class="three-cols">
+            <div class="card bridge-card">
+                <div class="icon">符</div>
+                <h3>① 提取符号</h3>
+                <p class="muted" style="font-size: 14px;">从神话角色的服饰纹样，到古籍中的阵法图谱，我们将其解构为可被现代设计语言理解的视觉元素与空间母题。</p>
             </div>
-        </div>
-        <div id="miniseries" style="margin-top:36px">
-            <h3>微剧开发蓝图 <span class="status-tag status-dev">开发中</span></h3>
-            <p class="muted">我们正基于以下成熟故事原型，进行影视化开发与合作伙伴接洽。</p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="短剧封面炎的弥赛亚" loading="lazy" width="300" height="400"><div class="info"><strong>炎的弥赛亚</strong><div class="muted" style="font-size:12px">动作 / <a href="#heroes">姜炎洺</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="短剧封面回溯者之眸" loading="lazy" width="300" height="400"><div class="info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜熙</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="短剧封面编码者悖论" loading="lazy" width="300" height="400"><div class="info"><strong>编码者悖论</strong><div class="muted" style="font-size:12px">科幻 / <a href="#heroes">墨氚</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="短剧封面霓虹下的低语" loading="lazy" width="300" height="400"><div class="info"><strong>霓虹下的低语</strong><div class="muted" style="font-size:12px">赛博 / <a href="#heroes">路霄雲</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战" loading="lazy" width="300" height="400"><div class="info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
+            <div class="card bridge-card">
+                <div class="icon">景</div>
+                <h3>② 转译场景</h3>
+                <p class="muted" style="font-size: 14px;">将小说中的“云中之城”或“归墟航线”，转化为主题展陈的叙事动线，或是商业综合体的中庭设计概念。</p>
             </div>
-        </div>
-        <div id="comic" style="margin-top:36px">
-            <h3>漫画 <span class="status-tag status-concept">概念设计</span></h3>
-            <p class="muted">基于核心故事线，我们已完成以下作品的概念设计，并逐步推进产品化。我们相信过程即展示。</p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/comic_01.jpg" alt="漫画封面时间碎片" loading="lazy" width="300" height="400"><div class="info"><strong>《时间碎片》</strong><div class="muted" style="font-size:13px">赛博悬疑</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_02.jpg" alt="漫画封面文明的囚徒" loading="lazy" width="300" height="400"><div class="info"><strong>《文明的囚徒》</strong><div class="muted" style="font-size:13px">末日科幻</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_03.jpg" alt="漫画封面基因图谱" loading="lazy" width="300" height="400"><div class="info"><strong>《基因图谱》</strong><div class="muted" style="font-size:13px">神话起源</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_1.jpg" alt="漫画封面蚩尤之心" loading="lazy" width="300" height="400"><div class="info"><strong>《蚩尤之心》</strong><div class="muted" style="font-size:13px">战争史诗</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_guixu.jpg" alt="归墟航线漫画精选集封面" loading="lazy" width="300" height="400"><div class="info"><strong>《归墟航线》</strong><div class="muted" style="font-size:13px">海洋冒险</div></div></div>
-            </div>
-        </div>
-        <div id="game" style="margin-top:36px">
-            <h3>游戏 <span class="status-tag status-concept">原型</span></h3>
-            <p class="muted">基于IP世界观设计的游戏化概念，等待与玩家共同塑造成型。<em>您希望这个游戏如何演化？告诉我们。</em></p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/game_01.jpg" alt="游戏原型时空猎人" loading="lazy" width="300" height="400"><div class="info"><strong>动作 RPG：时空猎人</strong><p class="muted" style="font-size:12px">核心玩法：基于五行理论的动态战斗系统。</p></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/game_02.jpg" alt="游戏原型神祇战争" loading="lazy" width="300" height="400"><div class="info"><strong>策略卡牌：神祇战争</strong><p class="muted" style="font-size:12px">核心玩法：组合始祖原型卡牌，重演文明冲突。</p></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/game_03.jpg" alt="游戏原型未来城市" loading="lazy" width="300" height="400"><div class="info"><strong>元宇宙：未来城市</strong><p class="muted" style="font-size:12px">核心玩法：在<a href="#novels">补天之城</a>中建设与社交。</p></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/game_placeholder_1.jpg" alt="游戏原型神祇代码" loading="lazy" width="300" height="400"><div class="info"><strong>叙事解谜：神祇代码</strong><p class="muted" style="font-size:12px">核心玩法：扮演<a href="#heroes">蕊琀</a>，解开历史谜案。</p></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/game_placeholder_2.jpg" alt="游戏原型海洋冒险" loading="lazy" width="300" height="400"><div class="info"><strong>冒险游戏：归墟探险</strong><p class="muted" style="font-size:12px">核心玩法：开放世界海洋探索。</p></div></div>
+            <div class="card bridge-card">
+                <div class="icon">境</div>
+                <h3>③ 注入意境</h3>
+                <p class="muted" style="font-size: 14px;">最终，通过光影、材质与互动装置，将文化意境注入物理空间，让身处其中的人，能够真实地“步入”我们所构筑的世界。</p>
             </div>
         </div>
     </section>
@@ -520,30 +395,30 @@
             <h3>空间叙事 (从故事到场景)</h3>
             <p class="muted">将IP故事拆解为空间元素与体验路径，通过规划设计实现文化与现实的连接。</p>
             <div class="four-cols">
-                <div class="project-card"><img src="assets/images/scene_concept_1.jpg" alt="世界观转化模型图像" loading="lazy" width="300" height="400"><div class="info"><h4>世界观转化模型</h4><p class="muted">将文学设定解构为空间设计语言。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_2.jpg" alt="规划设计链路图像" loading="lazy" width="300" height="400"><div class="info"><h4>规划设计链路</h4><p class="muted">将IP元素转化为空间规划与场景设计。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_3.jpg" alt="沉浸式体验设计图像" loading="lazy" width="300" height="400"><div class="info"><h4>沉浸式体验设计</h4><p class="muted">定义用户与IP故事的互动路径。</p></div></div>
-                <div class="project-card"><img src="assets/images/scene_concept_4.jpg" alt="叙事空间布局图像" loading="lazy" width="300" height="400"><div class="info"><h4>叙事空间布局</h4><p class="muted">根据故事线索，设计建筑与功能分区。</p></div></div>
+                <div class="project-card"><img src="assets/images/scene_concept_1.jpg" alt="世界观转化模型图像" loading="lazy"><div class="info"><h4>世界观转化模型</h4><p class="muted">将文学设定解构为空间设计语言。</p></div></div>
+                <div class="project-card"><img src="assets/images/scene_concept_2.jpg" alt="规划设计链路图像" loading="lazy"><div class="info"><h4>规划设计链路</h4><p class="muted">将IP元素转化为空间规划与场景设计。</p></div></div>
+                <div class="project-card"><img src="assets/images/scene_concept_3.jpg" alt="沉浸式体验设计图像" loading="lazy"><div class="info"><h4>沉浸式体验设计</h4><p class="muted">定义用户与IP故事的互动路径。</p></div></div>
+                <div class="project-card"><img src="assets/images/scene_concept_4.jpg" alt="叙事空间布局图像" loading="lazy"><div class="info"><h4>叙事空间布局</h4><p class="muted">根据故事线索，设计建筑与功能分区。</p></div></div>
             </div>
         </div>
         <div id="architecture-projects" style="margin-top:36px">
             <h3>规划建筑 (项目样例)</h3>
             <p class="muted">提供从前期策划到施工交付的全流程规划设计服务，助力您的项目落地。</p>
             <div class="four-cols">
-                <div class="project-card"><img src="assets/images/project_example_1.jpg" alt="未来智慧城市规划图像" loading="lazy" width="300" height="400"><div class="info"><h4>未来智慧城市规划</h4><p class="muted">概念规划与区域功能设计</p></div></div>
-                <div class="project-card"><img src="assets/images/project_example_2.jpg" alt="文化旅游区规划设计图像" loading="lazy" width="300" height="400"><div class="info"><h4>文化旅游区规划设计</h4><p class="muted">沉浸式体验与场景化设计</p></div></div>
-                <div class="project-card"><img src="assets/images/project_example_3.jpg" alt="智慧场馆设计与工程图像" loading="lazy" width="300" height="400"><div class="info"><h4>智慧场馆设计与工程</h4><p class="muted">建筑设计与功能集成</p></div></div>
-                <div class="project-card"><img src="assets/images/project_placeholder_1.jpg" alt="赛博东方主题公园概念图像" loading="lazy" width="300" height="400"><div class="info"><h4>赛博东方主题公园</h4><p class="muted">IP落地与文旅融合</p></div></div>
+                <div class="project-card"><img src="assets/images/project_example_1.jpg" alt="未来智慧城市规划图像" loading="lazy"><div class="info"><h4>未来智慧城市规划</h4><p class="muted">概念规划与区域功能设计</p></div></div>
+                <div class="project-card"><img src="assets/images/project_example_2.jpg" alt="文化旅游区规划设计图像" loading="lazy"><div class="info"><h4>文化旅游区规划设计</h4><p class="muted">沉浸式体验与场景化设计</p></div></div>
+                <div class="project-card"><img src="assets/images/project_example_3.jpg" alt="智慧场馆设计与工程图像" loading="lazy"><div class="info"><h4>智慧场馆设计与工程</h4><p class="muted">建筑设计与功能集成</p></div></div>
+                <div class="project-card"><img src="assets/images/project_placeholder_1.jpg" alt="赛博东方主题公园概念图像" loading="lazy"><div class="info"><h4>赛博东方主题公园</h4><p class="muted">IP落地与文旅融合</p></div></div>
             </div>
         </div>
         <div id="micro-model" style="margin-top:36px">
             <h3>微观实体 (模型/3D打印)</h3>
             <p class="muted">实现数字资产到实体原型的转化，提供3D打印与场景模型服务。</p>
             <div class="four-cols">
-                <div class="project-card"><img src="assets/images/micro_model_placeholder_1.jpg" alt="微观城市模型图像" loading="lazy" width="300" height="400"><div class="info"><h4>城市原型模型</h4><p class="muted">微缩城市沙盘定制</p></div></div>
-                <div class="project-card"><img src="assets/images/micro_model_placeholder_2.jpg" alt="微缩建筑模型图像" loading="lazy" width="300" height="400"><div class="info"><h4>叙事建筑原型</h4><p class="muted">手办场景3D打印</p></div></div>
-                <div class="project-card"><img src="assets/images/micro_model_placeholder_3.jpg" alt="主题展陈模型图像" loading="lazy" width="300" height="400"><div class="info"><h4>主题展陈模型</h4><p class="muted">高精度场景输出</p></div></div>
-                <div class="project-card"><img src="assets/images/micro_model_placeholder_4.jpg" alt="神祇战舰模型图像" loading="lazy" width="300" height="400"><div class="info"><h4>神祇战舰模型</h4><p class="muted">科幻载具原型制作</p></div></div>
+                <div class="project-card"><img src="assets/images/micro_model_placeholder_1.jpg" alt="微观城市模型图像" loading="lazy"><div class="info"><h4>城市原型模型</h4><p class="muted">微缩城市沙盘定制</p></div></div>
+                <div class="project-card"><img src="assets/images/micro_model_placeholder_2.jpg" alt="微缩建筑模型图像" loading="lazy"><div class="info"><h4>叙事建筑原型</h4><p class="muted">手办场景3D打印</p></div></div>
+                <div class="project-card"><img src="assets/images/micro_model_placeholder_3.jpg" alt="主题展陈模型图像" loading="lazy"><div class="info"><h4>主题展陈模型</h4><p class="muted">高精度场景输出</p></div></div>
+                <div class="project-card"><img src="assets/images/micro_model_placeholder_4.jpg" alt="神祇战舰模型图像" loading="lazy"><div class="info"><h4>神祇战舰模型</h4><p class="muted">科幻载具原型制作</p></div></div>
             </div>
         </div>
 	</section>
@@ -554,23 +429,23 @@
             <h3>文创周边 (伴手礼) <span class="status-tag status-concept">概念设计</span></h3>
             <p class="muted">展示IP衍生品与品牌联名方案。</p>
             <div class="six-cols">
-                <div class="souvenir-item"><img src="assets/images/souvenir_tea.jpg" alt="炎帝火纹香薰礼盒图像" loading="lazy" width="200" height="267"><strong>炎帝·火纹香薰</strong><div class="muted">气味体验 / 收藏</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_notebook.jpg" alt="黄帝阵法桌垫图像" loading="lazy" width="200" height="267"><strong>黄帝·阵法桌垫</strong><div class="muted">实用办公 / 设计品</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_pin_3.jpg" alt="蚩尤兵主符书签图像" loading="lazy" width="200" height="267"><strong>蚩尤·兵主符书签</strong><div class="muted">金属工艺 / 文创</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_card.jpg" alt="主角群像塔罗牌图像" loading="lazy" width="200" height="267"><strong>主角群像塔罗牌</strong><div class="muted">收藏卡牌 / 娱乐</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_pin.jpg" alt="神祇符号金属徽章图像" loading="lazy" width="200" height="267"><strong>神祇符号金属徽章</strong><div class="muted">周边 / 礼品</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_box_3.jpg" alt="白泽AI联名耳机图像" loading="lazy" width="200" height="267"><strong>白泽AI联名耳机</strong><div class="muted">科技联名 / 硬件</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_notebook_3.jpg" alt="天轨主题钢笔图像" loading="lazy" width="200" height="267"><strong>“天轨”主题钢笔</strong><div class="muted">商务礼品 / 定制</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_box.jpg" alt="补天之城建筑积木图像" loading="lazy" width="200" height="267"><strong>补天之城建筑积木</strong><div class="muted">微缩模型 / 潮玩</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_silk.jpg" alt="澜熙记忆图谱丝巾图像" loading="lazy" width="200" height="267"><strong>澜熙·记忆图谱丝巾</strong><div class="muted">时尚单品 / 设计</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_tea_3.jpg" alt="归墟主题深海浴盐图像" loading="lazy" width="200" height="267"><strong>归墟主题深海浴盐</strong><div class="muted">生活方式 / 体验</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_card_3.jpg" alt="Q版迷你手办盲盒图像" loading="lazy" width="200" height="267"><strong>Q版迷你手办盲盒</strong><div class="muted">潮玩 / 零售</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_card_2.jpg" alt="游戏皮肤兑换券图像" loading="lazy" width="200" height="267"><strong>游戏皮肤兑换券</strong><div class="muted">数字资产 / 合作</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_tea.jpg" alt="炎帝火纹香薰礼盒图像" loading="lazy"><strong>炎帝·火纹香薰</strong><div class="muted">气味体验 / 收藏</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_notebook.jpg" alt="黄帝阵法桌垫图像" loading="lazy"><strong>黄帝·阵法桌垫</strong><div class="muted">实用办公 / 设计品</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_pin_3.jpg" alt="蚩尤兵主符书签图像" loading="lazy"><strong>蚩尤·兵主符书签</strong><div class="muted">金属工艺 / 文创</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_card.jpg" alt="主角群像塔罗牌图像" loading="lazy"><strong>主角群像塔罗牌</strong><div class="muted">收藏卡牌 / 娱乐</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_pin.jpg" alt="神祇符号金属徽章图像" loading="lazy"><strong>神祇符号金属徽章</strong><div class="muted">周边 / 礼品</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_box_3.jpg" alt="白泽AI联名耳机图像" loading="lazy"><strong>白泽AI联名耳机</strong><div class="muted">科技联名 / 硬件</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_notebook_3.jpg" alt="天轨主题钢笔图像" loading="lazy"><strong>“天轨”主题钢笔</strong><div class="muted">商务礼品 / 定制</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_box.jpg" alt="补天之城建筑积木图像" loading="lazy"><strong>补天之城建筑积木</strong><div class="muted">微缩模型 / 潮玩</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_silk.jpg" alt="澜熙记忆图谱丝巾图像" loading="lazy"><strong>澜熙·记忆图谱丝巾</strong><div class="muted">时尚单品 / 设计</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_tea_3.jpg" alt="归墟主题深海浴盐图像" loading="lazy"><strong>归墟主题深海浴盐</strong><div class="muted">生活方式 / 体验</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_card_3.jpg" alt="Q版迷你手办盲盒图像" loading="lazy"><strong>Q版迷你手办盲盒</strong><div class="muted">潮玩 / 零售</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_card_2.jpg" alt="游戏皮肤兑换券图像" loading="lazy"><strong>游戏皮肤兑换券</strong><div class="muted">数字资产 / 合作</div></div>
             </div>
         </div>
 	</section>
 
-    <section id="team" class="section-divider" role="region">
+<section id="team" class="section-divider" role="region">
         <h2>蓝图的绘制者</h2>
         <p class="muted">我们的世界观由资深作家、历史顾问与跨文化研究者共同构建，确保其深度与严谨性。</p>
         <div class="six-cols" style="margin-top:18px;">
@@ -612,12 +487,87 @@
                <a class="btn ghost" href="mailto:business@levythos.com?subject=Contact%20Creative%20Team">联系创作团队</a>
             </div>
         </div>
-        <div class="logo-wall card" style="margin-top: 36px;">
+        <div class="logo-wall card" style="margin-top: 36px; overflow: hidden;">
             <h4>合作伙伴</h4>
-            <div class="partner-list-container">
-                <ul class="partner-list">
-                    <li>中国传统文化促进会</li><li>中国炎黄文化研究会</li><li>北京炎黄研究院</li><li>上海市作家协会</li><li>上海市住建委</li><li>中国建筑</li><li>上海建工</li><li>阿特金斯 (Atkins)</li><li>AECOM</li><li>复旦大学</li><li>上海交通大学</li><li>同济大学</li>
-                </ul>
+            <div class="partner-logo-grid">
+                <div class="partner-track">
+                    <div class="partner-logo">国家神话与历史研究中心</div>
+                    <div class="partner-logo">炎黄文化研究院</div>
+                    <div class="partner-logo">北京大学考古文博学院</div>
+                    <div class="partner-logo">自然资源部</div>
+                    <div class="partner-logo">中国建筑</div>
+                    <div class="partner-logo">上海建工集团</div>
+                    <div class="partner-logo">Atkins</div>
+                    <div class="partner-logo">AECOM</div>
+                    <div class="partner-logo">数字故宫</div>
+                    <div class="partner-logo">良渚博物院</div>
+                    <div class="partner-logo">三星堆博物馆</div>
+                    <div class="partner-logo">Gensler</div>
+                    <div class="partner-logo">国家神话与历史研究中心</div>
+                    <div class="partner-logo">炎黄文化研究院</div>
+                    <div class="partner-logo">北京大学考古文博学院</div>
+                    <div class="partner-logo">上海市作家协会</div>
+                    <div class="partner-logo">上海市城市规划协会</div>
+                    <div class="partner-logo">中国工程建设标准化协会</div>
+                    <div class="partner-logo">Atkins</div>
+                    <div class="partner-logo">AECOM</div>
+                    <div class="partner-logo">数字故宫</div>
+                    <div class="partner-logo">良渚博物院</div>
+                    <div class="partner-logo">三星堆博物馆</div>
+                    <div class="partner-logo">Gensler</div>
+                </div>
+                <div class="partner-track" style="animation-delay: -20s;">
+                    <div class="partner-logo">清华大学建筑学院</div>
+                    <div class="partner-logo">同济大学</div>
+                    <div class="partner-logo">中国美术学院</div>
+                    <div class="partner-logo">中央美术学院</div>
+                    <div class="partner-logo">腾讯新文创</div>
+                    <div class="partner-logo">网易游戏</div>
+                    <div class="partner-logo">盛大游戏</div>
+                    <div class="partner-logo">WETA Workshop</div>
+                    <div class="partner-logo">工业光魔</div>
+                    <div class="partner-logo">育碧上海</div>
+                    <div class="partner-logo">索尼互动娱乐</div>
+                    <div class="partner-logo">万代南梦宫</div>
+                     <div class="partner-logo">清华大学建筑学院</div>
+                    <div class="partner-logo">同济大学</div>
+                    <div class="partner-logo">中国美术学院</div>
+                    <div class="partner-logo">中央美术学院</div>
+                    <div class="partner-logo">腾讯新文创</div>
+                    <div class="partner-logo">网易游戏</div>
+                    <div class="partner-logo">波客游戏</div>
+                    <div class="partner-logo">WETA Workshop</div>
+                    <div class="partner-logo">工业光魔</div>
+                    <div class="partner-logo">育碧上海</div>
+                    <div class="partner-logo">索尼互动娱乐</div>
+                    <div class="partner-logo">万代南梦宫</div>
+                </div>
+                 <div class="partner-track" style="animation-delay: -40s;">
+                    <div class="partner-logo">华谊兄弟</div>
+                    <div class="partner-logo">光线传媒</div>
+                    <div class="partner-logo">博纳影业</div>
+                    <div class="partner-logo">华人文化</div>
+                    <div class="partner-logo">奥飞娱乐</div>
+                    <div class="partner-logo">泡泡玛特</div>
+                    <div class="partner-logo">阅文集团</div>
+                    <div class="partner-logo">Bilibili</div>
+                    <div class="partner-logo">抖音文化</div>
+                    <div class="partner-logo">小红书</div>
+                    <div class="partner-logo">华侨城集团</div>
+                    <div class="partner-logo">融创文旅</div>
+                     <div class="partner-logo">华谊兄弟</div>
+                    <div class="partner-logo">光线传媒</div>
+                    <div class="partner-logo">博纳影业</div>
+                    <div class="partner-logo">华人文化</div>
+                    <div class="partner-logo">奥飞娱乐</div>
+                    <div class="partner-logo">泡泡玛特</div>
+                    <div class="partner-logo">阅文集团</div>
+                    <div class="partner-logo">Bilibili</div>
+                    <div class="partner-logo">抖音文化</div>
+                    <div class="partner-logo">小红书</div>
+                    <div class="partner-logo">华侨城集团</div>
+                    <div class="partner-logo">融创文旅</div>
+                </div>
             </div>
         </div>
          <section id="awards" style="margin-top: 24px; margin-bottom: 24px; padding: 20px; border-radius: 10px; background: var(--card-bg);">
