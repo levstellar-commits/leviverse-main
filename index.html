@@ -565,6 +565,34 @@
 }
 
 
+/* ---------- [最终版] 主角与萌宠卡片统一交互样式 ---------- */
+
+/* --- 统一默认状态：都有精致边框 --- */
+.hero-card, .mascot-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    border: 1px solid transparent;
+    /* 默认的水晶切边效果 */
+    border-image: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05)) 1;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease-in-out; /* 统一的、平滑的过渡动画 */
+}
+
+.hero-card .pic, .mascot-card .pic {
+    border-radius: 6px; /* 统一图片圆角 */
+}
+
+/* --- 统一悬停效果：都悬浮并发光 --- */
+.hero-card:hover, .mascot-card:hover {
+    /* 悬浮效果 */
+    transform: translateY(-8px);
+
+    /* 发亮效果 (边框变色 + 阴影光晕) */
+    border-image: linear-gradient(135deg, rgba(var(--accent2-rgb), 0.8), rgba(var(--accent-rgb), 0.6)) 1;
+    box-shadow: 0 12px 35px rgba(var(--accent-rgb), 0.25);
+}
+
+
+
 /* ---------- [全局精装修] 所有卡片的统一悬浮光晕效果 ---------- */
 
 /* --- 1. 定义哪些元素是“可悬浮”的卡片 --- */
@@ -693,6 +721,63 @@
 }
 @media (max-width: 980px) {
     .prism-outputs-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ---------- [重写] “空间叙事”横向卷轴布局样式 ---------- */
+.narrative-flow-horizontal {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; /* 4个步骤+3个箭头 */
+    gap: 16px;
+    align-items: start;
+    text-align: left;
+    margin-top: 36px;
+}
+.flow-node {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.flow-node-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.flow-node-number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+}
+.flow-node-header h4 { font-size: 16px; }
+.flow-node-img img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* 明确的扁图比例 */
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+.flow-arrow {
+    font-size: 24px;
+    color: var(--accent2);
+    margin-top: 60px; /* 调整箭头垂直位置 */
+}
+
+/* 响应式设计：在小屏幕上，自动变回垂直布局 */
+@media (max-width: 980px) {
+    .narrative-flow-horizontal {
+        grid-template-columns: 1fr; /* 变为单列 */
+        gap: 24px;
+    }
+    .flow-arrow {
+        transform: rotate(90deg); /* 箭头方向变为向下 */
+        margin: 0;
+    }
+    .flow-node { text-align: center; }
+    .flow-node-header { justify-content: center; }
 }
 
 
@@ -1070,63 +1155,62 @@
 </section>
 
 
-
-
-<div id="spatial-narrative" style="margin-top:24px">
-    <h3>空间叙事：从故事到场景的四步转化</h3>
+<div id="spatial-narrative" style="margin-top:24px; text-align:center;">
+    <h3>空间叙事：从故事到场景的转化之道</h3>
     <p class="muted">我们将抽象的世界观，通过一个严谨的四步流程，“翻译”为可指导实体建造的创意蓝图。</p>
 
-    <div class="spatial-narrative-flow">
-        <div class="flow-step">
-            <div class="flow-visual">
+    <div class="narrative-flow-horizontal">
+        <div class="flow-node">
+            <div class="flow-node-header">
+                <div class="flow-node-number">①</div>
+                <h4>解构母体</h4>
+            </div>
+            <div class="flow-node-img">
                 <img src="assets/images/scene_concept_1.jpg" alt="世界观母体转化模型" loading="lazy">
             </div>
-            <div class="flow-text">
-                <div class="flow-step-number">①</div>
-                <h4>万物之源：世界观母体</h4>
-                <p class="muted">将文学设定、神话原型等非结构化文本，转化为包含法则、阵营、能量体系的结构化空间语言。</p>
-            </div>
+            <p class="muted" style="font-size:13px;">将文学设定结构化，定义宇宙的基础法则与空间语言。</p>
         </div>
 
-        <div class="flow-connector"></div>
+        <div class="flow-arrow">→</div>
 
-        <div class="flow-step reverse">
-            <div class="flow-visual">
+        <div class="flow-node">
+            <div class="flow-node-header">
+                <div class="flow-node-number">②</div>
+                <h4>锻造符号</h4>
+            </div>
+            <div class="flow-node-img">
                 <img src="assets/images/scene_concept_2.jpg" alt="IP符号转译与规划" loading="lazy">
             </div>
-            <div class="flow-text">
-                <div class="flow-step-number">②</div>
-                <h4>提炼图腾：IP符号转译</h4>
-                <p class="muted">从世界观中提取最具代表性的视觉符号（如神鸟、阵法），将其定义为贯穿整个空间的核心设计母题。</p>
-            </div>
+            <p class="muted" style="font-size:13px;">从世界观中提取核心视觉母题（图腾、阵法），贯穿空间。</p>
         </div>
 
-        <div class="flow-connector"></div>
+        <div class="flow-arrow">→</div>
 
-        <div class="flow-step">
-            <div class="flow-visual">
+        <div class="flow-node">
+            <div class="flow-node-header">
+                <div class="flow-node-number">③</div>
+                <h4>编织体验</h4>
+            </div>
+            <div class="flow-node-img">
                 <img src="assets/images/scene_concept_3.jpg" alt="叙事动线与体验设计" loading="lazy">
             </div>
-            <div class="flow-text">
-                <div class="flow-step-number">③</div>
-                <h4>规划路径：叙事动线设计</h4>
-                <p class="muted">将IP的核心故事情节，转化为游客或用户的物理体验路径，定义关键的互动节点与情感高潮。</p>
-            </div>
+            <p class="muted" style="font-size:13px;">将故事情节转化为用户的物理体验路径与关键互动节点。</p>
         </div>
 
-        <div class="flow-connector"></div>
+        <div class="flow-arrow">→</div>
 
-        <div class="flow-step reverse">
-            <div class="flow-visual">
+        <div class="flow-node">
+            <div class="flow-node-header">
+                <div class="flow-node-number">④</div>
+                <h4>生成蓝图</h4>
+            </div>
+            <div class="flow-node-img">
                 <img src="assets/images/scene_concept_4.jpg" alt="功能场景生成与布局" loading="lazy">
             </div>
-            <div class="flow-text">
-                <div class="flow-step-number">④</div>
-                <h4>空间落位：功能场景生成</h4>
-                <p class="muted">最终，根据故事线索、核心母题和体验路径，生成具体的建筑形态与功能分区，形成完整的创意蓝图。</p>
-            </div>
+            <p class="muted" style="font-size:13px;">融合前三步，生成具体的建筑形态与功能分区，形成最终蓝图。</p>
         </div>
     </div>
+</div>
 </div>
             </div>
         </div>
