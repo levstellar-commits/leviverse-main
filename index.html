@@ -430,6 +430,17 @@
     }
 }
 
+/* 修复卡片高度不统一导致图片未撑满的问题 */
+.five-cols .card, .four-cols .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.five-cols .card .info, .four-cols .card .info {
+    flex-grow: 1;
+}
+
   </style>
 
 </head>
@@ -652,7 +663,7 @@
         </p>
     </div>
 
-    <div class="four-cols" style="margin-top: 36px; align-items: stretch;">
+    <div class="four-cols" style="margin-top: 36px; align-items: stretch; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
         <article class="archetype-card">
             <img src="assets/images/philosophy_buddha.jpg" alt="觉者原型卡牌图像" loading="lazy">
             <div class="archetype-content">
