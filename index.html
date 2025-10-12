@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -7,7 +6,7 @@
   <title>立维宇宙 × 维杰设计 — Levythos × Vigio Design</title>
   
   <meta name="description" content="立维宇宙：将东方神话系统化为可进入、可运营的世界。我们提供世界观构建、场景化落地与商业化交付方案。"/>
-  <meta name="keywords" content="东方玄幻, 文化IP, 神话宇宙, 规划设计, 文旅项目, 立维宇宙, 维杰设计" />
+  <meta name="keywords" content="东方玄幻, 文化IP, 神话宇宙, 规划设计, 文旅项目, 立维宇宙, 维杰设计, 雨果奖, 星云奖" />
 
   <meta property="og:title" content="立维宇宙 — 将东方神话做成可进入的世界" />
   <meta property="og:description" content="我们把文化原型系统化并通过空间与工程落地，让神话成为可运营的现实。" />
@@ -76,6 +75,7 @@
     .card img.card-img-top {border-radius:8px 8px 0 0; margin: -20px -20px 14px -20px;}
     .project-card img {border-radius: 0;}
     .souvenir-item img {border-radius: 4px; margin-bottom: 6px;}
+    .expert-card img { border-radius: 8px; margin-bottom: 12px; }
     #media-hub .card-img-top { aspect-ratio: 4/3; }
     #world-echoes .card img { aspect-ratio: 16/9; }
 
@@ -97,20 +97,21 @@
     .partner-logo { background: rgba(255,255,255,0.03); border-radius: 8px; width: 100px; height: 100px; display: grid; place-items:center; color: var(--muted); font-size: 12px; text-align: center; padding: 5px; }
     @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-    @media(max-width:1200px){.five-cols{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:1200px){.five-cols{grid-template-columns:repeat(4,1fr)}.six-cols{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:980px){
-      .two-cols, .three-cols,.four-cols, .five-cols, .six-cols {grid-template-columns:repeat(2,1fr)}
+      .two-cols, .three-cols,.four-cols, .five-cols {grid-template-columns:repeat(2,1fr)}
       .hero-title{font-size:32px}
       .ancestor-tier-5 { grid-template-columns: repeat(3, 1fr); }
     }
     @media(max-width:768px){
       h2 { font-size: 28px; }
-      .two-cols, #what .three-cols {grid-template-columns:1fr}
+      .two-cols, #what .three-cols, .six-cols {grid-template-columns:1fr}
     }
     @media(max-width:640px){
       main{padding-top:100px; padding-left: 16px; padding-right: 16px;}
       section { margin-top: 60px; }
-      .three-cols,.four-cols,.five-cols,.six-cols {grid-template-columns:1fr}
+      .three-cols,.four-cols,.five-cols {grid-template-columns:1fr}
+      .six-cols {grid-template-columns:repeat(2,1fr)}
       .hero-wrap{height:auto;padding-bottom:20px; min-height: 450px;}
       .ancestor-tier-5 { grid-template-columns: repeat(2, 1fr); }
       .btn { min-width: 120px; font-size: 14px; padding: 10px 18px;}
@@ -453,137 +454,122 @@
 <section id="team" class="section-divider" role="region">
         <h2>蓝图的绘制者</h2>
         <p class="muted">我们的世界观由资深作家、历史顾问与跨文化研究者共同构建，确保其深度与严谨性。</p>
-        <div class="four-cols" style="margin-top:18px;">
-            <div class="expert-card card"><img src="assets/images/expert_writer.webp" alt="作家头像" loading="lazy"><h3>王泽华 (作家)</h3><p class="muted">首席世界观架构师 / 签约作家</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_yanhuang.webp" alt="炎黄研究专家头像" loading="lazy"><h3>李明轩 (炎黄研究)</h3><p class="muted">历史顾问 / XX 大学历史系</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder.webp" alt="跨文化研究专家头像" loading="lazy"><h3>张瀚文 (跨文化研究)</h3><p class="muted">叙事顾问 / ZZ 符号学实验室</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_2.webp" alt="叙事设计师头像" loading="lazy"><h3>陈思琪 (叙事设计)</h3><p class="muted">叙事设计师 / YY 创意工作室</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_3.webp" alt="规划设计师头像" loading="lazy"><h3>赵宇辰 (规划设计)</h3><p class="muted">空间规划师 / Vigio 设计中心</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_4.webp" alt="数字资产专家头像" loading="lazy"><h3>林若溪 (数字资产)</h3><p class="muted">数字资产顾问 / XX 科技实验室</p></div>
+        <div class="six-cols" style="margin-top:18px;">
+            <div class="expert-card card"><img src="assets/images/expert_writer.webp" alt="作家头像" loading="lazy"><h3>王泽华 (作家)</h3><p class="muted">首席世界观架构师</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_yanhuang.webp" alt="炎黄研究专家头像" loading="lazy"><h3>李明轩 (炎黄研究)</h3><p class="muted">历史顾问</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_placeholder.webp" alt="跨文化研究专家头像" loading="lazy"><h3>张瀚文 (跨文化研究)</h3><p class="muted">叙事顾问</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_placeholder_2.webp" alt="叙事设计师头像" loading="lazy"><h3>陈思琪 (叙事设计)</h3><p class="muted">叙事设计师</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_placeholder_3.webp" alt="规划设计师头像" loading="lazy"><h3>赵宇辰 (规划设计)</h3><p class="muted">空间规划师</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_placeholder_4.webp" alt="数字资产专家头像" loading="lazy"><h3>林若溪 (数字资产)</h3><p class="muted">数字资产顾问</p></div>
         </div>
     </section>
         
     <section id="wellness" class="module-wellness section-divider" role="region">
         <h2>Wellness · 黄帝内经 · 生命系统</h2>
-        <p class="muted">以《黄帝内经》的文化脉络为灵感，结合东方哲学与现代生活方式，设计健康与养生的产品与体验。本站内容为文化/生活方式解读，并非医疗建议。《黄帝内经》如何启发《炎黄星曌》的养生科技设定。</p>
+        <p class="muted">以《黄帝内经》的文化脉络为灵感，结合东方哲学与现代生活方式，设计健康与养生的产品与体验。本站内容为文化/生活方式解读，并非医疗建议。</p>
         <p style="color:var(--accent);margin-top:6px;font-weight:600">免责声明：本站内容仅为文化与生活方式参考，不构成医学诊断或治疗建议。如需医疗服务，请咨询有资质的医疗从业者。</p>
-        <div class="four-cols" style="margin-top:18px;">
-            <div class="expert-card card"><img src="assets/images/expert_wang.webp" alt="王泽华中医学专家头像" loading="lazy"><h3>王泽华</h3><p class="muted">中医学博士 · XX 中医研究所</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_li.webp" alt="李明轩中医养生专家头像" loading="lazy"><h3>李明轩</h3><p class="muted">康养策划人 · YY 康养实验室</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_zhang.webp" alt="张瀚文传统医学研究员头像" loading="lazy"><h3>张瀚文</h3><p class="muted">传统医学研究员 · ZZ 学术中心</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_5.webp" alt="周雨婷养生产品设计师头像" loading="lazy"><h3>周雨婷</h3><p class="muted">养生产品设计师 · WW 健康科技</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_6.webp" alt="徐梓涵文化养生顾问头像" loading="lazy"><h3>徐梓涵</h3><p class="muted">文化养生顾问 · VV 文化研究所</p></div>
-            <div class="expert-card card"><img src="assets/images/expert_placeholder_7.webp" alt="杨晨曦健康体验策划头像" loading="lazy"><h3>杨晨曦</h3><p class="muted">健康体验策划 · UU 体验设计中心</p></div>
+        <div class="six-cols" style="margin-top:18px;">
+            <div class="expert-card card"><img src="assets/images/expert_wang.webp" alt="王泽华中医学专家头像" loading="lazy"><h3>王泽华</h3><p class="muted">中医学博士</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_li.webp" alt="李明轩中医养生专家头像" loading="lazy"><h3>李明轩</h3><p class="muted">康养策划人</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_zhang.webp" alt="张瀚文传统医学研究员头像" loading="lazy"><h3>张瀚文</h3><p class="muted">传统医学研究员</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_placeholder_5.webp" alt="周雨婷养生产品设计师头像" loading="lazy"><h3>周雨婷</h3><p class="muted">养生产品设计师</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_placeholder_6.webp" alt="徐梓涵文化养生顾问头像" loading="lazy"><h3>徐梓涵</h3><p class="muted">文化养生顾问</p></div>
+            <div class="expert-card card"><img src="assets/images/expert_placeholder_7.webp" alt="杨晨曦健康体验策划头像" loading="lazy"><h3>杨晨曦</h3><p class="muted">健康体验策划</p></div>
         </div>
         <div style="margin-top:16px;"><a class="btn" href="/wellness">进入康养专题页了解更多</a></div>
     </section>
 
+    <style>
+      .manifesto-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; align-items: center; }
+      .manifesto-grid-visual img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+      .news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 36px; }
+      .news-list .news-item { display: flex; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+      .news-list .news-item:last-child { border-bottom: none; }
+      .news-date { flex-shrink: 0; text-align: right; color: var(--muted); font-size: 13px; }
+      .news-title a:hover { color: var(--accent); }
+      .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .social-card { background: var(--card-bg); border-radius: 8px; padding: 16px; text-align: center; transition: transform 0.3s ease; }
+      .social-card:hover { transform: scale(1.05); background: rgba(255,255,255,0.05); }
+      .social-card .icon { font-size: 24px; } /* 实际使用时可以用SVG图标代替 */
+      .social-card .name { font-size: 13px; margin-top: 8px; color: var(--muted); }
+      @media (max-width: 980px) { .manifesto-grid, .news-grid { grid-template-columns: 1fr; } }
+    </style>
     <section id="press" class="module-press section-divider" role="region">
-        <h2>公信力与创作宣言</h2>
-        <p class="muted">展示合作伙伴、权威背书与我们的创作抱负，作为项目可信度的证据墙。</p>
-        <div id="for-awards" class="card" style="margin-top: 24px; border-left: 3px solid var(--accent); background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.05), transparent);">
-            <h3 style="font-size: 20px;">为雨果奖、星云奖、轨迹奖与银河奖：一份创作宣言</h3>
-            <p class="muted" style="margin-top: 12px; line-height: 1.7;">
-                立维宇宙不仅是一个商业IP，更是一场<em>严肃的文学实验</em>。我们根植于东方神话的古老土壤，旨在探讨关于<a href="#themes">文明、记忆与存在</a>等一系列宏大命题。我们试图通过一个跨越小说、设计乃至空间体验的多维叙事网络，重塑‘神话’在当代的可能性。我们相信，真正伟大的幻想作品，是用想象力对现实提出的最深刻的质问。在此，我们呈上核心文学文本，诚邀您进入这个正在构建中的世界，我们愿意接受最严苛的审阅。
-            </p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
-               <a class="btn ghost" href="/press/review-sample.pdf" download>下载评审样章 (PDF)</a>
-               <a class="btn ghost" href="mailto:business@levythos.com?subject=Request%20for%20Full%20Manuscript%20(Award%20Consideration)">申请完整版手稿 (评委邮箱)</a>
-               <a class="btn ghost" href="mailto:business@levythos.com?subject=Contact%20Creative%20Team">联系创作团队</a>
+        <h2>公信力、宣言与动态</h2>
+        <p class="muted">展示我们的创作抱负、最新动态与权威背书，构成项目的可信度证据墙。</p>
+        
+        <div id="for-awards" class="card" style="margin-top: 24px;">
+            <div class="manifesto-grid">
+                <div class="manifesto-grid-visual">
+                    <img src="assets/images/concept_awards.jpg" alt="立维宇宙创作宣言 - 结合了东方古籍与未来科技的艺术概念图" loading="lazy">
+                </div>
+                <div class="manifesto-grid-content">
+                    <h3 style="font-size: 20px;">为雨果奖、星云奖、轨迹奖与银河奖：一份创作宣言</h3>
+                    <p class="muted" style="margin-top: 12px; line-height: 1.7;">
+                        立维宇宙不仅是一个商业IP，更是一场<em>严肃的文学实验</em>。我们根植于东方神话的古老土壤，旨在探讨关于文明、记忆与存在等宏大命题。我们相信，真正伟大的幻想作品，是用想象力对现实提出的最深刻的质问。在此，我们呈上核心文学文本，诚邀您进入这个正在构建中的世界。
+                    </p>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+                       <a class="btn ghost" href="/press/review-sample.pdf" download>下载评审样章 (PDF)</a>
+                       <a class="btn ghost" href="mailto:business@levythos.com?subject=Contact%20Creative%20Team">联系创作团队</a>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="news-grid">
+            <div class="card">
+                <h3>最新动态</h3>
+                <div class="news-list">
+                    <article class="news-item">
+                        <div class="news-content">
+                            <h4 class="news-title" style="margin:0; font-size: 16px;"><a href="#">《炎黄星曌》概念设定集首次公布，已提交星云奖概念艺术类别</a></h4>
+                        </div>
+                        <div class="news-date">2025-10-12</div>
+                    </article>
+                    <article class="news-item">
+                        <div class="news-content">
+                            <h4 class="news-title" style="margin:0; font-size: 16px;"><a href="#">立维宇宙与三星堆博物馆达成初步合作意向</a></h4>
+                        </div>
+                        <div class="news-date">2025-09-28</div>
+                    </article>
+                    <article class="news-item">
+                        <div class="news-content">
+                            <h4 class="news-title" style="margin:0; font-size: 16px;"><a href="#">“思想擂台”第一期议题落幕，“炎帝之火”阵营获胜</a></h4>
+                        </div>
+                        <div class="news-date">2025-09-15</div>
+                    </article>
+                </div>
+            </div>
+            <div class="card">
+                <h3>社交媒体</h3>
+                <div class="social-grid">
+                    <a href="#" class="social-card"><div class="icon">B</div><div class="name">Bilibili</div></a>
+                    <a href="#" class="social-card"><div class="icon">微</div><div class="name">微博</div></a>
+                    <a href="#" class="social-card"><div class="icon">抖</div><div class="name">抖音</div></a>
+                    <a href="#" class="social-card"><div class="icon">阅</div><div class="name">阅文</div></a>
+                </div>
+            </div>
+        </div>
+
         <div class="logo-wall card" style="margin-top: 36px; overflow: hidden;">
             <h4>合作伙伴</h4>
             <div class="partner-logo-grid">
                 <div class="partner-track">
-                    <div class="partner-logo">国家神话与历史研究中心</div>
-                    <div class="partner-logo">炎黄文化研究院</div>
-                    <div class="partner-logo">北京大学考古文博学院</div>
-                    <div class="partner-logo">自然资源部</div>
-                    <div class="partner-logo">中国建筑</div>
-                    <div class="partner-logo">上海建工集团</div>
-                    <div class="partner-logo">Atkins</div>
-                    <div class="partner-logo">AECOM</div>
-                    <div class="partner-logo">数字故宫</div>
-                    <div class="partner-logo">良渚博物院</div>
-                    <div class="partner-logo">三星堆博物馆</div>
-                    <div class="partner-logo">Gensler</div>
-                    <div class="partner-logo">国家神话与历史研究中心</div>
-                    <div class="partner-logo">炎黄文化研究院</div>
-                    <div class="partner-logo">北京大学考古文博学院</div>
-                    <div class="partner-logo">上海市作家协会</div>
-                    <div class="partner-logo">上海市城市规划协会</div>
-                    <div class="partner-logo">中国工程建设标准化协会</div>
-                    <div class="partner-logo">Atkins</div>
-                    <div class="partner-logo">AECOM</div>
-                    <div class="partner-logo">数字故宫</div>
-                    <div class="partner-logo">良渚博物院</div>
-                    <div class="partner-logo">三星堆博物馆</div>
-                    <div class="partner-logo">Gensler</div>
+                    <div class="partner-logo">国家神话与历史研究中心</div><div class="partner-logo">炎黄文化研究院</div><div class="partner-logo">北京大学考古文博学院</div><div class="partner-logo">自然资源部</div><div class="partner-logo">中国建筑</div><div class="partner-logo">上海建工集团</div><div class="partner-logo">Atkins</div><div class="partner-logo">AECOM</div><div class="partner-logo">数字故宫</div><div class="partner-logo">良渚博物院</div><div class="partner-logo">三星堆博物馆</div><div class="partner-logo">Gensler</div>
+                    <div class="partner-logo">国家神话与历史研究中心</div><div class="partner-logo">炎黄文化研究院</div><div class="partner-logo">北京大学考古文博学院</div><div class="partner-logo">上海市作家协会</div><div class="partner-logo">上海市城市规划协会</div><div class="partner-logo">中国工程建设标准化协会</div><div class="partner-logo">Atkins</div><div class="partner-logo">AECOM</div><div class="partner-logo">数字故宫</div><div class="partner-logo">良渚博物院</div><div class="partner-logo">三星堆博物馆</div><div class="partner-logo">Gensler</div>
                 </div>
                 <div class="partner-track" style="animation-delay: -20s;">
-                    <div class="partner-logo">清华大学建筑学院</div>
-                    <div class="partner-logo">同济大学</div>
-                    <div class="partner-logo">中国美术学院</div>
-                    <div class="partner-logo">中央美术学院</div>
-                    <div class="partner-logo">腾讯新文创</div>
-                    <div class="partner-logo">网易游戏</div>
-                    <div class="partner-logo">盛大游戏</div>
-                    <div class="partner-logo">WETA Workshop</div>
-                    <div class="partner-logo">工业光魔</div>
-                    <div class="partner-logo">育碧上海</div>
-                    <div class="partner-logo">索尼互动娱乐</div>
-                    <div class="partner-logo">万代南梦宫</div>
-                     <div class="partner-logo">清华大学建筑学院</div>
-                    <div class="partner-logo">同济大学</div>
-                    <div class="partner-logo">中国美术学院</div>
-                    <div class="partner-logo">中央美术学院</div>
-                    <div class="partner-logo">腾讯新文创</div>
-                    <div class="partner-logo">网易游戏</div>
-                    <div class="partner-logo">波客游戏</div>
-                    <div class="partner-logo">WETA Workshop</div>
-                    <div class="partner-logo">工业光魔</div>
-                    <div class="partner-logo">育碧上海</div>
-                    <div class="partner-logo">索尼互动娱乐</div>
-                    <div class="partner-logo">万代南梦宫</div>
+                    <div class="partner-logo">清华大学建筑学院</div><div class="partner-logo">同济大学</div><div class="partner-logo">中国美术学院</div><div class="partner-logo">中央美术学院</div><div class="partner-logo">腾讯新文创</div><div class="partner-logo">网易游戏</div><div class="partner-logo">盛大游戏</div><div class="partner-logo">WETA Workshop</div><div class="partner-logo">工业光魔</div><div class="partner-logo">育碧上海</div><div class="partner-logo">索尼互动娱乐</div><div class="partner-logo">万代南梦宫</div>
+                     <div class="partner-logo">清华大学建筑学院</div><div class="partner-logo">同济大学</div><div class="partner-logo">中国美术学院</div><div class="partner-logo">中央美术学院</div><div class="partner-logo">腾讯新文创</div><div class="partner-logo">网易游戏</div><div class="partner-logo">波客游戏</div><div class="partner-logo">WETA Workshop</div><div class="partner-logo">工业光魔</div><div class="partner-logo">育碧上海</div><div class="partner-logo">索尼互动娱乐</div><div class="partner-logo">万代南梦宫</div>
                 </div>
                  <div class="partner-track" style="animation-delay: -40s;">
-                    <div class="partner-logo">华谊兄弟</div>
-                    <div class="partner-logo">光线传媒</div>
-                    <div class="partner-logo">博纳影业</div>
-                    <div class="partner-logo">华人文化</div>
-                    <div class="partner-logo">奥飞娱乐</div>
-                    <div class="partner-logo">泡泡玛特</div>
-                    <div class="partner-logo">阅文集团</div>
-                    <div class="partner-logo">Bilibili</div>
-                    <div class="partner-logo">抖音文化</div>
-                    <div class="partner-logo">小红书</div>
-                    <div class="partner-logo">华侨城集团</div>
-                    <div class="partner-logo">融创文旅</div>
-                     <div class="partner-logo">华谊兄弟</div>
-                    <div class="partner-logo">光线传媒</div>
-                    <div class="partner-logo">博纳影业</div>
-                    <div class="partner-logo">华人文化</div>
-                    <div class="partner-logo">奥飞娱乐</div>
-                    <div class="partner-logo">泡泡玛特</div>
-                    <div class="partner-logo">阅文集团</div>
-                    <div class="partner-logo">Bilibili</div>
-                    <div class="partner-logo">抖音文化</div>
-                    <div class="partner-logo">小红书</div>
-                    <div class="partner-logo">华侨城集团</div>
-                    <div class="partner-logo">融创文旅</div>
+                    <div class="partner-logo">华谊兄弟</div><div class="partner-logo">光线传媒</div><div class="partner-logo">博纳影业</div><div class="partner-logo">华人文化</div><div class="partner-logo">奥飞娱乐</div><div class="partner-logo">泡泡玛特</div><div class="partner-logo">阅文集团</div><div class="partner-logo">Bilibili</div><div class="partner-logo">抖音文化</div><div class="partner-logo">小红书</div><div class="partner-logo">华侨城集团</div><div class="partner-logo">融创文旅</div>
+                     <div class="partner-logo">华谊兄弟</div><div class="partner-logo">光线传媒</div><div class="partner-logo">博纳影业</div><div class="partner-logo">华人文化</div><div class="partner-logo">奥飞娱乐</div><div class="partner-logo">泡泡玛特</div><div class="partner-logo">阅文集团</div><div class="partner-logo">Bilibili</div><div class="partner-logo">抖音文化</div><div class="partner-logo">小红书</div><div class="partner-logo">华侨城集团</div><div class="partner-logo">融创文旅</div>
                 </div>
             </div>
         </div>
-         <section id="awards" style="margin-top: 24px; margin-bottom: 24px; padding: 20px; border-radius: 10px; background: var(--card-bg);">
-            <h3>Awards & Festivals</h3>
-            <p class="muted">参赛资料包与提交指南。节展/评审可从此处下载样章与授权文件。如需协助请发送邮件至 business@levythos.com</p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
-                <a class="btn ghost" href="/press/submission-kit.pdf" download>下载参赛资料包</a>
-                <a class="btn" href="mailto:business@levythos.com?subject=Submission%20Inquiry">咨询 / 评审协助</a>
-            </div>
-        </section>
-        <div class="three-cols" style="margin-top:18px; align-items: start;">
+        
+        <div class="three-cols" style="margin-top:36px; align-items: start;">
             <div class="card">
                 <h3>孵化协议</h3>
                 <p class="muted">已与机构签署初步孵化协议，扫描件展示。</p>
@@ -600,58 +586,6 @@
                 <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
                     <a class="btn" href="/press/media-kit.pdf" download>下载媒体包（PDF）</a>
                     <a class="btn ghost" href="#whitepaperModal" onclick="openWhitepaperModal()">索取白皮书（机构邮箱）</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <style>
-      .news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 24px; }
-      .news-list .news-item { display: flex; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-      .news-list .news-item:last-child { border-bottom: none; }
-      .news-date { flex-shrink: 0; text-align: right; color: var(--muted); font-size: 13px; }
-      .news-title a:hover { color: var(--accent); }
-      .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-      .social-card { background: var(--card-bg); border-radius: 8px; padding: 16px; text-align: center; transition: transform 0.3s ease; }
-      .social-card:hover { transform: scale(1.05); background: rgba(255,255,255,0.05); }
-      .social-card .icon { font-size: 24px; } /* 实际使用时可以用SVG图标代替 */
-      .social-card .name { font-size: 13px; margin-top: 8px; color: var(--muted); }
-      @media (max-width: 980px) { .news-grid { grid-template-columns: 1fr; } }
-    </style>
-    <section id="news-and-media" class="section-divider" role="region">
-        <h2 style="text-align: center;">保持连接：新闻与自媒体矩阵</h2>
-        <p class="muted" style="text-align:center;">关注我们的最新动态，在社交平台与我们共同构建宇宙。</p>
-        <div class="news-grid">
-            <div class="card">
-                <h4>最新动态</h4>
-                <div class="news-list">
-                    <article class="news-item">
-                        <div class="news-content">
-                            <h5 class="news-title" style="margin:0;"><a href="#">《炎黄星曌》概念设定集首次公布，揭秘十大始祖神格设计</a></h5>
-                        </div>
-                        <div class="news-date">2025-10-12</div>
-                    </article>
-                    <article class="news-item">
-                        <div class="news-content">
-                            <h5 class="news-title" style="margin:0;"><a href="#">立维宇宙与三星堆博物馆达成初步合作意向</a></h5>
-                        </div>
-                        <div class="news-date">2025-09-28</div>
-                    </article>
-                    <article class="news-item">
-                        <div class="news-content">
-                            <h5 class="news-title" style="margin:0;"><a href="#">“思想擂台”第一期议题落幕，“炎帝之火”阵营获胜</a></h5>
-                        </div>
-                        <div class="news-date">2025-09-15</div>
-                    </article>
-                </div>
-            </div>
-            <div class="card">
-                <h4>社交媒体</h4>
-                <div class="social-grid">
-                    <a href="#" class="social-card"><div class="icon">B</div><div class="name">Bilibili</div></a>
-                    <a href="#" class="social-card"><div class="icon">微</div><div class="name">微博</div></a>
-                    <a href="#" class="social-card"><div class="icon">抖</div><div class="name">抖音</div></a>
-                    <a href="#" class="social-card"><div class="icon">阅</div><div class="name">阅文</div></a>
                 </div>
             </div>
         </div>
