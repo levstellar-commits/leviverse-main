@@ -565,31 +565,34 @@
 }
 
 
+/* ---------- [全局精装修] 所有卡片的统一悬浮光晕效果 ---------- */
 
-/* ---------- [最终版] 主角与萌宠卡片统一交互样式 ---------- */
-
-/* --- 统一默认状态：都有精致边框 --- */
-.hero-card, .mascot-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-    border: 1px solid transparent;
-    /* 默认的水晶切边效果 */
-    border-image: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05)) 1;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease-in-out; /* 统一的、平滑的过渡动画 */
+/* --- 1. 定义哪些元素是“可悬浮”的卡片 --- */
+.card,
+.ip-card,
+.project-card,
+.archetype-card,
+.expert-card,
+.souvenir-item,
+.arch-item {
+    transition: all 0.3s ease-in-out; /* 为所有卡片加上平滑的过渡动画 */
 }
 
-.hero-card .pic, .mascot-card .pic {
-    border-radius: 6px; /* 统一图片圆角 */
+/* --- 2. 定义它们悬停时的统一效果 --- */
+.card:hover,
+.ip-card:hover,
+.project-card:hover,
+.archetype-card:hover,
+.expert-card:hover,
+.souvenir-item:hover,
+.arch-item:hover {
+    transform: translateY(-6px); /* 统一向上悬浮6个像素，效果更精致 */
+    box-shadow: 0 12px 35px rgba(var(--accent-rgb), 0.2); /* 统一的金色光晕 */
 }
 
-/* --- 统一悬停效果：都悬浮并发光 --- */
-.hero-card:hover, .mascot-card:hover {
-    /* 悬浮效果 */
-    transform: translateY(-8px);
-
-    /* 发亮效果 (边框变色 + 阴影光晕) */
-    border-image: linear-gradient(135deg, rgba(var(--accent2-rgb), 0.8), rgba(var(--accent-rgb), 0.6)) 1;
-    box-shadow: 0 12px 35px rgba(var(--accent-rgb), 0.25);
+/* --- 3. 为IP矩阵的卡片保留并优化金色边框的悬停效果 --- */
+.ip-card:hover {
+    border-color: rgba(var(--accent-rgb), 0.8); /* 悬停时金边更亮 */
 }
 
   </style>
