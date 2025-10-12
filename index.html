@@ -30,26 +30,72 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff;-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
-    header{position:fixed;left:0;right:0;top:0;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg, rgba(2,4,10,0.9), rgba(2,4,10,0.12));z-index:10000;backdrop-filter: blur(6px)}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:700;}
-    nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px; transition: color 0.3s ease;} nav a:hover{color:#fff;}
-    .btn{padding:8px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;}
-    .btn:hover{transform: translateY(-2px); box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.25);}
-    .btn.btn-small {padding: 6px 12px; font-size: 12px;}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
-    .ghost:hover { background: rgba(255,255,255,0.05); color: #fff; box-shadow: none;}
-    main{max-width:1300px;margin:0 auto;padding:120px 24px 80px}
-    h1,h2,h3,h4{font-family:'Noto Serif SC', serif;margin:0}
-    h2 { font-size: 32px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-    p.muted { font-size: 16px; line-height: 1.8; }
-    .muted em, .card em { color: var(--accent); font-style: normal; font-weight: 600; }
-    section{margin-top:80px; position:relative; z-index:0; padding: 24px; border-radius: 12px;}
-    #universe { background: linear-gradient(180deg, rgba(2,4,10,0) 0%, rgba(7, 20, 42, 0.3) 100%); }
-    #matrix { background: linear-gradient(180deg, rgba(7, 20, 42, 0.3) 0%, rgba(2,4,10,0) 100%); }
+    
 
-    .hero-wrap{width:100%;aspect-ratio: 7/2; min-height: 400px; max-height:450px; border-radius:12px;background-image:url('assets/images/hero_main.jpg');background-size:cover;background-position:center;box-shadow:0 30px 80px rgba(0,0,0,0.55);position:relative;overflow:hidden;margin-top:-20px; padding:0;}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(3,6,10,0.2), rgba(3,6,10,0.65));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+
+header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 16px 32px; /* 增大内边距，更有呼吸感 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* 关键：使用更高级的毛玻璃效果，并与下方融合 */
+    background: linear-gradient(180deg, rgba(2,4,10,0.85) 0%, rgba(2,4,10,0.6) 50%, rgba(2,4,10,0) 100%);
+    z-index: 10000;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:700;}
+nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px; transition: color 0.3s ease;} nav a:hover{color:#fff;}
+.btn{padding:8px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;}
+.btn:hover{transform: translateY(-2px); box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.25);}
+.btn.btn-small {padding: 6px 12px; font-size: 12px;}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
+.ghost:hover { background: rgba(255,255,255,0.05); color: #fff; box-shadow: none;}
+main{max-width:1300px;margin:0 auto;padding:120px 24px 80px}
+h1,h2,h3,h4{font-family:'Noto Serif SC', serif;margin:0}
+h2 { font-size: 32px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+p.muted { font-size: 16px; line-height: 1.8; }
+.muted em, .card em { color: var(--accent); font-style: normal; font-weight: 600; }
+section{margin-top:80px; position:relative; z-index:0; padding: 24px; border-radius: 12px;}
+#universe { background: linear-gradient(180deg, rgba(2,4,10,0) 0%, rgba(7, 20, 42, 0.3) 100%); }
+#matrix { background: linear-gradient(180deg, rgba(7, 20, 42, 0.3) 0%, rgba(2,4,10,0) 100%); }
+
+.hero-wrap {
+    width: 100%;
+    min-height: 600px; /* 增加最小高度，让首屏更具沉浸感 */
+    max-height: 800px;
+    border-radius: 12px;
+    background-image: url('assets/images/hero_main.jpg'); /* 您的背景图 */
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    position: relative;
+    overflow: hidden;
+    margin-top: -20px;
+    padding: 0;
+    display: flex; /* 使用flex布局，为了更好地控制文字层 */
+    align-items: center;
+    justify-content: center;
+}
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    /* 核心：一个更智能的渐变，中间暗，四周亮，完美突出文字 */
+    background: radial-gradient(circle at 50% 50%, rgba(3,6,10,0.7) 0%, rgba(3,6,10,0.2) 70%, rgba(3,6,10,0) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+
     .hero-core{max-width:1000px;text-align:center}
     .kicker{font-size:13px;color:var(--muted);margin-bottom:8px}
     .hero-title{font-size:40px;font-weight:700;line-height:1.3;margin-bottom:12px; text-shadow: 0 2px 20px rgba(0,0,0,0.5);}
@@ -785,6 +831,61 @@
     .flow-node { text-align: center; }
     .flow-node-header { justify-content: center; }
 }
+
+/* ---------- [点睛之笔] 头部区域精装修样式 ---------- */
+
+/* --- 1. LOGO交互效果 --- */
+.brand {
+    transition: transform 0.3s ease;
+}
+.brand:hover {
+    transform: scale(1.05); /* 鼠标悬停时轻微放大 */
+}
+
+/* --- 2. 右上角菜单精修 --- */
+nav a {
+    padding: 8px 12px; /* 增加点击区域和间距 */
+    border-radius: 6px;
+    position: relative;
+}
+nav a::after { /* 创建一个隐藏的下划线 */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+nav a:hover::after {
+    transform: scaleX(1); /* 鼠标悬停时，下划线展开 */
+}
+
+/* --- 3. 图上文字排版与字体优化 --- */
+.hero-title {
+    font-size: 52px; /* [增大] 标题更有冲击力 */
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 24px; /* [增大] 增加与副标题的间距 */
+    /* 关键：增加文字阴影，让文字从背景中“浮”起来 */
+    text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+}
+.hero-sub {
+    font-size: 18px; /* [增大] 副标题更清晰 */
+    color: var(--muted);
+    max-width: 680px; /* 宽度稍窄，形成优美的纺锤形排版 */
+    margin: 0 auto 32px auto; /* [增大] 增加与按钮的间距 */
+    line-height: 1.8;
+}
+
+/* 响应式微调 */
+@media (max-width: 768px) {
+    .hero-title { font-size: 40px; }
+    .hero-sub { font-size: 16px; }
+}
+
 
 
   </style>
