@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -17,184 +18,109 @@
 
   <link rel="icon" href="assets/images/favicon.png" />
   <link rel="preload" as="image" href="assets/images/hero_main.jpg">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
   
   <style>
-    /* ---------- 基础与新架构样式 (保持原有) ---------- */
+    /* ---------- [最终优化] 基础与新架构样式 ---------- */
     :root{
-      --bg:#02040a; --muted:#9fb0c6; --accent:#ffb86b; --accent2:#7be2ff;
-      --accent-rgb: 255, 184, 107; --accent2-rgb: 123, 226, 255; --card-bg: rgba(255,255,255,0.02);
+      --bg:#02040a; --muted:#9fb0c6; --accent:#e8b923; --accent2:#4a90e2;
+      --accent-rgb: 232, 185, 35; --accent2-rgb: 74, 144, 226; --card-bg: rgba(255,255,255,0.02);
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff;-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
     header{position:fixed;left:0;right:0;top:0;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg, rgba(2,4,10,0.9), rgba(2,4,10,0.12));z-index:10000;backdrop-filter: blur(6px)}
     .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:800}
-    nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px}
-    .btn{padding:8px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer}
+    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:800;font-family: 'ZCOOL XiaoWei', serif;}
+    nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px; transition: color 0.3s ease;} nav a:hover{color:#fff;}
+    .btn{padding:8px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;}
+    .btn:hover{transform: translateY(-2px); box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.25);}
     .btn.btn-small {padding: 6px 12px; font-size: 12px;}
     .ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
-    main{max-width:1300px;margin:0 auto;padding:100px 20px 80px}
-    h1,h2,h3,h4{font-family:'Noto Serif SC',serif;margin:0}
-    section{margin-top:48px; position:relative; z-index:0;}
-    .hero-wrap{width:100%;aspect-ratio: 7/2; min-height: 400px; max-height:450px; border-radius:12px;background-image:url('assets/images/hero_main.jpg');background-size:cover;background-position:center;box-shadow:0 30px 80px rgba(0,0,0,0.55);position:relative;overflow:hidden;margin-top:0;}
+    .ghost:hover { background: rgba(255,255,255,0.05); color: #fff; box-shadow: none;}
+    main{max-width:1300px;margin:0 auto;padding:120px 24px 80px}
+    h1,h2,h3,h4{font-family:'ZCOOL XiaoWei', 'Noto Serif SC', serif;margin:0}
+    h2 { font-size: 32px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+    p.muted { font-size: 16px; line-height: 1.8; }
+    .muted em, .card em { color: var(--accent); font-style: normal; font-weight: 600; }
+    section{margin-top:80px; position:relative; z-index:0; padding: 24px; border-radius: 12px;}
+    #universe { background: linear-gradient(180deg, rgba(2,4,10,0) 0%, rgba(7, 20, 42, 0.3) 100%); }
+    #matrix { background: linear-gradient(180deg, rgba(7, 20, 42, 0.3) 0%, rgba(2,4,10,0) 100%); }
+
+    .hero-wrap{width:100%;aspect-ratio: 7/2; min-height: 400px; max-height:450px; border-radius:12px;background-image:url('assets/images/hero_main.jpg');background-size:cover;background-position:center;box-shadow:0 30px 80px rgba(0,0,0,0.55);position:relative;overflow:hidden;margin-top:-20px; padding:0;}
     .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(3,6,10,0.2), rgba(3,6,10,0.65));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
     .hero-core{max-width:1000px;text-align:center}
     .kicker{font-size:13px;color:var(--muted);margin-bottom:8px}
-    .hero-title{font-size:38px;font-weight:800;line-height:1.2;margin-bottom:12px; text-shadow: 0 2px 20px rgba(0,0,0,0.5);}
+    .hero-title{font-size:40px;font-weight:700;line-height:1.3;margin-bottom:12px; text-shadow: 0 2px 20px rgba(0,0,0,0.5);}
     .hero-sub{font-size:16px;color:var(--muted);max-width:820px;margin:0 auto;margin-bottom:24px}
     .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .pdf-note { font-size: 12px; color: var(--muted); margin-top: 12px; } /* 新增样式 */
-    .flow{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:36px}
-    .flow .step{background:var(--card-bg);padding:12px 18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);min-width:180px;text-align:center}
-    .flow .arrow{font-size:20px;color:var(--muted)}
     .two-cols{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:center}
-    .three-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
-    .four-cols {display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
-    .five-cols {display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:16px}
-    .six-cols {display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:16px}
-    .card{background:var(--card-bg);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column; position: relative;}
+    .three-cols,.four-cols,.five-cols,.six-cols {display:grid;gap:16px;margin-top:24px}
+    .three-cols{grid-template-columns:repeat(3,1fr);}
+    .four-cols {grid-template-columns:repeat(4,1fr);}
+    .five-cols {grid-template-columns:repeat(5,1fr);}
+    .six-cols {grid-template-columns:repeat(6,1fr);gap:12px}
+    .card{background:var(--card-bg);padding:20px;border-radius:10px;border:1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease;}
+    .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .five-cols .card:first-child { box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.2); border-color: rgba(var(--accent-rgb), 0.3); }
     .card .info {flex-grow: 1;}
-    .muted{color:var(--muted)}
-    .tag{display:inline-block;background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
-    .section-divider { margin-top: 60px; padding-top: 60px; border-top: 1px solid rgba(255,255,255,0.05); }
-    .epic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
-    .epic{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3 / 4;background-size:cover;background-position:center;border:1px solid rgba(255,255,255,0.04)}
-    .gallery-item{background:var(--card-bg);padding:15px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);text-align:center;position:relative;overflow:hidden}
-    .gallery-item img{display:block;width:100%;height:auto;aspect-ratio:3 / 4;object-fit:cover;border-radius:6px;margin-bottom:10px}
-    .hero-card, .mascot-card {background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.03); width: 100%;}
+    .section-divider { margin-top: 80px; padding-top: 80px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .hero-card, .mascot-card {padding:10px;}
     .hero-card .pic, .mascot-card .pic {width:100%;aspect-ratio:3/4;background-size:cover;background-position:center;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.45)}
     .hero-card .name, .mascot-card .name {font-weight:700;margin-top:10px}
     .hero-card .role, .mascot-card .role {font-size:13px;color:var(--muted);margin-top:6px}
-    .card img.card-img-top {display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:8px 8px 0 0; margin: -14px -14px 14px -14px;}
-    .project-card{background:linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));border:1px solid rgba(255,255,255,0.04);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-    .project-card img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;display:block}
-    .project-card .info{padding:15px;flex-grow:1}
-    .project-card h4{margin:0 0 8px 0;font-weight:700;font-size:16px}
-    .souvenir-item{background:var(--card-bg);padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);text-align:center;font-size:11px}
-    .souvenir-item img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:4px;margin-bottom:6px}
-    .souvenir-item strong{display:block;font-size:13px;margin-bottom:4px}
-    .arena-layout{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-top:16px;align-items:start}
-    .arena-topic-card{background:linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), rgba(var(--accent2-rgb), 0.05));border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:24px; position: relative; overflow: hidden;}
-    .arena-topic-card h3{font-size:22px}
-    .arena-actions{display:flex;gap:12px;margin-top:20px}
-    .arena-rules{background:var(--card-bg);border-radius:12px;padding:20px;font-size:14px;border:1px solid rgba(255,255,255,0.03)}
-    footer{margin-top:48px;color:var(--muted);font-size:13px;padding:28px 0}
-    .card img.card-img-top, #media-hub .card-img-top, .expert-card img, #world-echoes .card img { display: block; width: 100%; object-fit: cover; border-radius: 8px; }
-    #media-hub .card-img-top, .expert-card img { aspect-ratio: 4 / 3; }
-    #world-echoes .card img { aspect-ratio: 16 / 9; }
-    #what .card img { margin: 0 0 14px 0; aspect-ratio: 4 / 3; }
-    .media-card .media-type-tag { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.5); color: #fff; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 999px; backdrop-filter: blur(4px); }
-    .media-card.hidden { display: none; }
-    .map-card{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
-    .map-visual{flex:1;min-height:340px;border-radius:10px;background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)}
-    .map-tools{width:320px}
+    /* [优化] 统一大部分卡片图为3:4 */
+    .card img.card-img-top {display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:8px 8px 0 0; margin: -20px -20px 14px -20px;}
+    #media-hub .card-img-top { aspect-ratio: 4/3; /* 新闻图保持4:3 */}
+    #world-echoes .card img { aspect-ratio: 16/9; /* 世界回响图保持16:9 */}
     .status-tag { display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: bold; border-radius: 999px; margin-left: 8px; vertical-align: middle; border: 1px solid transparent; }
     .status-published { background-color: rgba(var(--accent2-rgb), 0.1); color: var(--accent2); border-color: rgba(var(--accent2-rgb), 0.3); }
     .status-concept { background-color: rgba(255,255,255,0.05); color: var(--muted); border-color: rgba(255,255,255,0.1); }
     .status-dev { background-color: rgba(var(--accent-rgb), 0.1); color: var(--accent); border-color: rgba(var(--accent-rgb), 0.3); }
-    .arena-topic-card { background-size: cover; background-position: center; }
-    .arena-topic-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,4,10,0.5), rgba(2,4,10,0.9)); z-index: 0; }
-    .arena-topic-card > * { position: relative; z-index: 1; }
-    .map-visual svg { width: 100%; height: 100%; }
-    .map-visual .node { cursor: pointer; transition: transform 0.3s; }
-    .map-visual .node:hover { transform: scale(1.2); }
-    .map-visual .link { stroke: var(--muted); stroke-width: 1; opacity: 0.5; }
-    .map-visual .label { font-size: 12px; fill: var(--muted); text-anchor: middle; }
-    .partner-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; font-size: 14px; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); transition: transform 0.3s, box-shadow 0.3s; }
-    
-    /* ---------- [已优化] 新版始祖布局样式 ---------- */
-    .ancestor-lineage {
-      margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px; /* 层级之间的基础间距 */
-    }
-    .ancestor-tier {
-      width: 100%;
-    }
-    .lineage-connector {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(180deg, rgba(159, 176, 198, 0), rgba(159, 176, 198, 0.2), rgba(159, 176, 198, 0));
-    }
-    /* Tier 1: 母体双极 (2位) */
-    .ancestor-tier-1 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15%; /* 核心技巧：用间距拉开距离，而不是强制撑满 */
-    }
-    .ancestor-tier-1 .hero-card {
-      max-width: 30%; /* 限制最大宽度，避免过大 */
-      flex-shrink: 0;
-    }
-    /* Tier 2: 分歧三柱 (3位) */
-    .ancestor-tier-2 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    /* Tier 3: 秩序五帝 (5位) */
-    .ancestor-tier-3 {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-    }
+    .blueprint-step { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; align-items: center; margin-top: 32px; }
+    .blueprint-step .content { text-align: left; }
+    .blueprint-step .visual { border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+    .blueprint-step .visual img { display: block; width: 100%; height: auto; object-fit: cover; }
+    .blueprint-step.reverse .content { grid-column: 2; grid-row: 1; }
+    .blueprint-step.reverse .visual { grid-column: 1; grid-row: 1; }
+    .ancestor-lineage { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .ancestor-tier { width: 100%; }
+    .lineage-connector { width: 1px; height: 40px; background: linear-gradient(180deg, rgba(159, 176, 198, 0), rgba(159, 176, 198, 0.2), rgba(159, 176, 198, 0)); }
+    .ancestor-tier-1 { display: flex; justify-content: center; align-items: center; gap: 15%; }
+    .ancestor-tier-1 .hero-card { max-width: 30%; flex-shrink: 0; }
+    .ancestor-tier-2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .ancestor-tier-3 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    /* [优化] 合作伙伴横向滚动布局 */
+    .partner-list-container { overflow-x: auto; padding-bottom: 10px; }
+    .partner-list { list-style: none; padding: 0; margin: 0; display: flex; gap: 32px; width: max-content; }
+    .partner-list li { white-space: nowrap; }
 
     @media(max-width:1200px){.five-cols{grid-template-columns:repeat(4,1fr)}.six-cols{grid-template-columns:repeat(3,1fr)}}
-    
     @media(max-width:980px){
-      .two-cols, .three-cols,.four-cols, .epic-grid, .five-cols {grid-template-columns:repeat(2,1fr)}
-      .hero-title{font-size:28px}
-      .arena-layout{grid-template-columns:1fr}
-      /* [优化] 始祖布局响应式调整 (平板) */
+      .two-cols, .three-cols,.four-cols, .five-cols {grid-template-columns:repeat(2,1fr)}
+      .hero-title{font-size:32px}
       .ancestor-tier-3 { grid-template-columns: repeat(3, 1fr); }
     }
-    @media(max-width:768px){.two-cols {grid-template-columns:1fr}}
-    
+    @media(max-width:768px){
+      h2 { font-size: 28px; }
+      .two-cols {grid-template-columns:1fr}
+      .blueprint-step, .blueprint-step.reverse { grid-template-columns: 1fr; gap: 24px; }
+      .blueprint-step.reverse .content { grid-column: 1; }
+      .blueprint-step .content { text-align: center; }
+    }
     @media(max-width:640px){
-      main{padding-top:120px}
-      .three-cols,.four-cols,.five-cols,.six-cols, .epic-grid {grid-template-columns:1fr}
+      main{padding-top:100px; padding-left: 16px; padding-right: 16px;}
+      section { margin-top: 60px; }
+      .three-cols,.four-cols,.five-cols,.six-cols {grid-template-columns:1fr}
       .hero-wrap{height:auto;padding-bottom:20px; min-height: 450px;}
-      .flow{flex-direction:column;gap:0;}
-      .flow .arrow{transform:rotate(90deg);margin:4px 0}
-      /* [优化] 始祖布局响应式调整 (手机) */
       .ancestor-tier-1 { flex-direction: column; gap: 24px; }
       .ancestor-tier-1 .hero-card { max-width: 70%; }
       .ancestor-tier-2, .ancestor-tier-3 { grid-template-columns: repeat(2, 1fr); }
+      .btn { min-width: 120px; font-size: 14px; padding: 10px 18px;}
     }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebPage",
-    "name":"立维宇宙 — 东方神话世界化方案",
-    "description":"立维宇宙：将东方神话系统化为可进入、可运营的世界，提供世界观构建、场景化落地与商业化交付方案。",
-    "url":"https://levythos.com/",
-    "mainEntity": [
-      {
-        "@type": "CreativeWork",
-        "name": "世界观",
-        "description": "世界观结构与时间线"
-      },
-      {
-        "@type": "CreativeWork",
-        "name": "角色库",
-        "description": "角色档案与商业延展"
-      }
-    ],
-    "publisher": {
-      "@type":"Organization",
-      "name":"立维宇宙",
-      "logo": {"@type":"ImageObject","url":"https://levythos.com/assets/images/favicon.png"}
-    }
-  }
-  </script>
 </head>
 <body>
   <header>
@@ -206,11 +132,11 @@
       </div>
     </div>
     <nav>
-      <a href="#what">我们做什么</a>
-      <a href="#universe">文化宇宙</a>
-      <a href="#spatial">空间共创</a>
-      <a href="#lab">衍生与实验室</a>
-      <a href="#contact">联系我们</a>
+      <a href="#what" title="我们的核心方法论">世界蓝图</a>
+      <a href="#universe" title="进入立维宇宙世界观">宇宙观</a>
+      <a href="#matrix" title="浏览我们的IP作品矩阵">IP矩阵</a>
+      <a href="#spatial" title="查看文化落地实体案例">场景降临</a>
+      <a href="#contact" title="与我们建立合作">合作共建</a>
     </nav>
   </header>
 
@@ -219,20 +145,54 @@
       <div class="hero-overlay">
         <div class="hero-core">
           <div class="kicker">立维宇宙 × 维杰设计</div>
-          <h1 class="hero-title">我们不只复述古老传奇——我们铸造世界，让神话成为可亲历、可运营的真实。</h1>
-          <p class="hero-sub">立维宇宙将浩瀚的东方传说，解构为严谨的世界观与生命力的角色矩阵。我们以场景为纸，以设计为笔，将叙事“建造”为可踏入的建筑、可触摸的展览，以及生生不息的商业生态。</p>
+          <h1 class="hero-title">每一段被遗忘的神话，都是一个等待开启的宇宙。</h1>
+          <p class="hero-sub">我们绘制它的蓝图，邀请您一同踏入。我们将浩瀚的东方传说，解构为严谨的世界观与生命力的角色矩阵，最终将叙事“建造”为可踏入的真实场景与商业生态。</p>
           <div class="hero-actions">
-            <button class="btn" onclick="location.href='#universe'">了解世界观</button>
-            <button class="btn ghost" onclick="openWhitepaperModal()">下载宇宙手册 (PDF)</button>
-            <button class="btn" onclick="location.href='#heroes'">角色库速览</button>
+            <button class="btn" onclick="location.href='#universe'" aria-label="跳转至宇宙观板块">开启创世之旅</button>
+            <button class="btn ghost" onclick="openWhitepaperModal()" aria-label="打开下载宇宙手册的弹窗">下载宇宙手册</button>
+            <button class="btn" onclick="location.href='#heroes'" aria-label="跳转至角色库板块">与传奇相遇</button>
           </div>
-           <p class="pdf-note">包含：世界观框架、角色矩阵、场景化落地案例与商业化路径（PDF，6–12页）。</p>
         </div>
       </div>
     </section>
 
-    <section id="media-hub" role="region" aria-label="媒体资讯">
-      <h2>Media · 资讯与自媒体</h2>
+    <section id="what" aria-label="我们的核心方法论" role="region">
+      <h2 style="text-align: center;">从神话之核到现实之城：三步铸就宇宙</h2>
+      <p class="muted" style="text-align: center; max-width: 700px; margin: 16px auto 0 auto;">一个世界的诞生分三步：始于文明的基因，终于可运营的奇境。</p>
+      
+      <div class="blueprint-step">
+        <div class="visual">
+          <img src="assets/images/concept_method_01.jpg" alt="解构文化基因概念图" loading="lazy">
+        </div>
+        <div class="content">
+          <h3><span style="font-size:24px">①</span> 解码原型：潜入记忆之海</h3>
+          <p class="muted">整理神话原型、地域记忆与典籍考据，提炼出可无限衍生的“<em>叙事骨架</em>”与“<em>文明基因</em>”。例如，我们将“女娲补天”的古老母题，重塑为未来都市<a href="#novels">《补天之城》</a>的核心设定。</p>
+        </div>
+      </div>
+
+      <div class="blueprint-step reverse">
+        <div class="visual">
+          <img src="assets/images/concept_method_02.jpg" alt="内容孵化概念图" loading="lazy">
+        </div>
+        <div class="content">
+          <h3><span style="font-size:24px">②</span> 构建叙事：种下故事的种子</h3>
+          <p class="muted">将世界观的设定，培育成短剧、漫画、互动体验乃至游戏原型，在与观众的真实互动中，打磨<em>IP的生命力</em>。例如，《驹隙万秋》的核心章节，已孵化为可供演绎的短剧片段。</p>
+        </div>
+      </div>
+
+      <div class="blueprint-step">
+        <div class="visual">
+          <img src="assets/images/concept_method_03.jpg" alt="场景化交付概念图" loading="lazy">
+        </div>
+        <div class="content">
+          <h3><span style="font-size:24px">③</span> 链接现实：让想象照进现实</h3>
+          <p class="muted">通过精密的规划设计与项目管理，将虚构的叙事转化为可真实体验、可持续运营的空间与产品。例如，<a href="#novels">《补天之城》</a>的主题，正转化为一个<em>多维度的文旅项目</em>。</p>
+        </div>
+      </div>
+    </section>
+    
+    <section id="media-hub" role="region" aria-label="媒体资讯" class="section-divider">
+      <h2>来自外界的回响</h2>
       <p class="muted">我们的每一次发声，都是宇宙构建进程中的一块拼图。通过短视频与深度文稿，见证立维宇宙的持续演化。</p>
       <div class="media-tabs" style="margin-top:12px; display: flex; flex-wrap: wrap; gap: 8px;">
         <button class="btn ghost active" data-filter="all">全部</button>
@@ -293,39 +253,17 @@
       </div>
     </section>
 
-    <section id="what" aria-label="我们做什么" role="region">
-      <h2>创世蓝图：三步，从神话到现实</h2>
-      <p class="muted">始于文明的基因，终于可运营的奇境。</p>
-      <div class="three-cols">
-        <div class="card">
-          <img src="assets/images/concept_method_01.jpg" alt="解构文化基因概念图，展示女娲补天叙事提炼过程" class="card-img-top" loading="lazy" width="400" height="300">
-          <h3><span style="font-size:24px">①</span> 溯源：解码文明基因</h3>
-          <p class="muted">整理神话原型、地域记忆与典籍考据，提炼出可无限衍生的“叙事骨架”。例如，我们将“女娲补天”的古老母题，重塑为未来都市<a href="#novels">《补天之城》</a>的核心设定。</p>
-        </div>
-        <div class="card">
-          <img src="assets/images/concept_method_02.jpg" alt="内容孵化概念图，展示小说改编短剧过程" class="card-img-top" loading="lazy" width="400" height="300">
-          <h3><span style="font-size:24px">②</span> 孕育：孵化叙事生命</h3>
-          <p class="muted">将世界观的种子，培育成短剧、漫画、互动体验乃至游戏原型，在与观众的真实互动中，打磨IP的生命力。例如，《驹隙万秋》的核心章节，已孵化为可供演绎的短剧片段。</p>
-        </div>
-        <div class="card">
-          <img src="assets/images/concept_method_03.jpg" alt="场景化交付概念图，展示规划设计截图" class="card-img-top" loading="lazy" width="400" height="300">
-          <h3><span style="font-size:24px">③</span> 降临：交付可踏入的世界</h3>
-          <p class="muted">通过精密的规划设计与项目管理，将虚构的叙事转化为可真实体验、可持续运营的空间与产品。例如，<a href="#novels">《补天之城》</a>的主题，正转化为一个多维度的文旅项目。</p>
-        </div>
-      </div>
-    </section>
-    
     <section id="themes" class="section-divider" aria-label="核心主题" role="region">
         <h2>宇宙核心 · 哲学思辨</h2>
         <p class="muted">立维宇宙不仅是故事的集合，更是一座探索宏大命题的思想实验场。</p>
         <div class="two-cols" style="margin-top:16px; align-items: stretch;">
             <div class="card">
                 <h3>文明模式的冲突</h3>
-                <p class="muted">我们的核心叙事，源于两种文明发展模式的根本冲突。以“<a href="#world-echoes">炎帝之火</a>”为象征的、源于内部传承与社群福祉的“内生型文明”，与以“<a href="#world-echoes">普罗米修斯之火</a>”为隐喻的、来自外部颠覆与个体启蒙的“外求型文明”——二者之间的共存、竞争与融合，构成了我们世界观中一切戏剧冲突的基石。</p>
+                <p class="muted">我们的核心叙事，源于两种文明发展模式的根本冲突。以“<a href="#world-echoes">炎帝之火</a>”为象征的、源于内部传承与社群福祉的“<em>内生型文明</em>”，与以“<a href="#world-echoes">普罗米修斯之火</a>”为隐喻的、来自外部颠覆与个体启蒙的“<em>外求型文明</em>”——二者之间的共存、竞争与融合，构成了我们世界观中一切戏剧冲突的基石。</p>
             </div>
             <div class="card">
                 <h3>神话作为记忆技术</h3>
-                <p class="muted">我们不将神话视为尘封的往事，而是一种跨越世代、高效存储“文明基因”的古老技术。宇宙中的关键角色，如<a href="#heroes">“记忆行者”澜熙</a>，其使命便是解读、重写或守护这些承载着文明密码的神话原型。这背后是我们对一个终极问题的探讨：记忆如何塑造现实？历史是否可以被“编码”？</p>
+                <p class="muted">我们不将神话视为尘封的往事，而是一种跨越世代、高效存储“<em>文明基因</em>”的古老技术。宇宙中的关键角色，如<a href="#heroes">“记忆行者”澜熙</a>，其使命便是解读、重写或守护这些承载着文明密码的神话原型。这背后是我们对一个终极问题的探讨：记忆如何塑造现实？<em>历史是否可以被“编码”</em>？</p>
             </div>
         </div>
     </section>
@@ -337,7 +275,7 @@
         <div class="card"><strong>作品矩阵</strong><div class="muted" style="margin-top:8px">微剧/漫画/游戏/小说</div></div>
         <div class="card"><strong>全球视野</strong><div class="muted" style="margin-top:8px">跨文化原型 · 普世价值</div></div>
       </div>
-      <div style="margin-top:16px;text-align:center"><button class="btn ghost" onclick="location.href='#universe'">进入文化宇宙全览</button></div>
+       <div style="margin-top:16px;text-align:center"><button class="btn ghost" onclick="location.href='#universe'">进入文化宇宙全览</button></div>
     </section>
 
     <section id="design-summary" aria-label="设计赋能摘要" role="region">
@@ -349,9 +287,9 @@
       </div>
       <div style="margin-top:16px;text-align:center"><button class="btn" onclick="location.href='#spatial'">查看空间共创案例</button></div>
     </section>
-    
+
     <section id="universe" class="section-divider" aria-label="宇宙观" role="region">
-      <h2>世界观</h2>
+      <h2 style="text-align:center;">宇宙观 · 星图室</h2>
       <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
         欢迎来到宇宙的星图室。这里展示的不仅是神话，更是将传奇拆解为法则、势力、时序与冲突的宇宙骨架。循此图谱，您将洞见故事如何被赋予秩序，并最终生成可踏入的空间节点与生生不息的商业脉络。
       </p>
@@ -359,23 +297,18 @@
       <div id="epic" style="margin-top:24px">
           <h3>文明源流：十大始祖神格</h3>
           <p class="muted">十尊原初神格，是构筑我们宇宙的基石。他们之间的冲突、融合与传承，既是世界观的逻辑起点，也是一切史诗的最初回响。</p>
-          
           <div class="ancestor-lineage">
-            <div class="ancestor-tier ancestor-tier-1">
+             <div class="ancestor-tier ancestor-tier-1">
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_fuxi.jpg"></div><div class="name">伏羲</div><div class="role muted">人文始祖 · 八卦创作者</div></div>
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_nuwa.jpg"></div><div class="name">女娲</div><div class="role muted">大地之母 · 生命守护者</div></div>
             </div>
-            
             <div class="lineage-connector"></div>
-
             <div class="ancestor-tier ancestor-tier-2">
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yandi.jpg"></div><div class="name">炎帝</div><div class="role muted">农耕始祖 · 医药之神</div></div>
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_huangdi.jpg"></div><div class="name">黄帝</div><div class="role muted">文明始祖 · 秩序建立者</div></div>
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_chiyou.jpg"></div><div class="name">蚩尤</div><div class="role muted">兵主 · 变革之力</div></div>
             </div>
-
             <div class="lineage-connector"></div>
-            
             <div class="ancestor-tier ancestor-tier-3">
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_zhuanxu.jpg"></div><div class="name">颛顼</div><div class="role muted">绝地天通 · 历法革新者</div></div>
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_diku.jpg"></div><div class="name">帝喾</div><div class="role muted">承上启下 · 华夏共主</div></div>
@@ -389,7 +322,7 @@
       <section id="world-echoes" style="margin-top: 48px;" role="region">
         <h2>世界回响：同一原型下的不同故事</h2>
         <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
-            我们的宇宙观认为，世界各地的神话并非孤立存在，而是对同一宇宙原型在不同文明中的“方言式表达”。立维宇宙的核心，就是用东方的哲学框架去解读和重构这些全人类共有的精神财富。
+            我们的宇宙观认为，世界各地的神话并非孤立存在，而是对同一宇宙原型在不同文明中的“<em>方言式表达</em>”。立维宇宙的核心，就是用东方的哲学框架去解读和重构这些全人类共有的精神财富。
         </p>
         <div class="two-cols" style="margin-top: 24px; align-items: stretch;">
             <div class="card">
@@ -409,37 +342,41 @@
                 <div class="info"><h4>世界回响：盖亚之力</h4><p class="muted">原始的大地母神，通过“孕育”万物来展现力量。其力量既能创造也能诞生毁灭者（如堤丰）。</p></div>
             </div>
         </div>
-        <div style="margin-top:24px; text-align:center;">
-            <a href="#arena" class="btn ghost">参与思想擂台辩论</a>
-        </div>
       </section>
       
-      <section id="map" aria-label="世界神话基因图谱" style="margin-top: 36px;" role="region">
-        <h2>世界神话 · 基因图谱</h2>
-        <p class="muted">我们构建了一套可视化的神话基因追溯系统。在这里，您可以追踪一个神话原型（如“大洪水”）在全球的迁徙与演变，并支持将数据导出，嵌入您的展陈或研究报告中。</p>
-        <div class="card map-card" style="margin-top:12px">
-            <div class="map-visual" id="mapVisual" role="img" aria-label="交互式神话基因图谱" style="background:url('assets/images/gene_map_bg.jpg') center/cover;border:1px solid rgba(255,255,255,0.03)">
-                <svg width="100%" height="100%" viewBox="0 0 600 340">
-                    <g class="links"><path class="link" d="M150,100 Q300,50 450,100" /><path class="link" d="M150,240 Q300,290 450,240" /><path class="link" d="M200,120 Q300,170 400,120" /><path class="link" d="M100,180 Q200,200 300,180" /><path class="link" d="M300,180 Q400,160 500,180" /></g>
-                    <g class="nodes"><g class="node" transform="translate(150,100)"><circle r="10" fill="var(--accent)" /><text class="label" y="25">女娲补天</text></g><g class="node" transform="translate(450,100)"><circle r="10" fill="var(--accent2)" /><text class="label" y="25">盖亚之力</text></g><g class="node" transform="translate(200,120)"><circle r="8" fill="var(--muted)" /><text class="label" y="25">大洪水</text></g><g class="node" transform="translate(400,120)"><circle r="8" fill="var(--muted)" /><text class="label" y="25">诺亚方舟</text></g><g class="node" transform="translate(150,240)"><circle r="10" fill="var(--accent)" /><text class="label" y="25">炎帝之火</text></g><g class="node" transform="translate(450,240)"><circle r="10" fill="var(--accent2)" /><text class="label" y="25">普罗米修斯</text></g><g class="node" transform="translate(100,180)"><circle r="8" fill="var(--muted)" /><text class="label" y="25">盘古开天</text></g><g class="node" transform="translate(300,180)"><circle r="8" fill="var(--muted)" /><text class="label" y="25">混沌初开</text></g><g class="node" transform="translate(500,180)"><circle r="8" fill="var(--muted)" /><text class="label" y="25">卡俄斯</text></g></g>
-                </svg>
-            </div>
-            <div class="map-tools">
-                <div style="color:var(--muted);font-size:13px">时间轴</div><input id="eraSlider" type="range" min="0" max="4" value="0" style="width:100%;margin-top:6px"/>
-                <div id="eraLabel" style="color:var(--muted);margin-top:8px">时代：史前 · 神祇萌芽</div>
-                <div style="margin-top:12px;font-size:13px;color:var(--muted)">选择叙事原型进行追溯</div>
-                <select id="mythSelector" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: var(--card-bg); color: #eaf6ff; margin-top: 4px;">
-                    <option value="flood">原型：大洪水 (大禹/诺亚/乌特纳皮什提姆)</option><option value="mother">原型：创世母神 (女娲/盖亚/提亚马特)</option><option value="trickster">原型：搅局者 (蚩尤/洛基/阿南西)</option><option value="creation">原型：开天辟地 (盘古/卡俄斯/梵天)</option>
-                </select>
-                <div style="margin-top:12px;font-size:13px;color:var(--muted)">提示：支持 API 导出节点（CSV / JSON）以供研究或展陈使用。</div>
-                <button class="btn ghost" style="margin-top: 12px; width: 100%;">导出数据</button>
-            </div>
+      <section id="map" aria-label="世界神话基因图谱研究室" style="margin-top: 48px;" role="region">
+        <h2 style="text-align:center;">世界神话 · 基因图谱研究室</h2>
+        <style>
+          .map-showcase-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: flex-start; margin-top: 24px; }
+          .map-visual-primary { background: #000; border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 16px; box-shadow: 0 15px 50px rgba(0,0,0,0.35); }
+          .map-visual-primary img { display: block; width: 100%; height: auto; border-radius: 8px; }
+          .map-interpretation-panel { padding-top: 10px; }
+          .map-interpretation-panel h4 { font-size: 20px; color: var(--accent); margin-top: 0; margin-bottom: 12px; line-height: 1.4; }
+          .map-interpretation-panel p { font-size: 14px; line-height: 1.9; margin-bottom: 16px; }
+          .map-status-tag { display: inline-block; border: 1px solid rgba(var(--accent2-rgb), 0.3); color: var(--accent2); background-color: rgba(var(--accent2-rgb), 0.1); padding: 5px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; }
+          .map-footnote { text-align: center; margin-top: 24px; font-size: 14px; color: var(--muted); font-family: 'Noto Serif SC', serif; font-style: italic; }
+          @media (max-width: 980px) {
+            .map-showcase-grid { grid-template-columns: 1fr; }
+            .map-interpretation-panel { padding-top: 24px; text-align: center; }
+          }
+        </style>
+        <div class="map-showcase-grid">
+          <div class="map-visual-primary">
+            <img src="assets/images/世界神话基因图谱_4_3.jpg" alt="一张横版的、描绘世界神话体系关联的图谱" loading="lazy">
+          </div>
+          <div class="map-interpretation-panel">
+            <h4>文明的 ‘活’ 地图</h4>
+            <p class="muted">我们并非满足于讲述孤立的传说，而是痴迷于探寻它们之间，横跨大陆与千年的隐秘回响。</p>
+            <p class="muted">这张图谱，便是我们航行的星图。它将人类的集体记忆——从苏美的洪水到安第斯的神鸟，从昆仑的蟠桃到奥林匹斯的圣火——悉数点亮，并尝试连接那些看似遥远，实则同源的闪光。</p>
+            <div class="map-status-tag">内部研究项目 · 持续构建中</div>
+          </div>
         </div>
+        <p class="map-footnote">“每一个节点，都是通往一个失落世界的入口。每一次连接，都是对人类集体记忆的重新发现。”</p>
       </section>
 
       <div id="philosophy-cards" style="margin-top:36px">
           <h3>高维原型 · 哲学图谱</h3>
-          <p class="muted">我们将不同文化中的神祇和哲学原型，解构为宇宙能量、秩序法则或演化路径。此举不仅是为寻找共性，更是为了探索东方哲学如何为这些普世的终极母题，提供一套独特的解答。</p>
+          <p class="muted">我们将不同文化中的神祇和哲学原型，解构为宇宙能量、秩序法则或演化路径。</p>
           <div class="four-cols">
               <div class="gallery-item"><img src="assets/images/philosophy_buddha.jpg" alt="佛祖原型卡牌图像" loading="lazy" width="300" height="400"><strong>高维原型：觉者</strong><div class="muted" style="font-size:12px">能量流转 · 涅槃系</div><div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 普罗米修斯 (盗火者), 奥丁 (献祭智慧)</div></div>
               <div class="gallery-item"><img src="assets/images/philosophy_deva.jpg" alt="天王原型卡牌图像" loading="lazy" width="300" height="400"><strong>秩序原型：天王</strong><div class="muted" style="font-size:12px">维度守护 · 戒律系</div><div class="muted" style="font-size:11px; margin-top: 8px;"><strong>世界回响:</strong> 宙斯 (奥林匹斯之王), 拉 (埃及太阳神)</div></div>
@@ -449,8 +386,8 @@
       </div>
       
       <div id="heroes" style="margin-top:36px">
-          <h2>角色库 · 商业画像</h2>
-          <p class="muted">从核心角色到周边配角，我们为每个角色定义：视觉设定、商业延展（IP授权/衍生品）与故事触点。</p>
+          <h2>角色库 · 与传奇相遇</h2>
+          <p class="muted">从核心角色到周边配角，我们为每个角色定义视觉设定、商业延展与故事触点。他们不只是画像，而是等待被唤醒的灵魂。</p>
           <div class="four-cols">
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_luxiaoyun.jpg"></div><div class="name">路霄雲</div><div class="role muted">远行者</div><p class="muted" style="font-size:12px; margin-top:8px;">来自<a href="#novels">《补天之城》</a>的未来，他的出现本身就是一个待解的谜团。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
               <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/char_yulingxuan.jpg"></div><div class="name">羽菱萱</div><div class="role muted">风语者</div><p class="muted" style="font-size:12px; margin-top:8px;">她的能力连接着数字风暴与远古的记忆微粒，是新旧世界的信使。</p><div style="margin-top: auto; padding-top: 10px;"><a href="#" class="btn ghost btn-small" style="width: 100%;">查看简介</a></div></div>
@@ -468,14 +405,72 @@
       </div>
     </section>
 
+    <style>
+      .archaeology-grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+      .arch-item { background: var(--card-bg); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.03); overflow: hidden; display: flex; flex-direction: row; align-items: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+      .arch-item:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+      .arch-item .arch-image { flex-shrink: 0; width: 40%; }
+      .arch-item .arch-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+      .arch-item .arch-text { padding: 20px; }
+      .arch-item:nth-child(even) { flex-direction: row-reverse; }
+      @media (max-width: 980px) {
+        .archaeology-grid-2x2 { grid-template-columns: 1fr; }
+        .arch-item, .arch-item:nth-child(even) { flex-direction: column; }
+        .arch-item .arch-image { width: 100%; height: 180px; }
+      }
+    </style>
+    <section id="archaeology" class="section-divider" aria-label="现实锚点：考古视野" role="region">
+        <h2>现实锚点：考古视野下的宇宙基石</h2>
+        <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
+            神话并非凭空想象的产物，而是远古记忆在文明长河中的投影。我们的‘溯源’不仅止于文献，更深入大地。在此，您将看到我们的宇宙，是如何与真实的出土历史相互印证。
+        </p>
+        <div class="archaeology-grid-2x2">
+            <article class="arch-item">
+                <div class="arch-image">
+                    <img src="assets/images/archaeology_shang.jpg" alt="商周青铜器与甲骨文" loading="lazy">
+                </div>
+                <div class="arch-text">
+                    <h3 style="font-size: 18px;">时序的骨架</h3>
+                    <p class="muted" style="font-size: 14px; margin-top: 8px;">夏商周断代工程的研究成果，为“十大始祖”的神话世系，找到了一个相对可靠的历史坐标系。</p>
+                </div>
+            </article>
+            <article class="arch-item">
+                <div class="arch-image">
+                    <img src="assets/images/archaeology_sanxingdui.jpg" alt="三星堆青铜神树" loading="lazy">
+                </div>
+                <div class="arch-text">
+                    <h3 style="font-size: 18px;">想象的边界</h3>
+                    <p class="muted" style="font-size: 14px; margin-top: 8px;">三星堆颠覆性的发现，启发了我们关于“未知文明”、“异星祭祀”等设定，证明上古的想象力远超认知。</p>
+                </div>
+            </article>
+            <article class="arch-item">
+                <div class="arch-image">
+                    <img src="assets/images/archaeology_liangzhu.jpg" alt="良渚文化的玉琮" loading="lazy">
+                </div>
+                <div class="arch-text">
+                    <h3 style="font-size: 18px;">秩序的雏形</h3>
+                    <p class="muted" style="font-size: 14px; margin-top: 8px;">从良渚的玉器神徽到陶寺的观象台，为我们构建“绝地天通”、“禅让”等社会秩序演变提供了现实依据。</p>
+                </div>
+            </article>
+            <article class="arch-item">
+                <div class="arch-image">
+                    <img src="assets/images/archaeology_hetu.jpg" alt="河图洛书的抽象图案" loading="lazy">
+                </div>
+                <div class="arch-text">
+                    <h3 style="font-size: 18px;">宇宙的图样</h3>
+                    <p class="muted" style="font-size: 14px; margin-top: 8px;">“河图洛书”等上古宇宙观图样，是我们将东方哲学转译为世界观法则与阵法系统的灵感源泉。</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
     <section id="matrix" class="section-divider" aria-label="叙事孵化器" role="region">
-        <h2>叙事孵化器：从文字到多维体验</h2>
-        <p class="muted">我们将已发布的文学作品作为母体，孵化漫画、游戏、短剧等多种形态的IP内容，构成一个完整的叙事网络。</p>
-        
+        <h2>IP矩阵：从文字到多维体验</h2>
+        <p class="muted" style="text-align:center;"><em>想象一下，你的阅读如何点燃一个宇宙？从文字出发，我们共同孵化多维故事。</em></p>
         <div id="novels" style="margin-top:36px">
              <h3>核心文学 <span class="status-tag status-published">已发布</span></h3>
             <p class="muted">IP世界观的文学母体，提供丰富的改编土壤。</p>
-            <div class="five-cols">
+             <div class="five-cols">
                 <div class="card"><img class="card-img-top" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 群像叙事</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div></div>
                 <div class="card"><img class="card-img-top" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《炎黄星曌》</strong><div class="muted">神话与科技的史诗</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div></div>
                 <div class="card"><img class="card-img-top" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《补天之城》</strong><div class="muted">都市科幻 · 场景原型</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div></div>
@@ -483,7 +478,6 @@
                 <div class="card"><img class="card-img-top" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy" width="300" height="400"><div class="info"><strong>《都市神兽考察报告...》</strong><div class="muted">都市奇幻 · 女生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div></div>
             </div>
         </div>
-         
         <div id="miniseries" style="margin-top:36px">
             <h3>微剧开发蓝图 <span class="status-tag status-dev">开发中</span></h3>
             <p class="muted">我们正基于以下成熟故事原型，进行影视化开发与合作伙伴接洽。</p>
@@ -495,7 +489,6 @@
                 <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战" loading="lazy" width="300" height="400"><div class="info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
             </div>
         </div>
-
         <div id="comic" style="margin-top:36px">
             <h3>漫画 <span class="status-tag status-concept">概念设计</span></h3>
             <p class="muted">基于核心故事线，我们已完成以下作品的概念设计，并逐步推进产品化。我们相信过程即展示。</p>
@@ -507,10 +500,9 @@
                 <div class="card"><img class="card-img-top" src="assets/images/comic_guixu.jpg" alt="归墟航线漫画精选集封面" loading="lazy" width="300" height="400"><div class="info"><strong>《归墟航线》</strong><div class="muted" style="font-size:13px">海洋冒险</div></div></div>
             </div>
         </div>
-
         <div id="game" style="margin-top:36px">
             <h3>游戏 <span class="status-tag status-concept">原型</span></h3>
-            <p class="muted">基于IP世界观设计的游戏化概念及数字资产包，展示互动娱乐的潜力。</p>
+            <p class="muted">基于IP世界观设计的游戏化概念，等待与玩家共同塑造成型。<em>您希望这个游戏如何演化？告诉我们。</em></p>
             <div class="five-cols">
                 <div class="card"><img class="card-img-top" src="assets/images/game_01.jpg" alt="游戏原型时空猎人" loading="lazy" width="300" height="400"><div class="info"><strong>动作 RPG：时空猎人</strong><p class="muted" style="font-size:12px">核心玩法：基于五行理论的动态战斗系统。</p></div></div>
                 <div class="card"><img class="card-img-top" src="assets/images/game_02.jpg" alt="游戏原型神祇战争" loading="lazy" width="300" height="400"><div class="info"><strong>策略卡牌：神祇战争</strong><p class="muted" style="font-size:12px">核心玩法：组合始祖原型卡牌，重演文明冲突。</p></div></div>
@@ -522,7 +514,8 @@
     </section>
 
     <section id="spatial" class="section-divider" aria-label="空间叙事" role="region">
-        <h2>空间叙事：将世界观‘建’为现实</h2>
+        <h2>铸城：如女娲炼石，我们将叙事化为永恒</h2>
+        <p class="muted" style="text-align: center;"><em>我们的画布，是真实的物理空间。</em></p>
         <div id="spatial-narrative" style="margin-top:24px">
             <h3>空间叙事 (从故事到场景)</h3>
             <p class="muted">将IP故事拆解为空间元素与体验路径，通过规划设计实现文化与现实的连接。</p>
@@ -553,7 +546,7 @@
                 <div class="project-card"><img src="assets/images/micro_model_placeholder_4.jpg" alt="神祇战舰模型图像" loading="lazy" width="300" height="400"><div class="info"><h4>神祇战舰模型</h4><p class="muted">科幻载具原型制作</p></div></div>
             </div>
         </div>
-    </section>
+	</section>
 	
 	<section id="ip-souvenir-section" class="section-divider" aria-label="宇宙回响" role="region">
         <h2>宇宙回响：当世界观融入生活</h2>
@@ -578,7 +571,7 @@
 	</section>
 
     <section id="team" class="section-divider" role="region">
-        <h2>核心创作与研究团队</h2>
+        <h2>蓝图的绘制者</h2>
         <p class="muted">我们的世界观由资深作家、历史顾问与跨文化研究者共同构建，确保其深度与严谨性。</p>
         <div class="six-cols" style="margin-top:18px;">
             <div class="expert-card card"><img src="assets/images/expert_writer.webp" alt="作家头像" loading="lazy" width="200" height="150"><h3>王泽华 (作家)</h3><p class="muted">首席世界观架构师 / 签约作家</p></div>
@@ -606,26 +599,28 @@
     </section>
 
     <section id="press" class="module-press section-divider" role="region">
-        <h2>Press · 媒体与背书</h2>
-        <p class="muted">展示合作伙伴、孵化与媒体报道，作为项目权威性与可信度的证据墙。</p>
+        <h2>公信力与创作宣言</h2>
+        <p class="muted">展示合作伙伴、权威背书与我们的创作抱负，作为项目可信度的证据墙。</p>
         <div id="for-awards" class="card" style="margin-top: 24px; border-left: 3px solid var(--accent); background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.05), transparent);">
             <h3 style="font-size: 20px;">为雨果奖、星云奖、轨迹奖与银河奖：一份创作宣言</h3>
             <p class="muted" style="margin-top: 12px; line-height: 1.7;">
-                立维宇宙不仅是一个商业IP，更是一场严肃的文学实验。我们根植于东方神话的古老土壤，旨在探讨关于<a href="#themes">文明、记忆与存在</a>等一系列宏大命题。我们试图通过一个跨越小说、设计乃至空间体验的多维叙事网络，重塑‘神话’在当代的可能性。我们相信，真正伟大的幻想作品，是用想象力对现实提出的最深刻的质问。在此，我们呈上核心文学文本，诚邀您进入这个正在构建中的世界，我们愿意接受最严苛的审阅。
+                立维宇宙不仅是一个商业IP，更是一场<em>严肃的文学实验</em>。我们根植于东方神话的古老土壤，旨在探讨关于<a href="#themes">文明、记忆与存在</a>等一系列宏大命题。我们试图通过一个跨越小说、设计乃至空间体验的多维叙事网络，重塑‘神话’在当代的可能性。我们相信，真正伟大的幻想作品，是用想象力对现实提出的最深刻的质问。在此，我们呈上核心文学文本，诚邀您进入这个正在构建中的世界，我们愿意接受最严苛的审阅。
             </p>
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
                <a class="btn ghost" href="/press/review-sample.pdf" download>下载评审样章 (PDF)</a>
-                <a class="btn ghost" href="mailto:business@levythos.com?subject=Request%20for%20Full%20Manuscript%20(Award%20Consideration)">申请完整版手稿 (评委邮箱)</a>
-                <a class="btn ghost" href="mailto:business@levythos.com?subject=Contact%20Creative%20Team">联系创作团队</a>
+               <a class="btn ghost" href="mailto:business@levythos.com?subject=Request%20for%20Full%20Manuscript%20(Award%20Consideration)">申请完整版手稿 (评委邮箱)</a>
+               <a class="btn ghost" href="mailto:business@levythos.com?subject=Contact%20Creative%20Team">联系创作团队</a>
             </div>
         </div>
         <div class="logo-wall card" style="margin-top: 36px;">
             <h4>合作伙伴</h4>
-            <ul class="partner-list" style="margin-top:18px;">
-                <li>中国传统文化促进会</li><li>中国炎黄文化研究会</li><li>北京炎黄研究院</li><li>上海市作家协会</li><li>上海市住建委</li><li>中国建筑</li><li>上海建工</li><li>阿特金斯 (Atkins)</li><li>AECOM</li><li>复旦大学</li><li>上海交通大学</li><li>同济大学</li>
-            </ul>
+            <div class="partner-list-container">
+                <ul class="partner-list">
+                    <li>中国传统文化促进会</li><li>中国炎黄文化研究会</li><li>北京炎黄研究院</li><li>上海市作家协会</li><li>上海市住建委</li><li>中国建筑</li><li>上海建工</li><li>阿特金斯 (Atkins)</li><li>AECOM</li><li>复旦大学</li><li>上海交通大学</li><li>同济大学</li>
+                </ul>
+            </div>
         </div>
-        <section id="awards" class="gemini-added" data-added-by="gemini" style="margin-top: 24px; margin-bottom: 24px; padding: 20px; border-radius: 10px; background: var(--card-bg);">
+         <section id="awards" style="margin-top: 24px; margin-bottom: 24px; padding: 20px; border-radius: 10px; background: var(--card-bg);">
             <h3>Awards & Festivals</h3>
             <p class="muted">参赛资料包与提交指南。节展/评审可从此处下载样章与授权文件。如需协助请发送邮件至 business@levythos.com</p>
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
@@ -656,8 +651,8 @@
     </section>
 
     <section id="arena" class="section-divider" aria-label="思想擂台" role="region">
+        <h2>思想擂台 · 文明辩场</h2>
         <div id="arena-content">
-            <h3>思想擂台 · 文明辩场</h3>
             <p class="muted">这里是观点的竞技场，是创意的孵化地。选择你的立场，加入关于宇宙未来的核心辩论。</p>
             <div class="arena-layout">
                 <div class="arena-topic-card lazy-bg" data-bg="assets/images/concept_arena_fire.jpg">
@@ -665,8 +660,8 @@
                     <h3>炎帝的“火”与普罗米修斯的“火”，谁对文明的形态影响更为深远？</h3>
                     <p class="muted" style="margin-top: 12px; line-height: 1.6;">前者是源于内部、惠及社群的技艺传承之火，后者是源于外部、挑战权威的智慧启蒙之火。在立维宇宙的未来叙事中，哪一种“火”的隐喻更能代表人类文明的终极走向？</p>
                     <div class="arena-actions">
-                        <button class="btn ghost" style="border-color:var(--accent); color:var(--accent)">加入正方：炎帝之火</button>
-                        <button class="btn ghost" style="border-color:var(--accent2); color:var(--accent2)">加入反方：普氏之火</button>
+                        <button class="btn ghost" style="border-color:var(--accent); color:var(--accent)" aria-label="加入正方：炎帝之火">加入正方：炎帝之火</button>
+                        <button class="btn ghost" style="border-color:var(--accent2); color:var(--accent2)" aria-label="加入反方：普罗米修斯之火">加入反方：普氏之火</button>
                     </div>
                 </div>
                 <div class="arena-rules">
@@ -686,9 +681,8 @@
         <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
             宇宙的宏大，由无数微小的“奇遇”构成。我们相信，<strong>最深刻的叙事原型就隐藏在真实的生命体验之中</strong>。
             因此，我们正式启动《都市情感奇遇记》内容共创计划，邀请您分享那些生命中不期而遇的、独特的、甚至超乎想象的情感瞬间。
-            <br><br>
-            <strong>这不是简单的投稿，这是您为立维宇宙注入灵魂的时刻。</strong>
         </p>
+        <p class="muted" style="text-align:center; font-style: italic; margin-top: 24px;">你的一次相遇，可能点亮宇宙的一颗星辰。</p>
         <div class="two-cols" style="margin-top: 36px; align-items: flex-start; gap: 24px;">
             <div class="card" style="padding: 20px;">
                 <img src="assets/images/romance_engine_visual.jpg" alt="都市情感奇遇记插图" loading="lazy" style="width: 100%; border-radius: 8px; aspect-ratio: 4/3; object-fit: cover;">
@@ -724,7 +718,7 @@
         </div>
         <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), rgba(var(--accent2-rgb), 0.05));">
             <h4 style="text-align: center;">贡献者回报计划</h4>
-            <ul style="padding-left: 20px; color: var(--muted); line-height: 1.8; font-size: 14px;">
+            <ol style="padding-left: 20px; color: var(--muted); line-height: 1.8; font-size: 14px;">
                 <li><strong>参与者：</strong>所有有效提交者，都将获得一枚“宇宙情感样本贡献者”数字徽章。</li>
                 <li><strong>入选者：</strong>故事样本被采纳用于线上展示或短视频素材，将获赠立维宇宙周边文创一份。</li>
                 <li><strong>核心贡献者：</strong>故事被《都市情感奇遇记》系列小说收录为核心章节，您将：
@@ -734,7 +728,7 @@
                         <li>获得“立维宇宙创世贡献者”高级会员身份及专属权益。</li>
                     </ul>
                 </li>
-            </ul>
+            </ol>
         </div>
         <div class="stories-list" style="margin-top:18px;">
             <article class="card" style="margin-bottom: 16px;">
@@ -748,7 +742,7 @@
     </section>
 
     <section id="contact" class="section-divider" aria-label="合作" role="region">
-      <h2>加入我们 / 联系方式</h2>
+      <h2>合作共建</h2>
       <p class="muted">想参与某块业务或合作某个节点？在这里留下需求，我们会基于宇宙框架给出定制化合作方案。</p>
       <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;align-items:flex-start">
         <div style="flex:1" class="card">
@@ -770,10 +764,10 @@
     <section id="about" class="section-divider" aria-label="关于我们" role="region">
         <h2>关于 (About)</h2>
         <p class="muted">我们是立维宇宙（文化科技）与维杰设计（规划建筑）的联合体。</p>
-        <div class="three-cols">
+         <div class="three-cols">
             <div class="card"><strong>公司介绍</strong><p class="muted" style="margin-top:8px">致力于将东方文化基因转化为可运营的、具备全球影响力的IP宇宙，并通过实体设计赋能文旅、商业与城市更新项目。</p></div>
             <div class="card"><strong>团队与资质</strong><p class="muted" style="margin-top:8px">核心团队由叙事设计师、建筑师、工程师与商业策略师组成，具备全流程交付能力。</p></div>
-           <div class="card"><strong>法务信息</strong><p class="muted" style="margin-top:8px">© 2025 Levythos Global · Vigio Planning &amp; Architectural Design Co., Ltd. 保留所有权利。</p></div>
+           <div class="card"><strong>法务信息</strong><p class="muted" style="margin-top:8px">© 2025 Levythos Global · Vigio Planning & Architectural Design Co., Ltd. 保留所有权利。</p></div>
         </div>
     </section>
 
@@ -781,7 +775,7 @@
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 28px;">
         <div>
           <div style="font-weight:700">Levythos · 立维宇宙 · Vigio Design · 维杰设计</div>
-          <div class="muted" style="margin-top:6px">© 2025 Levythos Global · Vigio Planning &amp; Architectural Design Co., Ltd. 保留所有权利。</div>
+          <div class="muted" style="margin-top:6px">© 2025 Levythos Global · Vigio Planning & Architectural Design Co., Ltd. 保留所有权利。</div>
         </div>
         <div class="muted" style="font-size:13px">Global Creative HQ · Shanghai · business@levythos.com</div>
       </div>
@@ -795,7 +789,7 @@
       <input id="whiteEmail" placeholder="机构邮箱（示例：name@company.com）" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-top:8px;background:transparent;color:#eaf6ff">
       <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
         <button class="btn" id="whiteSend">提交申请</button>
-        <button class="btn ghost" onclick="closeWhitepaperModal()">关闭</button>
+         <button class="btn ghost" onclick="closeWhitepaperModal()">关闭</button>
       </div>
     </div>
   </div>
@@ -830,7 +824,6 @@
             });
         }
         
-        // Background Image Lazy Loading
         const lazyBgElements = document.querySelectorAll('.pic.lazy-bg, .arena-topic-card.lazy-bg');
         if ('IntersectionObserver' in window) {
             const bgObserver = new IntersectionObserver((entries, observer) => {
@@ -839,14 +832,14 @@
                         const el = entry.target;
                         if (el.dataset.bg) {
                             el.style.backgroundImage = `url('${el.dataset.bg}')`;
-                            el.classList.remove('lazy-bg'); // 避免重复加载
+                            el.classList.remove('lazy-bg');
                         }
                         observer.unobserve(el);
                     }
                 });
             }, { rootMargin: '0px 0px 200px 0px' });
             lazyBgElements.forEach(el => bgObserver.observe(el));
-        } else { // Fallback for older browsers
+        } else {
             lazyBgElements.forEach(el => {
                 if (el.dataset.bg) {
                     el.style.backgroundImage = `url('${el.dataset.bg}')`;
