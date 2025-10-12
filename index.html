@@ -430,18 +430,6 @@
     }
 }
 
-/* 修复卡片高度不统一导致图片未撑满的问题 */
-.five-cols .card, .four-cols .card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.five-cols .card .info, .four-cols .card .info {
-    flex-grow: 1;
-}
-
-
 /* ---------- [重写] IP矩阵布局样式 ---------- */
 .ip-category h4 {
     font-size: 20px;
@@ -525,6 +513,57 @@
 }
 
 
+/* ---------- [重写] IP矩阵专属布局样式 ---------- */
+.ip-category h4 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+}
+.five-cols-ip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+.ip-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(var(--accent-rgb), 0.5); /* 统一的金色边框 */
+    box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.2); /* 统一的金色光晕 */
+    border-radius: 12px; /* 统一的圆角 */
+    padding: 12px; /* 统一的内边距 */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.ip-card-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4; /* 固定图片比例 */
+    object-fit: cover;
+    border-radius: 8px; /* 图片的圆角 */
+}
+.ip-card-info {
+    flex-grow: 1; /* 自动撑满文字区域 */
+    padding: 12px 0; /* 文字区域的上下间距 */
+}
+.ip-card .btn {
+    width: 100%;
+    margin-top: auto; /* 按钮永远在底部 */
+}
+
+/* 响应式适配 */
+@media (max-width: 1200px) {
+    .five-cols-ip { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 980px) {
+    .five-cols-ip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+    .five-cols-ip { grid-template-columns: 1fr; }
+}
+
   </style>
 
 </head>
@@ -591,36 +630,36 @@
     <div class="ip-category" style="margin-top:36px">
          <h4>核心文学 <span class="status-tag status-published">已发布</span></h4>
         <p class="muted">IP世界观的文学母体，提供丰富的改编土壤。</p>
-         <div class="five-cols">
-            <div class="card showcase-card"><img class="card-img-top" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面" loading="lazy"><div class="info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 群像叙事</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy"><div class="info"><strong>《炎黄星曌》</strong><div class="muted">神话与科技的史诗</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy"><div class="info"><strong>《补天之城》</strong><div class="muted">都市科幻 · 场景原型</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面" loading="lazy"><div class="info"><strong>《都市妖精图鉴...》</strong><div class="muted">都市奇幻 · 男生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-yaojing-preview.pdf" download>查看预览</a></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy"><div class="info"><strong>《都市神兽考察报告...》</strong><div class="muted">都市奇幻 · 女生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div></div>
+         <div class="five-cols-ip">
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面" loading="lazy"><div class="ip-card-info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 群像叙事</div></div><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy"><div class="ip-card-info"><strong>《炎黄星曌》</strong><div class="muted">神话与科技的史诗</div></div><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy"><div class="ip-card-info"><strong>《补天之城》</strong><div class="muted">都市科幻 · 场景原型</div></div><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面" loading="lazy"><div class="ip-card-info"><strong>《都市妖精图鉴...》</strong><div class="muted">都市奇幻 · 男生视角</div></div><a class="btn ghost" href="/works/novels/urban-yaojing-preview.pdf" download>查看预览</a></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy"><div class="ip-card-info"><strong>《都市神兽考察报告...》</strong><div class="muted">都市奇幻 · 女生视角</div></div><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div>
         </div>
     </div>
     
     <div class="ip-category" style="margin-top:36px">
         <h4>漫画</h4>
         <p class="muted">我们正基于核心故事，进行漫画改编与合作伙伴接洽。</p>
-        <div class="five-cols">
-            <div class="card showcase-card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="漫画封面炎的弥赛亚" loading="lazy"><div class="info"><strong>《炎的弥赛亚》</strong><div class="muted">神话英雄</div></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="漫画封面回溯者之眸" loading="lazy"><div class="info"><strong>《回溯者之眸》</strong><div class="muted">悬疑科幻</div></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="漫画封面编码者悖论" loading="lazy"><div class="info"><strong>《编码者悖论》</strong><div class="muted">赛博朋克</div></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="漫画封面霓虹下的低语" loading="lazy"><div class="info"><strong>《霓虹下的低语》</strong><div class="muted">都市奇幻</div></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="漫画封面始祖之战" loading="lazy"><div class="info"><strong>《始祖之战：序》</strong><div class="muted">史诗战争</div></div></div>
+        <div class="five-cols-ip">
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_01.jpg" alt="漫画封面炎的弥赛亚" loading="lazy"><div class="ip-card-info"><strong>《炎的弥赛亚》</strong><div class="muted">神话英雄</div></div></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_02.jpg" alt="漫画封面回溯者之眸" loading="lazy"><div class="ip-card-info"><strong>《回溯者之眸》</strong><div class="muted">悬疑科幻</div></div></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_03.jpg" alt="漫画封面编码者悖论" loading="lazy"><div class="ip-card-info"><strong>《编码者悖论》</strong><div class="muted">赛博朋克</div></div></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_04.jpg" alt="漫画封面霓虹下的低语" loading="lazy"><div class="ip-card-info"><strong>《霓虹下的低语》</strong><div class="muted">都市奇幻</div></div></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_05.jpg" alt="漫画封面始祖之战" loading="lazy"><div class="ip-card-info"><strong>《始祖之战：序》</strong><div class="muted">史诗战争</div></div></div>
         </div>
     </div>
 
     <div class="ip-category" style="margin-top:36px">
         <h4>微剧开发蓝图 <span class="status-tag status-dev">开发中</span></h4>
         <p class="muted">我们正基于以下成熟故事原型，进行影视化开发与合作伙伴接洽。</p>
-        <div class="five-cols">
-            <div class="card showcase-card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="短剧封面炎的弥赛亚" loading="lazy"><div class="info"><strong>炎的弥赛亚</strong><div class="muted" style="font-size:12px">动作 / <a href="#heroes">姜炎洺</a></div></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="短剧封面回溯者之眸" loading="lazy"><div class="info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜熙</a></div></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="短剧封面编码者悖论" loading="lazy"><div class="info"><strong>编码者悖论</strong><div class="muted" style="font-size:12px">科幻 / <a href="#heroes">墨氚</a></div></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="短剧封面霓虹下的低语" loading="lazy"><div class="info"><strong>霓虹下的低语</strong><div class="muted" style="font-size:12px">赛博 / <a href="#heroes">路霄雲</a></div></div></div>
-            <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战" loading="lazy"><div class="info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
+        <div class="five-cols-ip">
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_01.jpg" alt="短剧封面炎的弥赛亚" loading="lazy"><div class="ip-card-info"><strong>炎的弥赛亚</strong><div class="muted" style="font-size:12px">动作 / <a href="#heroes">姜炎洺</a></div></div></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_02.jpg" alt="短剧封面回溯者之眸" loading="lazy"><div class="ip-card-info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜熙</a></div></div></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_03.jpg" alt="短剧封面编码者悖论" loading="lazy"><div class="ip-card-info"><strong>编码者悖论</strong><div class="muted" style="font-size:12px">科幻 / <a href="#heroes">墨氚</a></div></div></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_04.jpg" alt="短剧封面霓虹下的低语" loading="lazy"><div class="ip-card-info"><strong>霓虹下的低语</strong><div class="muted" style="font-size:12px">赛博 / <a href="#heroes">路霄雲</a></div></div></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战" loading="lazy"><div class="ip-card-info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
         </div>
     </div>
 </section>
