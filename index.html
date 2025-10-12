@@ -441,6 +441,90 @@
     flex-grow: 1;
 }
 
+
+/* ---------- [重写] IP矩阵布局样式 ---------- */
+.ip-category h4 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+}
+.five-cols .card, .four-cols .card {
+    display: flex; /* 启用弹性盒子，这是让卡片等高的基础 */
+    flex-direction: column; /* 确保内容是垂直排列的 */
+    height: 100%; /* 强制卡片高度撑满整行 */
+}
+.five-cols .card .info, .four-cols .card .info {
+    flex-grow: 1; /* 让中间的文字区域自动成长，填满所有空白 */
+}
+.showcase-card {
+    border: 1px solid rgba(var(--accent-rgb), 0.5); /* 金色边框 */
+    box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.25); /* 金色光晕 */
+}
+
+
+/* ---------- [重写] 高维原型布局样式 ---------- */
+.four-cols-redefined {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 稳固地分为4等份 */
+    gap: 16px;
+    margin-top: 36px;
+    align-items: stretch; /* 让所有卡片等高 */
+}
+/* 响应式适配 */
+@media (max-width: 980px) {
+    .four-cols-redefined { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+    .four-cols-redefined { grid-template-columns: 1fr; }
+}
+/* 卡片内部样式 (之前的版本是正确的，我们保留并整合) */
+.archetype-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.archetype-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.archetype-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+}
+.archetype-content {
+    padding: 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.archetype-content h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.archetype-content .source-code {
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    flex-grow: 1;
+}
+.archetype-content .world-echoes {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 8px;
+    margin-top: auto;
+}
+
+
   </style>
 
 </head>
@@ -500,42 +584,46 @@
         </div>
     </section>
 
-    <section id="matrix" class="section-divider" aria-label="叙事孵化器" role="region">
-        <h2>IP矩阵：从文字到多维体验</h2>
-        <p class="muted" style="text-align:center;"><em>想象一下，你的阅读如何点燃一个宇宙？从文字出发，我们共同孵化多维故事。</em></p>
-        <div id="novels" style="margin-top:36px">
-             <h3>核心文学 <span class="status-tag status-published">已发布</span></h3>
-            <p class="muted">IP世界观的文学母体，提供丰富的改编土壤。</p>
-             <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面" loading="lazy"><div class="info"><strong>《驹隙万秋》</strong><div class="muted">科幻与神话融合的巨著</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy"><div class="info"><strong>《炎黄星曌：命外之人》</strong><div class="muted">文明悬疑 · 史诗群像</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy"><div class="info"><strong>《补天之城：上海2074》</strong><div class="muted">都市科幻 · 场景原型</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面" loading="lazy"><div class="info"><strong>《都市妖精图鉴：我的相亲对象不是人》</strong><div class="muted">都市奇幻 · 男生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-yaojing-preview.pdf" download>查看预览</a></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy"><div class="info"><strong>《都市神兽考察报告：今天相亲又遇见了哪只奇葩？》</strong><div class="muted">都市奇幻 · 女生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div></div>
-            </div>
-        <div id="comic" style="margin-top:36px">
-            <h3>漫画 <span class="status-tag status-concept">概念设计</span></h3>
-            <p class="muted">基于核心故事线，我们已完成以下作品的概念设计，并逐步推进产品化。我们相信过程即展示。</p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/comic_01.jpg" alt="漫画封面时间碎片" loading="lazy" width="300" height="400"><div class="info"><strong>《炎火》</strong><div class="muted" style="font-size:13px">赛博悬疑</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_02.jpg" alt="漫画封面文明的囚徒" loading="lazy" width="300" height="400"><div class="info"><strong>《文明的囚徒》</strong><div class="muted" style="font-size:13px">末日科幻</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_03.jpg" alt="漫画封面基因图谱" loading="lazy" width="300" height="400"><div class="info"><strong>《天曜星途》</strong><div class="muted" style="font-size:13px">神话起源</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_placeholder_1.jpg" alt="漫画封面蚩尤之心" loading="lazy" width="300" height="400"><div class="info"><strong>《蚩尤之血》</strong><div class="muted" style="font-size:13px">战争史诗</div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/comic_guixu.jpg" alt="归墟航线漫画精选集封面" loading="lazy" width="300" height="400"><div class="info"><strong>《归墟航线》</strong><div class="muted" style="font-size:13px">海洋冒险</div></div></div>
-            </div>
+<section id="matrix" class="section-divider" aria-label="叙事孵化器" role="region">
+    <h2>IP矩阵：从文字到多维体验</h2>
+    <p class="muted" style="text-align:center;"><em>我们根植于核心故事，并将其培育为跨越多种媒介的生命体。</em></p>
+    
+    <div class="ip-category" style="margin-top:36px">
+         <h4>核心文学 <span class="status-tag status-published">已发布</span></h4>
+        <p class="muted">IP世界观的文学母体，提供丰富的改编土壤。</p>
+         <div class="five-cols">
+            <div class="card showcase-card"><img class="card-img-top" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面" loading="lazy"><div class="info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 群像叙事</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy"><div class="info"><strong>《炎黄星曌》</strong><div class="muted">神话与科技的史诗</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy"><div class="info"><strong>《补天之城》</strong><div class="muted">都市科幻 · 场景原型</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面" loading="lazy"><div class="info"><strong>《都市妖精图鉴...》</strong><div class="muted">都市奇幻 · 男生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-yaojing-preview.pdf" download>查看预览</a></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy"><div class="info"><strong>《都市神兽考察报告...》</strong><div class="muted">都市奇幻 · 女生视角</div></div><div style="margin-top:12px"><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div></div>
         </div>
-        <div id="miniseries" style="margin-top:36px">
-            <h3>微剧开发蓝图 <span class="status-tag status-dev">开发中</span></h3>
-            <p class="muted">我们正基于以下成熟故事原型，进行影视化开发与合作伙伴接洽。</p>
-            <div class="five-cols">
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="短剧封面炎的弥赛亚" loading="lazy"><div class="info"><strong>炎的弥赛亚</strong><div class="muted" style="font-size:12px">动作 / <a href="#heroes">姜炎洺</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="短剧封面回溯者之眸" loading="lazy"><div class="info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜熙</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="短剧封面编码者悖论" loading="lazy"><div class="info"><strong>编码者悖论</strong><div class="muted" style="font-size:12px">科幻 / <a href="#heroes">陆霄雲</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="短剧封面霓虹下的低语" loading="lazy"><div class="info"><strong>末世的霓虹</strong><div class="muted" style="font-size:12px">赛博 / <a href="#heroes">路霄雲</a></div></div></div>
-                <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战" loading="lazy"><div class="info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
-            </div>
+    </div>
+    
+    <div class="ip-category" style="margin-top:36px">
+        <h4>漫画</h4>
+        <p class="muted">我们正基于核心故事，进行漫画改编与合作伙伴接洽。</p>
+        <div class="five-cols">
+            <div class="card showcase-card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="漫画封面炎的弥赛亚" loading="lazy"><div class="info"><strong>《炎的弥赛亚》</strong><div class="muted">神话英雄</div></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="漫画封面回溯者之眸" loading="lazy"><div class="info"><strong>《回溯者之眸》</strong><div class="muted">悬疑科幻</div></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="漫画封面编码者悖论" loading="lazy"><div class="info"><strong>《编码者悖论》</strong><div class="muted">赛博朋克</div></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="漫画封面霓虹下的低语" loading="lazy"><div class="info"><strong>《霓虹下的低语》</strong><div class="muted">都市奇幻</div></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="漫画封面始祖之战" loading="lazy"><div class="info"><strong>《始祖之战：序》</strong><div class="muted">史诗战争</div></div></div>
         </div>
-    </section>
+    </div>
+
+    <div class="ip-category" style="margin-top:36px">
+        <h4>微剧开发蓝图 <span class="status-tag status-dev">开发中</span></h4>
+        <p class="muted">我们正基于以下成熟故事原型，进行影视化开发与合作伙伴接洽。</p>
+        <div class="five-cols">
+            <div class="card showcase-card"><img class="card-img-top" src="assets/images/miniseries_01.jpg" alt="短剧封面炎的弥赛亚" loading="lazy"><div class="info"><strong>炎的弥赛亚</strong><div class="muted" style="font-size:12px">动作 / <a href="#heroes">姜炎洺</a></div></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/miniseries_02.jpg" alt="短剧封面回溯者之眸" loading="lazy"><div class="info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜熙</a></div></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/miniseries_03.jpg" alt="短剧封面编码者悖论" loading="lazy"><div class="info"><strong>编码者悖论</strong><div class="muted" style="font-size:12px">科幻 / <a href="#heroes">墨氚</a></div></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/miniseries_04.jpg" alt="短剧封面霓虹下的低语" loading="lazy"><div class="info"><strong>霓虹下的低语</strong><div class="muted" style="font-size:12px">赛博 / <a href="#heroes">路霄雲</a></div></div></div>
+            <div class="card"><img class="card-img-top" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战" loading="lazy"><div class="info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
+        </div>
+    </div>
+</section>
 
     <section id="what" aria-label="我们的核心方法论" class="section-divider" role="region">
       <h2 style="text-align: center;">从神话之核到现实之城：三步铸就宇宙</h2>
@@ -663,7 +751,7 @@
         </p>
     </div>
 
-    <div class="four-cols" style="margin-top: 36px; align-items: stretch; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+    <div class="four-cols-redefined">
         <article class="archetype-card">
             <img src="assets/images/philosophy_buddha.jpg" alt="觉者原型卡牌图像" loading="lazy">
             <div class="archetype-content">
@@ -672,7 +760,6 @@
                 <p class="world-echoes"><strong>世界回响:</strong> 普罗米修斯 (盗火者), 奥丁 (献祭智慧)</p>
             </div>
         </article>
-
         <article class="archetype-card">
             <img src="assets/images/philosophy_deva.jpg" alt="天王原型卡牌图像" loading="lazy">
             <div class="archetype-content">
@@ -681,7 +768,6 @@
                 <p class="world-echoes"><strong>世界回响:</strong> 宙斯 (奥林匹斯之王), 拉 (埃及太阳神)</p>
             </div>
         </article>
-
         <article class="archetype-card">
             <img src="assets/images/philosophy_angel.jpg" alt="信使原型卡牌图像" loading="lazy">
             <div class="archetype-content">
@@ -690,7 +776,6 @@
                 <p class="world-echoes"><strong>世界回响:</strong> 赫尔墨斯 (希腊神使), 加百列 (报喜天使)</p>
             </div>
         </article>
-        
         <article class="archetype-card">
             <img src="assets/images/philosophy_chaos.jpg" alt="混沌原型卡牌图像" loading="lazy">
             <div class="archetype-content">
@@ -701,6 +786,7 @@
         </article>
     </div>
 </section>
+
 
     <style>
       .archaeology-grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
