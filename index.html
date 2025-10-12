@@ -194,7 +194,7 @@
 }
 
 
-/* ---------- [新增] 史诗级“思想擂台”增强布局样式 ---------- */
+/* ---------- [最终版] “思想擂台”增强布局样式 ---------- */
 .arena-header {
     text-align: center;
     margin-bottom: 36px;
@@ -219,7 +219,7 @@
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 3 / 4; /* 让图片本身是竖版，更具海报感 */
+    aspect-ratio: 1 / 1; /* [修改] 图片变为1:1的正方形 */
     object-fit: cover;
 }
 
@@ -275,10 +275,16 @@
     .arena-layout-enhanced {
         grid-template-columns: 1fr; /* 在平板和手机上变为单栏布局 */
     }
+    .arena-visual {
+        order: -1; /* [新增] 在手机上，让图片显示在文字上方 */
+    }
     .arena-visual img {
-        aspect-ratio: 16 / 9; /* 在单栏时，图片变为横版以节省空间 */
+        aspect-ratio: 16 / 9; /* [优化] 在手机上，方形图还是太高，改为扁图更合适 */
     }
 }
+
+
+
 
 /* ---------- [新增] “从图纸到地标”增强布局样式 ---------- */
 .bridge-header {
@@ -1455,10 +1461,6 @@
     </div>
     
     <div class="arena-layout-enhanced">
-        <div class="arena-visual">
-            <img src="assets/images/concept_arena_fire.jpg" alt="炎帝之火与普罗米修斯之火的思想碰撞概念图" loading="lazy">
-        </div>
-
         <div class="arena-content">
             <div class="arena-topic-card-enhanced">
                 <div class="tag">本期议题</div>
@@ -1487,6 +1489,10 @@
                 </ul>
                 <button class="btn ghost" style="width: 100%; margin-top: 15px;">查看往期议题</button>
             </div>
+        </div>
+
+        <div class="arena-visual">
+            <img src="assets/images/concept_arena_fire.jpg" alt="炎帝之火与普罗米修斯之火的思想碰撞概念图" loading="lazy">
         </div>
     </div>
 </section>
