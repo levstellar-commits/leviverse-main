@@ -1057,7 +1057,46 @@ nav a:hover::after {
     100% { transform: translateX(0); } 
 }
 
+/* ---------- [新增] 宇宙之心概览样式 ---------- */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+.summary-item {
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 10px;
+}
+.summary-item h4 { color: var(--accent); }
+.summary-cta {
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.3);
+}
+@media (max-width: 980px) {
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+    .summary-grid { grid-template-columns: 1fr; }
+}
+
+
   </style>
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWorkSeries",
+    "name": "立维宇宙 (Levythos)",
+    "description": "一个以东方神话为根基，融合世界神话，贯穿古今的宏大科幻宇宙。",
+    "creator": {
+      "@type": "Organization",
+      "name": "立维宇宙 × 维杰设计"
+    }
+  }
+  </script>
+
 
 </head>
 <body>
@@ -1087,10 +1126,39 @@ nav a:hover::after {
           <p class="hero-sub">我们绘制它的蓝图，邀请您一同踏入。我们将浩瀚的东方传说，解构为严谨的世界观与生命力的角色矩阵，最终将叙事“建造”为可踏入的真实场景与商业生态。</p>
 
 <div class="hero-actions">
-                <button class="btn btn-primary" onclick="location.href='#universe'" aria-label="跳转至宇宙观板块">开启创世之旅</button>
-            </div>
+    <button class="btn btn-primary" onclick="startGuidedTour()" aria-label="开启官方导览">开启官方导览</button>
+    <button class="btn ghost" onclick="location.href='#universe'">自由探索</button>
+</div>
+
 
     </section>
+
+
+
+<section id="executive-summary" class="section-divider">
+    <div class="summary-grid">
+        <div class="summary-item">
+            <h4>世界观内核</h4>
+            <p class="muted">一个以东方“十祖”为根基，融合世界神话，贯穿古今的宏大科幻宇宙。</p>
+        </div>
+        <div class="summary-item">
+            <h4>IP矩阵</h4>
+            <p class="muted">以“小说”为母体，横跨“漫画、影视、游戏”四大领域，立体化培育IP生命力。</p>
+        </div>
+        <div class="summary-item">
+            <h4>商业落地</h4>
+            <p class="muted">具备将“无形IP”转化为“有形资产”（文旅、商业、产品）的全流程交付能力。</p>
+        </div>
+        <div class="summary-item summary-cta">
+            <h4>合作共建</h4>
+            <p class="muted">我们正在寻找IP授权、联合开发与投资伙伴，共同开启这个宇宙。</p>
+            <button class="btn btn-small" onclick="location.href='#contact'">立即洽谈</button>
+        </div>
+    </div>
+</section>
+
+
+
 
     <section id="heroes" aria-label="角色库" role="region">
         <h2>与传奇相遇</h2>
@@ -2145,6 +2213,28 @@ nav a:hover::after {
         });
       }
     })();
+
+function startGuidedTour() {
+  const tourStops = ['#heroes', '#matrix', '#universe', '#contact'];
+  let currentStop = 0;
+  
+  function scrollToNext() {
+    if (currentStop < tourStops.length) {
+      document.querySelector(tourStops[currentStop]).scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+      currentStop++;
+    }
+  }
+
+  alert('欢迎来到立维宇宙！即将为您开启官方导览，将依次为您展示我们的核心角色、IP矩阵与宏大宇宙观。');
+  scrollToNext();
+  // 您可以在这里设置一个更复杂的、带有“下一步”按钮的导览系统
+  // 但目前这个简单的自动滚动，已经能极大地优化新用户体验
+}
+
+
   </script>
 
 
