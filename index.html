@@ -967,10 +967,11 @@ nav a:hover::after {
     border-radius: 14px;
 }
 
-/* ---------- [最终版] 伴手礼与合作伙伴精装修样式 ---------- */
+/* ---------- [终极版] 伴手礼与合作伙伴滚动样式 ---------- */
 
-/* --- 1. 伴手礼双行反向滚动 --- */
-.souvenir-scroll-container {
+/* --- 1. 滚动容器的通用样式 --- */
+.souvenir-scroll-container,
+.partner-logo-grid {
     width: 100%;
     overflow: hidden;
     margin-top: 24px;
@@ -978,18 +979,28 @@ nav a:hover::after {
     flex-direction: column;
     gap: 16px;
 }
-.souvenir-track {
-    display: flex;
-    width: max-content;
+
+/* --- 2. 滚动轨道的核心样式 (最关键!) --- */
+.souvenir-track,
+.partner-track {
+    display: flex; /* 关键：让内容横向排列 */
+    width: max-content; /* 关键：让容器宽度由内容撑开 */
     gap: 16px;
     animation: scroll 80s linear infinite;
 }
-.souvenir-track:hover {
-    animation-play-state: paused;
+
+.souvenir-track:hover,
+.partner-track:hover {
+    animation-play-state: paused; /* 鼠标悬停时暂停 */
 }
-.souvenir-track.reverse {
+
+/* --- 3. 反向滚动样式 --- */
+.souvenir-track.reverse,
+.partner-track.reverse {
     animation-name: scroll-reverse;
 }
+
+/* --- 4. 滚动动画定义 --- */
 @keyframes scroll { 
     0% { transform: translateX(0); } 
     100% { transform: translateX(-50%); } 
@@ -999,8 +1010,18 @@ nav a:hover::after {
     100% { transform: translateX(0); } 
 }
 
-/* --- 2. 合作伙伴徽章美化 --- */
+/* --- 5. 合作伙伴徽章美化样式 (保持不变) --- */
 .partner-logo {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    width: 100px;
+    height: 100px;
+    display: grid;
+    place-items:center;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
     transition: all 0.3s ease;
     border: 1px solid transparent;
 }
@@ -1026,8 +1047,6 @@ nav a:hover::after {
     background: rgba(var(--accent2-rgb), 0.1);
     border-color: rgba(var(--accent2-rgb), 0.4);
 }
-
-
 
   </style>
 
@@ -1592,7 +1611,6 @@ nav a:hover::after {
     </div>
 </section>
 
-
 <section id="team" class="section-divider" role="region">
     <h2>蓝图的绘制者</h2>
     <p class="muted">一个伟大宇宙的诞生，需要跨学科的智慧共同点亮。我们的蓝图由以下核心领域的专家共同构建与诠释。</p>
@@ -1825,7 +1843,7 @@ nav a:hover::after {
                     <div class="partner-logo">融创文旅</div>
                 </div>
             </div>
-        </div>        
+        </div>
 
 <div class="press-redefined-layout">
             <div class="card">
@@ -2069,6 +2087,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 track.innerHTML += items; // 关键的复制步骤
             }
         });
+
+        // 您已有的懒加载功能 (保持不变)
+        const lazyBgElements = document.querySelectorAll('.pic.lazy-bg, .arena-topic-card.lazy-bg');
+        // ... (省略懒加载的内部代码) ...
+    });
 
         // 您已有的懒加载功能 (保持不变)
         const lazyBgElements = document.querySelectorAll('.pic.lazy-bg, .arena-topic-card.lazy-bg');
