@@ -967,11 +967,10 @@ nav a:hover::after {
     border-radius: 14px;
 }
 
-/* ---------- [终极版] 伴手礼与合作伙伴滚动样式 ---------- */
+/* ---------- [终极修正版] 滚动与布局样式 ---------- */
 
-/* --- 1. 滚动容器的通用样式 --- */
-.souvenir-scroll-container,
-.partner-logo-grid {
+/* --- 1. 伴手礼滚动样式 --- */
+.souvenir-scroll-container {
     width: 100%;
     overflow: hidden;
     margin-top: 24px;
@@ -979,38 +978,45 @@ nav a:hover::after {
     flex-direction: column;
     gap: 16px;
 }
-
-/* --- 2. 滚动轨道的核心样式 (最关键!) --- */
-.souvenir-track,
-.partner-track {
-    display: flex; /* 关键：让内容横向排列 */
-    width: max-content; /* 关键：让容器宽度由内容撑开 */
+.souvenir-track {
+    display: flex;
+    width: max-content;
     gap: 16px;
     animation: scroll 80s linear infinite;
 }
-
-.souvenir-track:hover,
-.partner-track:hover {
-    animation-play-state: paused; /* 鼠标悬停时暂停 */
+/* 关键修正：为每个伴手礼规定一个固定的尺寸 */
+.souvenir-item {
+    width: 180px; /* 控制宽度 */
+    flex-shrink: 0; /* 防止被挤压变形 */
 }
-
-/* --- 3. 反向滚动样式 --- */
-.souvenir-track.reverse,
-.partner-track.reverse {
+.souvenir-item img {
+    width: 100%;
+    aspect-ratio: 3 / 4; /* 确保图片比例正确 */
+    object-fit: cover;
+}
+.souvenir-track:hover {
+    animation-play-state: paused;
+}
+.souvenir-track.reverse {
     animation-name: scroll-reverse;
 }
 
-/* --- 4. 滚动动画定义 --- */
-@keyframes scroll { 
-    0% { transform: translateX(0); } 
-    100% { transform: translateX(-50%); } 
+/* --- 2. 合作伙伴滚动样式 --- */
+.partner-logo-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
 }
-@keyframes scroll-reverse { 
-    0% { transform: translateX(-50%); } 
-    100% { transform: translateX(0); } 
+.partner-track {
+    display: flex;
+    width: max-content;
+    gap: 16px;
+    animation: scroll 60s linear infinite;
 }
-
-/* --- 5. 合作伙伴徽章美化样式 (保持不变) --- */
+.partner-track:hover {
+    animation-play-state: paused;
+}
 .partner-logo {
     background: rgba(255,255,255,0.03);
     border-radius: 8px;
@@ -1024,6 +1030,7 @@ nav a:hover::after {
     padding: 5px;
     transition: all 0.3s ease;
     border: 1px solid transparent;
+    flex-shrink: 0;
 }
 .partner-logo.accent {
     background: rgba(var(--accent-rgb), 0.05);
@@ -1039,13 +1046,15 @@ nav a:hover::after {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
-.partner-logo.accent:hover {
-    background: rgba(var(--accent-rgb), 0.1);
-    border-color: rgba(var(--accent-rgb), 0.4);
+
+/* --- 3. 滚动动画定义 --- */
+@keyframes scroll { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-50%); } 
 }
-.partner-logo.accent2:hover {
-    background: rgba(var(--accent2-rgb), 0.1);
-    border-color: rgba(var(--accent2-rgb), 0.4);
+@keyframes scroll-reverse { 
+    0% { transform: translateX(-50%); } 
+    100% { transform: translateX(0); } 
 }
 
   </style>
@@ -1566,6 +1575,7 @@ nav a:hover::after {
         </div>
 	</section>
 	
+
 <section id="ip-souvenir-section" class="section-divider" aria-label="宇宙回响" role="region">
     <h2>宇宙回响：当世界观融入生活</h2>
     <div id="ip-souvenir" style="margin-top:24px">
@@ -1606,10 +1616,14 @@ nav a:hover::after {
                 <div class="souvenir-item"><img src="assets/images/souvenir_new_16.jpg" alt="蕊琀楔形文字耳坠" loading="lazy"><strong>蕊琀·楔形文字耳坠</strong><div class="muted">时尚饰品 / 角色</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_new_17.jpg" alt="山海经异兽图谱丝巾" loading="lazy"><strong>山海经·异兽图谱丝巾</strong><div class="muted">服饰配件 / 设计</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_new_18.jpg" alt="狸嘟嘟毛绒公仔" loading="lazy"><strong>狸嘟嘟·毛绒公仔</strong><div class="muted">萌宠周边 / 玩偶</div></div>
-            </div>
+</div>
+            <div class="souvenir-track reverse">
+                </div>
         </div>
     </div>
 </section>
+
+
 
 <section id="team" class="section-divider" role="region">
     <h2>蓝图的绘制者</h2>
@@ -1764,6 +1778,9 @@ nav a:hover::after {
 <div class="logo-wall card" style="margin-top: 36px; overflow: hidden;">
             <h4>合作伙伴</h4>
             <div class="partner-logo-grid">
+<div class="logo-wall card" style="margin-top: 36px; overflow: hidden;">
+            <h4>合作伙伴</h4>
+            <div class="partner-logo-grid">
                 <div class="partner-track">
                     <div class="partner-logo accent">国家神话与历史研究中心</div>
                     <div class="partner-logo">炎黄文化研究院</div>
@@ -1843,7 +1860,7 @@ nav a:hover::after {
                     <div class="partner-logo">融创文旅</div>
                 </div>
             </div>
-        </div>
+
 
 <div class="press-redefined-layout">
             <div class="card">
@@ -2065,7 +2082,8 @@ nav a:hover::after {
     </div>
   </div>
 
-  <script defer>
+
+<script defer>
     function openWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='flex'; }
     function closeWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='none'; }
     
@@ -2077,23 +2095,18 @@ nav a:hover::after {
     });
     document.getElementById('whitepaperModal')?.addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
 
-document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
         
-        // [最终版] 伴手礼滚动功能
-        const tracks = document.querySelectorAll('.souvenir-track');
-        tracks.forEach(track => {
+        // [终极版] 智能滚动功能 (同时处理伴手礼与合作伙伴)
+        const allScrollingTracks = document.querySelectorAll('.souvenir-track, .partner-track');
+        allScrollingTracks.forEach(track => {
             if (track) {
                 const items = track.innerHTML;
-                track.innerHTML += items; // 关键的复制步骤
+                track.innerHTML += items; // 为所有找到的轨道都复制一份内容
             }
         });
 
-        // 您已有的懒加载功能 (保持不变)
-        const lazyBgElements = document.querySelectorAll('.pic.lazy-bg, .arena-topic-card.lazy-bg');
-        // ... (省略懒加载的内部代码) ...
-    });
-
-        // 您已有的懒加载功能 (保持不变)
+        // [恢复] 至关重要的图片懒加载功能
         const lazyBgElements = document.querySelectorAll('.pic.lazy-bg, .arena-topic-card.lazy-bg');
         if ('IntersectionObserver' in window) {
             const bgObserver = new IntersectionObserver((entries, observer) => {
@@ -2118,6 +2131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // [恢复] 另一个被误删的功能
     (function(){
       const eraLabel = document.getElementById('eraLabel');
       const eraSlider = document.getElementById('eraSlider');
@@ -2131,10 +2145,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
     })();
-
-
-
   </script>
 
+
+  
 </body>
 </html>
