@@ -136,32 +136,6 @@ section{margin-top:80px; position:relative; z-index:0; padding: 24px; border-rad
     .lineage-connector { width: 1px; height: 40px; background: linear-gradient(180deg, rgba(159, 176, 198, 0), rgba(159, 176, 198, 0.2), rgba(159, 176, 198, 0)); }
     .ancestor-tier-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
 
-    /* [优化] 合作伙伴横向滚动布局 */
-    .partner-logo-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
-    .partner-track { display: flex; width: max-content; gap: 16px; animation: scroll 60s linear infinite; }
-    .partner-track:hover { animation-play-state: paused; }
-    .partner-logo { background: rgba(255,255,255,0.03); border-radius: 8px; width: 100px; height: 100px; display: grid; place-items:center; color: var(--muted); font-size: 12px; text-align: center; padding: 5px; }
-    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-    @media(max-width:1200px){.five-cols{grid-template-columns:repeat(4,1fr)}.six-cols{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:980px){
-      .two-cols, .three-cols,.four-cols, .five-cols {grid-template-columns:repeat(2,1fr)}
-      .hero-title{font-size:32px}
-      .ancestor-tier-5 { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media(max-width:768px){
-      h2 { font-size: 28px; }
-      .two-cols, #what .three-cols, .six-cols {grid-template-columns:1fr}
-    }
-    @media(max-width:640px){
-      main{padding-top:100px; padding-left: 16px; padding-right: 16px;}
-      section { margin-top: 60px; }
-      .three-cols,.four-cols,.five-cols {grid-template-columns:1fr}
-      .six-cols {grid-template-columns:repeat(2,1fr)}
-      .hero-wrap{height:auto;padding-bottom:20px; min-height: 450px;}
-      .ancestor-tier-5 { grid-template-columns: repeat(2, 1fr); }
-      .btn { min-width: 120px; font-size: 14px; padding: 10px 18px;}
-    }
 
   /* ---------- [新增] 史诗级始祖神格布局样式 ---------- */
 
@@ -985,25 +959,34 @@ nav a:hover::after {
     margin-top: 32px; /* 与上方内容的间距 */
 }
 
-/* ---------- [重写] 文创周边双行反向滚动样式 ---------- */
+
+/* ---------- [精装修] Hero单按钮布局样式 ---------- */
+.btn.btn-primary {
+    padding: 16px 40px; /* 让唯一的按钮更大、更具史诗感 */
+    font-size: 18px;
+    border-radius: 14px;
+}
+
+/* ---------- [最终版] 伴手礼与合作伙伴精装修样式 ---------- */
+
+/* --- 1. 伴手礼双行反向滚动 --- */
 .souvenir-scroll-container {
     width: 100%;
     overflow: hidden;
     margin-top: 24px;
-    display: flex; /* 使用flex布局来管理两行 */
-    flex-direction: column; /* 垂直排列 */
-    gap: 16px; /* 两行之间的间距 */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 .souvenir-track {
     display: flex;
     width: max-content;
     gap: 16px;
-    animation: scroll 80s linear infinite; /* 动画时间延长，滚动更优雅 */
+    animation: scroll 80s linear infinite;
 }
 .souvenir-track:hover {
     animation-play-state: paused;
 }
-/* 新增反向滚动动画 */
 .souvenir-track.reverse {
     animation-name: scroll-reverse;
 }
@@ -1016,12 +999,35 @@ nav a:hover::after {
     100% { transform: translateX(0); } 
 }
 
-/* ---------- [精装修] Hero单按钮布局样式 ---------- */
-.btn.btn-primary {
-    padding: 16px 40px; /* 让唯一的按钮更大、更具史诗感 */
-    font-size: 18px;
-    border-radius: 14px;
+/* --- 2. 合作伙伴徽章美化 --- */
+.partner-logo {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
 }
+.partner-logo.accent {
+    background: rgba(var(--accent-rgb), 0.05);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    color: #fff;
+}
+.partner-logo.accent2 {
+    background: rgba(var(--accent2-rgb), 0.05);
+    border: 1px solid rgba(var(--accent2-rgb), 0.2);
+    color: #fff;
+}
+.partner-logo:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+.partner-logo.accent:hover {
+    background: rgba(var(--accent-rgb), 0.1);
+    border-color: rgba(var(--accent-rgb), 0.4);
+}
+.partner-logo.accent2:hover {
+    background: rgba(var(--accent2-rgb), 0.1);
+    border-color: rgba(var(--accent2-rgb), 0.4);
+}
+
+
 
   </style>
 
@@ -2053,24 +2059,18 @@ nav a:hover::after {
     });
     document.getElementById('whitepaperModal')?.addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const filterContainer = document.querySelector('#media-hub .media-tabs');
-        if (filterContainer) {
-            const mediaCards = document.querySelectorAll('#media-hub .media-card');
-            const filterButtons = filterContainer.querySelectorAll('button');
-            filterContainer.addEventListener('click', (event) => {
-                if (event.target.tagName !== 'BUTTON') return;
-                const filterValue = event.target.getAttribute('data-filter');
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                event.target.classList.add('active');
-                mediaCards.forEach(card => {
-                    const cardTypes = card.getAttribute('data-type').split(' ');
-                    const shouldShow = filterValue === 'all' || cardTypes.includes(filterValue);
-                    card.classList.toggle('hidden', !shouldShow);
-                });
-            });
-        }
+document.addEventListener('DOMContentLoaded', () => {
         
+        // [最终版] 伴手礼滚动功能
+        const tracks = document.querySelectorAll('.souvenir-track');
+        tracks.forEach(track => {
+            if (track) {
+                const items = track.innerHTML;
+                track.innerHTML += items; // 关键的复制步骤
+            }
+        });
+
+        // 您已有的懒加载功能 (保持不变)
         const lazyBgElements = document.querySelectorAll('.pic.lazy-bg, .arena-topic-card.lazy-bg');
         if ('IntersectionObserver' in window) {
             const bgObserver = new IntersectionObserver((entries, observer) => {
@@ -2109,20 +2109,6 @@ nav a:hover::after {
       }
     })();
 
-
-// 请将这段JS代码，添加到您页面最下方的<script>标签内
-document.addEventListener('DOMContentLoaded', () => {
-    // 关键：找到所有的滚动轨道
-    const tracks = document.querySelectorAll('.souvenir-track');
-    // 遍历每一个轨道，并为它们都复制一份内容
-    tracks.forEach(track => {
-        if (track) {
-            const items = track.innerHTML;
-            track.innerHTML += items;
-        }
-    });
-    // ...您已有的其他JS代码...
-});
 
 
   </script>
