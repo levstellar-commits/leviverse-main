@@ -1792,7 +1792,7 @@
     <p class="muted">一个伟大宇宙的诞生，需要跨学科的智慧共同点亮。我们的蓝图由以下核心领域的专家共同构建与诠释。</p>
     <div class="six-cols" style="margin-top:18px;">
         <div class="expert-card card"><img src="assets/images/archetype_narrative.jpg" alt="叙事与世界观架构原型" loading="lazy"><h3>世界观架构师</h3><p class="muted">负责定义宇宙的基础法则、文明谱系与核心冲突。</p></div>
-        <div class="expert-card card"><img src="assets/images/archetype_history.jpg" alt="历史与神话顾问原型" loading="lazy"><h3>历史顾问</h3><p class="muted">确保世界观的每一个细节，都植根于真实可考的文化母体。</p></div>
+        <div class="expert-card card"><img src="assets/images/archetype_history expert.jpg" alt="历史与神话顾问原型" loading="lazy"><h3>历史顾问</h3><p class="muted">确保世界观的每一个细节，都植根于真实可考的文化母体。</p></div>
         <div class="expert-card card"><img src="assets/images/archetype_culture.jpg" alt="跨文化研究原型" loading="lazy"><h3>跨文化研究员</h3><p class="muted">解读不同文明神话的共通原型，构建全球共鸣的叙事。</p></div>
         <div class="expert-card card"><img src="assets/images/archetype_design.jpg" alt="叙事设计师原型" loading="lazy"><h3>叙事设计师</h3><p class="muted">将宏大的世界观，转化为可体验、可互动的故事节点。</p></div>
         <div class="expert-card card"><img src="assets/images/archetype_spatial.jpg" alt="空间规划师原型" loading="lazy"><h3>空间规划师</h3><p class="muted">将虚构的场景，“翻译”为可落地建造的物理空间蓝图。</p></div>
@@ -2140,14 +2140,11 @@
       let currentStop = 0;
       function scrollToNext() {
         if (currentStop < tourStops.length) {
-          document.querySelector(tourStops[currentStop]).scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+          document.querySelector(tourStops[currentStop]).scrollIntoView({ behavior: 'smooth', block: 'start' });
           currentStop++;
         }
       }
-      alert('欢迎来到立维宇宙！即将为您开启官方导览，将依次为您展示我们的核心角色、IP矩阵与宏大宇宙观。');
+      alert('欢迎来到立维宇宙！即将为您开启官方导览...');
       scrollToNext();
     }
 
@@ -2155,7 +2152,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         
         // [新功能] 鼠标驱动的星空视差动画
-        const hero = document.getElementById('hero-cinematic'); // 确保您的新首页ID是这个
+        const hero = document.getElementById('hero-cinematic');
         if (hero) {
             hero.addEventListener('mousemove', (e) => {
                 const { clientX, clientY } = e;
@@ -2172,6 +2169,39 @@
             });
         }
 
+        // [升级版] 全能图片懒加载脚本
+        const lazyElements = document.querySelectorAll('.lazy, .lazy-bg');
+        if ('IntersectionObserver' in window) {
+            const lazyObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+
+                        // 处理 <img class="lazy" data-src="..."> 的图片
+                        if (el.dataset.src) {
+                            el.src = el.dataset.src;
+                            el.classList.remove('lazy');
+                        }
+                        // 处理 <div class="lazy-bg" data-bg="..."> 的背景图
+                        else if (el.dataset.bg) {
+                            el.style.backgroundImage = `url('${el.dataset.bg}')`;
+                            el.classList.remove('lazy-bg');
+                        }
+                        
+                        observer.unobserve(el);
+                    }
+                });
+            }, { rootMargin: '0px 0px 200px 0px' }); // 提前200px开始加载
+
+            lazyElements.forEach(el => lazyObserver.observe(el));
+        } else {
+            // 为不支持的旧浏览器提供备用方案
+            lazyElements.forEach(el => {
+                if (el.dataset.src) { el.src = el.dataset.src; }
+                else if (el.dataset.bg) { el.style.backgroundImage = `url('${el.dataset.bg}')`; }
+            });
+        }
+
         // [原有功能] 智能滚动功能 (处理伴手礼与合作伙伴)
         const allScrollingTracks = document.querySelectorAll('.souvenir-track, .partner-track');
         allScrollingTracks.forEach(track => {
@@ -2180,30 +2210,6 @@
                 track.innerHTML += items;
             }
         });
-
-        // [原有功能] 图片懒加载
-        const lazyBgElements = document.querySelectorAll('.pic.lazy-bg, .arena-topic-card.lazy-bg');
-        if ('IntersectionObserver' in window) {
-            const bgObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const el = entry.target;
-                        if (el.dataset.bg) {
-                            el.style.backgroundImage = `url('${el.dataset.bg}')`;
-                            el.classList.remove('lazy-bg');
-                        }
-                        observer.unobserve(el);
-                    }
-                });
-            }, { rootMargin: '0px 0px 200px 0px' });
-            lazyBgElements.forEach(el => bgObserver.observe(el));
-        } else {
-            lazyBgElements.forEach(el => {
-                if (el.dataset.bg) {
-                    el.style.backgroundImage = `url('${el.dataset.bg}')`;
-                }
-            });
-        }
     });
 </script>
 
