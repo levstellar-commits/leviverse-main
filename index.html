@@ -917,6 +917,111 @@ nav a:hover::after {
     box-shadow: 0 12px 35px rgba(var(--accent-rgb), 0.3); /* 悬停时光晕更强 */
 }
 
+/* ---------- [新增] 游戏板块专属四列布局样式 ---------- */
+.four-cols-ip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+/* 响应式适配 */
+@media (max-width: 1200px) {
+    .four-cols-ip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+    .four-cols-ip { grid-template-columns: 1fr; }
+}
+
+/* ---------- [新增] 项目里程碑与媒体报道重塑样式 ---------- */
+.press-redefined-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* 里程碑稍窄，媒体稍宽 */
+    gap: 24px;
+    margin-top: 36px;
+    align-items: start;
+}
+.roadmap-timeline {
+    list-style: none;
+    padding-left: 20px;
+    margin-top: 16px;
+    border-left: 2px solid rgba(255,255,255,0.1);
+}
+.roadmap-timeline li {
+    position: relative;
+    padding: 8px 0 8px 20px;
+    color: var(--muted);
+}
+.roadmap-timeline li::before {
+    content: '';
+    position: absolute;
+    left: -31px; /* (20+2)/2 */
+    top: 16px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid var(--bg);
+}
+.roadmap-timeline li.done { color: #fff; }
+.roadmap-timeline li.done strong { color: var(--accent); }
+.roadmap-timeline li.done::before { background: var(--accent); }
+.roadmap-timeline li.current { color: #fff; }
+.roadmap-timeline li.current strong { color: var(--accent2); }
+.roadmap-timeline li.current::before { background: var(--accent2); animation: pulse 2s infinite; }
+
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent2-rgb), 0.4); } 70% { box-shadow: 0 0 0 10px rgba(var(--accent2-rgb), 0); } }
+
+.media-placeholder { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+.media-item-article, .media-item-video { display: flex; gap: 12px; align-items: center; }
+.media-item-article img, .media-item-video img { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; }
+
+@media (max-width: 980px) {
+    .press-redefined-layout { grid-template-columns: 1fr; }
+}
+
+/* ---------- [新增] 全局“查看更多”链接样式 ---------- */
+.section-more-link {
+    text-align: center; /* 让按钮居中 */
+    margin-top: 32px; /* 与上方内容的间距 */
+}
+
+/* ---------- [重写] 文创周边双行反向滚动样式 ---------- */
+.souvenir-scroll-container {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 24px;
+    display: flex; /* 使用flex布局来管理两行 */
+    flex-direction: column; /* 垂直排列 */
+    gap: 16px; /* 两行之间的间距 */
+}
+.souvenir-track {
+    display: flex;
+    width: max-content;
+    gap: 16px;
+    animation: scroll 80s linear infinite; /* 动画时间延长，滚动更优雅 */
+}
+.souvenir-track:hover {
+    animation-play-state: paused;
+}
+/* 新增反向滚动动画 */
+.souvenir-track.reverse {
+    animation-name: scroll-reverse;
+}
+@keyframes scroll { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-50%); } 
+}
+@keyframes scroll-reverse { 
+    0% { transform: translateX(-50%); } 
+    100% { transform: translateX(0); } 
+}
+
+/* ---------- [精装修] Hero单按钮布局样式 ---------- */
+.btn.btn-primary {
+    padding: 16px 40px; /* 让唯一的按钮更大、更具史诗感 */
+    font-size: 18px;
+    border-radius: 14px;
+}
 
   </style>
 
@@ -946,13 +1051,11 @@ nav a:hover::after {
           <div class="kicker">立维宇宙 × 维杰设计</div>
           <h1 class="hero-title">每一段被遗忘的神话，都是一个等待开启的宇宙。</h1>
           <p class="hero-sub">我们绘制它的蓝图，邀请您一同踏入。我们将浩瀚的东方传说，解构为严谨的世界观与生命力的角色矩阵，最终将叙事“建造”为可踏入的真实场景与商业生态。</p>
-          <div class="hero-actions">
-            <button class="btn" onclick="location.href='#universe'" aria-label="跳转至宇宙观板块">开启创世之旅</button>
-            <button class="btn ghost" onclick="openWhitepaperModal()" aria-label="打开下载宇宙手册的弹窗">下载宇宙手册</button>
-            <button class="btn" onclick="location.href='#heroes'" aria-label="跳转至角色库板块">与传奇相遇</button>
-          </div>
-        </div>
-      </div>
+
+<div class="hero-actions">
+                <button class="btn btn-primary" onclick="location.href='#universe'" aria-label="跳转至宇宙观板块">开启创世之旅</button>
+            </div>
+
     </section>
 
     <section id="heroes" aria-label="角色库" role="region">
@@ -1046,6 +1149,41 @@ nav a:hover::after {
             <div class="ip-card"><img class="ip-card-img" src="assets/images/miniseries_05.jpg" alt="短剧封面始祖之战" loading="lazy"><div class="ip-card-info"><strong>始祖之战：序</strong><div class="muted" style="font-size:12px">史诗 / 群像</div></div></div>
         </div>
     </div>
+
+<div class="ip-category" style="margin-top:36px">
+        <h4>游戏开发 · 概念探索 <span class="status-tag status-dev">研发中</span></h4>
+        <p class="muted">我们正以“虚幻引擎5”进行核心玩法的原型验证，旨在为全球玩家呈现一个前所未有的、次世代的东方神话宇宙。</p>
+        <div class="four-cols-ip"> <div class="ip-card showcase-card">
+                <img class="ip-card-img" src="assets/images/game_yanhuang.jpg" alt="游戏概念图：《炎黄：前古纪元》" loading="lazy">
+                <div class="ip-card-info">
+                    <strong>《炎黄：前古纪元》</strong>
+                    <div class="muted">单机·动作RPG</div>
+                </div>
+            </div>
+            <div class="ip-card">
+                <img class="ip-card-img" src="assets/images/game_verse.jpg" alt="游戏概念图：《界：纪元回响》" loading="lazy">
+                <div class="ip-card-info">
+                    <strong>《界：纪元回响》</strong>
+                    <div class="muted">线上·开放世界</div>
+                </div>
+            </div>
+            <div class="ip-card">
+                <img class="ip-card-img" src="assets/images/game_guixu.jpg" alt="游戏概念图：《归墟：星航》" loading="lazy">
+                <div class="ip-card-info">
+                    <strong>《归墟：星航》</strong>
+                    <div class="muted">探索·宇宙航行</div>
+                </div>
+            </div>
+            <div class="ip-card">
+                <img class="ip-card-img" src="assets/images/game_butian.jpg" alt="游戏概念图：《补天之城：2074》" loading="lazy">
+                <div class="ip-card-info">
+                    <strong>《补天之城：2074》</strong>
+                    <div class="muted">赛博·叙事RPG</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
     <section id="what" aria-label="我们的核心方法论" class="section-divider" role="region">
@@ -1102,10 +1240,10 @@ nav a:hover::after {
         <div class="lineage-title">传承 · 华夏共主</div>
         <div class="ancestor-tier tier-5">
             <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_zhuanxu.jpg"></div><div class="name">颛顼</div><div class="role muted">绝地天通</div></div>
-            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_diku.jpg"></div><div class="name">帝喾</div><div class="role muted">华夏共主</div></div>
-            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yao.jpg"></div><div class="name">尧</div><div class="role muted">禅让典范</div></div>
-            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_shun.jpg"></div><div class="name">舜</div><div class="role muted">孝德楷模</div></div>
-            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yu.jpg"></div><div class="name">禹</div><div class="role muted">治水英雄</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_diku.jpg"></div><div class="name">帝喾•姬俊</div><div class="role muted">华夏共主</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yao.jpg"></div><div class="name">唐尧</div><div class="role muted">禅让典范</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_shun.jpg"></div><div class="name">虞舜</div><div class="role muted">孝德楷模</div></div>
+            <div class="hero-card"><div class="pic lazy-bg" data-bg="assets/images/ancestor_yu.jpg"></div><div class="name">夏禹</div><div class="role muted">治水英雄</div></div>
         </div>
     </div>
 </div>
@@ -1202,7 +1340,7 @@ nav a:hover::after {
         <article class="archetype-card">
             <img src="assets/images/philosophy_chaos.jpg" alt="混沌原型卡牌图像" loading="lazy">
             <div class="archetype-content">
-                <h4>混沌原型: 盘古</h4>
+                <h4>暗黑原型: 混沌</h4>
                 <p class="source-code"><strong>底层代码:</strong> 无法被定义的、一切可能性的起点</p>
                 <p class="world-echoes"><strong>世界回响:</strong> 提亚马特 (巴比伦母神), 卡俄斯 (希腊虚空)</p>
             </div>
@@ -1403,27 +1541,52 @@ nav a:hover::after {
         </div>
 	</section>
 	
-	<section id="ip-souvenir-section" class="section-divider" aria-label="宇宙回响" role="region">
-        <h2>宇宙回响：当世界观融入生活</h2>
-        <div id="ip-souvenir" style="margin-top:24px">
-            <h3>文创周边 (伴手礼) <span class="status-tag status-concept">概念设计</span></h3>
-            <p class="muted">展示IP衍生品与品牌联名方案。</p>
-            <div class="six-cols">
+
+<section id="ip-souvenir-section" class="section-divider" aria-label="宇宙回响" role="region">
+    <h2>宇宙回响：当世界观融入生活</h2>
+    <div id="ip-souvenir" style="margin-top:24px">
+        <h3>文创周边 (伴手礼) <span class="status-tag status-concept">概念设计</span></h3>
+        <p class="muted">我们将IP的视觉符号与文化内核，融入可触摸、可收藏的生活美学之中。</p>
+        
+        <div class="souvenir-scroll-container">
+            <div class="souvenir-track">
                 <div class="souvenir-item"><img src="assets/images/souvenir_tea.jpg" alt="炎帝火纹香薰礼盒图像" loading="lazy"><strong>炎帝·火纹香薰</strong><div class="muted">气味体验 / 收藏</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_notebook.jpg" alt="黄帝阵法桌垫图像" loading="lazy"><strong>黄帝·阵法桌垫</strong><div class="muted">实用办公 / 设计品</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_pin_3.jpg" alt="蚩尤兵主符书签图像" loading="lazy"><strong>蚩尤·兵主符书签</strong><div class="muted">金属工艺 / 文创</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_card.jpg" alt="主角群像塔罗牌图像" loading="lazy"><strong>主角群像塔罗牌</strong><div class="muted">收藏卡牌 / 娱乐</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_pin.jpg" alt="神祇符号金属徽章图像" loading="lazy"><strong>神祇符号金属徽章</strong><div class="muted">周边 / 礼品</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_box_3.jpg" alt="白泽AI联名耳机图像" loading="lazy"><strong>白泽AI联名耳机</strong><div class="muted">科技联名 / 硬件</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_01.jpg" alt="昆仑蟠桃风味茶包" loading="lazy"><strong>昆仑·蟠桃仙茶</strong><div class="muted">风味饮品 / 礼盒</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_02.jpg" alt="甲骨文数据U盘" loading="lazy"><strong>甲骨文·数据U盘</strong><div class="muted">数码周边 / 收藏</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_03.jpg" alt="赛博青铜爵酒具" loading="lazy"><strong>赛博青铜爵酒具</strong><div class="muted">生活器物 / 设计</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_04.jpg" alt="山海经异兽AR卡牌" loading="lazy"><strong>山海经AR卡牌</strong><div class="muted">AR互动 / 娱乐</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_05.jpg" alt="女娲五色石香皂" loading="lazy"><strong>女娲·五色石香皂</strong><div class="muted">个护美妆 / 创意</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_06.jpg" alt="蚩尤战雾加湿器" loading="lazy"><strong>蚩尤·战雾加湿器</strong><div class="muted">创意家电 / 体验</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_07.jpg" alt="蓝千朵数据芯片项链" loading="lazy"><strong>蓝千朵·数据芯片项链</strong><div class="muted">角色周边 / 饰品</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_08.jpg" alt="羽菱萱数据蝴蝶胸针" loading="lazy"><strong>羽菱萱·数据蝴蝶胸针</strong><div class="muted">角色周边 / 精品</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_09.jpg" alt="蕊琀归墟罗盘摆件" loading="lazy"><strong>蕊琀·归墟罗盘摆件</strong><div class="muted">桌面潮玩 / 收藏</div></div>
+            </div>
+            <div class="souvenir-track reverse">
                 <div class="souvenir-item"><img src="assets/images/souvenir_notebook_3.jpg" alt="天轨主题钢笔图像" loading="lazy"><strong>“天轨”主题钢笔</strong><div class="muted">商务礼品 / 定制</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_box.jpg" alt="补天之城建筑积木图像" loading="lazy"><strong>补天之城建筑积木</strong><div class="muted">微缩模型 / 潮玩</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_silk.jpg" alt="澜熙记忆图谱丝巾图像" loading="lazy"><strong>澜熙·记忆图谱丝巾</strong><div class="muted">时尚单品 / 设计</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_tea_3.jpg" alt="归墟主题深海浴盐图像" loading="lazy"><strong>归墟主题深海浴盐</strong><div class="muted">生活方式 / 体验</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_card_3.jpg" alt="Q版迷你手办盲盒图像" loading="lazy"><strong>Q版迷你手办盲盒</strong><div class="muted">潮玩 / 零售</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_card_2.jpg" alt="游戏皮肤兑换券图像" loading="lazy"><strong>游戏皮肤兑换券</strong><div class="muted">数字资产 / 合作</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_10.jpg" alt="蓝千朵生物光灯" loading="lazy"><strong>蓝千朵·生物光培育灯</strong><div class="muted">生活美学 / 氛围</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_11.jpg" alt="三星堆赛博面具挂饰" loading="lazy"><strong>三星堆·赛博面具挂饰</strong><div class="muted">文化潮玩 / 挂件</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_12.jpg" alt="伏羲八卦无线充电板" loading="lazy"><strong>伏羲·八卦无线充电板</strong><div class="muted">数码配件 / 实用</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_13.jpg" alt="补天之城霓虹台灯" loading="lazy"><strong>补天之城·霓虹台灯</strong><div class="muted">家居装饰 / 灯光</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_14.jpg" alt="烬火剑拆信刀" loading="lazy"><strong>烬火剑·合金拆信刀</strong><div class="muted">办公文具 / 精品</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_15.jpg" alt="墨氚虎头钩书挡" loading="lazy"><strong>墨氚·虎头钩书挡</strong><div class="muted">书房用品 / 设计</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_16.jpg" alt="蕊琀楔形文字耳坠" loading="lazy"><strong>蕊琀·楔形文字耳坠</strong><div class="muted">时尚饰品 / 角色</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_17.jpg" alt="山海经异兽图谱丝巾" loading="lazy"><strong>山海经·异兽图谱丝巾</strong><div class="muted">服饰配件 / 设计</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_new_18.jpg" alt="狸嘟嘟毛绒公仔" loading="lazy"><strong>狸嘟嘟·毛绒公仔</strong><div class="muted">萌宠周边 / 玩偶</div></div>
             </div>
         </div>
-	</section>
+    </div>
+</section>
+
 
 <section id="team" class="section-divider" role="region">
     <h2>蓝图的绘制者</h2>
@@ -1441,7 +1604,7 @@ nav a:hover::after {
         </div>
         <div class="expert-card card">
             <img src="assets/images/archetype_culture.jpg" alt="跨文化研究原型" loading="lazy">
-            <h3>跨文化研究</h3>
+            <h3>跨文化研究员</h3>
             <p class="muted">解读不同文明神话的共通原型，构建全球共鸣的叙事。</p>
         </div>
         <div class="expert-card card">
@@ -1575,44 +1738,125 @@ nav a:hover::after {
             </div>
         </div>
 
-        <div class="logo-wall card" style="margin-top: 36px; overflow: hidden;">
+<div class="logo-wall card" style="margin-top: 36px; overflow: hidden;">
             <h4>合作伙伴</h4>
             <div class="partner-logo-grid">
                 <div class="partner-track">
-                    <div class="partner-logo">国家神话与历史研究中心</div><div class="partner-logo">炎黄文化研究院</div><div class="partner-logo">北京大学考古文博学院</div><div class="partner-logo">自然资源部</div><div class="partner-logo">中国建筑</div><div class="partner-logo">上海建工集团</div><div class="partner-logo">Atkins</div><div class="partner-logo">AECOM</div><div class="partner-logo">数字故宫</div><div class="partner-logo">良渚博物院</div><div class="partner-logo">三星堆博物馆</div><div class="partner-logo">Gensler</div>
-                    <div class="partner-logo">国家神话与历史研究中心</div><div class="partner-logo">炎黄文化研究院</div><div class="partner-logo">北京大学考古文博学院</div><div class="partner-logo">上海市作家协会</div><div class="partner-logo">上海市城市规划协会</div><div class="partner-logo">中国工程建设标准化协会</div><div class="partner-logo">Atkins</div><div class="partner-logo">AECOM</div><div class="partner-logo">数字故宫</div><div class="partner-logo">良渚博物院</div><div class="partner-logo">三星堆博物馆</div><div class="partner-logo">Gensler</div>
+                    <div class="partner-logo accent">国家神话与历史研究中心</div>
+                    <div class="partner-logo">炎黄文化研究院</div>
+                    <div class="partner-logo accent2">北京大学考古文博学院</div>
+                    <div class="partner-logo">自然资源部</div>
+                    <div class="partner-logo accent">中国建筑</div>
+                    <div class="partner-logo">上海建工集团</div>
+                    <div class="partner-logo">Atkins</div>
+                    <div class="partner-logo accent2">AECOM</div>
+                    <div class="partner-logo">数字故宫</div>
+                    <div class="partner-logo accent">良渚博物院</div>
+                    <div class="partner-logo">三星堆博物馆</div>
+                    <div class="partner-logo accent2">Gensler</div>
+                    <div class="partner-logo accent">国家神话与历史研究中心</div>
+                    <div class="partner-logo">炎黄文化研究院</div>
+                    <div class="partner-logo accent2">北京大学考古文博学院</div>
+                    <div class="partner-logo">上海市作家协会</div>
+                    <div class="partner-logo">上海市城市规划协会</div>
+                    <div class="partner-logo accent">中国工程建设标准化协会</div>
+                    <div class="partner-logo">Atkins</div>
+                    <div class="partner-logo accent2">AECOM</div>
+                    <div class="partner-logo">数字故宫</div>
+                    <div class="partner-logo accent">良渚博物院</div>
+                    <div class="partner-logo">三星堆博物馆</div>
+                    <div class="partner-logo accent2">Gensler</div>
                 </div>
                 <div class="partner-track" style="animation-delay: -20s;">
-                    <div class="partner-logo">清华大学建筑学院</div><div class="partner-logo">同济大学</div><div class="partner-logo">中国美术学院</div><div class="partner-logo">中央美术学院</div><div class="partner-logo">腾讯新文创</div><div class="partner-logo">网易游戏</div><div class="partner-logo">盛大游戏</div><div class="partner-logo">WETA Workshop</div><div class="partner-logo">工业光魔</div><div class="partner-logo">育碧上海</div><div class="partner-logo">索尼互动娱乐</div><div class="partner-logo">万代南梦宫</div>
-                     <div class="partner-logo">清华大学建筑学院</div><div class="partner-logo">同济大学</div><div class="partner-logo">中国美术学院</div><div class="partner-logo">中央美术学院</div><div class="partner-logo">腾讯新文创</div><div class="partner-logo">网易游戏</div><div class="partner-logo">波客游戏</div><div class="partner-logo">WETA Workshop</div><div class="partner-logo">工业光魔</div><div class="partner-logo">育碧上海</div><div class="partner-logo">索尼互动娱乐</div><div class="partner-logo">万代南梦宫</div>
+                    <div class="partner-logo accent2">清华大学建筑学院</div>
+                    <div class="partner-logo">同济大学</div>
+                    <div class="partner-logo">中国美术学院</div>
+                    <div class="partner-logo accent2">中央美术学院</div>
+                    <div class="partner-logo accent">腾讯新文创</div>
+                    <div class="partner-logo">网易游戏</div>
+                    <div class="partner-logo">盛大游戏</div>
+                    <div class="partner-logo accent">WETA Workshop</div>
+                    <div class="partner-logo accent2">工业光魔</div>
+                    <div class="partner-logo">育碧上海</div>
+                    <div class="partner-logo accent">索尼互动娱乐</div>
+                    <div class="partner-logo">万代南梦宫</div>
+                     <div class="partner-logo accent2">清华大学建筑学院</div>
+                    <div class="partner-logo">同济大学</div>
+                    <div class="partner-logo">中国美术学院</div>
+                    <div class="partner-logo accent2">中央美术学院</div>
+                    <div class="partner-logo accent">腾讯新文创</div>
+                    <div class="partner-logo">网易游戏</div>
+                    <div class="partner-logo">波客游戏</div>
+                    <div class="partner-logo accent">WETA Workshop</div>
+                    <div class="partner-logo accent2">工业光魔</div>
+                    <div class="partner-logo">育碧上海</div>
+                    <div class="partner-logo accent">索尼互动娱乐</div>
+                    <div class="partner-logo">万代南梦宫</div>
                 </div>
-                 <div class="partner-track" style="animation-delay: -40s;">
-                    <div class="partner-logo">华谊兄弟</div><div class="partner-logo">光线传媒</div><div class="partner-logo">博纳影业</div><div class="partner-logo">华人文化</div><div class="partner-logo">奥飞娱乐</div><div class="partner-logo">泡泡玛特</div><div class="partner-logo">阅文集团</div><div class="partner-logo">Bilibili</div><div class="partner-logo">抖音文化</div><div class="partner-logo">小红书</div><div class="partner-logo">华侨城集团</div><div class="partner-logo">融创文旅</div>
-                     <div class="partner-logo">华谊兄弟</div><div class="partner-logo">光线传媒</div><div class="partner-logo">博纳影业</div><div class="partner-logo">华人文化</div><div class="partner-logo">奥飞娱乐</div><div class="partner-logo">泡泡玛特</div><div class="partner-logo">阅文集团</div><div class="partner-logo">Bilibili</div><div class="partner-logo">抖音文化</div><div class="partner-logo">小红书</div><div class="partner-logo">华侨城集团</div><div class="partner-logo">融创文旅</div>
+                <div class="partner-track" style="animation-delay: -40s;">
+                    <div class="partner-logo accent">华谊兄弟</div>
+                    <div class="partner-logo">光线传媒</div>
+                    <div class="partner-logo">博纳影业</div>
+                    <div class="partner-logo accent2">华人文化</div>
+                    <div class="partner-logo">奥飞娱乐</div>
+                    <div class="partner-logo accent">泡泡玛特</div>
+                    <div class="partner-logo accent2">阅文集团</div>
+                    <div class="partner-logo">Bilibili</div>
+                    <div class="partner-logo accent">抖音文化</div>
+                    <div class="partner-logo">小红书</div>
+                    <div class="partner-logo accent2">华侨城集团</div>
+                    <div class="partner-logo">融创文旅</div>
+                     <div class="partner-logo accent">华谊兄弟</div>
+                    <div class="partner-logo">光线传媒</div>
+                    <div class="partner-logo">博纳影业</div>
+                    <div class="partner-logo accent2">华人文化</div>
+                    <div class="partner-logo">奥飞娱乐</div>
+                    <div class="partner-logo accent">泡泡玛特</div>
+                    <div class="partner-logo accent2">阅文集团</div>
+                    <div class="partner-logo">Bilibili</div>
+                    <div class="partner-logo accent">抖音文化</div>
+                    <div class="partner-logo">小红书</div>
+                    <div class="partner-logo accent2">华侨城集团</div>
+                    <div class="partner-logo">融创文旅</div>
                 </div>
             </div>
         </div>
         
-        <div class="three-cols" style="margin-top:36px; align-items: start;">
+
+<div class="press-redefined-layout">
             <div class="card">
-                <h3>孵化协议</h3>
-                <p class="muted">已与机构签署初步孵化协议，扫描件展示。</p>
-                <img src="assets/images/press_agreement_placeholder.jpg" alt="孵化协议扫描件" loading="lazy" style="width:100%;border-radius:6px; margin-top:12px;">
+                <h3>项目里程碑 (Roadmap)</h3>
+                <p class="muted">我们正按计划推进宇宙的构建，每一个节点都是一个全新的起点。</p>
+                <ul class="roadmap-timeline">
+                    <li class="done"><strong>2024.Q4:</strong> 世界观核心架构完成</li>
+                    <li class="done"><strong>2025.Q2:</strong> 核心文学作品《驹隙万秋》发布</li>
+                    <li class="current"><strong>2025.Q4:</strong> 启动首部微剧《炎的弥赛亚》孵化 (当前)</li>
+                    <li><strong>2026.Q2:</strong> 《炎黄：前古纪元》游戏原型公布</li>
+                    <li><strong>2026.Q4:</strong> 启动首个线下文旅项目合作</li>
+                </ul>
             </div>
             <div class="card">
-                <h3>媒体报道</h3>
-                <p class="muted">部分媒体对项目进行了报道，以下为示例截图。</p>
-                <img src="assets/images/press_media_placeholder.jpg" alt="媒体报道截图" loading="lazy" style="width:100%;border-radius:6px; margin-top:12px;">
-            </div>
-            <div class="card">
-                <h3>媒体包 / 白皮书</h3>
-                <p class="muted">下载媒体包或索取完整白皮书（机构邮箱申请）。</p>
-                <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
-                    <a class="btn" href="/press/media-kit.pdf" download>下载媒体包（PDF）</a>
-                    <a class="btn ghost" href="#whitepaperModal" onclick="openWhitepaperModal()">索取白皮书（机构邮箱）</a>
+                <h3>媒体报道 & 矩阵</h3>
+                <p class="muted">来自媒体的声音，以及我们在各大平台的创作分享。</p>
+                <div class="media-placeholder">
+                    <div class="media-item-article">
+                        <img src="assets/images/media_placeholder_article.jpg" alt="媒体报道文章封面">
+                        <div class="media-info">
+                            <strong>专访：立维宇宙如何将神话“翻译”为现实</strong>
+                            <p class="muted">来源：科幻世界 / 2025-10-12</p>
+                        </div>
+                    </div>
+                    <div class="media-item-video">
+                        <img src="assets/images/media_placeholder_video.jpg" alt="B站视频封面">
+                        <div class="media-info">
+                            <strong>【创作VLOG】爆肝30天！我们复原了上古神祇战舰！</strong>
+                            <p class="muted">平台：Bilibili / 2025-09-28</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </section>
 
 <section id="arena" class="section-divider" aria-label="思想擂台" role="region">
@@ -1721,6 +1965,29 @@ nav a:hover::after {
             </a>
             </article>
         </div>
+<div class="stories-list" style="margin-top:18px;">
+            <article class="card" style="margin-bottom: 16px;">
+                </article>
+            
+            <article class="card" style="margin-bottom: 16px;">
+                <a href="/stories/f-001" style="display:block; padding: 10px;">
+                    <h3 style="margin-bottom:8px;">样本 #F-001：她用OKR和我复盘了这次约会 <span class="tag" style="font-size: 10px; background-color: rgba(var(--accent2-rgb), 0.1); color: var(--accent2);">职场奇遇</span></h3>
+                    <p class="muted" style="font-size:13px;">分类: 两性情感 / 视角: 男性 / 标签: 职场病, 窒息, PUA?</p>
+                    <p style="margin-top:8px;line-height:1.6;">简短摘要：约会结束时，她掏出平板，认真地从“互动效率”、“情绪价值”、“未来展望”三个维度，要求和我一起完成本次约会的OKR复盘……</p>
+                </a>
+            </article>
+            <article class="card" style="margin-bottom: 16px;">
+                <a href="/stories/m-002" style="display:block; padding: 10px;">
+                    <h3 style="margin-bottom:8px;">样本 #M-002：我的相亲对象，活在《炎黄：前古纪元》里 <span class="tag" style="font-size: 10px; background-color: rgba(var(--accent-rgb), 0.1); color: var(--accent);">情感奇遇</span></h3>
+                    <p class="muted" style="font-size:13px;">分类: 两性情感 / 视角: 女性 / 标签: 游戏宅, 中二病, 尴尬</p>
+                    <p style="margin-top:8px;line-height:1.6;">简短摘要：他说他不是在玩游戏，而是在通过“基因记忆回溯”体验祖先的史诗，并问我是否愿意成为他部落的第一位女祭司……</p>
+                </a>
+            </article>
+            </div>
+
+
+
+
     </section>
 
     <section id="contact" class="section-divider" aria-label="合作" role="region">
@@ -1843,6 +2110,23 @@ nav a:hover::after {
         });
       }
     })();
+
+
+// 请将这段JS代码，添加到您页面最下方的<script>标签内
+document.addEventListener('DOMContentLoaded', () => {
+    // 关键：找到所有的滚动轨道
+    const tracks = document.querySelectorAll('.souvenir-track');
+    // 遍历每一个轨道，并为它们都复制一份内容
+    tracks.forEach(track => {
+        if (track) {
+            const items = track.innerHTML;
+            track.innerHTML += items;
+        }
+    });
+    // ...您已有的其他JS代码...
+});
+
+
   </script>
 
 </body>
