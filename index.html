@@ -103,22 +103,23 @@
 }
 
 .hero-title-cinematic {
-    font-size: 52px;
-    font-weight: 700;
-    line-height: 1.4;
-    margin-bottom: 24px;
-    animation: text-fade-in 1.5s 0.5s ease-out backwards;
-    font-family: 'Noto Serif SC', serif;
-}
-
-.hero-sub-cinematic {
-    font-size: 18px;
-    color: var(--muted);
-    max-width: 680px;
-    margin: 0 auto 32px auto;
-    line-height: 1.8;
-    animation: text-fade-in 1.5s 0.8s ease-out backwards;
-}
+        font-size: 56px; /* 增大字号 */
+        font-weight: 700;
+        line-height: 1.5; /* 增加行高 */
+        margin-bottom: 24px;
+        animation: text-fade-in 1.5s 0.5s ease-out backwards;
+        font-family: 'Noto Serif SC', serif;
+    }
+    
+    .hero-sub-cinematic {
+        font-size: 20px; /* 显著增大字号 */
+        color: var(--muted);
+        max-width: 720px;
+        margin: 0 auto 32px auto;
+        line-height: 1.9; /* 增加行距 */
+        animation: text-fade-in 1.5s 0.8s ease-out backwards;
+        font-family: Inter, '微软雅黑', sans-serif; /* 使用更清晰的字体 */
+    }
 
 .hero-actions {
     display: flex;
@@ -1299,6 +1300,103 @@
 }
 
 
+/* ========== [新增] 时空战舰穿越动画 (含粒子尾气) ========== */
+    .spaceship-container {
+        position: absolute;
+        top: 50%; /* 垂直居中 */
+        left: 0; /* 动画的起点在CSS @keyframes 中定义 */
+        transform: translateY(-50%);
+        z-index: 15;
+        width: 300px; /* 战舰容器宽度，根据您的图片调整 */
+        height: 150px; /* 战舰容器高度，根据您的图片调整 */
+        animation: flyAcross 12s linear infinite; /* 飞行动画，12秒飞一次 */
+        animation-delay: 4s; /* 页面加载4秒后开始第一次飞行 */
+        pointer-events: none; /* 确保战舰不阻挡鼠标事件 */
+        display: flex;
+        align-items: center;
+    }
+
+    .spaceship {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: brightness(1.2) drop-shadow(0 0 10px rgba(74, 144, 226, 0.8)); /* 发光效果 */
+    }
+
+    .spaceship-trail {
+        position: absolute;
+        top: 50%;
+        left: 100%; /* 尾气从战舰尾部开始 */
+        transform: translateY(-50%);
+        width: 350px; /* 尾气的整体长度 */
+        height: 40px; /* 尾气的整体宽度 */
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .spaceship-trail i {
+        position: absolute;
+        background: #4a90e2; /* 粒子颜色 */
+        border-radius: 50%;
+        box-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2, 0 0 40px #4a90e2;
+        animation: fly-trail 3s linear infinite;
+        opacity: 0;
+    }
+
+    /* 随机生成不同大小、速度和位置的粒子 */
+    .spaceship-trail i:nth-child(1) { top: 18%; left: 85%; width: 5px; height: 5px; animation-delay: -0.2s; animation-duration: 2.5s; }
+    .spaceship-trail i:nth-child(2) { top: 52%; left: 92%; width: 3px; height: 3px; animation-delay: -0.4s; animation-duration: 3.2s; }
+    .spaceship-trail i:nth-child(3) { top: 81%; left: 78%; width: 4px; height: 4px; animation-delay: -0.6s; animation-duration: 2.8s; }
+    .spaceship-trail i:nth-child(4) { top: 40%; left: 95%; width: 6px; height: 6px; animation-delay: -0.8s; animation-duration: 2.2s; }
+    .spaceship-trail i:nth-child(5) { top: 66%; left: 88%; width: 3px; height: 3px; animation-delay: -1s; animation-duration: 3.5s; }
+    .spaceship-trail i:nth-child(6) { top: 25%; left: 82%; width: 5px; height: 5px; animation-delay: -1.2s; animation-duration: 2.6s; }
+    .spaceship-trail i:nth-child(7) { top: 75%; left: 98%; width: 3px; height: 3px; animation-delay: -1.4s; animation-duration: 3.8s; }
+    .spaceship-trail i:nth-child(8) { top: 33%; left: 90%; width: 4px; height: 4px; animation-delay: -1.6s; animation-duration: 2.9s; }
+    .spaceship-trail i:nth-child(9) { top: 58%; left: 85%; width: 6px; height: 6px; animation-delay: -1.8s; animation-duration: 2.3s; }
+    .spaceship-trail i:nth-child(10) { top: 20%; left: 95%; width: 3px; height: 3px; animation-delay: -2s; animation-duration: 3.6s; }
+    .spaceship-trail i:nth-child(11) { top: 90%; left: 80%; width: 4px; height: 4px; animation-delay: -0.3s; animation-duration: 2.7s; }
+    .spaceship-trail i:nth-child(12) { top: 10%; left: 88%; width: 5px; height: 5px; animation-delay: -0.5s; animation-duration: 3.1s; }
+    .spaceship-trail i:nth-child(13) { top: 45%; left: 84%; width: 3px; height: 3px; animation-delay: -0.7s; animation-duration: 2.4s; }
+    .spaceship-trail i:nth-child(14) { top: 60%; left: 96%; width: 6px; height: 6px; animation-delay: -0.9s; animation-duration: 3.3s; }
+    .spaceship-trail i:nth-child(15) { top: 30%; left: 79%; width: 4px; height: 4px; animation-delay: -1.1s; animation-duration: 2.5s; }
+    .spaceship-trail i:nth-child(16) { top: 85%; left: 93%; width: 3px; height: 3px; animation-delay: -1.3s; animation-duration: 3.7s; }
+    .spaceship-trail i:nth-child(17) { top: 5%; left: 89%; width: 5px; height: 5px; animation-delay: -1.5s; animation-duration: 2.8s; }
+    .spaceship-trail i:nth-child(18) { top: 70%; left: 86%; width: 6px; height: 6px; animation-delay: -1.7s; animation-duration: 3.0s; }
+    .spaceship-trail i:nth-child(19) { top: 50%; left: 91%; width: 3px; height: 3px; animation-delay: -1.9s; animation-duration: 3.4s; }
+    .spaceship-trail i:nth-child(20) { top: 28%; left: 97%; width: 4px; height: 4px; animation-delay: -2.1s; animation-duration: 2.6s; }
+
+    /* 战舰飞行动画 */
+    @keyframes flyAcross {
+        0% {
+            transform: translate(100vw, -50%); /* 从屏幕右侧外开始 */
+        }
+        100% {
+            transform: translate(-400px, -50%); /* 飞到屏幕左侧外结束 */
+        }
+    }
+
+    /* 粒子尾气动画 */
+    @keyframes fly-trail {
+        0% {
+            transform: translateX(0) scale(0.5);
+            opacity: 0.8;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-400px) scale(1.5); /* 粒子向左飞行的距离 */
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .spaceship-container {
+            width: 200px;
+            height: 100px;
+        }
+    }
+
 
   </style>
 
@@ -1351,9 +1449,19 @@
   <div class="parallax-layer" id="hero-foreground" data-speed="-8"></div>
   <div class="hero-vignette"></div>
 
+<div class="spaceship-container">
+        <div class="spaceship-trail">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <img src="assets/images/spaceship.png" alt="时空战舰" class="spaceship">
+      </div>
+
+
   <div class="hero-content">
-    <h1 class="hero-title-cinematic">我驾驭墨龙量子战舰，在文字与神谕之间潜行。</h1>
-    <p class="hero-sub-cinematic">混沌是我的疆域，神话是我夺回的战利品。我是解大为，立维宇宙的第一位“量子潜航者”。欢迎来到我的战场。</p>
+<h1 class="hero-title-cinematic">每一段被遗忘的神话，都是一个等待开启的宇宙。</h1>
+        <p class="hero-sub-cinematic">我是解大为，一名“量子潜航者”。我驾驭墨龙潜行于代码与神谕之间，为你夺回这些失落的世界。欢迎来到我的战场。</p>
     <div class="hero-actions">
         <a href="#contact" class="btn-primary-cinematic">成为宇宙共建者</a>
         <a href="#universe" class="btn-ghost-cinematic">浏览宇宙档案</a>
