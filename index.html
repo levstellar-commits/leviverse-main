@@ -1311,7 +1311,7 @@
   top: 48%;
   left: 0;
   transform: translate3d(100vw, -50%, 0);
-  z-index:60;
+  z-index: 30; /* <- 降低到 30，使其在大多数文字下方 */
   width:420px;
   height:180px;
   pointer-events:none;
@@ -1468,7 +1468,7 @@
   <div class="hero-vignette"></div>
 
 <div class="spaceship-container" aria-hidden="true">
-  <img src="assets/images/spaceship.png" alt="时空战舰" class="spaceship" loading="lazy" decoding="async">
+<img src="assets/images/dragon rider.png" alt="骑龙者" class="spaceship" loading="lazy" decoding="async">
   <div class="spaceship-beam" aria-hidden="true"></div>
   <div class="spaceship-trail" aria-hidden="true">
     <i style="top:18%; left:85%; width:6px; height:6px; animation-delay:-0.2s;"></i>
