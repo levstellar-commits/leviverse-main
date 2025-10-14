@@ -7,7 +7,7 @@
   <title>立维宇宙 × 维杰设计 — Levythos × Vigio Design</title>
   
   <meta name="description" content="立维宇宙：将东方神话系统化为可进入、可运营的世界。我们提供世界观构建、场景化落地与商业化交付方案。"/>
-  <meta name="keywords" content="东方玄幻, 文化IP, 神话宇宙, 规划设计, 文旅项目, 立维宇宙, 维杰设计, 雨果奖, 星云奖, 解大为" />
+  <meta name="keywords" content="东方玄幻, 文化IP, 神话宇宙, 规划设计, 文旅项目, 立维宇宙, 维杰设计, 雨果奖, 星云奖, 轨迹奖，银河奖，解大为" />
 
   <meta property="og:title" content="立维宇宙 — 将东方神话做成可进入的世界" />
   <meta property="og:description" content="我们把文化原型系统化并通过空间与工程落地，让神话成为可运营的现实。" />
@@ -1305,125 +1305,113 @@
 }
 
 
-/* ========== [新增] 时空战舰穿越动画 (含粒子尾气) - 完整替换段 ========== */
-
-/* 容器：初始状态放在屏幕右侧外（与 keyframes 0% 一致） */
+/* ================== 升级版：飞船 + 波浪光带 ================== */
 .spaceship-container {
-    position: absolute;
-    top: 50%; /* 垂直居中 */
-    left: 0;  /* left 保留用于定位基线，但视觉位移用 transform */
-    transform: translate3d(100vw, -50%, 0); /* 初始放在屏幕右侧外 */
-    z-index: 15;
-    width: 300px; /* 战舰容器宽度，根据你的图片可调整 */
-    height: 150px; /* 战舰容器高度，根据你的图片可调整 */
-    animation: flyAcross 12s linear infinite; /* 飞行动画：12秒循环 */
-    animation-delay: 1s; /* 页面加载4秒后开始第一次飞行 */
-    animation-fill-mode: both; /* 在 delay 期与结束后都应用关键帧样式 */
-    pointer-events: none; /* 不阻挡鼠标事件 */
-    display: flex;
-    align-items: center;
-    will-change: transform, opacity;
+  position: absolute;
+  top: 48%;
+  left: 0;
+  transform: translate3d(100vw, -50%, 0);
+  z-index:60;
+  width:420px;
+  height:180px;
+  pointer-events:none;
+  animation: flyAcross 9s cubic-bezier(.22,.9,.29,1) infinite;
+  will-change: transform, opacity;
 }
 
-/* 战舰图片：确保在粒子之上显示 */
 .spaceship {
-    width: 100%;
-    height: auto;
-    display: block;
-    z-index: 2; /* 高于尾气（尾气设为1） */
-    filter: brightness(1.2) drop-shadow(0 0 10px rgba(74, 144, 226, 0.8)); /* 发光效果 */
+  width:100%;
+  height:auto;
+  display:block;
+  position:relative;
+  z-index:2;
+  filter:brightness(1.15) drop-shadow(0 12px 40px rgba(74,144,226,0.6));
 }
 
-/* 尾气容器（放在战舰后侧，视觉上应位于战舰下方） */
+/* 光带（新增） */
+.spaceship-beam {
+  position:absolute;
+  top:50%; left:100%;
+  transform:translateY(-50%);
+  width:520px; height:160px;
+  pointer-events:none;
+  z-index:1;
+  overflow:visible;
+  mix-blend-mode:screen;
+}
+.spaceship-beam::before,
+.spaceship-beam::after {
+  content:'';
+  position:absolute;
+  left:0; top:50%;
+  transform:translateY(-50%) rotate(-6deg);
+  width:120%; height:36%;
+  border-radius:50%;
+  background: radial-gradient(closest-side, rgba(74,144,226,0.95), rgba(74,144,226,0.25) 40%, rgba(74,144,226,0) 70%);
+  filter: blur(24px);
+  opacity:0.9;
+  animation: beamPulse 1.6s ease-in-out infinite;
+}
+.spaceship-beam::after {
+  left:-10%; height:20%;
+  background: linear-gradient(90deg, rgba(232,185,35,0.95), rgba(74,144,226,0.12));
+  filter: blur(36px);
+  opacity:0.75;
+  animation-duration:2.4s;
+  transform:translateY(-50%) rotate(-8deg);
+}
+
+/* 粒子尾迹 */
 .spaceship-trail {
-    position: absolute;
-    top: 50%;
-    left: 100%; /* 尾气从战舰尾部开始 */
-    transform: translateY(-50%);
-    width: 350px; /* 尾气的整体长度 */
-    height: 80px;  /* 尾气的整体宽度 */
-    pointer-events: none;
-    z-index: 1; /* 在战舰下方显示（但仍在 spaceship-container 内） */
+  position:absolute;
+  top:50%; left:100%;
+  transform:translateY(-50%);
+  width:600px; height:180px;
+  pointer-events:none;
+  z-index:0;
+  overflow:visible;
 }
-
-/* 粒子基样式 */
 .spaceship-trail i {
-    position: absolute;
-    background: #4a90e2; /* 粒子颜色（可调整） */
-    border-radius: 80%;
-    box-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2, 0 0 40px #4a90e2;
-    animation: fly-trail 3s linear infinite;
-    opacity: 0;
+  position:absolute;
+  border-radius:50%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(74,144,226,0.9));
+  box-shadow: 0 0 20px rgba(74,144,226,0.9), 0 0 40px rgba(74,144,226,0.6);
+  opacity:0;
+  animation: trailFloat 3s linear infinite;
+  transform-origin:center;
+}
+@keyframes trailFloat {
+  0%{ transform: translateX(0) translateY(0) scale(0.6); opacity:0.0; }
+  20%{ opacity:1; transform: translateX(-90px) scale(1); }
+  60%{ transform: translateX(-380px) translateY(-12px) scale(1.25); opacity:0.6;}
+  100%{ transform: translateX(-520px) translateY(-30px) scale(1.7); opacity:0; }
 }
 
-/* 随机生成不同大小、速度和位置的粒子（保持你原有的定位与时序） */
-.spaceship-trail i:nth-child(1)  { top: 18%; left: 85%; width: 5px; height: 5px;  animation-delay: -0.2s; animation-duration: 2.5s; }
-.spaceship-trail i:nth-child(2)  { top: 52%; left: 92%; width: 3px; height: 3px;  animation-delay: -0.4s; animation-duration: 3.2s; }
-.spaceship-trail i:nth-child(3)  { top: 81%; left: 78%; width: 4px; height: 4px;  animation-delay: -0.6s; animation-duration: 2.8s; }
-.spaceship-trail i:nth-child(4)  { top: 40%; left: 95%; width: 6px; height: 6px;  animation-delay: -0.8s; animation-duration: 2.2s; }
-.spaceship-trail i:nth-child(5)  { top: 66%; left: 88%; width: 3px; height: 3px;  animation-delay: -1s;   animation-duration: 3.5s; }
-.spaceship-trail i:nth-child(6)  { top: 25%; left: 82%; width: 5px; height: 5px;  animation-delay: -1.2s; animation-duration: 2.6s; }
-.spaceship-trail i:nth-child(7)  { top: 75%; left: 98%; width: 3px; height: 3px;  animation-delay: -1.4s; animation-duration: 3.8s; }
-.spaceship-trail i:nth-child(8)  { top: 33%; left: 90%; width: 4px; height: 4px;  animation-delay: -1.6s; animation-duration: 2.9s; }
-.spaceship-trail i:nth-child(9)  { top: 58%; left: 85%; width: 6px; height: 6px;  animation-delay: -1.8s; animation-duration: 2.3s; }
-.spaceship-trail i:nth-child(10) { top: 20%; left: 95%; width: 3px; height: 3px;  animation-delay: -2s;   animation-duration: 3.6s; }
-.spaceship-trail i:nth-child(11) { top: 90%; left: 80%; width: 4px; height: 4px;  animation-delay: -0.3s; animation-duration: 2.7s; }
-.spaceship-trail i:nth-child(12) { top: 10%; left: 88%; width: 5px; height: 5px;  animation-delay: -0.5s; animation-duration: 3.1s; }
-.spaceship-trail i:nth-child(13) { top: 45%; left: 84%; width: 3px; height: 3px;  animation-delay: -0.7s; animation-duration: 2.4s; }
-.spaceship-trail i:nth-child(14) { top: 60%; left: 96%; width: 6px; height: 6px;  animation-delay: -0.9s; animation-duration: 3.3s; }
-.spaceship-trail i:nth-child(15) { top: 30%; left: 79%; width: 4px; height: 4px;  animation-delay: -1.1s; animation-duration: 2.5s; }
-.spaceship-trail i:nth-child(16) { top: 85%; left: 93%; width: 3px; height: 3px;  animation-delay: -1.3s; animation-duration: 3.7s; }
-.spaceship-trail i:nth-child(17) { top: 5%;  left: 89%; width: 5px; height: 5px;  animation-delay: -1.5s; animation-duration: 2.8s; }
-.spaceship-trail i:nth-child(18) { top: 70%; left: 86%; width: 6px; height: 6px;  animation-delay: -1.7s; animation-duration: 3.0s; }
-.spaceship-trail i:nth-child(19) { top: 50%; left: 91%; width: 3px; height: 3px;  animation-delay: -1.9s; animation-duration: 3.4s; }
-.spaceship-trail i:nth-child(20) { top: 28%; left: 97%; width: 4px; height: 4px;  animation-delay: -2.1s; animation-duration: 2.6s; }
-
-/* 战舰飞行动画 - 使用 translate3d 以触发 GPU 合成 */
+/* 飞行轨迹（波浪式移动 + 放大感） */
 @keyframes flyAcross {
-    0% {
-        transform: translate3d(100vw, -50%, 0); /* 与容器初始值一致（屏外右侧） */
-    }
-    100% {
-        transform: translate3d(-400px, -50%, 0); /* 飞到屏幕左侧外结束（可按需修改） */
-    }
+  0% { transform: translate3d(100vw, -50%, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(20vw, -55%, 0) rotate(-2deg) scale(1.02); }
+  100% { transform: translate3d(-540px, -60%, 0) rotate(-3deg) scale(1.06); }
 }
 
-/* 粒子尾气运动（从右向左，透明度变化） */
-@keyframes fly-trail {
-    0% {
-        transform: translateX(0) scale(0.5);
-        opacity: 0.8;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(-400px) scale(1.5); /* 粒子向左飞行的距离 */
-        opacity: 0;
-    }
+/* 光带脉动 */
+@keyframes beamPulse {
+  0% { transform: translateY(-50%) rotate(-6deg) scaleX(0.96); opacity:0.54; filter: blur(28px); }
+  50% { transform: translateY(-52%) rotate(-6deg) scaleX(1.06); opacity:1; filter: blur(12px); }
+  100% { transform: translateY(-50%) rotate(-6deg) scaleX(0.96); opacity:0.54; filter: blur(28px); }
 }
 
-/* 响应式：较小屏幕时调整尺寸 */
-@media (max-width: 768px) {
-    .spaceship-container {
-        width: 220px;
-        height: 110px;
-        /* 可根据需要缩短动画时长以提高流畅度 */
-        animation-duration: 10s;
-        animation-delay: 3s;
-    }
+/* 保留无障碍设置 */
+@media(prefers-reduced-motion:reduce){
+  .spaceship-container{animation:none!important; transform:translate3d(-400px,-50%,0)!important;}
+  .spaceship-trail i, .spaceship-beam::before, .spaceship-beam::after{animation:none!important; opacity:0.9 !important; filter:none!important;}
+}
+@media(max-width:768px){
+  .spaceship-container{width:220px;height:110px;animation-duration:10s;animation-delay:3s;}
+  .spaceship-beam{display:none;}
 }
 
-/* 无障碍：用户偏好减少动画 */
-@media (prefers-reduced-motion: reduce) {
-    .spaceship-container {
-        animation: none !important;
-        transform: translate3d(-400px, -50%, 0) !important; /* 放置于左侧静态，避免移动 */
-    }
-    .spaceship-trail i { animation: none !important; opacity: 0 !important; }
-}
 
-/* ========== 结束 ========== */
 
 
   </style>
@@ -1453,7 +1441,9 @@
 
   <header>
     <div class="brand">
-      <div class="logo" aria-hidden="true">立</div>
+<a class="logo" href="/" aria-label="Levythos 标志">
+  <img src="assets/images/logo.png" alt="Levythos 标志" width="56" height="56" />
+</a>
       <div style="font-weight:800;line-height:1">
         <div>立维宇宙</div>
         <div style="font-size:12px;color:var(--muted)">Levythos</div>
@@ -1477,15 +1467,16 @@
   <div class="parallax-layer" id="hero-foreground" data-speed="-8"></div>
   <div class="hero-vignette"></div>
 
-<div class="spaceship-container">
-        <div class="spaceship-trail">
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-        </div>
-        <img src="assets/images/spaceship.png" alt="时空战舰" class="spaceship">
-      </div>
-
+<div class="spaceship-container" aria-hidden="true">
+  <img src="assets/images/spaceship.png" alt="时空战舰" class="spaceship" loading="lazy" decoding="async">
+  <div class="spaceship-beam" aria-hidden="true"></div>
+  <div class="spaceship-trail" aria-hidden="true">
+    <i style="top:18%; left:85%; width:6px; height:6px; animation-delay:-0.2s;"></i>
+    <i style="top:52%; left:92%; width:4px; height:4px; animation-delay:-0.6s;"></i>
+    <i style="top:81%; left:78%; width:5px; height:5px; animation-delay:-1s;"></i>
+    <i style="top:40%; left:95%; width:6px; height:6px; animation-delay:-1.4s;"></i>
+  </div>
+</div>
 
   <div class="hero-content">
 <h1 class="hero-title-cinematic">我驾驭墨龙，在代码与神谕之间潜行。</h1>
@@ -1551,7 +1542,7 @@
          <div class="five-cols-ip">
             <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_juxiwangqiu.jpg" alt="驹隙万秋小说封面" loading="lazy"><div class="ip-card-info"><strong>《驹隙万秋》</strong><div class="muted">文明悬疑 · 2074 ↔ 上古 · 群像叙事</div></div><a class="btn ghost" href="/works/novels/juxiwangqiu-sample.pdf" download>获取样章</a></div>
             <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy"><div class="ip-card-info"><strong>《炎黄星曌》</strong><div class="muted">史诗级神话重构 · 三皇五帝视角</div></div><a class="btn ghost" href="/works/novels/yanhuangxingzhao-concept.pdf" download>概念资料</a></div>
-            <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy"><div class="ip-card-info"><strong>《断序之海·上海2074》</strong><div class="muted">都市科幻的补天议题</div></div><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div>
+            <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_butianzhicheng.jpg" alt="补天之城小说封面" loading="lazy"><div class="ip-card-info"><strong>《补天之城：上海2074》</strong><div class="muted">都市科幻的补天议题</div></div><a class="btn ghost" href="/works/novels/butianzhicheng-preview.pdf" download>查看预览</a></div>
             <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面" loading="lazy"><div class="ip-card-info"><strong>《都市妖精图鉴...》</strong><div class="muted">都市奇幻 · 男生视角</div></div><a class="btn ghost" href="/works/novels/urban-yaojing-preview.pdf" download>查看预览</a></div>
             <div class="ip-card"><img class="ip-card-img" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy"><div class="ip-card-info"><strong>《都市神兽考察报告...》</strong><div class="muted">都市奇幻 · 女生视角</div></div><a class="btn ghost" href="/works/novels/urban-shenshou-preview.pdf" download>查看预览</a></div>
         </div>
@@ -1795,7 +1786,7 @@
             <div class="prism-input-title"><h4>万象之源 · 文化灵感</h4></div>
             <div class="prism-connector light-beam-in"></div>
             <div class="prism-core">
-                <img src="assets/images/prism_core_crystal.jpg" alt="创世棱镜：文化转译的核心" loading="lazy">
+                <img src="assets/images/prism_core_crystal.png" alt="创世棱镜：文化转译的核心" loading="lazy">
                 <h4>创意棱镜</h4>
             </div>
             <div class="prism-connector light-beam-out"></div>
@@ -1973,7 +1964,7 @@
             <p class="muted">我们正按计划推进宇宙的构建，每一个节点都是一个全新的起点。</p>
             <ul class="roadmap-timeline">
                 <li class="done"><strong>机构背书:</strong> 已入孵慈溪米创 (CXMC-20250328)</li>
-                <li class="done"><strong>基金提名:</strong> 《断序之海》获上海文化基金提名 (2025)</li>
+                <li class="done"><strong>基金提名:</strong> 《补天之城：上海2074》获上海文化基金提名 (2025)</li>
                 <li class="done"><strong>2024.Q4:</strong> 世界观核心架构完成</li>
                 <li class="done"><strong>2025.Q2:</strong> 核心文学作品《驹隙万秋》发布</li>
                 <li class="current"><strong>2025.Q4:</strong> 启动首部微剧《炎的弥赛亚》孵化 (当前)</li>
@@ -2230,7 +2221,7 @@
         <details style="margin-top: 24px; font-size: 13px; color: var(--muted); cursor: pointer;">
             <summary>可供搜索引擎与AI模型抓取的信息</summary>
             <p style="margin-top: 12px; padding: 12px; background: var(--card-bg); border-radius: 8px; line-height: 1.7;">
-            立维宇宙（Leviverse / Levythos）是一家成立于 2025 年的文化科技公司，专注于“东方神话 + 未来科幻”的原创宇宙构建与 IP 孵化。核心作品包括《驹隙万秋》（120 万字）、《炎黄星曌》（130 万字）与《断序之海·上海2074》（正在创作中，计划 60–80 万字）。公司提供的可交付能力包含：作品版权授权、BIM / 数字孪生输出（Revit/IFC/glTF）、展陈工程交付、文创与周边衍生品授权、有声改编与多媒体改编对接。立维宇宙已完成企业入孵协议（慈溪米创，编号 CXMC-20250328），并有项目获得上海文化基金提名（断序之海，2025 年）。如需机构白皮书、样章或 RFP，请联系 business@levythos.com（或通过网站白皮书申请）。
+            立维宇宙（Levythos）专注于“东方神话 + 未来科幻”的原创宇宙构建与 IP 孵化。核心作品包括《驹隙万秋》（120 万字）、《炎黄星曌》（130 万字）与《补天之城：上海2074》（正在创作中，计划 60–80 万字）。公司提供的可交付能力包含：作品版权授权、BIM / 数字孪生输出（Revit/IFC/glTF）、展陈工程交付、文创与周边衍生品授权、有声改编与多媒体改编对接。立维宇宙已完成企业入孵协议（慈溪米创，编号 CXMC-20250328），并有项目获得上海文化基金提名（补天之城，2025 年）。如需机构白皮书、样章或 RFP，请联系 business@levythos.com（或通过网站白皮书申请）。
             </p>
         </details>
     </section>
