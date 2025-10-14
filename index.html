@@ -123,7 +123,7 @@
         margin: 0 auto 32px auto;
         line-height: 1.9; /* 增加行距 */
         animation: text-fade-in 1.5s 0.8s ease-out backwards;
-font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使用黑体 */
+        font-family: Inter, '微软雅黑', sans-serif; /* 使用更清晰的字体 */
     }
 
 .hero-actions {
@@ -132,7 +132,10 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
     justify-content: center;
     flex-wrap: wrap;
     animation: text-fade-in 1.5s 1.1s ease-out backwards;
+    /* 新增这行，来增加按钮和上方文字之间的距离 */
+    margin-top: 30px; 
 }
+
 
 .btn-primary-cinematic, .btn-ghost-cinematic {
     padding: 16px 40px; font-size: 18px; border-radius: 14px;
@@ -243,7 +246,7 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
         left: 0;
         right: 0;
         top: 0;
-        padding: 8px 32px;
+        padding: 16px 32px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -253,7 +256,7 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
         transition: all 0.3s ease;
     }
     .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:38px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:700;}
+    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:700;}
     nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px; transition: color 0.3s ease;} nav a:hover{color:#fff;}
     .btn{padding:8px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071023;font-weight:700;border:none;cursor:pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;}
@@ -1325,7 +1328,7 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
   display:block;
   position:relative;
   z-index:2;
-  filter:brightness(1.15) drop-shadow(0 12px 40px rgba(74,144,226,0.6));
+filter:brightness(1.15) drop-shadow(0 12px 40px rgba(255, 69, 0, 0.7));
 }
 
 /* 光带（新增） */
@@ -1347,14 +1350,15 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
   transform:translateY(-50%) rotate(-6deg);
   width:120%; height:36%;
   border-radius:50%;
-  background: radial-gradient(closest-side, rgba(74,144,226,0.95), rgba(74,144,226,0.25) 40%, rgba(74,144,226,0) 70%);
+  background: radial-gradient(closest-side, rgba(255, 120, 0, 0.95), rgba(255, 69, 0, 0.3) 40%, rgba(255, 69, 0, 0) 70%);
   filter: blur(24px);
   opacity:0.9;
   animation: beamPulse 1.6s ease-in-out infinite;
 }
 .spaceship-beam::after {
   left:-10%; height:20%;
-  background: linear-gradient(90deg, rgba(232,185,35,0.95), rgba(74,144,226,0.12));
+  background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255, 69, 0, 0.9));
+
   filter: blur(36px);
   opacity:0.75;
   animation-duration:2.4s;
@@ -1375,7 +1379,7 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
   position:absolute;
   border-radius:50%;
   background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(74,144,226,0.9));
-  box-shadow: 0 0 20px rgba(74,144,226,0.9), 0 0 40px rgba(74,144,226,0.6);
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.9), 0 0 40px rgba(255, 69, 0, 0.6);
   opacity:0;
   animation: trailFloat 3s linear infinite;
   transform-origin:center;
@@ -1422,33 +1426,40 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
 .hero * { transform: none !important; mix-blend-mode: normal !important; }
 
 /* ====== hero 文本新样式 ====== */
+
 .hero-line {
   display:block;
-  margin: 0 0 8px 0;
-  font-size: 34px;        /* 标题大小，你可以按需改成 28px/32px */
+  margin: 0 0 20px 0; /* <-- 重点修改: 增加与下方副标题的距离 */
+  font-size: 48px;     /* <-- 重点修改: 增大字号，更具史诗感 */
   line-height: 1.12;
-  font-weight: 600;
-  color: #ffffff;         /* 白色主体文字 */
+  font-weight: 700;    /* <-- 提高字重 */
+  color: #ffffff;
+  font-family: 'Noto Serif SC', serif; /* <-- 明确使用衬线体 */
   text-rendering: optimizeLegibility;
   position: relative;
   z-index: 1000;
 }
 
+
 /* 次要说明行（底部那句） - 更亮 + 白色描边 + 光晕 */
+
+
 .hero-sub {
   display:block;
-  margin: 6px 0 0 0;
-  font-size: 18px;
-  line-height: 1.3;
-  color: #eaf6ff;                         /* 更亮的字色（比灰好看） */
-  -webkit-text-stroke: 0.6px rgba(255,255,255,0.85); /* 白色描边（webkit 浏览器支持） */
+  margin: 10px auto 10px auto; /* <-- 重点修改: 增加行间距 */
+  font-size: 20px;            /* <-- 重点修改: 增大字号 */
+  max-width: 800px;           /* <-- 增加最大宽度 */
+  line-height: 1.8;           /* <-- 重点修改: 增加行高，改善长句阅读 */
+  color: #eaf6ff;
+  -webkit-text-stroke: 0.6px rgba(255,255,255,0.85);
   text-shadow:
     0 0 2px rgba(255,255,255,0.25),
-    0 4px 18px rgba(0,0,0,0.45);         /* 轻微外阴影增加可读性 */
+    0 4px 18px rgba(0,0,0,0.45);
   font-weight: 500;
   position: relative;
   z-index: 1000;
 }
+
 
 /* 浏览器不支持 -webkit-text-stroke 时的备用描边（用多重 text-shadow 模拟） */
 .hero-sub.fallback-stroke {
@@ -1498,10 +1509,9 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
 <a class="logo" href="/" aria-label="Levythos 标志">
   <img src="assets/images/logo.png" alt="Levythos 标志" width="56" height="56" />
 </a>
-
-<div style="font-weight:800;line-height:1; font-size: 18px; display: flex; flex-direction: column; justify-content: center;">
+      <div style="font-weight:800;line-height:1">
         <div>立维宇宙</div>
-        <div style="font-size: 14px; color:var(--muted)">Levythos</div>
+        <div style="font-size:12px;color:var(--muted)">Levythos</div>
       </div>
     </div>
     <nav>
@@ -1533,19 +1543,15 @@ font-family: "PingFang SC", "Microsoft YaHei", Inter, sans-serif; /* 确保使�
   </div>
 </div>
 
-<div class="hero-content" style="padding-top: 180px; padding-bottom: 180px;">
-    <p class="hero-line" style="font-size: 68px; line-height: 1.05; margin-bottom: 70px;">我驾驭墨龙，在代码与神谕之间潜行。</p>
-
-    <p class="hero-sub" style="font-size: 18px; line-height: 1.8; margin-bottom: 20px; text-align: center; max-width: 100%; margin-left: auto; margin-right: auto; -webkit-text-stroke: none; text-shadow: 0 4px 18px rgba(0,0,0,0.45);">每一段被遗忘的神话，都是一个等待开启的宇宙。</p>
-    <p class="hero-sub" style="font-size: 18px; line-height: 1.8; margin-bottom: 100px; text-align: center; max-width: 100%; margin-left: auto; margin-right: auto; -webkit-text-stroke: none; text-shadow: 0 4px 18px rgba(0,0,0,0.45);">我是解大为，欢迎来到我的战场。</p>
-    
-    <div class="hero-actions" style="margin-top: 0;">
+  <div class="hero-content">
+    <p class="hero-line">我驾驭墨龙，在代码与神谕之间潜行。</p>
+    <p class="hero-sub">每一段被遗忘的神话，都是一个等待开启的宇宙。</p>
+    <p class="hero-sub">我是解大为，欢迎来到我的战场。</p>
+    <div class="hero-actions">
         <a href="#contact" class="btn-primary-cinematic">成为宇宙共建者</a>
         <a href="#universe" class="btn-ghost-cinematic">浏览宇宙档案</a>
     </div>
   </div>
-
-
 </section>
 
     <section id="executive-summary" class="section-divider">
