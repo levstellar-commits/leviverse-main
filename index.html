@@ -1317,7 +1317,7 @@
     width: 300px; /* 战舰容器宽度，根据你的图片可调整 */
     height: 150px; /* 战舰容器高度，根据你的图片可调整 */
     animation: flyAcross 12s linear infinite; /* 飞行动画：12秒循环 */
-    animation-delay: 4s; /* 页面加载4秒后开始第一次飞行 */
+    animation-delay: 1s; /* 页面加载4秒后开始第一次飞行 */
     animation-fill-mode: both; /* 在 delay 期与结束后都应用关键帧样式 */
     pointer-events: none; /* 不阻挡鼠标事件 */
     display: flex;
@@ -1341,7 +1341,7 @@
     left: 100%; /* 尾气从战舰尾部开始 */
     transform: translateY(-50%);
     width: 350px; /* 尾气的整体长度 */
-    height: 40px;  /* 尾气的整体宽度 */
+    height: 80px;  /* 尾气的整体宽度 */
     pointer-events: none;
     z-index: 1; /* 在战舰下方显示（但仍在 spaceship-container 内） */
 }
@@ -1350,7 +1350,7 @@
 .spaceship-trail i {
     position: absolute;
     background: #4a90e2; /* 粒子颜色（可调整） */
-    border-radius: 50%;
+    border-radius: 80%;
     box-shadow: 0 0 10px #4a90e2, 0 0 20px #4a90e2, 0 0 40px #4a90e2;
     animation: fly-trail 3s linear infinite;
     opacity: 0;
