@@ -1411,7 +1411,61 @@
   .spaceship-beam{display:none;}
 }
 
+/* ====== 强制文字在龙/飞船之上（覆盖） ====== */
+.spaceship-container { z-index: 10 !important; pointer-events: none; } /* 把龙图放到低层 */
+.hero, .hero-content, .hero-inner, .hero .title, .hero .subtitle, .hero .hero-line, .hero .hero-sub {
+  position: relative !important;
+  z-index: 1000 !important; /* 文字层级远高于飞行物 */
+}
 
+/* 防止某些元素用 transform 创建新的 stacking context 导致 z-index 无效 */
+.hero * { transform: none !important; mix-blend-mode: normal !important; }
+
+/* ====== hero 文本新样式 ====== */
+.hero-line {
+  display:block;
+  margin: 0 0 8px 0;
+  font-size: 34px;        /* 标题大小，你可以按需改成 28px/32px */
+  line-height: 1.12;
+  font-weight: 600;
+  color: #ffffff;         /* 白色主体文字 */
+  text-rendering: optimizeLegibility;
+  position: relative;
+  z-index: 1000;
+}
+
+/* 次要说明行（底部那句） - 更亮 + 白色描边 + 光晕 */
+.hero-sub {
+  display:block;
+  margin: 6px 0 0 0;
+  font-size: 18px;
+  line-height: 1.3;
+  color: #eaf6ff;                         /* 更亮的字色（比灰好看） */
+  -webkit-text-stroke: 0.6px rgba(255,255,255,0.85); /* 白色描边（webkit 浏览器支持） */
+  text-shadow:
+    0 0 2px rgba(255,255,255,0.25),
+    0 4px 18px rgba(0,0,0,0.45);         /* 轻微外阴影增加可读性 */
+  font-weight: 500;
+  position: relative;
+  z-index: 1000;
+}
+
+/* 浏览器不支持 -webkit-text-stroke 时的备用描边（用多重 text-shadow 模拟） */
+.hero-sub.fallback-stroke {
+  -webkit-text-stroke: 0;
+  text-shadow:
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff,
+    0 4px 18px rgba(0,0,0,0.45);
+}
+
+/* 移动端微调 */
+@media (max-width:768px) {
+  .hero-line { font-size:22px; }
+  .hero-sub { font-size:14px; }
+}
 
 
   </style>
