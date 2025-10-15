@@ -1624,6 +1624,74 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* ============================================ */
+/* ========== [新增] 手机端响应式优化 ========== */
+/* ============================================ */
+
+/* 当屏幕宽度小于等于 768px 时 (典型的手机竖屏宽度) */
+@media (max-width: 768px) {
+
+  /* 1. 顶部导航栏：让链接居中换行，而不是挤在一起 */
+  header {
+    flex-direction: column; /* 让Logo和导航垂直排列 */
+    padding: 16px;
+  }
+  nav {
+    justify-content: center; /* 导航链接居中 */
+    flex-wrap: wrap;         /* 允许链接优雅地换行 */
+    margin-top: 12px;
+  }
+
+  /* 2. [核心] 所有多列布局，在手机上全部变为单列显示 */
+  .two-cols,
+  .three-cols,
+  .four-cols,
+  .five-cols,
+  .six-cols,
+  .four-cols-redefined,
+  .five-cols-ip,
+  .four-cols-ip,
+  .summary-grid {
+    grid-template-columns: 1fr; /* 强制所有网格布局变为单列 */
+  }
+
+  /* 针对更复杂网格的额外重置 */
+  .arena-layout-enhanced,
+  .press-redefined-layout,
+  .map-showcase-grid,
+  .archaeology-grid-2x2,
+  .manifesto-grid,
+  .news-grid,
+  .co-builder-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* 3. 调整主内容区域的边距，让内容更宽 */
+  main {
+    padding: 100px 16px 40px;
+  }
+  
+  /* 4. 进一步缩小标题字号，使其更适合手机屏幕 */
+  h2, .hero-title {
+    font-size: 28px !important;
+  }
+  .hero-line {
+    font-size: 24px !important;
+  }
+  h3 {
+    font-size: 20px;
+  }
+
+  /* 5. 修正右下角“解大为”悬浮窗的位置，让它出现在底部 */
+  .dawei-hud, .dawei-guide {
+      top: auto;
+      bottom: 20px;
+      right: 16px;
+      transform: none;
+  }
+}
+
+
   </style>
 
 
