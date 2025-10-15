@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -183,63 +184,142 @@
     body{margin:0;font-family:Inter,'Noto Serif SC',serif;background:linear-gradient(180deg,#02040a,#071428);color:#eaf6ff;-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
 
-    /* --- [新增] 宇宙引导者 · 解大为 --- */
-    .dawei-guide {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      display: flex;
-      align-items: flex-end;
-      gap: 12px;
-      max-width: 320px;
-      transition: opacity 0.5s ease;
-    }
-    .dawei-guide .avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 2px solid rgba(var(--accent2-rgb), 0.5);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      flex-shrink: 0;
-      background-size: cover;
-      background-position: center;
-    }
-    .dawei-guide .bubble {
-      background: rgba(15, 25, 40, 0.9);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      color: var(--muted);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-    .dawei-guide .bubble strong {
-      color: #fff;
-      font-weight: 600;
-    }
-    /* For small screens, hide the guide */
-    @media (max-width: 768px) {
-      .dawei-guide {
-        display: none;
-      }
-    }
 
-    /* --- [新增] 解大为的“旁白”样式 --- */
-    .dawei-comment {
-      font-family: 'Noto Serif SC', serif;
-      font-style: italic;
-      font-size: 14px;
-      color: var(--muted);
-      border-left: 2px solid var(--accent);
-      padding-left: 12px;
-      margin: 16px 0;
-    }
-    .dawei-comment strong {
-      color: var(--accent);
-    }
- 
+/* ====== HUD 短版：窄气泡、最多 3 行显示（替换旧 HUD CSS） ====== */
+.dawei-hud, .dawei-guide {
+  position: fixed;
+  right: 8px;               /* 更靠右，减少遮挡 */
+  top: 40%;
+  transform: translateY(-40%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+  transition: transform 200ms ease, opacity 200ms ease;
+  width: auto;
+}
+
+/* 折叠态（只显示头像） */
+.dawei-hud.collapsed {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 999px;
+  overflow: visible;
+}
+
+/* 头像尺寸略小 */
+.dawei-hud .avatar, .dawei-guide .avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.42);
+  border: 2px solid rgba(232,185,35,0.16);
+  flex-shrink: 0;
+}
+
+/* 气泡主体：窄宽度，视觉更轻 */
+.dawei-hud .dawei-body, .dawei-hud .bubble {
+  margin-left: 8px;
+  background: rgba(6,10,14,0.86);
+  border-radius: 10px;
+  padding: 10px 12px;
+  min-width: 150px;
+  max-width: 180px;        /* 控制最大宽度，减小占用 */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  color: #eaf6ff;
+  display: block;
+  pointer-events: auto;
+}
+
+/* 折叠时隐藏面板 */
+.dawei-hud.collapsed .dawei-body,
+.dawei-hud.collapsed .bubble { display: none; }
+
+/* 文案：稍小字号，最多 3 行，超出显示省略，保持气泡短小 */
+.dawei-hud .dawei-lines, .dawei-guide .bubble .lines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;         /* 最多 3 行 */
+  overflow: hidden;
+  max-height: calc(1.35em * 3);
+}
+
+.dawei-hud .dawei-line, .dawei-guide .bubble .line {
+  font-size: 14px;              /* 略微减小字号 */
+  line-height: 1.35;
+  color: #eaf6ff;
+  margin: 0;
+  word-break: break-word;
+  white-space: normal;
+  text-overflow: ellipsis;
+}
+
+/* 小屏幕适应 */
+@media (max-width: 760px) {
+  .dawei-hud { right: 12px; top: auto; bottom: 18px; transform: none; }
+  .dawei-hud.collapsed { width: 52px; height:52px; }
+  .dawei-hud .dawei-body { min-width: 160px; max-width: 78vw; padding: 8px 10px; }
+  .dawei-hud .dawei-line { font-size: 14px; line-height:1.3; }
+}
+
+/* 无动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .dawei-hud, .dawei-hud .dawei-line {
+    transition: none !important; transform: none !important; opacity: 1 !important;
+  }
+}
+
+
+ /* ---- HUD 收起提示 chevron 按钮 ---- */
+.dawei-hint {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  margin-left:8px;
+  cursor: pointer;
+  color: rgba(230,240,255,0.95);
+  pointer-events: auto;
+}
+
+/* chevron 图形用伪元素（向右收起的提示） */
+.dawei-hint::before {
+  content: "";
+  display:block;
+  width:10px;
+  height:10px;
+  border-right:2px solid rgba(230,240,255,0.95);
+  border-top:2px solid rgba(230,240,255,0.95);
+  transform: rotate(45deg); /* 右箭头 */
+}
+
+/* pulse 提示效果（加载时轻微跳动） */
+.dawei-hint.hint-pulse {
+  animation: daweiHintPulse 1s ease-in-out 0s 3;
+}
+@keyframes daweiHintPulse {
+  0% { transform: translateX(0); box-shadow:0 6px 20px rgba(0,0,0,0.25); }
+  50% { transform: translateX(-4px); box-shadow:0 10px 26px rgba(0,0,0,0.35); }
+  100% { transform: translateX(0); box-shadow:0 6px 20px rgba(0,0,0,0.25); }
+}
+
+/* 当 HUD 折叠时，把 chevron 方向改成向左（提示展开） */
+.dawei-hud.collapsed .dawei-hint::before {
+  transform: rotate(-135deg); /* 左箭头 */
+}
+
+
+
+
     /* --- [其余样式，保持不变] --- */
     header {
         position: fixed;
@@ -1490,6 +1570,16 @@ filter:brightness(1.15) drop-shadow(0 12px 40px rgba(255, 69, 0, 0.7));
 }
 
 
+details[style*="cursor: pointer;"] summary {
+  pointer-events: none; /* 让鼠标无法点击这个元素 */
+  list-style: none;     /* 移除前面默认的小三角箭头 (Firefox) */
+}
+
+details[style*="cursor: pointer;"] summary::-webkit-details-marker {
+  display: none;        /* 移除前面默认的小三角箭头 (Chrome, Safari) */
+}
+
+
 
   </style>
 
@@ -1524,9 +1614,9 @@ filter:brightness(1.15) drop-shadow(0 12px 40px rgba(255, 69, 0, 0.7));
 <a class="logo" href="/" aria-label="Levythos 标志">
   <img src="assets/images/logo.png" alt="Levythos 标志" width="44" height="44" />
 </a>
-      <div style="font-weight:800;line-height:1">
+<div style="font-weight:800;line-height:1">
         <div>立维宇宙</div>
-        <div style="font-size:12px;color:var(--muted)">Levythos</div>
+        <div style="font-size:12px;color:var(--muted); text-transform: uppercase;">Levythos</div>
       </div>
     </div>
     <nav>
@@ -2304,9 +2394,9 @@ filter:brightness(1.15) drop-shadow(0 12px 40px rgba(255, 69, 0, 0.7));
         </div>
         
         <details style="margin-top: 24px; font-size: 13px; color: var(--muted); cursor: pointer;">
-            <summary>可供搜索引擎与AI模型抓取的信息</summary>
+            <summary>项目元信息</summary>
             <p style="margin-top: 12px; padding: 12px; background: var(--card-bg); border-radius: 8px; line-height: 1.7;">
-            立维宇宙（Levythos）专注于“东方神话 + 未来科幻”的原创宇宙构建与 IP 孵化。核心作品包括《驹隙万秋》（120 万字）、《炎黄星曌》（130 万字）与《补天之城：上海2074》（正在创作中，计划 60–80 万字）。公司提供的可交付能力包含：作品版权授权、BIM / 数字孪生输出（Revit/IFC/glTF）、展陈工程交付、文创与周边衍生品授权、有声改编与多媒体改编对接。立维宇宙已完成企业入孵协议（慈溪米创，编号 CXMC-20250328），并有项目获得上海文化基金提名（补天之城，2025 年）。如需机构白皮书、样章或 RFP，请联系 business@levythos.com（或通过网站白皮书申请）。
+            立维宇宙（Levythos）专注于“东方神话 + 未来科幻”的原创宇宙构建与 IP 孵化。核心作品包括《驹隙万秋》、《炎黄星曌：命外之人》与《补天之城：上海2074》。公司提供的可交付能力包含：作品版权授权、BIM / 数字孪生输出（Revit/IFC/glTF）、展陈工程交付、文创与周边衍生品授权、有声改编与多媒体改编对接。立维宇宙已完成企业入孵协议（慈溪米创，编号 CXMC-20250328），并有项目获得上海文化基金提名（补天之城，2025 年）。如需机构白皮书、样章或 RFP，请联系 business@levythos.com（或通过网站白皮书申请）。
             </p>
         </details>
     </section>
@@ -2424,6 +2514,147 @@ filter:brightness(1.15) drop-shadow(0 12px 40px rgba(255, 69, 0, 0.7));
         });
     });
 </script>
+
+
+<script>
+(function(){
+  // ===== 1. [已还原] 您的原创文案库，一字未改 =====
+  const copyMap = {
+    "hero-cinematic": { zh: ["解大为：小伙伴好，我骑墨龙来为你开门。","解大为：第一道门只为好奇者开启。","解大为：进来看看，你的名字有没有被记下。"] },
+    "executive-summary": { zh: ["解大为：被遗忘的神话，是一扇未开的门。","解大为：我们把碎片拼成路，路通向故事的心脏。","解大为：每个未说完的传说，都等着被点燃。"] },
+    "heroes": { zh: ["解大为：英雄由契约唤醒，不问出身。","解大为：她/他不是被选中，而是签下了那张纸。","解大为：看角色卡，故事会告诉你他们为何举剑。"] },
+    "universe": { zh: ["解大为：十祖织法则，表象之外有规则。","解大为：表象易见，法则难寻。你愿钻进缝隙吗？","解大为：世界按经纬运转，任一线被拔动都会回响。"] },
+    "matrix": { zh: ["解大为：一条故事线，可以是书、游或一座馆。","解大为：我们把故事拉长，任你在其中驻足或跨越。","解大为：想把这条线做成游戏？从一句台词开始。"] },
+    "spatial": { zh: ["解大为：让传说落地，变成可触摸的场景。","解大为：把神话做成空间，人会按线索去祈祷。","解大为：真实的场景，会把虚构变成记忆。"] },
+    "novels": { zh: ["解大为：读小说，像翻世界的注释。","解大为：一句台词，可能是未来的技能或祭礼。","解大为：小说是母体，所有分支从这里发芽."] },
+    "contact": { zh: ["解大为：别只点赞，来把传说做成真物件。","解大为：想合作？把想法放进来，我们把它做成样本。","解大为：合作不是交易，是把故事带到世界的邀约。"] },
+    "default": { zh: ["我是编年者。"] }
+  };
+
+  // ===== 2. HUD 节点管理 (不变) =====
+  function createHUDNode(avatarUrl) {
+    const container = document.createElement('div');
+    container.id = 'dawei-hud';
+    container.className = 'dawei-hud';
+    container.setAttribute('tabindex','0');
+    container.setAttribute('role','complementary');
+    container.setAttribute('aria-expanded','true');
+    const avatar = document.createElement('div');
+    avatar.className = 'dawei-avatar avatar';
+    avatar.style.backgroundImage = avatarUrl || "url('assets/images/archetype_dawei_guide.jpg')";
+    const hint = document.createElement('button');
+    hint.className = 'dawei-hint';
+    hint.setAttribute('aria-label','收起或展开对话框');
+    hint.type = 'button';
+    const body = document.createElement('div');
+    body.className = 'dawei-body';
+    const lines = document.createElement('div');
+    lines.className = 'dawei-lines';
+    lines.id = 'dawei-lines';
+    lines.setAttribute('aria-atomic','true');
+    const initial = document.createElement('p');
+    initial.className = 'dawei-line';
+    initial.textContent = copyMap['hero-cinematic'].zh[0];
+    lines.appendChild(initial);
+    body.appendChild(lines);
+    container.appendChild(avatar);
+    container.appendChild(body);
+    container.appendChild(hint);
+    return container;
+  }
+  function ensureHUD() {
+    let hud = document.getElementById('dawei-hud');
+    if (hud) return hud;
+    const old = document.querySelector('.dawei-guide');
+    const avatarUrl = old ? old.querySelector('.avatar').style.backgroundImage : null;
+    const newNode = createHUDNode(avatarUrl);
+    if (old && old.parentNode) old.parentNode.replaceChild(newNode, old);
+    else document.body.appendChild(newNode);
+    return newNode;
+  }
+
+  // ===== 3. [最终优化版] 核心交互逻辑 =====
+  function runtime() {
+    const hud = ensureHUD();
+    const linesContainer = document.getElementById('dawei-lines');
+    if (!linesContainer) return;
+
+    let activeKey = null;
+    let scrollTimeout;
+    let dialogueInterval;
+
+    const sections = Object.keys(copyMap)
+      .filter(k => k !== 'default')
+      .map(id => document.getElementById(id))
+      .filter(el => el);
+
+    function updateDialogue(newKey) {
+      if (newKey && newKey !== activeKey) {
+        activeKey = newKey;
+        
+        clearInterval(dialogueInterval);
+        const lines = copyMap[activeKey].zh;
+        let currentIndex = 0;
+        
+        linesContainer.innerHTML = `<p class="dawei-line">${lines[currentIndex]}</p>`;
+
+        if (lines.length > 1) {
+          dialogueInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % lines.length;
+            linesContainer.innerHTML = `<p class="dawei-line">${lines[currentIndex]}</p>`;
+          }, 4500);
+        }
+      }
+    }
+
+    // [全新逻辑] 找到离屏幕中心最近的版块
+    function findClosestSectionToCenter() {
+      const viewportCenter = window.innerHeight / 2;
+      let minDistance = Infinity;
+      let closestSectionId = null;
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        // 计算版块顶部到屏幕中心的距离
+        const distance = Math.abs(rect.top - viewportCenter);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestSectionId = section.id;
+        }
+      });
+      
+      updateDialogue(closestSectionId);
+    }
+
+    // 使用节流（throttle）来优化性能，每100ms最多执行一次
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(findClosestSectionToCenter, 100);
+    }, { passive: true });
+
+    // 折叠功能
+    const hintBtn = hud.querySelector('.dawei-hint');
+    const avatarBtn = hud.querySelector('.dawei-avatar');
+    function toggleCollapsed(e) {
+      e.stopPropagation();
+      hud.classList.toggle('collapsed');
+    }
+    if(hintBtn) hintBtn.addEventListener('click', toggleCollapsed);
+    if(avatarBtn) avatarBtn.addEventListener('click', toggleCollapsed);
+    
+    // 页面加载后，立即定位一次，设置初始对话
+    setTimeout(findClosestSectionToCenter, 100);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runtime);
+  } else {
+    runtime();
+  }
+})();
+</script>
+
 
 </body>
 </html> 
