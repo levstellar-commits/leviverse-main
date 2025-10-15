@@ -187,7 +187,7 @@
 /* ====== HUD 短版：窄气泡、最多 3 行显示（替换旧 HUD CSS） ====== */
 .dawei-hud, .dawei-guide {
   position: fixed;
-  right: 8px;               /* 更靠右，减少遮挡 */
+  right: 8px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 9999;
@@ -195,9 +195,18 @@
   align-items: center;
   gap: 10px;
   pointer-events: auto;
-  transition: transform 200ms ease, opacity 200ms ease;
-  width: auto;
+  /* 核心改动：用 animation 代替 transition */
+  opacity: 0; /* 初始状态完全透明 */
+  animation: hud-fade-in 0.5s ease-out 1s forwards; /* 延迟1秒后，用0.5秒淡入 */
 }
+
+/* 新增一个动画定义 */
+@keyframes hud-fade-in {
+  from { opacity: 0; transform: translateY(-50%) scale(0.95); }
+  to { opacity: 1; transform: translateY(-50%) scale(1); }
+}
+
+
 
 /* 折叠态（只显示头像） */
 .dawei-hud.collapsed {
@@ -221,18 +230,45 @@
 }
 
 /* 气泡主体：窄宽度，视觉更轻 */
+/* 方案 B：透明框 + 白色金边光晕字 */
 .dawei-hud .dawei-body, .dawei-hud .bubble {
   margin-left: 8px;
-  background: rgba(6,10,14,0.86);
-  border-radius: 10px;
-  padding: 10px 12px;
+  /* 1. 完全透明的背景 */
+  background: transparent;
+  backdrop-filter: none; /* 移除磨砂效果 */
+
+  /* 2. 带有光晕的金色边框 */
+  border-radius: 12px;
+  border: 1.5px solid rgba(var(--accent-rgb), 0.7); /* 使用您的金色变量 */
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.3), 0 4px 20px rgba(0,0,0,0.5);
+
+  /* 3. 白色文字 */
+  color: #fff;
+  font-weight: 500;
+
+  /* 4. [核心] 用 text-shadow 模拟金色描边+光晕 */
+  text-shadow: 
+    0 0 5px rgba(var(--accent-rgb), 0.7), /* 金色光晕 */
+    -1px -1px 2px rgba(0,0,0,0.7), /* 左上黑色描边，增加立体感 */
+    1px 1px 2px rgba(0,0,0,0.7);   /* 右下黑色描边 */
+
+  padding: 6px 14px;
   min-width: 150px;
-  max-width: 180px;        /* 控制最大宽度，减小占用 */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  color: #eaf6ff;
+  max-width: 180px;
   display: block;
   pointer-events: auto;
+  transition: all 0.3s ease;
 }
+
+
+
+/* (可选) 增加一个鼠标悬停效果，进一步增强交互感 */
+.dawei-hud:hover .dawei-body, .dawei-hud:hover .bubble {
+    transform: scale(1.02);
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.15) inset;
+}
+
+
 
 /* 折叠时隐藏面板 */
 .dawei-hud.collapsed .dawei-body,
@@ -244,18 +280,26 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;         /* 最多 3 行 */
   overflow: hidden;
-  max-height: calc(1.35em * 3);
 }
 
-.dawei-hud .dawei-line, .dawei-guide .bubble .line {
-  font-size: 14px;              /* 略微减小字号 */
-  line-height: 1.35;
-  color: #eaf6ff;
-  margin: 0;
+
+/* [最终优化] 对话文字的精准样式 */
+#dawei-hud p.dawei-line {
+  font-size: 14px;
+  color: inherit; /* 颜色继承父容器的设置 */
+  
+  /* --- 核心修改在这里 --- */
+  line-height: 1.25; /* 1. 收紧文字本身的行高 */
+  margin: 0;         /* 2. 强制清除浏览器为p标签添加的默认上下外边距 */
+  padding: 0;        /* 3. 确保文字自身没有任何内边距 */
+
+  /* 以下保持不变 */
   word-break: break-word;
   white-space: normal;
   text-overflow: ellipsis;
 }
+
+
 
 /* 小屏幕适应 */
 @media (max-width: 760px) {
