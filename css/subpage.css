@@ -1,0 +1,480 @@
+/* ======================================================= */
+/* ========== [最终版] 子页面模板通用样式 ========== */
+/* ======================================================= */
+
+/* 1. 子页面顶部的Hero标题区 - 动画增强 */
+.subpage-hero {
+  height: 50vh; /* 屏幕高度的50%，更高更具沉浸感 */
+  min-height: 400px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  margin-top: -120px;
+  padding: 0 24px;
+  overflow: hidden; /* 隐藏动画溢出的部分 */
+}
+.subpage-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: inherit; /* 继承背景图 */
+  background-size: cover;
+  background-position: center;
+  animation: ken-burns 20s ease-out infinite; /* 应用缓动变焦动画 */
+  z-index: 1;
+}
+@keyframes ken-burns {
+  0%, 100% { transform: scale(1) rotate(0.001deg); }
+  50% { transform: scale(1.1) rotate(0.001deg); }
+}
+.subpage-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2,4,10,0.2) 0%, rgba(2,4,10,0.98) 100%); /* 底部遮罩更浓，突出文字 */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* 文字沉底，更具电影感 */
+  padding-bottom: 48px;
+}
+.subpage-hero h1, .subpage-hero h2, .subpage-hero .breadcrumb {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  text-shadow: 0 5px 30px rgba(0,0,0,0.8);
+}
+.subpage-hero h1 { font-size: 52px; margin-bottom: 8px; }
+.subpage-hero h2 { font-size: 22px; color: var(--muted); font-family: Inter, sans-serif; }
+.breadcrumb { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+.breadcrumb a:hover { color: #fff; text-decoration: underline; }
+
+/* 2. 子页面主内容区通用样式 */
+.subpage-content {
+  margin-top: 60px;
+  padding-top: 60px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.content-section {
+    margin-bottom: 80px;
+}
+.content-section-title {
+    text-align: center;
+    margin-bottom: 36px;
+}
+.content-section-title h3 {
+    font-size: 28px;
+}
+.content-section-title p {
+    color: var(--muted);
+    max-width: 600px;
+    margin: 8px auto 0;
+}
+
+/* 3. 功能分区模块 */
+/* 模块A: 核心数据摘要 */
+.data-sheet {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    overflow: hidden;
+}
+.data-item {
+    background-color: var(--bg);
+    padding: 20px;
+}
+.data-item .label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+.data-item .value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+.data-item .value a {
+    color: var(--accent2);
+    text-decoration: underline;
+}
+
+/* 模块B: 角色/作品引言 */
+.quote-block {
+    margin: 40px auto;
+    padding: 24px;
+    max-width: 800px;
+    text-align: center;
+    border-top: 1px solid rgba(var(--accent-rgb), 0.2);
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+.quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.8;
+    color: #fff;
+    margin: 0;
+}
+.quote-block footer {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* 模块C: 图文混排 */
+.text-image-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+}
+.text-image-split img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.text-image-split h4 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+/* 模块D: 概念画廊 */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+.gallery-grid img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* 4. 页脚前的“探索下一站”模块 */
+.explore-next {
+  padding-top: 60px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+}
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+.explore-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.3s ease;
+}
+.explore-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+  border-color: rgba(var(--accent-rgb), 0.3);
+}
+.explore-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.explore-card:hover img {
+  transform: scale(1.1);
+}
+.explore-card-content {
+  position: absolute;
+  inset: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(180deg, rgba(2,4,10,0) 0%, rgba(2,4,10,0.9) 100%);
+  text-align: left;
+}
+.explore-card h4 { font-size: 20px; }
+.explore-card p { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+/* ======================================================= */
+/* ========== [新增] 漫画页面专属样式 (已合并) ========== */
+/* ======================================================= */
+
+.character-sketch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    text-align: center;
+}
+.character-sketch img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    margin-bottom: 8px;
+}
+.character-sketch h5 {
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+    margin: 0;
+}
+.panel-preview-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-left: 3px solid var(--accent2);
+    padding: 20px;
+    border-radius: 12px;
+    font-style: italic;
+}
+
+
+/* 5. 手机端适配 (增强) */
+@media (max-width: 768px) {
+  .subpage-hero h1 { font-size: 36px; }
+  .subpage-hero h2 { font-size: 18px; }
+  .text-image-split { grid-template-columns: 1fr; }
+  .text-image-split .split-image { grid-row: 1; } /* 手机上图片永远在文字上方 */
+  .gallery-grid { grid-template-columns: 1fr; }
+  .explore-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ======================================================= */
+/* ========== [新增] 微剧/影视页面专属样式 ========== */
+/* ======================================================= */
+
+.project-intel-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+.intel-item {
+    text-align: center;
+}
+.intel-item .label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+.intel-item .value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+.intel-item .value a {
+    color: var(--accent2);
+    text-decoration: underline;
+}
+
+.logline-block {
+    text-align: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--accent);
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+
+/* ======================================================= */
+/* ========== [新增] 游戏页面专属样式 ========== */
+/* ======================================================= */
+
+.game-hero {
+    height: 60vh;
+    min-height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    margin-top: -120px;
+    overflow: hidden;
+}
+.game-hero video { /* 用于背景视频 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    transform: translateX(-50%) translateY(-50%);
+}
+.game-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+.feature-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+}
+.feature-card .icon {
+    font-size: 40px;
+    color: var(--accent);
+    margin-bottom: 16px;
+    font-family: 'Noto Serif SC', serif;
+}
+.feature-card h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+
+/* ======================================================= */
+/* ========== [新增] 宇宙观主页专属样式 ========== */
+/* ======================================================= */
+
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    margin-top: 36px;
+}
+.hub-card {
+    position: relative;
+    height: 450px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s ease;
+}
+.hub-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border-color: rgba(var(--accent-rgb), 0.5);
+}
+.hub-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.hub-card:hover img {
+    transform: scale(1.1);
+}
+.hub-card-content {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(180deg, rgba(2,4,10,0) 0%, rgba(2,4,10,0.95) 100%);
+    text-align: left;
+}
+.hub-card h3 { font-size: 24px; }
+.hub-card p { font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+
+
+
+/* ======================================================= */
+/* ========== [新增] 康养页面专属样式 ========== */
+/* ======================================================= */
+
+.philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: center;
+}
+.philosophy-card .icon {
+    font-size: 48px;
+    line-height: 1;
+    font-family: 'Noto Serif SC', serif;
+    color: var(--accent);
+    margin-bottom: 16px;
+}
+.wuxing-wheel {
+    position: relative;
+    max-width: 600px;
+    margin: 48px auto;
+    aspect-ratio: 1 / 1;
+}
+.wuxing-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    background: var(--card-bg);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.wuxing-element {
+    position: absolute;
+    width: 35%;
+    height: 35%;
+    background: var(--card-bg);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.wuxing-element:hover {
+    transform: scale(1.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.3);
+}
+.wuxing-element .icon { font-size: 28px; font-family: 'Noto Serif SC', serif; }
+.wuxing-element h4 { font-size: 16px; margin-top: 8px; }
+/* Positioning the elements in a circle */
+.wuxing-element.metal { top: 0; left: 50%; transform: translateX(-50%); }
+.wuxing-element.wood { top: 50%; right: 0; transform: translateY(-50%); }
+.wuxing-element.water { bottom: 0; left: 50%; transform: translateX(-50%); }
+.wuxing-element.fire { top: 50%; left: 0; transform: translateY(-50%); }
+.wuxing-element.earth { top: 25%; left: 25%; transform: translate(-50%, -50%); display:none; } /* Center element hidden for 4-element layout */
+
+@media (max-width: 768px) {
+    .philosophy-grid { grid-template-columns: 1fr; }
+    .wuxing-wheel { width: 90%; }
+    .wuxing-element { width: 40%; height: 40%; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
