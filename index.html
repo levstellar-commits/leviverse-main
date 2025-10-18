@@ -2621,17 +2621,17 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
                 </p>
             </div>
 
-
-            <div class="arena-actions">
+<div class="arena-actions">
                 <a href="#arena-debate-details" id="joinYandi" class="btn ghost btn-faction-yandi" aria-label="加入正方：炎帝之火">
                     <span class="faction-icon">A</span>
                     <span>我持正方，前去立论</span>
                 </a>
-                <a href="#arena-debate-details" id="joinPrometheus" class="btn ghost btn-faction-prometheus" aria-label="加入反方：普氏之火">
+                <a href="#arena-debate-details" id="joinPrometheus" class="btn ghost btn-faction-prometheus" aria-label="加入反方：普罗米修斯之火">
                     <span class="faction-icon">N</span>
                     <span>我为反方，发表高见</span>
                 </a>
             </div>
+
             <div class="arena-rules">
                 <h4>擂台规则</h4>
                 <ul style="padding-left: 20px; font-size: 14px; color: var(--muted);">
@@ -2657,23 +2657,8 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         <h4 id="stanceTitle" style="color: var(--muted); transition: color 0.3s ease;">选择你的立场，加入辩论！</h4>
     </div>
 
-    <script src="https://giscus.app/client.js"
-        data-repo="levstellar-commits/LW-Project-Main"
-        data-repo-id="R_kgDOP4VCdg"
-        data-category="General"
-        data-category-id="DIC_kwDOP4VCds4Cwx9t"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="transparent_dark"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-    </script>
-</section>
+    <div id="waline"></div>
+
 
 
 </section>
@@ -3047,7 +3032,27 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     runtime();
   }
 })();
+</script>
 
+
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+
+<script type="module">
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+  init({
+    el: '#waline',
+    // 在这里粘贴您刚刚复制的 Vercel 网址
+    serverURL: 'https://waline-starter.vercel.app/',
+
+    // 推荐配置
+    login: 'force', 
+    lang: 'zh-CN',
+    meta: ['nick', 'mail'],
+    requiredMeta: ['nick'],
+    dark: 'auto',
+  });
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -3063,7 +3068,6 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault(); // 阻止默认的瞬间跳转行为
             stanceTitle.innerHTML = '<span class="faction-icon" style="font-family: \'Noto Serif SC\', serif;">炎</span> 我的立场：正方 (炎帝之火)';
             stanceTitle.style.color = 'var(--accent)';
-            // 平滑滚动到辩论区
             debateSection.scrollIntoView({ behavior: 'smooth' });
         });
     }
@@ -3074,14 +3078,12 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault(); // 阻止默认的瞬间跳转行为
             stanceTitle.innerHTML = '<span class="faction-icon" style="font-family: \'Noto Serif SC\', serif;">P</span> 我的立场：反方 (普氏之火)';
             stanceTitle.style.color = 'var(--accent2)';
-            // 平滑滚动到辩论区
             debateSection.scrollIntoView({ behavior: 'smooth' });
         });
     }
 });
-
-
 </script>
+
 
 
 </body>
