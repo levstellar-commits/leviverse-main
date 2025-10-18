@@ -1961,7 +1961,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
             </div>
             <div class="ip-card">
                 <a href="works/yanhuangxingzhao.html"><img class="ip-card-img" src="assets/images/cover_yanhuangxingzhao.jpg" alt="炎黄星曌小说封面" loading="lazy"></a>
-                <div class="ip-card-info"><strong>《炎黄星曌》</strong><div class="muted">史诗级神话重构 · 三皇五帝视角</div></div>
+                <div class="ip-card-info"><strong>《炎黄星曌：命外之人》</strong><div class="muted">史诗级神话重构 · 三皇五帝视角</div></div>
                 <a class="btn ghost" href="works/yanhuangxingzhao.html">了解详情</a>
             </div>
             <div class="ip-card">
@@ -1971,13 +1971,13 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
             </div>
             <div class="ip-card">
                 <a href="works/dushiyaojing.html"><img class="ip-card-img" src="assets/images/cover_urban_yaojing.jpg" alt="都市妖精图鉴小说封面" loading="lazy"></a>
-                <div class="ip-card-info"><strong>《都市妖精图鉴...》</strong><div class="muted">都市奇幻 · 男生视角</div></div>
+                <div class="ip-card-info"><strong>《都市妖精图鉴：我的相亲对象不是人》</strong><div class="muted">都市奇幻 · 男生视角</div></div>
                 <a class="btn ghost" href="works/dushiyaojing.html">了解详情</a>
             </div>
       
               <div class="ip-card">
                 <a href="works/dushishenshou.html"><img class="ip-card-img" src="assets/images/cover_urban_shenshou.jpg" alt="都市神兽考察报告小说封面" loading="lazy"></a>
-                <div class="ip-card-info"><strong>《都市神兽考察报告...》</strong><div class="muted">都市奇幻 · 女生视角</div></div>
+                <div class="ip-card-info"><strong>《都市神兽考察报告：今天相亲又遇见了哪只奇葩？》</strong><div class="muted">都市奇幻 · 女生视角</div></div>
                 <a class="btn ghost" href="works/novels/dushishenshou.html">了解详情</a>
             </div>
         </div>
@@ -2620,9 +2620,17 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
                     前者是源于内部、惠及社群的技艺传承之火，后者是源于外部、挑战权威的智慧启蒙之火。在立维宇宙的未来叙事中，哪一种“火”的隐喻更能代表人类文明的终极走向？
                 </p>
             </div>
+
+
             <div class="arena-actions">
-                <button class="btn ghost btn-faction-yandi" aria-label="加入正方：炎帝之火"><span class="faction-icon">炎</span><span>加入正方：炎帝之火</span></button>
-                <button class="btn ghost btn-faction-prometheus" aria-label="加入反方：普罗米修斯之火"><span class="faction-icon">P</span><span>加入反方：普氏之火</span></button>
+                <a href="#arena-debate-details" id="joinYandi" class="btn ghost btn-faction-yandi" aria-label="加入正方：炎帝之火">
+                    <span class="faction-icon">A</span>
+                    <span>我持正方，前去立论</span>
+                </a>
+                <a href="#arena-debate-details" id="joinPrometheus" class="btn ghost btn-faction-prometheus" aria-label="加入反方：普氏之火">
+                    <span class="faction-icon">N</span>
+                    <span>我为反方，发表高见</span>
+                </a>
             </div>
             <div class="arena-rules">
                 <h4>擂台规则</h4>
@@ -2637,6 +2645,37 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         </div>
         <div class="arena-visual"><img src="assets/images/concept_arena_fire.jpg" alt="炎帝之火与普罗米修斯之火的思想碰撞概念图" loading="lazy"></div>
     </div>
+
+<section id="arena-debate-details" class="section-divider" aria-label="辩论详情" role="region">
+    <div style="text-align:center; margin-bottom: 48px;">
+        <h2 style="margin-top: 16px;">议题：炎帝之火 vs 普罗米修斯之火</h2>
+        <p class="muted">在此留下您的真知灼见，思想的火花将永存于宇宙的编年史中。</p>
+        <a href="#arena" class="btn ghost" style="margin-top: 16px;">返回擂台主页</a>
+    </div>
+
+    <div class="card" style="margin-bottom: 24px; text-align: center;">
+        <h4 id="stanceTitle" style="color: var(--muted); transition: color 0.3s ease;">选择你的立场，加入辩论！</h4>
+    </div>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="levstellar-commits/LW-Project-Main"
+        data-repo-id="R_kgDOP4VCdg"
+        data-category="General"
+        data-category-id="DIC_kwDOP4VCds4Cwx9t"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="transparent_dark"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+</section>
+
+
 </section>
 
 <section id="stories" class="module-stories section-divider">
@@ -3008,6 +3047,40 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     runtime();
   }
 })();
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 获取需要操作的元素
+    const joinYandiBtn = document.getElementById('joinYandi');
+    const joinPrometheusBtn = document.getElementById('joinPrometheus');
+    const stanceTitle = document.getElementById('stanceTitle');
+    const debateSection = document.getElementById('arena-debate-details');
+
+    // 为“加入正方”按钮添加点击事件
+    if (joinYandiBtn && stanceTitle && debateSection) {
+        joinYandiBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // 阻止默认的瞬间跳转行为
+            stanceTitle.innerHTML = '<span class="faction-icon" style="font-family: \'Noto Serif SC\', serif;">炎</span> 我的立场：正方 (炎帝之火)';
+            stanceTitle.style.color = 'var(--accent)';
+            // 平滑滚动到辩论区
+            debateSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    // 为“加入反方”按钮添加点击事件
+    if (joinPrometheusBtn && stanceTitle && debateSection) {
+        joinPrometheusBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // 阻止默认的瞬间跳转行为
+            stanceTitle.innerHTML = '<span class="faction-icon" style="font-family: \'Noto Serif SC\', serif;">P</span> 我的立场：反方 (普氏之火)';
+            stanceTitle.style.color = 'var(--accent2)';
+            // 平滑滚动到辩论区
+            debateSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+});
+
+
 </script>
 
 
