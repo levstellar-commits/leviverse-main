@@ -2904,10 +2904,179 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
   </div>
 </div>
     <div id="waline"></div>
-
-
-
 </section>
+
+
+
+<!-- 情绪缓冲区：从神话到人心（可直接粘入 index.html） -->
+<section id="emotion-bridge" aria-labelledby="bridge-title" style="box-sizing:border-box;">
+  <style>
+    /* --- 情绪缓冲区内联样式（可剪切到全局样式表） --- */
+    #emotion-bridge {
+      max-width: 980px;
+      margin: 56px auto;
+      padding: 36px 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+      color: #111;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* 标题小条 */
+    #emotion-bridge .bridge-head {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    #emotion-bridge .bar {
+      width:36px;
+      height:4px;
+      background:linear-gradient(90deg,#ff8a00,#ff3d81);
+      border-radius:2px;
+      flex: 0 0 auto;
+    }
+    #bridge-title {
+      font-size:18px;
+      line-height:1;
+      font-weight:600;
+      color:#222;
+      letter-spacing:0.2px;
+    }
+
+    /* 主体文本 */
+    #emotion-bridge .body {
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:24px;
+      align-items:start;
+    }
+    #emotion-bridge .copy {
+      font-size:15.5px;
+      color:#222;
+      line-height:1.65;
+    }
+    #emotion-bridge .copy p { margin: 0 0 12px; }
+    #emotion-bridge .copy p.lead {
+      font-weight:600;
+      color:#111;
+      font-size:17px;
+    }
+
+    /* 插图区 */
+    #emotion-bridge .art {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:stretch;
+    }
+    #emotion-bridge .hero {
+      width:100%;
+      height:220px;
+      border-radius:10px;
+      overflow:hidden;
+      background:#f3f3f3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#777;
+      font-size:14px;
+      position:relative;
+      box-shadow: 0 6px 20px rgba(18,18,18,0.06);
+    }
+    #emotion-bridge .hero img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    #emotion-bridge .thumb {
+      height:72px;
+      border-radius:8px;
+      overflow:hidden;
+      display:block;
+      background:#fafafa;
+      border:1px solid #eee;
+    }
+    #emotion-bridge .caption {
+      font-size:12px;
+      color:#666;
+      margin-top:6px;
+    }
+
+    /* 底部过渡标语 */
+    #emotion-bridge .cta {
+      margin-top:18px;
+      font-weight:600;
+      font-size:15px;
+      color:#111;
+    }
+    #emotion-bridge .muted {
+      display:block;
+      margin-top:8px;
+      color:#666;
+      font-size:13px;
+      font-weight:400;
+    }
+
+    /* 响应式：窄屏堆叠 */
+    @media (max-width:880px) {
+      #emotion-bridge {
+        padding:24px 18px;
+      }
+      #emotion-bridge .body {
+        grid-template-columns: 1fr;
+      }
+      #emotion-bridge .hero { height:160px; }
+      #emotion-bridge .thumb { height:64px; }
+    }
+  </style>
+
+  <div class="bridge-head">
+    <div class="bar" aria-hidden="true"></div>
+    <h2 id="bridge-title">—— 情绪缓冲区 · 从神话到人心</h2>
+  </div>
+
+  <div class="body">
+    <div class="copy" role="region" aria-label="情绪过渡文案">
+      <p class="lead">我们追问神话的起源，本质并非只为得知“事实”——而是为了给不安的人心一个落脚处。</p>
+
+      <p>古人在星空下围着火堆，借由神话来解释天地与命运；现代人在凌晨刷屏，借着聊天与已读去确认“我存在于谁的世界”。</p>
+
+      <p>这两种行为不是断裂，而是同源：都是人，在不同媒介、不同噪声中向外投问、向内寻安。那些未发出的讯息、反复编辑的一句“在吗？”，也许就是我们当代的微型神话。</p>
+
+      <p class="cta">于是——Human Romance Engine · 《都市情感奇遇记》正式启动。</p>
+      <span class="muted">下一个章节，将以更细腻的视角，带你进入城市里微小而真实的情感现场。</span>
+    </div>
+
+    <aside class="art" aria-hidden="false" aria-label="插图与视觉提示">
+      <!-- 大图（hero）占位：替换下面 <img> 的 src 或 data-src 为你的图像 URL -->
+      <figure class="hero" title="城市之夜与手机光">
+        <img
+          id="bridge-hero-img"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='100%25' height='100%25' fill='%23f3f3f3'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='16' fill='%23777'%3E插图占位：城市之夜 · 手机光%3C/text%3E%3C/svg%3E"
+          alt="插图：城市夜景与手机屏幕亮光，暗示个人情绪的光点与连线"
+          loading="lazy"
+        />
+      </figure>
+
+      <!-- 小缩略图：可作为装饰或系列图标 -->
+      <div style="display:flex;gap:10px;align-items:center;">
+        <div class="thumb">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='72'%3E%3Crect width='100%25' height='100%25' fill='%23fbfbfb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%23999'%3E图示占位：在吗？ 已读…%3C/text%3E%3C/svg%3E" alt="装饰图：信息气泡" />
+        </div>
+
+        <div style="flex:1;">
+          <div class="caption">从星火到屏光：情绪的传播方式改变了，期待与回应的形式却未曾远去。</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+
+
 
 <section id="stories" class="module-stories section-divider">
     <h2>Human Romance Engine · 《都市情感奇遇记》</h2>
