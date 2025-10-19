@@ -1775,6 +1775,127 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
+/* =====【新增】思想擂台比例条样式 ===== */
+.arena-progress-bar {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.progress-bar-yandi, .progress-bar-prometheus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-weight: 700;
+    font-size: 14px;
+    transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    white-space: nowrap;
+}
+.progress-bar-yandi {
+    background: rgba(var(--accent-rgb), 0.2);
+    color: var(--accent);
+    width: 50%;
+}
+.progress-bar-prometheus {
+    background: rgba(var(--accent2-rgb), 0.2);
+    color: var(--accent2);
+    width: 50%;
+}
+
+/* =====【新增】修正宣言板块按钮字体大小不一致的问题 ===== */
+#for-awards .btn {
+    font-size: 14px; /* 根据您现有的.btn.ghost样式，统一为14px */
+    vertical-align: middle; /* 确保垂直对齐 */
+}
+
+/* =====【新增】创作自述模块样式 ===== */
+.self-statement {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.statement-title {
+    font-family: 'Noto Serif SC', serif;
+    text-align: center;
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.statement-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.award-focus {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 12px;
+    border-radius: 8px;
+}
+.award-focus h5 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: var(--accent);
+}
+.award-focus p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0;
+}
+.statement-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+    .statement-grid {
+        grid-template-columns: 1fr; /* 手机上变为单列 */
+    }
+}
+
+
+/* =====【新增】作品阅览室弹窗样式 ===== */
+.work-sample-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.work-sample-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 15px;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 10px;
+    border-radius: 8px;
+}
+.work-sample-cover {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.work-sample-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+.work-sample-info p {
+    margin: 0;
+    font-size: 13px;
+}
+.work-sample-actions {
+    display: flex;
+    gap: 10px;
+}
+
 
   </style>
 
@@ -2519,10 +2640,33 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
             <div class="manifesto-grid-content">
                 <h3 style="font-size: 20px;">为雨果奖、星云奖、轨迹奖与银河奖：一份创作宣言</h3>
                 <p class="muted" style="margin-top: 12px; line-height: 1.7;">立维宇宙不仅是一个商业IP，更是一场<em>严肃的文学实验</em>。我们根植于东方神话的古老土壤，旨在探讨关于文明、记忆与存在等宏大命题。我们相信，真正伟大的幻想作品，是用想象力对现实提出的最深刻的质问。在此，我们呈上核心文学文本，诚邀您进入这个正在构建中的世界。</p>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
-                   <a class="btn ghost" href="/press/review-sample.pdf" download>下载评审样章 (PDF)</a>
-                   <a class="btn ghost" href="mailto:business@levythos.com?subject=Contact%20Creative%20Team">联系创作团队</a>
-                </div>
+
+
+<div class="self-statement">
+    <h4 class="statement-title">一份面向专业评审的创作自述</h4>
+    <div class="statement-grid">
+        <div class="award-focus">
+            <h5>致星云奖评委 (Nebula Awards)</h5>
+            <p>我们致力于探索叙事的文学性与人物弧光的深度，相信最硬核的科幻内核也需由最柔软的人类情感来驱动。</p>
+        </div>
+        <div class="award-focus">
+            <h5>致雨果奖评委 (Hugo Awards)</h5>
+            <p>作品旨在构建一个能引发广泛读者共鸣的幻想世界，探讨科技、神话与文明未来等宏大命题，追求想象力的边界。</p>
+        </div>
+        <div class="award-focus">
+            <h5>致轨迹奖评委 (Locus Awards)</h5>
+            <p>我们关注作品在读者社群中的口碑与影响力，力求在类型文学的深度与大众市场的接受度之间找到最佳平衡。</p>
+        </div>
+        <div class="award-focus">
+            <h5>致银河奖评委 (Galaxy Award)</h5>
+            <p>作品植根于东方神话的深厚土壤，以国际化视野进行重构，旨在为中文科幻注入承前启后的新生命力。</p>
+        </div>
+    </div>
+    <div class="statement-actions">
+        <button class="btn ghost" onclick="openReviewModal()">品读作品样章</button>
+        <a class="btn ghost" href="#creative-vision">阅读完整创作理念</a>
+    </div>
+</div>
             </div>
         </div>
     </div>
@@ -2531,7 +2675,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
             <h3>项目里程碑 (Roadmap)</h3>
             <p class="muted">我们正按计划推进宇宙的构建，每一个节点都是一个全新的起点。</p>
             <ul class="roadmap-timeline">
-                <li class="done"><strong>机构背书:</strong> 已入孵慈溪米创 (CXMC-20250328)</li>
+                <li class="done"><strong>机构背书:</strong> 已入孵慈溪米创</li>
                 <li class="done"><strong>基金提名:</strong> 《补天之城：上海2074》获上海文化基金提名 (2025)</li>
                 <li class="done"><strong>2024.Q4:</strong> 世界观核心架构完成</li>
                 <li class="done"><strong>2025.Q2:</strong> 核心文学作品《驹隙万秋》发布</li>
@@ -2670,6 +2814,18 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
                 </a>
             </div>
 
+<div class="arena-progress-bar">
+  <div id="faction-yandi-bar" class="progress-bar-yandi">
+    <span class="faction-name">正方 · 炎帝</span>
+    <span id="faction-yandi-percent" class="faction-percent">50%</span>
+  </div>
+  <div id="faction-prometheus-bar" class="progress-bar-prometheus">
+    <span id="faction-prometheus-percent" class="faction-percent">50%</span>
+    <span class="faction-name">反方 · 普罗米修斯</span>
+  </div>
+</div>
+
+
             <div class="arena-rules">
                 <h4>擂台规则</h4>
                 <ul style="padding-left: 20px; font-size: 14px; color: var(--muted);">
@@ -2797,7 +2953,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     <div class="co-builder-grid">
         <div class="co-builder-card">
             <div class="icon">策</div>
-            <h3>成为「策略伙伴」</h3>
+            <h3>成为「策略小伙伴」</h3>
             <p>面向企业与机构，我们提供IP授权、文旅项目联合开发、BIM/数字孪生技术整合等合作。我们寻求能将宇宙的叙事，转化为商业价值的同行者。</p>
             <a href="mailto:business@levythos.com?subject=策略合作咨询" class="btn ghost">获取合作蓝图</a>
         </div>
@@ -2829,15 +2985,70 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         <details style="margin-top: 24px; font-size: 13px; color: var(--muted); cursor: pointer;">
             <summary>项目元信息</summary>
             <p style="margin-top: 12px; padding: 12px; background: var(--card-bg); border-radius: 8px; line-height: 1.7;">
-            立维宇宙（Levythos）专注于“东方神话 + 未来科幻”的原创宇宙构建与 IP 孵化。核心作品包括《驹隙万秋》、《炎黄星曌：命外之人》与《补天之城：上海2074》。公司提供的可交付能力包含：作品版权授权、BIM / 数字孪生输出（Revit/IFC/glTF）、展陈工程交付、文创与周边衍生品授权、有声改编与多媒体改编对接。立维宇宙已完成企业入孵协议（慈溪米创，编号 CXMC-20250328），并有项目获得上海文化基金提名（补天之城，2025 年）。如需机构白皮书、样章或 RFP，请联系 business@levythos.com（或通过网站白皮书申请）。
+            立维宇宙（Levythos）专注于“东方神话 + 未来科幻”的原创宇宙构建与 IP 孵化。核心作品包括《驹隙万秋》、《炎黄星曌：命外之人》与《补天之城：上海2074》。公司提供的可交付能力包含：作品版权授权、BIM / 数字孪生输出（Revit/IFC/glTF）、展陈工程交付、文创与周边衍生品授权、有声改编与多媒体改编对接。立维宇宙已完成企业入孵协议（慈溪米创），并有项目获得上海文化基金提名（补天之城，2025 年）。如需机构白皮书、样章或 RFP，请联系 business@levythos.com（或通过网站白皮书申请）。
             </p>
         </details>
     </section>
 
+
+<div id="reviewModal" style="display:none; position:fixed; z-index:20000; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items:center; justify-content:center;">
+    <div id="reviewModalContent" style="background:var(--bg); border:1px solid rgba(255,255,255,0.1); padding:30px; border-radius:12px; width: min(800px, 90%); text-align:left; position:relative;">
+        <span onclick="closeReviewModal()" style="position:absolute; top:15px; right:20px; color:#aaa; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
+        <h3 style="margin-top:0; color:var(--accent); text-align:center; margin-bottom: 24px;">立维宇宙 · 作品选段阅览室</h3>
+
+        <div class="work-sample-list">
+            <div class="work-sample-item">
+                <img src="assets/images/cover_juxiwangqiu.jpg" alt="《驹隙万秋》封面" class="work-sample-cover">
+                <div class="work-sample-info">
+                    <h4>《驹隙万秋》</h4>
+                    <p class="muted">文明悬疑 · 2074 ↔ 上古 · 群像叙事</p>
+                </div>
+                <div class="work-sample-actions">
+                    <a href="works/juxiwanqiu.html" target="_blank" class="btn ghost btn-small">在线阅读</a>
+                    <a href="assets/samples/juxiwanqiu-sample.pdf" download class="btn ghost btn-small">下载样章</a>
+                </div>
+            </div>
+            <div class="work-sample-item">
+                <img src="assets/images/cover_yanhuangxingzhao.jpg" alt="《炎黄星曌》封面" class="work-sample-cover">
+                <div class="work-sample-info">
+                    <h4>《炎黄星曌：命外之人》</h4>
+                    <p class="muted">史诗级神话重构 · 三皇五帝视角</p>
+                </div>
+                <div class="work-sample-actions">
+                    <a href="works/yanhuangxingzhao.html" target="_blank" class="btn ghost btn-small">在线阅读</a>
+                    <a href="assets/samples/yanhuangxingzhao-sample.pdf" download class="btn ghost btn-small">下载样章</a>
+                </div>
+            </div>
+            <div class="work-sample-item">
+                <img src="assets/images/cover_butianzhicheng.jpg" alt="《补天之城》封面" class="work-sample-cover">
+                <div class="work-sample-info">
+                    <h4>《补天之城：上海2074》</h4>
+                    <p class="muted">都市科幻的补天议题</p>
+                </div>
+                <div class="work-sample-actions">
+                    <a href="works/butianzhicheng.html" target="_blank" class="btn ghost btn-small">在线阅读</a>
+                    <a href="assets/samples/butianzhicheng-sample.pdf" download class="btn ghost btn-small">下载样章</a>
+                </div>
+            </div>
+            </div>
+
+    </div>
+</div>
+
+
+<section id="creative-vision" class="section-divider" aria-label="创作理念">
+    <h2 style="text-align:center;">创作理念：在神话的灰烬中重建星辰</h2>
+    <p class="muted" style="max-width: 800px; margin: 16px auto; text-align: center;">
+        我们不满足于复述古老的故事，我们的使命是“考古未来”。我们深入挖掘东方乃至世界神话的底层结构——那些关于牺牲、秩序、反叛与归宿的通用原型，将它们作为构筑新世界的“物理法则”。立维宇宙的每一个角色、每一段历史，都是对“人类为何需要神话”这一终极问题的哲学探讨。我们希望通过严肃的幻想构建，邀请读者与我们一同思考文明在宇宙尺度下的脆弱与伟大。
+    </p>
+</section>
+
+
+
     <footer>
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 28px;">
             <div>
-              <div style="font-weight:700">Levythos · 立维宇宙 · Vigio Design · 维杰设计</div>
+              <div style="font-weight:700">LEVYTHOS· 立维宇宙 · VIGIO DESIGN · 维杰设计</div>
               <div class="muted" style="margin-top:6px">© 2025 Levythos Global · Vigio Planning & Architectural Design Co., Ltd. 保留所有权利。</div>
             </div>
             <div class="muted" style="font-size:13px">Global Creative HQ · Shanghai · business@levythos.com</div>
@@ -3174,10 +3385,84 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// =====【新增】思想擂台比例条交互逻辑 =====
+document.addEventListener('DOMContentLoaded', () => {
+    const joinYandiBtn = document.getElementById('joinYandi');
+    const joinPrometheusBtn = document.getElementById('joinPrometheus');
+    const yandiBar = document.getElementById('faction-yandi-bar');
+    const prometheusBar = document.getElementById('faction-prometheus-bar');
+    const yandiPercent = document.getElementById('faction-yandi-percent');
+    const prometheusPercent = document.getElementById('faction-prometheus-percent');
+    const debateSection = document.getElementById('arena-debate-details');
+
+    function updateProgressBar(yandiP, promeP) {
+        yandiBar.style.width = yandiP + '%';
+        prometheusBar.style.width = promeP + '%';
+        yandiPercent.textContent = yandiP + '%';
+        prometheusPercent.textContent = promeP + '%';
+    }
+
+    joinYandiBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // 阻止立即跳转
+        updateProgressBar(65, 35); // 模拟选择了正方后的比例
+        setTimeout(() => {
+            debateSection.scrollIntoView({ behavior: 'smooth' });
+        }, 1000); // 延迟1秒后滚动，让用户看到动画
+    });
+
+    joinPrometheusBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // 阻止立即跳转
+        updateProgressBar(35, 65); // 模拟选择了反方后的比例
+        setTimeout(() => {
+            debateSection.scrollIntoView({ behavior: 'smooth' });
+        }, 1000); // 延迟1秒后滚动
+    });
+});
+
+// =====【新增】样章下载弹窗的控制逻辑 =====
+const reviewModal = document.getElementById('reviewModal');
+function openReviewModal() {
+    reviewModal.style.display = 'flex';
+}
+function closeReviewModal() {
+    reviewModal.style.display = 'none';
+}
+// 点击弹窗外部区域也可关闭
+window.addEventListener('click', function(event) {
+    if (event.target == reviewModal) {
+        closeReviewModal();
+    }
+});
+
 </script>
 
 
+<script>
+    // ===== 版权保护脚本：禁止复制、右键和选择 =====
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault(); // 禁止右键菜单
+    });
 
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault(); // 禁止选择文本
+    });
+
+    document.addEventListener('keydown', function(e) {
+        // 禁止 Ctrl+C, Ctrl+A, Ctrl+S, Ctrl+U 等快捷键
+        if (e.ctrlKey && ('casu'.indexOf(e.key) !== -1)) {
+            e.preventDefault();
+        }
+    });
+
+    // 为正文内容区域增加不可选择的样式
+    const contentBody = document.querySelector('body'); // 您可以换成更精确的正文容器选择器，例如 #main-content
+    if (contentBody) {
+        contentBody.style.userSelect = 'none';
+        contentBody.style.webkitUserSelect = 'none'; // 兼容旧版浏览器
+    }
+</script>
 
 
 </body>
