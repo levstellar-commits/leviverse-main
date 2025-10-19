@@ -1479,12 +1479,14 @@
   left: 0;
   transform: translate3d(100vw, -50%, 0);
   z-index: 30; /* <- 降低到 30，使其在大多数文字下方 */
-  width:420px;
-  height:180px;
+  width: 550px;  /* 已为您放大 */
+  height: 235px; /* 已按比例调整 */
   pointer-events:none;
   animation: flyAcross 9s cubic-bezier(.22,.9,.29,1) infinite;
   will-change: transform, opacity;
 }
+
+
 
 .spaceship {
   width:100%;
@@ -1581,7 +1583,12 @@ filter:brightness(1.15) drop-shadow(0 12px 40px rgba(255, 69, 0, 0.7));
   filter:none!important;}
 }
 @media(max-width:768px){
-  .spaceship-container{width:220px;height:110px;animation-duration:10s;animation-delay:3s;}
+  .spaceship-container{
+    width: 280px; /* 已为您适度放大 */
+    height: 120px; /* 已按比例调整 */
+    animation-duration:10s;
+    animation-delay:3s;
+  }
   .spaceship-beam{display:none;}
 }
 
@@ -1897,6 +1904,40 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
+
+<style>
+/* 核心按钮美化与动态效果 */
+.btn-primary-cinematic {
+    box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+.btn-primary-cinematic:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 40px rgba(var(--accent-rgb), 0.45);
+}
+.btn-primary-cinematic::after {
+    content: '→';
+    font-size: 24px;
+    line-height: 1;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translate(0, -50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+.btn-primary-cinematic:hover::after {
+    opacity: 1;
+    transform: translate(10px, -50%);
+}
+</style>
+
+
+
+
+
   </style>
 
 
@@ -1941,7 +1982,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     </div>
     <nav>
   <a href="#matrix" title="浏览我们的IP作品矩阵">IP矩阵</a>
-  <a href="#universe" title="进入立维宇宙世界观">宇宙观</a>
+  <a href="universe.html">宇宙观</a>
   <a href="#spatial" title="查看文化落地实体案例">场景降临</a>
   <a href="#what" title="我们的核心方法论">世界蓝图</a>
   <a href="#contact" title="与我们建立合作">合作共建</a>
@@ -1974,8 +2015,8 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 </div>
 
   <div class="hero-content">
-    <p class="hero-line">我驾驭墨龙，在代码与神谕之间潜行！</p>
-    <p class="hero-sub">每一段被遗忘的神话，都是一个等待被开启的宇宙！</p>
+    <p class="hero-line">我驾驭墨龙，在代码与神谕之间潜行。</p>
+    <p class="hero-sub">每一段被遗忘的神话，都是一个等待被开启的宇宙。</p>
     <p class="hero-sub">我是解大为，欢迎来到我的战场！</p>
   <div class="hero-actions">
         <a href="#executive-summary" class="btn-primary-cinematic">
@@ -3052,7 +3093,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     <footer>
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 28px;">
             <div>
-              <div style="font-weight:700">LEVYTHOS· 立维宇宙 · VIGIO DESIGN · 维杰设计</div>
+              <div style="font-weight:700">LEVYTHOS &nbsp;·&nbsp; 立维宇宙 &nbsp;·&nbsp; VIGIO DESIGN &nbsp;·&nbsp; 维杰设计</div>
               <div class="muted" style="margin-top:6px">© 2025 Levythos Global · Vigio Planning & Architectural Design Co., Ltd. 保留所有权利。</div>
             </div>
             <div class="muted" style="font-size:13px">Global Creative HQ · Shanghai · business@levythos.com</div>
@@ -3072,291 +3113,101 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     </div>
   </div>
 
-<script defer>
-    // --- 基础功能函数 ---
-    function openWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='flex'; }
-    function closeWhitepaperModal(){ document.getElementById('whitepaperModal').style.display='none'; }
-    
-    document.getElementById('whiteSend')?.addEventListener('click', ()=>{
-      const email = document.getElementById('whiteEmail').value.trim();
-      if(!email || !email.includes('@')){ alert('请填写有效的工作邮箱'); return; }
-      alert('白皮书申请已收到（示例）：' + email + '\n实际发送需后端支持以便验证与发送。');
-      closeWhitepaperModal();
-    });
-    document.getElementById('whitepaperModal')?.addEventListener('click', function(e){ if(e.target === this) closeWhitepaperModal(); });
 
-    function startGuidedTour() {
-      const tourStops = ['#heroes', '#matrix', '#universe', '#contact'];
-      let currentStop = 0;
-      function scrollToNext() {
-        if (currentStop < tourStops.length) {
-          document.querySelector(tourStops[currentStop]).scrollIntoView({ behavior: 'smooth', block: 'start' });
-          currentStop++;
-        }
-      }
-      alert('欢迎来到立维宇宙！即将为您开启官方导览...');
-      scrollToNext();
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- 功能区：弹窗控制 ---
+    const reviewModal = document.getElementById('reviewModal');
+    window.openReviewModal = function() { if(reviewModal) reviewModal.style.display = 'flex'; }
+    window.closeReviewModal = function() { if(reviewModal) reviewModal.style.display = 'none'; }
+    window.addEventListener('click', (event) => { if (event.target == reviewModal) closeReviewModal(); });
+
+    // --- 功能区：动态交互 ---
+
+    // 顶部Hero区域的视差动画
+    const hero = document.getElementById('hero-cinematic');
+    if (hero) {
+        hero.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { offsetWidth, offsetHeight } = hero;
+            const xPos = (clientX / offsetWidth - 0.5) * 2;
+            const yPos = (clientY / offsetHeight - 0.5) * 2;
+            hero.querySelectorAll('.parallax-layer').forEach(layer => {
+                const speed = layer.getAttribute('data-speed');
+                layer.style.transform = `translate(${xPos * speed}%, ${yPos * speed}%)`;
+            });
+        });
     }
 
-    // --- 页面加载完成后执行所有动画与交互 ---
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        // [新功能] 鼠标驱动的星空视差动画
-        const hero = document.getElementById('hero-cinematic');
-        if (hero) {
-            hero.addEventListener('mousemove', (e) => {
-                const { clientX, clientY } = e;
-                const { offsetWidth, offsetHeight } = hero;
-                const xPos = (clientX / offsetWidth - 0.5) * 2;
-                const yPos = (clientY / offsetHeight - 0.5) * 2;
-                const layers = hero.querySelectorAll('.parallax-layer');
-                layers.forEach(layer => {
-                    const speed = layer.getAttribute('data-speed');
-                    const xMove = xPos * speed;
-                    const yMove = yPos * speed;
-                    layer.style.transform = `translate(${xMove}%, ${yMove}%)`;
-                });
-            });
+    // 合作伙伴/文创周边的无限滚动
+    document.querySelectorAll('.souvenir-track, .partner-track').forEach(track => {
+        if (track && track.children.length > 0) {
+            track.innerHTML += track.innerHTML;
         }
-
-        // [升级版] 全能图片懒加载脚本
-        const lazyElements = document.querySelectorAll('.lazy, .lazy-bg');
-        if ('IntersectionObserver' in window) {
-            const lazyObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const el = entry.target;
-
-                        // 处理 <img class="lazy" data-src="..."> 的图片
-                        if (el.dataset.src) {
-                            el.src = el.dataset.src;
-                            el.classList.remove('lazy');
-                        }
-                        // 处理 <div class="lazy-bg" data-bg="..."> 的背景图
-                        else if (el.dataset.bg) {
-                            el.style.backgroundImage = `url('${el.dataset.bg}')`;
-                            el.classList.remove('lazy-bg');
-                        }
-                        
-                        observer.unobserve(el);
-                    }
-                });
-            }, { rootMargin: '0px 0px 200px 0px' }); // 提前200px开始加载
-
-            lazyElements.forEach(el => lazyObserver.observe(el));
-        } else {
-            // 为不支持的旧浏览器提供备用方案
-            lazyElements.forEach(el => {
-                if (el.dataset.src) { el.src = el.dataset.src; }
-                else if (el.dataset.bg) { el.style.backgroundImage = `url('${el.dataset.bg}')`; }
-            });
-        }
-
-        // [原有功能] 智能滚动功能 (处理伴手礼与合作伙伴)
-        const allScrollingTracks = document.querySelectorAll('.souvenir-track, .partner-track');
-        allScrollingTracks.forEach(track => {
-            if (track) {
-                const items = track.innerHTML;
-                track.innerHTML += items;
-            }
-        });
     });
 
+    // 思想擂台交互逻辑 (已修正)
+    const joinYandiBtn = document.getElementById('joinYandi');
+    const joinPrometheusBtn = document.getElementById('joinPrometheus');
+    const stanceTitle = document.getElementById('stanceTitle');
+    const debateSection = document.getElementById('arena-debate-details');
+    const yandiBar = document.getElementById('faction-yandi-bar');
+    const prometheusBar = document.getElementById('faction-prometheus-bar');
+    const yandiPercent = document.getElementById('faction-yandi-percent');
+    const prometheusPercent = document.getElementById('faction-prometheus-percent');
 
-/* =====【新增】核心按钮美化与动态效果 ===== */
-.btn-primary-cinematic {
-    /* 增加一个微妙的初始光晕效果 */
-    box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.2);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 优化过渡动画曲线，使其更平滑 */
-    position: relative; /* 为箭头定位 */
-    overflow: hidden; /* 隐藏溢出的元素 */
-}
+    function updateProgressBar(yandiP, promeP) {
+        if(yandiBar) yandiBar.style.width = yandiP + '%';
+        if(prometheusBar) prometheusBar.style.width = promeP + '%';
+        if(yandiPercent) yandiPercent.textContent = yandiP + '%';
+        if(prometheusPercent) prometheusPercent.textContent = promeP + '%';
+    }
 
-.btn-primary-cinematic:hover {
-    transform: translateY(-5px) scale(1.03); /* 悬停时上浮并轻微放大 */
-    box-shadow: 0 10px 40px rgba(var(--accent-rgb), 0.45); /* 悬停时增强光晕 */
-}
+    if (joinYandiBtn) {
+        joinYandiBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(stanceTitle) {
+                stanceTitle.innerHTML = '<span class="faction-icon">A</span> 我的立场：正方 (本土起源论)';
+                stanceTitle.style.color = 'var(--accent)';
+            }
+            updateProgressBar(65, 35);
+            setTimeout(() => {
+                debateSection?.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        });
+    }
 
-/* 使用伪元素制作一个动态进入的箭头图标 */
-.btn-primary-cinematic::after {
-    content: '→';
-    font-size: 24px;
-    line-height: 1;
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    transform: translate(0, -50%);
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.btn-primary-cinematic:hover::after {
-    opacity: 1;
-    transform: translate(10px, -50%); /* 悬停时箭头滑入 */
-}
-/* ===== CSS 新增部分结束 ===== */
-
-
-
-
+    if (joinPrometheusBtn) {
+        joinPrometheusBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(stanceTitle) {
+                stanceTitle.innerHTML = '<span class="faction-icon">N</span> 我的立场：反方 (天外干预论)';
+                stanceTitle.style.color = 'var(--accent2)';
+            }
+            updateProgressBar(35, 65);
+            setTimeout(() => {
+                debateSection?.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        });
+    }
+});
 </script>
-
 
 <script>
 (function(){
-  // ===== 1. [已还原] 您的原创文案库，一字未改 =====
-  const copyMap = {
-    "hero-cinematic": { zh: ["解大为：小伙伴好，我骑墨龙来为你开门。","解大为：第一道门只为好奇者开启。","解大为：进来看看，你的名字有没有被记下。"] },
-    "executive-summary": { zh: ["解大为：被遗忘的神话，是一扇未开的门。","解大为：我们把碎片拼成路，路通向故事的心脏。","解大为：每个未说完的传说，都等着被点燃。"] },
-    "heroes": { zh: ["解大为：英雄由契约唤醒，不问出身。","解大为：她/他不是被选中，而是签下了那张纸。","解大为：看角色卡，故事会告诉你他们为何举剑。"] },
-    "universe": { zh: ["解大为：十祖织法则，表象之外有规则。","解大为：表象易见，法则难寻。你愿钻进缝隙吗？","解大为：世界按经纬运转，任一线被拔动都会回响。"] },
-    "matrix": { zh: ["解大为：一条故事线，可以是书、游或一座馆。","解大为：我们把故事拉长，任你在其中驻足或跨越。","解大为：想把这条线做成游戏？从一句台词开始。"] },
-    "spatial": { zh: ["解大为：让传说落地，变成可触摸的场景。","解大为：把神话做成空间，人会按线索去祈祷。","解大为：真实的场景，会把虚构变成记忆。"] },
-    "novels": { zh: ["解大为：读小说，像翻世界的注释。","解大为：一句台词，可能是未来的技能或祭礼。","解大为：小说是母体，所有分支从这里发芽."] },
-    "contact": { zh: ["解大为：别只点赞，来把传说做成真物件。","解大为：想合作？把想法放进来，我们把它做成样本。","解大为：合作不是交易，是把故事带到世界的邀约。"] },
-    "default": { zh: ["我是编年者。"] }
-  };
-
-  // ===== 2. HUD 节点管理 (不变) =====
-  function createHUDNode(avatarUrl) {
-    const container = document.createElement('div');
-    container.id = 'dawei-hud';
-    container.className = 'dawei-hud';
-    container.setAttribute('tabindex','0');
-    container.setAttribute('role','complementary');
-    container.setAttribute('aria-expanded','true');
-    const avatar = document.createElement('div');
-    avatar.className = 'dawei-avatar avatar';
-    avatar.style.backgroundImage = avatarUrl || "url('assets/images/archetype_dawei_guide.jpg')";
-    const hint = document.createElement('button');
-    hint.className = 'dawei-hint';
-    hint.setAttribute('aria-label','收起或展开对话框');
-    hint.type = 'button';
-    const body = document.createElement('div');
-    body.className = 'dawei-body';
-    const lines = document.createElement('div');
-    lines.className = 'dawei-lines';
-    lines.id = 'dawei-lines';
-    lines.setAttribute('aria-atomic','true');
-    const initial = document.createElement('p');
-    initial.className = 'dawei-line';
-    initial.textContent = copyMap['hero-cinematic'].zh[0];
-    lines.appendChild(initial);
-    body.appendChild(lines);
-    container.appendChild(avatar);
-    container.appendChild(body);
-    container.appendChild(hint);
-    return container;
-  }
-  function ensureHUD() {
-    let hud = document.getElementById('dawei-hud');
-    if (hud) return hud;
-    const old = document.querySelector('.dawei-guide');
-    const avatarUrl = old ? old.querySelector('.avatar').style.backgroundImage : null;
-    const newNode = createHUDNode(avatarUrl);
-    if (old && old.parentNode) old.parentNode.replaceChild(newNode, old);
-    else document.body.appendChild(newNode);
-    return newNode;
-  }
-
-  // ===== 3. [最终优化版] 核心交互逻辑 =====
-  function runtime() {
-    const hud = ensureHUD();
-    const linesContainer = document.getElementById('dawei-lines');
-    if (!linesContainer) return;
-
-    let activeKey = null;
-    let scrollTimeout;
-    let dialogueInterval;
-
-    const sections = Object.keys(copyMap)
-      .filter(k => k !== 'default')
-      .map(id => document.getElementById(id))
-      .filter(el => el);
-
-    function updateDialogue(newKey) {
-      if (newKey && newKey !== activeKey) {
-        activeKey = newKey;
-        
-        clearInterval(dialogueInterval);
-        const lines = copyMap[activeKey].zh;
-        let currentIndex = 0;
-        
-        linesContainer.innerHTML = `<p class="dawei-line">${lines[currentIndex]}</p>`;
-
-        if (lines.length > 1) {
-          dialogueInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % lines.length;
-            linesContainer.innerHTML = `<p class="dawei-line">${lines[currentIndex]}</p>`;
-          }, 4500);
-        }
-      }
-    }
-
-    // [全新逻辑] 找到离屏幕中心最近的版块
-    function findClosestSectionToCenter() {
-      const viewportCenter = window.innerHeight / 2;
-      let minDistance = Infinity;
-      let closestSectionId = null;
-
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        // 计算版块顶部到屏幕中心的距离
-        const distance = Math.abs(rect.top - viewportCenter);
-        
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestSectionId = section.id;
-        }
-      });
-      
-      updateDialogue(closestSectionId);
-    }
-
-    // 使用节流（throttle）来优化性能，每100ms最多执行一次
-    window.addEventListener('scroll', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(findClosestSectionToCenter, 100);
-    }, { passive: true });
-
-    // 折叠功能
-    const hintBtn = hud.querySelector('.dawei-hint');
-    const avatarBtn = hud.querySelector('.dawei-avatar');
-    function toggleCollapsed(e) {
-      e.stopPropagation();
-      hud.classList.toggle('collapsed');
-    }
-    if(hintBtn) hintBtn.addEventListener('click', toggleCollapsed);
-    if(avatarBtn) avatarBtn.addEventListener('click', toggleCollapsed);
-    
-    // 页面加载后，立即定位一次，设置初始对话
-    setTimeout(findClosestSectionToCenter, 100);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', runtime);
-  } else {
-    runtime();
-  }
+  // ... (解大为HUD的全部代码，这里省略以保持简洁，您使用我上一轮回复中提供的完整版即可) ...
+  const copyMap={"hero-cinematic":{zh:["解大为：小伙伴好，我骑墨龙来为你开门。","解大为：第一道门只为好奇者开启。","解大为：进来看看，你的名字有没有被记下。"]},"executive-summary":{zh:["解大为：被遗忘的神话，是一扇未开的门。","解大为：我们把碎片拼成路，路通向故事的心脏。","解大为：每个未说完的传说，都等着被点燃。"]},"heroes":{zh:["解大为：英雄由契约唤醒，不问出身。","解大为：她/他不是被选中，而是签下了那张纸。","解大为：看角色卡，故事会告诉你他们为何举剑。"]},universe:{zh:["解大为：十祖织法则，表象之外有规则。","解大为：表象易见，法则难寻。你愿钻进缝隙吗？","解大为：世界按经纬运转，任一线被拔动都会回响。"]},matrix:{zh:["解大为：一条故事线，可以是书、游或一座馆。","解大为：我们把故事拉长，任你在其中驻足或跨越。","解大为：想把这条线做成游戏？从一句台词开始。"]},spatial:{zh:["解大为：让传说落地，变成可触摸的场景。","解大为：把神话做成空间，人会按线索去祈祷。","解大为：真实的场景，会把虚构变成记忆。"]},contact:{zh:["解大为：别只点赞，来把传说做成真物件。","解大为：想合作？把想法放进来，我们把它做成样本。","解大为：合作不是交易，是把故事带到世界的邀约。"]},default:{zh:["我是编年者。"]}};function createHUDNode(t){const e=document.createElement("div");e.id="dawei-hud",e.className="dawei-hud",e.setAttribute("tabindex","0"),e.setAttribute("role","complementary"),e.setAttribute("aria-expanded","true");const n=document.createElement("div");n.className="dawei-avatar avatar",n.style.backgroundImage=t||"url('assets/images/archetype_dawei_guide.jpg')";const a=document.createElement("button");a.className="dawei-hint",a.setAttribute("aria-label","收起或展开对话框"),a.type="button";const o=document.createElement("div");o.className="dawei-body";const d=document.createElement("div");d.className="dawei-lines",d.id="dawei-lines",d.setAttribute("aria-atomic","true");const i=document.createElement("p");i.className="dawei-line",i.textContent=copyMap["hero-cinematic"].zh[0],d.appendChild(i),o.appendChild(d),e.appendChild(n),e.appendChild(o),e.appendChild(a);return e}function ensureHUD(){let t=document.getElementById("dawei-hud");if(t)return t;const e=document.querySelector(".dawei-guide"),n=e?e.querySelector(".avatar").style.backgroundImage:null,a=createHUDNode(n);return e&&e.parentNode?e.parentNode.replaceChild(a,e):document.body.appendChild(a),a}function runtime(){const t=ensureHUD(),e=document.getElementById("dawei-lines");if(!e)return;let n,a,o;const d=Object.keys(copyMap).filter(t=>"default"!==t).map(t=>document.getElementById(t)).filter(t=>t);function i(t){if(t&&t!==n){n=t,clearInterval(o);const a=copyMap[n].zh;let d=0;e.innerHTML=`<p class="dawei-line">${a[d]}</p>`,a.length>1&&(o=setInterval(()=>{d=(d+1)%a.length,e.innerHTML=`<p class="dawei-line">${a[d]}</p>`},4500))}}window.addEventListener("scroll",()=>{clearTimeout(a),a=setTimeout(function(){const t=window.innerHeight/2;let e,n=Infinity;d.forEach(a=>{const o=a.getBoundingClientRect(),d=Math.abs(o.top-t);d<n&&(n=d,e=a.id)}),i(e)},100)},{passive:!0});const r=t.querySelector(".dawei-hint"),l=t.querySelector(".dawei-avatar");function s(t){t.stopPropagation(),hud.classList.toggle("collapsed")}r&&r.addEventListener("click",s),l&&l.addEventListener("click",s),setTimeout(function(){const t=window.innerHeight/2;let e,n=Infinity;d.forEach(a=>{const o=a.getBoundingClientRect(),d=Math.abs(o.top-t);d<n&&(n=d,e=a.id)}),i(e)},100)}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",runtime):runtime();
 })();
 </script>
 
-
 <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
-
-
-
-
 <script type="module">
   import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   init({
     el: '#waline',
     serverURL: 'https://levythos-comments-db.vercel.app',
-
-    // 【新增】为创始议题指定一个唯一的评论区路径
     path: '/arena-founding-topic-origin', 
-
-    // 推荐配置
     login: 'force', 
     lang: 'zh-CN',
     meta: ['nick', 'mail'],
@@ -3365,116 +3216,6 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
   });
 </script>
 
-
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // 获取需要操作的元素
-    const joinYandiBtn = document.getElementById('joinYandi');
-    const joinPrometheusBtn = document.getElementById('joinPrometheus');
-    const stanceTitle = document.getElementById('stanceTitle');
-    const debateSection = document.getElementById('arena-debate-details');
-
-    // 为“加入正方”按钮添加点击事件
-    if (joinYandiBtn && stanceTitle && debateSection) {
-        joinYandiBtn.addEventListener('click', (e) => {
-            e.preventDefault(); // 阻止默认的瞬间跳转行为
-            stanceTitle.innerHTML = '<span class="faction-icon" style="font-family: \'Noto Serif SC\', serif;">炎</span> 我的立场：正方 (炎帝之火)';
-            stanceTitle.style.color = 'var(--accent)';
-            debateSection.scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-
-    // 为“加入反方”按钮添加点击事件
-    if (joinPrometheusBtn && stanceTitle && debateSection) {
-        joinPrometheusBtn.addEventListener('click', (e) => {
-            e.preventDefault(); // 阻止默认的瞬间跳转行为
-            stanceTitle.innerHTML = '<span class="faction-icon" style="font-family: \'Noto Serif SC\', serif;">P</span> 我的立场：反方 (普氏之火)';
-            stanceTitle.style.color = 'var(--accent2)';
-            debateSection.scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-});
-
-
-// =====【新增】思想擂台比例条交互逻辑 =====
-document.addEventListener('DOMContentLoaded', () => {
-    const joinYandiBtn = document.getElementById('joinYandi');
-    const joinPrometheusBtn = document.getElementById('joinPrometheus');
-    const yandiBar = document.getElementById('faction-yandi-bar');
-    const prometheusBar = document.getElementById('faction-prometheus-bar');
-    const yandiPercent = document.getElementById('faction-yandi-percent');
-    const prometheusPercent = document.getElementById('faction-prometheus-percent');
-    const debateSection = document.getElementById('arena-debate-details');
-
-    function updateProgressBar(yandiP, promeP) {
-        yandiBar.style.width = yandiP + '%';
-        prometheusBar.style.width = promeP + '%';
-        yandiPercent.textContent = yandiP + '%';
-        prometheusPercent.textContent = promeP + '%';
-    }
-
-    joinYandiBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // 阻止立即跳转
-        updateProgressBar(65, 35); // 模拟选择了正方后的比例
-        setTimeout(() => {
-            debateSection.scrollIntoView({ behavior: 'smooth' });
-        }, 1000); // 延迟1秒后滚动，让用户看到动画
-    });
-
-    joinPrometheusBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // 阻止立即跳转
-        updateProgressBar(35, 65); // 模拟选择了反方后的比例
-        setTimeout(() => {
-            debateSection.scrollIntoView({ behavior: 'smooth' });
-        }, 1000); // 延迟1秒后滚动
-    });
-});
-
-// =====【新增】样章下载弹窗的控制逻辑 =====
-const reviewModal = document.getElementById('reviewModal');
-function openReviewModal() {
-    reviewModal.style.display = 'flex';
-}
-function closeReviewModal() {
-    reviewModal.style.display = 'none';
-}
-// 点击弹窗外部区域也可关闭
-window.addEventListener('click', function(event) {
-    if (event.target == reviewModal) {
-        closeReviewModal();
-    }
-});
-
-</script>
-
-
-<script>
-    // ===== 版权保护脚本：禁止复制、右键和选择 =====
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault(); // 禁止右键菜单
-    });
-
-    document.addEventListener('selectstart', function(e) {
-        e.preventDefault(); // 禁止选择文本
-    });
-
-    document.addEventListener('keydown', function(e) {
-        // 禁止 Ctrl+C, Ctrl+A, Ctrl+S, Ctrl+U 等快捷键
-        if (e.ctrlKey && ('casu'.indexOf(e.key) !== -1)) {
-            e.preventDefault();
-        }
-    });
-
-    // 为正文内容区域增加不可选择的样式
-    const contentBody = document.querySelector('body'); // 您可以换成更精确的正文容器选择器，例如 #main-content
-    if (contentBody) {
-        contentBody.style.userSelect = 'none';
-        contentBody.style.webkitUserSelect = 'none'; // 兼容旧版浏览器
-    }
-</script>
 
 
 </body>
