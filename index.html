@@ -1932,10 +1932,13 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     opacity: 1;
     transform: translate(10px, -50%);
 }
-</style>
 
 
-
+/* 新增规则：强制“创作宣言”的图片显示为 1:1 比例 */
+.manifesto-grid-visual img {
+    aspect-ratio: 1 / 1; 
+    height: auto !important; /* 确保 aspect-ratio 能覆盖原有的 height: 100% 逻辑 */
+}
 
 
   </style>
@@ -2054,96 +2057,146 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         </div>
     </section>
 
-    <section id="heroes" aria-label="角色库" role="region">
-        <h2>与传奇相遇</h2>
-        <p class="muted">从核心角色到周边配角，我们为每个角色定义视觉设定、商业延展与故事触点。他们不只是画像，而是等待被唤醒的灵魂。</p>
+    
+
+<section id="heroes" aria-label="角色库" role="region">
+    
+    <h2>与传奇相遇</h2>
+    <p class="muted">从核心角色到周边配角，我们为每个角色定义视觉设定、商业延展与故事触点。他们不只是画像，而是等待被唤醒的灵魂。</p>
+    
+    <div class="four-cols">
+        <div class="hero-card">
+            <a href="characters/luxiaoyun.html">
+                <div class="pic" style="background-image: url('assets/images/char_luxiaoyun.jpg');" aria-label="路霄雲角色形象"></div>
+            </a>
+            <div class="name">路霄雲</div>
+            <div class="role muted">远行者</div>
+            <p class="muted" style="font-size:12px;
+margin-top:8px;">来自<a href="#novels">《驹隙万秋》</a>的未来，他的出现本身就是一个待解的谜团。</p>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="characters/luxiaoyun.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
         
-        <div class="four-cols">
-            <div class="hero-card">
-                <a href="characters/luxiaoyun.html"><img class="pic" src="assets/images/char_luxiaoyun.jpg" alt="路霄雲" loading="lazy"></a>
-                <div class="name">路霄雲</div>
-                <div class="role muted">远行者</div>
-                <p class="muted" style="font-size:12px; margin-top:8px;">来自<a href="#novels">《驹隙万秋》</a>的未来，他的出现本身就是一个待解的谜团。</p>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="characters/luxiaoyun.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-            <div class="hero-card">
-                <a href="characters/yulingxuan.html"><img class="pic" src="assets/images/char_yulingxuan.jpg" alt="羽菱萱" loading="lazy"></a>
-                <div class="name">羽菱萱</div>
-                <div class="role muted">风语者</div>
-                <p class="muted" style="font-size:12px; margin-top:8px;">她的能力连接着数字风暴与远古的记忆微粒，是新旧世界的信使。</p>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="characters/yulingxuan.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-            <div class="hero-card">
-                <a href="characters/haishixin.html"><img class="pic" src="assets/images/char_haishixin.jpg" alt="海世鑫" loading="lazy"></a>
-                <div class="name">海世鑫</div>
-                <div class="role muted">海域行者</div>
-                <p class="muted" style="font-size:12px; margin-top:8px;">在“归墟”中探索未知航线，他的船承载着失落的文明碎片。</p>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="characters/haishixin.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-            <div class="hero-card">
-                <a href="characters/lanqianduo.html"><img class="pic" src="assets/images/char_lanqianduo.jpg" alt="蓝千朵" loading="lazy"></a>
-                <div class="name">蓝千朵</div>
-                <div class="role muted">庭园守望</div>
-                <p class="muted" style="font-size:12px; margin-top:8px;">她守护的不仅是赛博园林，更是人类情感的最后一片“自然”样本。</p>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="characters/lanqianduo.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-            <div class="hero-card">
-                <a href="characters/jiangyanming.html"><img class="pic" src="assets/images/char_jiangyanming.jpg" alt="姜炎洺" loading="lazy"></a>
-                <div class="name">姜炎洺</div>
-                <div class="role muted">时间之眼 · 破局者</div>
-                <p class="muted" style="font-size:12px; margin-top:8px;">他的旅程与“<a href="#themes">炎帝之火</a>”的哲学思辨紧密相连，迫使他在创造与毁灭间做出抉择。</p>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="characters/jiangyanming.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-            <div class="hero-card">
-                <a href="characters/lanxi.html"><img class="pic" src="assets/images/char_lanxi.jpg" alt="澜熙" loading="lazy"></a>
-                <div class="name">澜熙</div>
-                <div class="role muted">神祇后裔 · 记忆行者</div>
-                <p class="muted" style="font-size:12px; margin-top:8px;">作为神话的守护者，她必须在保护与重写文明记忆的悖论中寻找真相。</p>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="characters/lanxi.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-            <div class="hero-card">
-                <a href="characters/mochuan.html"><img class="pic" src="assets/images/char_mochuan.jpg" alt="墨氚" loading="lazy"></a>
-                <div class="name">墨氚</div>
-                <div class="role muted">迷之浪者</div>
-                <p class="muted" style="font-size:12px; margin-top:8px;">他相信一切皆可怀疑，包括命运。但他自己错综复杂的过去，能否揭开真相？</p>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="characters/mochuan.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-            <div class="hero-card">
-                <a href="characters/ruihan.html"><img class="pic" src="assets/images/char_ruihan.jpg" alt="蕊琀" loading="lazy"></a>
-                <div class="name">蕊琀</div>
-                <div class="role muted">线索守护者</div>
-                <p class="muted" style="font-size:12px; margin-top:8px;">“历史中没有偶然。” 她于尘封的档案中追寻蛛丝马迹，揭示被掩盖的联系。</p>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="characters/ruihan.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
+        <div class="hero-card">
+            <a href="characters/yulingxuan.html">
+                <div class="pic" style="background-image: url('assets/images/char_yulingxuan.jpg');" aria-label="羽菱萱角色形象"></div>
+            </a>
+            <div class="name">羽菱萱</div>
+            <div class="role muted">风语者</div>
+            <p class="muted" style="font-size:12px; margin-top:8px;">她的能力连接着数字风暴与远古的记忆微粒，是新旧世界的信使。</p>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="characters/yulingxuan.html" class="btn ghost btn-small">查看简介</a></div>
         </div>
-        <h3 style="margin-top: 36px;">宇宙萌宠</h3>
-        <div class="four-cols">
-             <div class="mascot-card">
-                <a href="pets/xingling.html"><img class="pic" src="assets/images/mascot_xingling.jpg" alt="星灵" loading="lazy"></a>
-                <div class="name">星灵</div>
-                <div class="role muted">星域萌宠 · AR体验</div>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="pets/xingling.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-             <div class="mascot-card">
-                <a href="pets/lidudu.html"><img class="pic" src="assets/images/mascot_lidudu.jpg" alt="狸嘟嘟" loading="lazy"></a>
-                <div class="name">狸嘟嘟</div>
-                <div class="role muted">田园守望 · 周边</div>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="pets/lidudu.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-             <div class="mascot-card">
-                <a href="pets/shixiaosheng.html"><img class="pic" src="assets/images/mascot_shixiaosheng.jpg" alt="石小圣" loading="lazy"></a>
-                <div class="name">石小圣</div>
-                <div class="role muted">花果山的小怪 · 收藏</div>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
-             <div class="mascot-card">
-                <a href="pets/xuanshuibaobao.html"><img class="pic" src="assets/images/mascot_xuanshuibaobao.jpg" alt="玄水宝宝" loading="lazy"></a>
-                <div class="name">玄水宝宝</div>
-                <div class="role muted">数字生命 · 互动</div>
-                <div style="margin-top: auto; padding-top: 10px;"><a href="pets/xuanshuibaobao.html" class="btn ghost btn-small">查看简介</a></div>
-            </div>
+        
+        <div class="hero-card">
+            <a href="characters/haishixin.html">
+                <div class="pic" style="background-image: url('assets/images/char_haishixin.jpg');" aria-label="海世鑫角色形象"></div>
+            </a>
+            <div class="name">海世鑫</div>
+            <div class="role muted">海域行者</div>
+            <p class="muted" style="font-size:12px; margin-top:8px;">在“归墟”中探索未知航线，他的船承载着失落的文明碎片。</p>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="characters/haishixin.html" class="btn ghost btn-small">查看简介</a></div>
         </div>
-    </section>
+        
+        <div class="hero-card">
+            <a href="characters/lanqianduo.html">
+                <div class="pic" style="background-image: url('assets/images/char_lanqianduo.jpg');" aria-label="蓝千朵角色形象"></div>
+            </a>
+            <div class="name">蓝千朵</div>
+            <div class="role muted">庭园守望</div>
+            <p class="muted" style="font-size:12px; margin-top:8px;">她守护的不仅是赛博园林，更是人类情感的最后一片“自然”样本。</p>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="characters/lanqianduo.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+        
+        <div class="hero-card">
+            <a href="characters/jiangyanming.html">
+                <div class="pic" style="background-image: url('assets/images/char_jiangyanming.jpg');" aria-label="姜炎洺角色形象"></div>
+            </a>
+            <div class="name">姜炎洺</div>
+            <div class="role muted">时间之眼 · 破局者</div>
+            <p class="muted" style="font-size:12px; margin-top:8px;">他的旅程与“<a href="#themes">炎帝之火</a>”的哲学思辨紧密相连，迫使他在创造与毁灭间做出抉择。</p>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="characters/jiangyanming.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+        
+        <div class="hero-card">
+            <a href="characters/lanxi.html">
+                <div class="pic" style="background-image: url('assets/images/char_lanxi.jpg');" aria-label="澜熙角色形象"></div>
+            </a>
+            <div class="name">澜熙</div>
+            <div class="role muted">神祇后裔 · 记忆行者</div>
+            <p class="muted" style="font-size:12px; margin-top:8px;">作为神话的守护者，她必须在保护与重写文明记忆的悖论中寻找真相。</p>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="characters/lanxi.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+        
+        <div class="hero-card">
+            <a href="characters/mochuan.html">
+                <div class="pic" style="background-image: url('assets/images/char_mochuan.jpg');" aria-label="墨氚角色形象"></div>
+            </a>
+            <div class="name">墨氚</div>
+            <div class="role muted">迷之浪者</div>
+            <p class="muted" style="font-size:12px; margin-top:8px;">他相信一切皆可怀疑，包括命运。但他自己错综复杂的过去，能否揭开真相？</p>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="characters/mochuan.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+        
+        <div class="hero-card">
+            <a href="characters/ruihan.html">
+                <div class="pic" style="background-image: url('assets/images/char_ruihan.jpg');" aria-label="蕊琀角色形象"></div>
+            </a>
+            <div class="name">蕊琀</div>
+            <div class="role muted">线索守护者</div>
+            <p class="muted" style="font-size:12px; margin-top:8px;">“历史中没有偶然。” 她于尘封的档案中追寻蛛丝马迹，揭示被掩盖的联系。</p>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="characters/ruihan.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+    </div>
+    
+    <h3 style="margin-top: 36px;">宇宙萌宠</h3>
+    <div class="four-cols">
+         <div class="mascot-card">
+            <a href="pets/xingling.html">
+                <div class="pic" style="background-image: url('assets/images/mascot_xingling.jpg');" aria-label="星灵萌宠形象"></div>
+            </a>
+            <div class="name">星灵</div>
+            <div class="role muted">星域萌宠 · AR体验</div>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="pets/xingling.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+        
+         <div class="mascot-card">
+            <a href="pets/lidudu.html">
+                <div class="pic" style="background-image: url('assets/images/mascot_lidudu.jpg');" aria-label="狸嘟嘟萌宠形象"></div>
+            </a>
+            <div class="name">狸嘟嘟</div>
+            <div class="role muted">田园守望 · 周边</div>
+            <div style="margin-top: auto; padding-top: 10px;"><a href="pets/lidudu.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+        
+         <div class="mascot-card">
+            <a href="pets/shixiaosheng.html">
+                <div class="pic" style="background-image: url('assets/images/mascot_shixiaosheng.jpg');" aria-label="石小圣萌宠形象"></div>
+            </a>
+            <div class="name">石小圣</div>
+            <div class="role muted">花果山的小怪 · 收藏</div>
+            <div style="margin-top: auto;
+padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+        
+         <div class="mascot-card">
+            <a href="pets/xuanshuibaobao.html">
+                <div class="pic" style="background-image: url('assets/images/mascot_xuanshuibaobao.jpg');" aria-label="玄水宝宝萌宠形象"></div>
+            </a>
+            <div class="name">玄水宝宝</div>
+            <div class="role muted">数字生命 · 互动</div>
+            <div style="margin-top: auto; padding-top: 10px;"><a href="pets/xuanshuibaobao.html" class="btn ghost btn-small">查看简介</a></div>
+        </div>
+    </div>
+</section>
+
 
 <section id="matrix" class="section-divider" aria-label="叙事孵化器" role="region">
     <h2>IP矩阵：从文字到多维体验</h2>
@@ -2908,172 +2961,130 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
-<!-- 情绪缓冲区：从神话到人心（可直接粘入 index.html） -->
-<section id="emotion-bridge" aria-labelledby="bridge-title" style="box-sizing:border-box;">
+
+
+<!-- BRIDGE: 从天问到耳畔 — 情绪缓冲区（直接粘入 index.html） -->
+<section id="bridge-immersive-full" aria-labelledby="bridge-immersive-title">
   <style>
-    /* --- 情绪缓冲区内联样式（可剪切到全局样式表） --- */
-    #emotion-bridge {
-      max-width: 980px;
-      margin: 56px auto;
-      padding: 36px 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-      border-radius: 12px;
-      backdrop-filter: blur(4px);
-      color: #111;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    :root {
+      --bridge-bg: #ffffff;
+      --bridge-panel: rgba(255,255,255,0.9);
+      --bridge-card: linear-gradient(180deg,#fff,#fbfbff);
+      --bridge-text: #111;
+      --bridge-muted: #666;
+      --bridge-accent-1: #ff8a00;
+      --bridge-accent-2: #ff3d81;
+      --bridge-radius: 12px;
+      --bridge-shadow: 0 8px 30px rgba(10,10,10,0.06);
+      --bridge-maxw: 1080px;
+      --bridge-gap: 20px;
+      --bridge-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    /* 标题小条 */
-    #emotion-bridge .bridge-head {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:18px;
-    }
-    #emotion-bridge .bar {
-      width:36px;
-      height:4px;
-      background:linear-gradient(90deg,#ff8a00,#ff3d81);
-      border-radius:2px;
-      flex: 0 0 auto;
-    }
-    #bridge-title {
-      font-size:18px;
-      line-height:1;
-      font-weight:600;
-      color:#222;
-      letter-spacing:0.2px;
+    #bridge-immersive-full{
+      box-sizing:border-box;
+      max-width:var(--bridge-maxw);
+      margin:56px auto;
+      padding:28px;
+      background:var(--bridge-panel);
+      border-radius:var(--bridge-radius);
+      box-shadow:var(--bridge-shadow);
+      font-family:var(--bridge-font);
+      color:var(--bridge-text);
     }
 
-    /* 主体文本 */
-    #emotion-bridge .body {
-      display:grid;
-      grid-template-columns: 1fr 360px;
-      gap:24px;
-      align-items:start;
-    }
-    #emotion-bridge .copy {
-      font-size:15.5px;
-      color:#222;
-      line-height:1.65;
-    }
-    #emotion-bridge .copy p { margin: 0 0 12px; }
-    #emotion-bridge .copy p.lead {
-      font-weight:600;
-      color:#111;
-      font-size:17px;
-    }
+    .head { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+    .accent { width:40px; height:4px; border-radius:2px; background:linear-gradient(90deg,var(--bridge-accent-1),var(--bridge-accent-2)); flex:0 0 auto; }
+    h2 { margin:0; font-size:20px; letter-spacing:0.2px; font-weight:600; }
 
-    /* 插图区 */
-    #emotion-bridge .art {
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:stretch;
-    }
-    #emotion-bridge .hero {
-      width:100%;
-      height:220px;
-      border-radius:10px;
-      overflow:hidden;
-      background:#f3f3f3;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#777;
-      font-size:14px;
-      position:relative;
-      box-shadow: 0 6px 20px rgba(18,18,18,0.06);
-    }
-    #emotion-bridge .hero img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    #emotion-bridge .thumb {
-      height:72px;
-      border-radius:8px;
-      overflow:hidden;
-      display:block;
-      background:#fafafa;
-      border:1px solid #eee;
-    }
-    #emotion-bridge .caption {
-      font-size:12px;
-      color:#666;
-      margin-top:6px;
-    }
+    .body { display:grid; grid-template-columns: 1fr 380px; gap:var(--bridge-gap); align-items:start; }
+    .copy { font-size:15.5px; line-height:1.68; color:var(--bridge-text); }
+    .copy .lead { font-weight:600; color:var(--bridge-text); font-size:17px; margin-bottom:10px; }
+    .mini-scenes { display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:16px; }
+    .scene { background:var(--bridge-card); border-radius:10px; padding:12px; min-height:130px; display:flex; flex-direction:column; justify-content:flex-start; box-shadow:0 6px 20px rgba(10,10,10,0.03); }
+    .scene h4 { margin:0 0 8px 0; font-size:14px; color:var(--bridge-text); font-weight:700; }
+    .scene p { margin:0; color:var(--bridge-muted); font-size:13.5px; line-height:1.55; }
 
-    /* 底部过渡标语 */
-    #emotion-bridge .cta {
-      margin-top:18px;
-      font-weight:600;
-      font-size:15px;
-      color:#111;
-    }
-    #emotion-bridge .muted {
-      display:block;
-      margin-top:8px;
-      color:#666;
-      font-size:13px;
-      font-weight:400;
-    }
+    .visual { display:flex; flex-direction:column; gap:12px; }
+    .hero { width:100%; height:220px; border-radius:10px; overflow:hidden; background:#f3f3f3; position:relative; display:flex; align-items:center; justify-content:center; }
+    .hero img { width:100%; height:100%; object-fit:cover; display:block; }
+    .thumb-row { display:flex; gap:10px; align-items:center; }
+    .thumb { flex:0 0 72px; height:72px; border-radius:8px; overflow:hidden; background:#fafafa; border:1px solid #eee; display:block; }
 
-    /* 响应式：窄屏堆叠 */
-    @media (max-width:880px) {
-      #emotion-bridge {
-        padding:24px 18px;
-      }
-      #emotion-bridge .body {
-        grid-template-columns: 1fr;
-      }
-      #emotion-bridge .hero { height:160px; }
-      #emotion-bridge .thumb { height:64px; }
-    }
+    .lead-out { margin-top:18px; font-weight:600; color:var(--bridge-text); }
+    .subtle { display:block; margin-top:8px; color:var(--bridge-muted); font-size:13px; font-weight:400; }
+
+    @media (max-width:960px){ .body { grid-template-columns: 1fr; } .mini-scenes { grid-template-columns: repeat(2, 1fr); } .hero { height:160px; } }
+    @media (max-width:560px){ .mini-scenes { grid-template-columns: 1fr; } #bridge-immersive-full { padding:18px; margin:28px auto; } }
   </style>
 
-  <div class="bridge-head">
-    <div class="bar" aria-hidden="true"></div>
-    <h2 id="bridge-title">—— 情绪缓冲区 · 从神话到人心</h2>
+  <div class="head" role="heading" aria-level="2">
+    <div class="accent" aria-hidden="true"></div>
+    <h2 id="bridge-immersive-title">从天问到耳畔 · 当宏问归于日常</h2>
   </div>
 
   <div class="body">
     <div class="copy" role="region" aria-label="情绪过渡文案">
-      <p class="lead">我们追问神话的起源，本质并非只为得知“事实”——而是为了给不安的人心一个落脚处。</p>
+      <div class="lead">不论宇宙的最终答案如何，脚下的这些瞬间是真实的——而这些小小的、荒诞或温暖的片段，常常比任何理论更能触及我们的存在感。</div>
 
-      <p>古人在星空下围着火堆，借由神话来解释天地与命运；现代人在凌晨刷屏，借着聊天与已读去确认“我存在于谁的世界”。</p>
+      <p>远古的人在星空下造神；当代的人在屏光下寻求回应。两者不是割裂，而是同一根线的不同扭曲：我们都在用故事来安放自己的不安。</p>
 
-      <p>这两种行为不是断裂，而是同源：都是人，在不同媒介、不同噪声中向外投问、向内寻安。那些未发出的讯息、反复编辑的一句“在吗？”，也许就是我们当代的微型神话。</p>
+      <div class="mini-scenes" aria-hidden="false">
+        <article class="scene" aria-label="奇怪的邻居">
+          <h4>奇怪的邻居 • 好奇</h4>
+          <p>她凌晨浇花，却从不锁门；你曾看见她在阳台对着星空低声说话。也许这只是孤独的仪式，或许它暗示着某种超出常识的可能——好奇让你开始怀疑世界的边界。</p>
+        </article>
 
-      <p class="cta">于是——Human Romance Engine · 《都市情感奇遇记》正式启动。</p>
-      <span class="muted">下一个章节，将以更细腻的视角，带你进入城市里微小而真实的情感现场。</span>
+        <article class="scene" aria-label="意外的温暖">
+          <h4>意外的温暖 • 亲情</h4>
+          <p>忘带钥匙回家，母亲的语音里只有一句“门开了，我在窗边”。那一瞬，城市里所有的荒诞都被一种古老的守护温柔化解。</p>
+        </article>
+
+        <article class="scene" aria-label="社交小确幸">
+          <h4>社交小确幸 • 日常</h4>
+          <p>连续三天，一个陌生人点赞你旧照，最后他发来一句“最近好吗？”。偶然构成了新的叙事——或许这就是当代的神话起点。</p>
+        </article>
+      </div>
+
+      <div class="lead-out">当“谁造神话”的问题变得遥远，回望身边，我们看到的是情感的多样性：疑惑、温暖、荒诞与好奇并存。</div>
+      <span class="subtle">下面 — Human Romance Engine · 《都市情感奇遇记》将放大这些微小线索，带你进入城市情感的近景观察。</span>
     </div>
 
-    <aside class="art" aria-hidden="false" aria-label="插图与视觉提示">
-      <!-- 大图（hero）占位：替换下面 <img> 的 src 或 data-src 为你的图像 URL -->
-      <figure class="hero" title="城市之夜与手机光">
-        <img
-          id="bridge-hero-img"
-          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='100%25' height='100%25' fill='%23f3f3f3'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='16' fill='%23777'%3E插图占位：城市之夜 · 手机光%3C/text%3E%3C/svg%3E"
-          alt="插图：城市夜景与手机屏幕亮光，暗示个人情绪的光点与连线"
-          loading="lazy"
-        />
+    <aside class="visual" role="complementary" aria-label="插图">
+      <figure class="hero" aria-hidden="false" title="城市夜与手机屏光">
+        <img id="bridge-hero" data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23f3f3f3'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%23777'%3E插图占位：城市夜景与手机屏光%3C/text%3E%3C/svg%3E" alt="城市夜景与手机屏光，暗示现代情绪的光点" loading="lazy" />
       </figure>
 
-      <!-- 小缩略图：可作为装饰或系列图标 -->
-      <div style="display:flex;gap:10px;align-items:center;">
-        <div class="thumb">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='72'%3E%3Crect width='100%25' height='100%25' fill='%23fbfbfb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%23999'%3E图示占位：在吗？ 已读…%3C/text%3E%3C/svg%3E" alt="装饰图：信息气泡" />
-        </div>
-
-        <div style="flex:1;">
-          <div class="caption">从星火到屏光：情绪的传播方式改变了，期待与回应的形式却未曾远去。</div>
-        </div>
+      <div class="thumb-row" aria-hidden="false">
+        <img class="thumb" data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='72'%3E%3Crect width='100%25' height='100%25' fill='%23fbfbfb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%23999'%3E在吗？ 已读…%3C/text%3E%3C/svg%3E" alt="信息气泡占位" loading="lazy"/>
+        <img class="thumb" data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='72'%3E%3Crect width='100%25' height='100%25' fill='%23fbfbfb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%23999'%3E母亲窗边%3C/text%3E%3C/svg%3E" alt="母亲窗边占位" loading="lazy"/>
       </div>
     </aside>
   </div>
 </section>
+
+<script>
+  (function(){
+    if ('loading' in HTMLImageElement.prototype) {
+      document.querySelectorAll('img[data-src]').forEach(img => img.src = img.dataset.src);
+    } else {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const img = e.target;
+            img.src = img.dataset.src;
+            io.unobserve(img);
+          }
+        });
+      }, {rootMargin: '200px'});
+      document.querySelectorAll('img[data-src]').forEach(img => io.observe(img));
+    }
+  })();
+</script>
+
+
+
+
 
 
 
