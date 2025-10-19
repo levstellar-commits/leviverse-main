@@ -3196,10 +3196,133 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <script>
 (function(){
-  // ... (解大为HUD的全部代码，这里省略以保持简洁，您使用我上一轮回复中提供的完整版即可) ...
-  const copyMap={"hero-cinematic":{zh:["解大为：小伙伴好，我骑墨龙来为你开门。","解大为：第一道门只为好奇者开启。","解大为：进来看看，你的名字有没有被记下。"]},"executive-summary":{zh:["解大为：被遗忘的神话，是一扇未开的门。","解大为：我们把碎片拼成路，路通向故事的心脏。","解大为：每个未说完的传说，都等着被点燃。"]},"heroes":{zh:["解大为：英雄由契约唤醒，不问出身。","解大为：她/他不是被选中，而是签下了那张纸。","解大为：看角色卡，故事会告诉你他们为何举剑。"]},universe:{zh:["解大为：十祖织法则，表象之外有规则。","解大为：表象易见，法则难寻。你愿钻进缝隙吗？","解大为：世界按经纬运转，任一线被拔动都会回响。"]},matrix:{zh:["解大为：一条故事线，可以是书、游或一座馆。","解大为：我们把故事拉长，任你在其中驻足或跨越。","解大为：想把这条线做成游戏？从一句台词开始。"]},spatial:{zh:["解大为：让传说落地，变成可触摸的场景。","解大为：把神话做成空间，人会按线索去祈祷。","解大为：真实的场景，会把虚构变成记忆。"]},contact:{zh:["解大为：别只点赞，来把传说做成真物件。","解大为：想合作？把想法放进来，我们把它做成样本。","解大为：合作不是交易，是把故事带到世界的邀约。"]},default:{zh:["我是编年者。"]}};function createHUDNode(t){const e=document.createElement("div");e.id="dawei-hud",e.className="dawei-hud",e.setAttribute("tabindex","0"),e.setAttribute("role","complementary"),e.setAttribute("aria-expanded","true");const n=document.createElement("div");n.className="dawei-avatar avatar",n.style.backgroundImage=t||"url('assets/images/archetype_dawei_guide.jpg')";const a=document.createElement("button");a.className="dawei-hint",a.setAttribute("aria-label","收起或展开对话框"),a.type="button";const o=document.createElement("div");o.className="dawei-body";const d=document.createElement("div");d.className="dawei-lines",d.id="dawei-lines",d.setAttribute("aria-atomic","true");const i=document.createElement("p");i.className="dawei-line",i.textContent=copyMap["hero-cinematic"].zh[0],d.appendChild(i),o.appendChild(d),e.appendChild(n),e.appendChild(o),e.appendChild(a);return e}function ensureHUD(){let t=document.getElementById("dawei-hud");if(t)return t;const e=document.querySelector(".dawei-guide"),n=e?e.querySelector(".avatar").style.backgroundImage:null,a=createHUDNode(n);return e&&e.parentNode?e.parentNode.replaceChild(a,e):document.body.appendChild(a),a}function runtime(){const t=ensureHUD(),e=document.getElementById("dawei-lines");if(!e)return;let n,a,o;const d=Object.keys(copyMap).filter(t=>"default"!==t).map(t=>document.getElementById(t)).filter(t=>t);function i(t){if(t&&t!==n){n=t,clearInterval(o);const a=copyMap[n].zh;let d=0;e.innerHTML=`<p class="dawei-line">${a[d]}</p>`,a.length>1&&(o=setInterval(()=>{d=(d+1)%a.length,e.innerHTML=`<p class="dawei-line">${a[d]}</p>`},4500))}}window.addEventListener("scroll",()=>{clearTimeout(a),a=setTimeout(function(){const t=window.innerHeight/2;let e,n=Infinity;d.forEach(a=>{const o=a.getBoundingClientRect(),d=Math.abs(o.top-t);d<n&&(n=d,e=a.id)}),i(e)},100)},{passive:!0});const r=t.querySelector(".dawei-hint"),l=t.querySelector(".dawei-avatar");function s(t){t.stopPropagation(),hud.classList.toggle("collapsed")}r&&r.addEventListener("click",s),l&&l.addEventListener("click",s),setTimeout(function(){const t=window.innerHeight/2;let e,n=Infinity;d.forEach(a=>{const o=a.getBoundingClientRect(),d=Math.abs(o.top-t);d<n&&(n=d,e=a.id)}),i(e)},100)}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",runtime):runtime();
+  const copyMap = {
+    "hero-cinematic": { zh: ["解大为：小伙伴好，我骑墨龙来为你开门。","解大为：第一道门只为好奇者开启。","解大为：进来看看，你的名字有没有被记下。"] },
+    "executive-summary": { zh: ["解大为：被遗忘的神话，是一扇未开的门。","解大为：我们把碎片拼成路，路通向故事的心脏。","解大为：每个未说完的传说，都等着被点燃。"] },
+    "heroes": { zh: ["解大为：英雄由契约唤醒，不问出身。","解大为：她/他不是被选中，而是签下了那张纸。","解大为：看角色卡，故事会告诉你他们为何举剑。"] },
+    "universe": { zh: ["解大为：十祖织法则，表象之外有规则。","解大为：表象易见，法则难寻。你愿钻进缝隙吗？","解大为：世界按经纬运转，任一线被拔动都会回响。"] },
+    "matrix": { zh: ["解大为：一条故事线，可以是书、游或一座馆。","解大为：我们把故事拉长，任你在其中驻足或跨越。","解大为：想把这条线做成游戏？从一句台词开始。"] },
+    "spatial": { zh: ["解大为：让传说落地，变成可触摸的场景。","解大为：把神话做成空间，人会按线索去祈祷。","解大为：真实的场景，会把虚构变成记忆。"] },
+    "contact": { zh: ["解大为：别只点赞，来把传说做成真物件。","解大为：想合作？把想法放进来，我们把它做成样本。","解大为：合作不是交易，是把故事带到世界的邀约。"] },
+    "default": { zh: ["我是编年者。"] }
+  };
+
+  function createHUDNode(avatarUrl) {
+    const container = document.createElement('div');
+    container.id = 'dawei-hud';
+    container.className = 'dawei-hud';
+    container.setAttribute('tabindex','0');
+    container.setAttribute('role','complementary');
+    container.setAttribute('aria-expanded','true');
+    const avatar = document.createElement('div');
+    avatar.className = 'dawei-avatar avatar';
+    avatar.style.backgroundImage = avatarUrl || "url('assets/images/archetype_dawei_guide.jpg')";
+    const hint = document.createElement('button');
+    hint.className = 'dawei-hint';
+    hint.setAttribute('aria-label','收起或展开对话框');
+    hint.type = 'button';
+    const body = document.createElement('div');
+    body.className = 'dawei-body';
+    const lines = document.createElement('div');
+    lines.className = 'dawei-lines';
+    lines.id = 'dawei-lines';
+    lines.setAttribute('aria-atomic','true');
+    const initial = document.createElement('p');
+    initial.className = 'dawei-line';
+    initial.textContent = copyMap['hero-cinematic'].zh[0];
+    lines.appendChild(initial);
+    body.appendChild(lines);
+    container.appendChild(avatar);
+    container.appendChild(body);
+    container.appendChild(hint);
+    return container;
+  }
+
+  function ensureHUD() {
+    let hud = document.getElementById('dawei-hud');
+    if (hud) return hud;
+    const old = document.querySelector('.dawei-guide');
+    const avatarUrl = old ? old.querySelector('.avatar').style.backgroundImage : null;
+    const newNode = createHUDNode(avatarUrl);
+    if (old && old.parentNode) old.parentNode.replaceChild(newNode, old);
+    else document.body.appendChild(newNode);
+    return newNode;
+  }
+
+  function runtime() {
+    const hud = ensureHUD();
+    const linesContainer = document.getElementById('dawei-lines');
+    if (!linesContainer) return;
+
+    let activeKey = null;
+    let scrollTimeout;
+    let dialogueInterval;
+    const sections = Object.keys(copyMap)
+      .filter(k => k !== 'default')
+      .map(id => document.getElementById(id))
+      .filter(el => el);
+
+    function updateDialogue(newKey) {
+      if (newKey && newKey !== activeKey) {
+        activeKey = newKey;
+        clearInterval(dialogueInterval);
+        const lines = copyMap[activeKey].zh;
+        let currentIndex = 0;
+        linesContainer.innerHTML = `<p class="dawei-line">${lines[currentIndex]}</p>`;
+
+        if (lines.length > 1) {
+          dialogueInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % lines.length;
+            linesContainer.innerHTML = `<p class="dawei-line">${lines[currentIndex]}</p>`;
+          }, 4500);
+        }
+      }
+    }
+
+    function findClosestSectionToCenter() {
+      const viewportCenter = window.innerHeight / 2;
+      let minDistance = Infinity;
+      let closestSectionId = null;
+      sections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          const distance = Math.abs(rect.top - viewportCenter);
+          if (distance < minDistance) {
+              minDistance = distance;
+              closestSectionId = section.id;
+          }
+      });
+      updateDialogue(closestSectionId);
+    }
+
+    window.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(findClosestSectionToCenter, 100);
+    }, { passive: true });
+
+    // 折叠功能的事件绑定
+    const hintBtn = hud.querySelector('.dawei-hint');
+    const avatarBtn = hud.querySelector('.dawei-avatar');
+    function toggleCollapsed(e) {
+        e.stopPropagation();
+        hud.classList.toggle('collapsed');
+    }
+    if(hintBtn) hintBtn.addEventListener('click', toggleCollapsed);
+    if(avatarBtn) avatarBtn.addEventListener('click', toggleCollapsed);
+    
+    setTimeout(findClosestSectionToCenter, 100);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runtime);
+  } else {
+    runtime();
+  }
 })();
 </script>
+
+
+
+
 
 <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
 <script type="module">
