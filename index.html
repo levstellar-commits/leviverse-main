@@ -2967,7 +2967,7 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
     <style>
         /* 继承主页的配色方案 */
         :root {
-            /* ... (CSS 变量部分保持不变，确保与上一个版本一致) ... */
+            /* 确保与主页配色变量一致 */
             --flow-text: #eaf6ff;
             --flow-muted: #9fb0c6;
             --flow-accent-1: #e8b923; 
@@ -2977,12 +2977,14 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
             --flow-font: 'Noto Serif SC', Inter, serif;
             --bridge-accent-1-rgb: 232, 185, 35;
             --bridge-accent-2-rgb: 74, 144, 226;
+            --accent: #e8b923; /* 确保卡片颜色变量可用 */
+            --accent2: #4a90e2; /* 确保卡片颜色变量可用 */
         }
 
         /* 核心布局容器调整 */
         .body {
             display: grid;
-            /* 调整列比例：文本 2.5 份，视觉区 1.5 份，确保横向图片组有足够空间 */
+            /* 调整列比例：文本 2.5 份，视觉区 1.5 份 */
             grid-template-columns: 2.5fr 1.5fr; 
             max-width: 1200px;
             margin: 0 auto;
@@ -2990,12 +2992,13 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
             align-items: start;
         }
         
-        /* 视觉区容器：改为容纳横向三图组 */
+        /* 视觉区容器：确保容纳横向三图组 */
         .visual-container-wide {
             display: flex;
-            flex-direction: column; /* 保持纵向排列，但只放一个元素 */
+            flex-direction: column; 
             gap: 0; 
-            padding-top: 20px; /* 微调间距 */
+            height: 100%; 
+            padding-top: 0; 
         }
 
         /* 横向三图组：使用 Flexbox 实现并排和缝隙 */
@@ -3003,8 +3006,7 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
             display: flex;
             gap: 12px; /* 栅栏缝隙 */
             width: 100%;
-            /* 确保整体容器的宽高比合适（三张 1:1 图片加缝隙，约 3.3:1） */
-            aspect-ratio: 3.2 / 1; 
+            height: auto; 
             
             overflow: hidden;
             border-radius: 12px;
@@ -3015,14 +3017,16 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
         /* 单个图片容器：确保内部图片是 1:1 且充满空间 */
         .wide-image-item {
             position: relative;
-            /* Flex 布局中，让每张图等宽等高 */
             flex: 1 1 0; 
             overflow: hidden;
             background: rgba(var(--bridge-accent-2-rgb), 0.1);
-            /* 内部图片强制 1:1 比例 */
-            aspect-ratio: 1 / 1; 
+            /* 关键：使用 padding-bottom hack 确保 1:1 比例 */
+            padding-bottom: 100%; 
+            height: 0;
         }
         .wide-image-item img {
+            position: absolute; /* 配合 padding-bottom hack */
+            top: 0; left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover; 
@@ -3033,30 +3037,39 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
             transform: scale(1.05); /* 悬停微动效果 */
         }
 
-        /* 文本和卡片样式 (保持与上一个版本一致) */
+        /* 文本和卡片样式 */
         .head { display:flex; align-items:center; gap:12px; margin-bottom:18px; justify-content:center; }
         .three-cols { display:grid; gap:16px; margin-top:24px;} 
-        /* ... (其他通用样式保持不变) ... */
+        
+        /* 强制覆盖主页的 .card 样式，防止它影响布局 */
+        #bridge-immersive-full .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #bridge-immersive-full .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
 
         /* 移动端适应 */
         @media (max-width: 1080px){ 
             .body { 
-                grid-template-columns: 1fr; /* 移动端堆叠 */
+                grid-template-columns: 1fr; 
                 gap: 36px;
             } 
+            .visual-container-wide {
+                padding-top: 20px; 
+                height: auto;
+            }
             .wide-visual-flex {
-                /* 手机上，让图片组不再固定比例，适应屏幕宽度 */
                 aspect-ratio: auto; 
-                height: 120px; /* 限制高度，避免图片过大 */
             }
             .three-cols { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 640px){
             .three-cols { grid-template-columns: 1fr !important; }
-            .wide-visual-flex {
-                 /* 极小屏幕上，图片可以稍微堆叠，但这里我们保持横向，仅缩小尺寸 */
-                 height: 90px;
-            }
         }
     </style>
 
@@ -3068,35 +3081,32 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
     <div class="body">
         <div class="copy" role="region" aria-label="情绪过渡文案">
             <p class="muted" style="font-size:19px; line-height:1.7; font-weight:700; color:#fff;">
-                宏大的文明辩论，最终都要在我们身边寻找“证据”。这些荒诞或温暖的瞬间，正是宇宙真理最微小、最真实的“样本”。
+                宏大的文明辩论，最终都要在我们身边寻找**证据**。这些荒诞或温暖的瞬间，正是**宇宙真理最微小、最真实的“活体样本”**。
             </p>
 
             <p class="muted" style="margin-top: 16px;">
-                远古造神，当代重构。两者不是割裂，而是同一条数据链的加密与解密：我们都在用“情感”来修正“隐谕”。正是这些日常的微小闪光，为我们提供了神祇基因或天外来客最可信的“线索样本”。
+                远古造神，当代重构。两者不是割裂，而是同一条数据链的加密与解密：我们都在用**情感**来修正**代码**。正是这些日常的微小闪光，为我们提供了**神祇基因或天外来客最可信的“线索样本”**。
             </p>
 
+            <div class="three-cols">
+                <article class="card scene" aria-label="似曾相识的预知" style="padding:16px; border-left: 3px solid var(--accent);">
+                    <h4 style="margin:0 0 8px 0; font-size:15px; color:var(--accent); font-weight:700;">编码线索一：第六感，好像来过！</h4>
+                    <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">在某个陌生场景，你清晰地**预感到接下来会发生什么**。这不是 Déjà Vu (似曾相识)，而是**时空轨迹**在脑中提前闪现。这是**时间之眼**基因觉醒的线索。</p>
+                </article>
 
-<div class="three-cols">
-    <article class="card scene" aria-label="似曾相识的预知" style="padding:16px; border-left: 3px solid var(--accent);">
-        <h4 style="margin:0 0 8px 0; font-size:15px; color:var(--accent); font-weight:700;">编码线索一：第六感，好像来过！</h4>
-        <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">在某个陌生场景，你清晰地预感到接下来会发生什么。这不一定只是“似曾相识”，而很可能是时空轨迹在脑中提前闪现。是“时间之眼”基因觉醒的线索。</p>
-    </article>
+                <article class="card scene" aria-label="曼德拉效应的记忆碎片" style="padding:16px; border-left: 3px solid var(--accent2);">
+                    <h4 style="margin:0 0 8px 0; font-size:15px; color:var(--accent2); font-weight:700;">基因样本二：你记得的，世界不记得</h4>
+                    <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">你坚信某件事发生过，但所有证据和人都否定你。这种**集体记忆错位**，暗示了**神祇记忆**被高维力量**重写或篡改**后留下的情感碎片。</p>
+                </article>
 
-    <article class="card scene" aria-label="曼德拉效应的记忆碎片" style="padding:16px; border-left: 3px solid var(--accent2);">
-        <h4 style="margin:0 0 8px 0; font-size:15px; color:var(--accent2); font-weight:700;">基因样本二：你记得的，世界不记得</h4>
-        <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">你坚信某件事发生过，但所有证据和人都否定你。这种“集体记忆错位”，暗示了人类记忆被高维力量重写或篡改后留下的情感碎片。</p>
-    </article>
-
-    <article class="card scene" aria-label="梦中的事物在现实出现" style="padding:16px; border-left: 3px solid #fff;">
-        <h4 style="margin:0 0 8px 0; font-size:15px; color:#fff; font-weight:700;">悖论印记三：梦中之物，现实相见</h4>
-        <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">你梦见了一个从未见过的人或事，醒来后却在日常生活中偶然发现它。这暗示了潜意识正在与高维宇宙的物质流进行非线性同步。</p>
-    </article>
-</div>
-
-
+                <article class="card scene" aria-label="梦中的事物在现实出现" style="padding:16px; border-left: 3px solid #fff;">
+                    <h4 style="margin:0 0 8px 0; font-size:15px; color:#fff; font-weight:700;">悖论印记三：梦中之物，现实相见</h4>
+                    <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">你梦见了一个从未见过的**古老符号或物品**，醒来后却在日常生活中偶然发现它。这暗示了**潜意识**正在与**高维宇宙**的物质流进行非线性同步。</p>
+                </article>
+            </div>
 
             <div class="lead-out" style="margin-top:30px; font-weight:700; font-size: 17px; color:var(--accent);">
-                结论：每一个被你记录下来的奇遇，都是宇宙在你我身上的一次实验。
+                结论：每一个被你记录下来的奇遇，都是宇宙在你我身上的**一次实验**。
             </div>
             <span class="subtle" style="display:block; margin-top:8px; color:#fff; font-size:15px; font-weight:500;">
                 请即刻向下滚动，进入情感采集引擎，记录你那“超出教科书”的生命瞬间。
@@ -3105,20 +3115,19 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
 
         <aside class="visual-container-wide" role="complementary" aria-label="插图样本">
             <div class="wide-visual-flex">
-                <figure class="wide-image-item" title="图 1：对着星空低语的个体">
-                    <img src="assets/images/thumb_bridge_1.jpg" alt="对着星空低语的个体" loading="lazy" />
+                <figure class="wide-image-item" title="图 1：时间轨迹闪现">
+                    <img src="assets/images/thumb_bridge_1.jpg" alt="第六感：时间轨迹闪现" loading="lazy" />
                 </figure>
 
-                <figure class="wide-image-item" title="图 2：家族信物与光芒">
-                    <img src="assets/images/thumb_bridge_2.jpg" alt="古老信物发出科技光芒" loading="lazy" />
+                <figure class="wide-image-item" title="图 2：记忆冲突与碎片">
+                    <img src="assets/images/thumb_bridge_2.jpg" alt="曼德拉效应：记忆冲突与碎片" loading="lazy" />
                 </figure>
 
-                <figure class="wide-image-item" title="图 3：手机屏幕上的信息气泡">
-                    <img src="assets/images/thumb_bridge_3.jpg" alt="手机屏幕上的信息气泡" loading="lazy" />
+                <figure class="wide-image-item" title="图 3：梦中之物在现实出现">
+                    <img src="assets/images/thumb_bridge_3.jpg" alt="梦境与现实：潜意识与物质流同步" loading="lazy" />
                 </figure>
             </div>
-            <span class="subtle" style="display:block; text-align: center; margin-top: 12px;">↑ 您贡献的奇遇将转化为这样的视觉线索 ↑</span>
-        </aside>
+            </aside>
     </div>
 </section>
 
@@ -3126,11 +3135,10 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
     <h2>情感奇遇：宇宙线索的众创采集</h2>
     <p class="muted" style="max-width: 800px;
 margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
-        现在，您已理解宏问如何归于日常。「宇宙线索采集引擎」已启动，我们正在寻找那些最奇葩、最温暖、最不可思议的情感样本，它们是”人类起源多样性“的最重要证据。
+        现在，您已理解宏问如何归于日常。**「宇宙线索采集引擎」**已启动，我们正在寻找那些最奇葩、最温暖、最不可思议的情感样本，它们是**人类起源多样性**的最重要证据。
     </p>
     <p class="muted" style="text-align:center;
 font-style: italic; margin-top: 24px;">是神祇基因在觉醒？是天外来客的伪装？请记录下你那“超出教科书”的一刻。</p>
-
 
 
 
