@@ -1742,6 +1742,40 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
+/* =====【新增】Waline 登录引导提示样式 ===== */
+.waline-login-prompt {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(var(--accent2-rgb), 0.2);
+}
+.prompt-icon {
+    font-size: 36px;
+}
+.prompt-text h4 {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    color: #fff;
+}
+.prompt-text p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+
+/* =====【新增】修正故事提交表单下拉菜单的文字颜色 ===== */
+#storySubmit select option {
+  color: #000000; /* 将下拉选项的文字颜色设置为黑色 */
+  background-color: #FFFFFF; /* 确保选项的背景是白色，以提供最佳对比度 */
+}
+
+
+
   </style>
 
 
@@ -1785,13 +1819,17 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
       </div>
     </div>
     <nav>
-      <a href="#matrix" title="浏览我们的IP作品矩阵">IP矩阵</a>
-      <a href="#universe" title="进入立维宇宙世界观">宇宙观</a>
-      <a href="#spatial" title="查看文化落地实体案例">场景降临</a>
-     
-      <a href="#what" title="我们的核心方法论">世界蓝图</a>
-      <a href="#contact" title="与我们建立合作">合作共建</a>
-    </nav>
+  <a href="#matrix" title="浏览我们的IP作品矩阵">IP矩阵</a>
+  <a href="#universe" title="进入立维宇宙世界观">宇宙观</a>
+  <a href="#spatial" title="查看文化落地实体案例">场景降临</a>
+  <a href="#what" title="我们的核心方法论">世界蓝图</a>
+  <a href="#contact" title="与我们建立合作">合作共建</a>
+
+  <div class="header-actions" style="margin-left: 24px; display: flex; gap: 12px; align-items: center;">
+    <a href="#arena-debate-details" class="btn ghost btn-small">登录</a>
+    <a href="#arena-debate-details" class="btn btn-small">注册</a>
+  </div>
+  </nav>
   </header>
 
   <main>
@@ -2657,6 +2695,13 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         <h4 id="stanceTitle" style="color: var(--muted); transition: color 0.3s ease;">选择你的立场，加入辩论！</h4>
     </div>
 
+<div class="waline-login-prompt">
+  <div class="prompt-icon">🔑</div>
+  <div class="prompt-text">
+    <h4>参与宇宙辩论，请先登录</h4>
+    <p>选择您的立场，点击右侧 “登录” 按钮，即可发表高见 →</p>
+  </div>
+</div>
     <div id="waline"></div>
 
 
@@ -2675,32 +2720,41 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
             <img src="assets/images/romance_engine_visual.jpg" alt="都市情感奇遇记插图" loading="lazy" style="width: 100%; border-radius: 8px; aspect-ratio: 4/3; object-fit: cover;">
             <h3 style="margin-top: 16px;">你的故事，是宇宙的光</h3>
             <p class="muted" style="margin-top: 12px; line-height: 1.8;">我们相信，每一个看似平凡的瞬间，都可能蕴含着足以撼动世界的叙事原型。无论是尴尬的相亲，还是深刻的家庭联结，都是构成我们宏大宇宙的宝贵素材。<br><br>您的每一个分享，都将成为我们“人类情感样本库”的一部分，为作家提供灵感，为宇宙注入灵魂，甚至可能成为未来电影中的经典一幕。期待你的分享。</p>
-            <div class="card" style="margin-top: 24px;">
-                <h4 style="margin-bottom: 12px;">社区投票</h4>
-                <p class="muted" style="font-size: 14px; margin-bottom: 12px;">我们的宇宙未来，更应由哪种力量主导？</p>
-                <div style="font-size: 14px;">
-                    <label style="display: block; margin-bottom: 8px;"><input type="radio" name="theme_poll" value="internal"> 内生动力 (炎帝之火：传承与社群)</label>
-                    <label style="display: block; margin-bottom: 8px;"><input type="radio" name="theme_poll" value="external"> 外部颠覆 (普氏之火：启蒙与个体)</label>
-                    <label style="display: block; margin-bottom: 8px;"><input type="radio" name="theme_poll" value="balance"> 两者共存的微妙平衡</label>
-                </div>
-                <button class="btn" style="margin-top: 12px; width: 100%;">投票</button>
-            </div>
         </div>
         <div class="stories-submit card" style="padding: 20px;">
-            <form id="storySubmit" onsubmit="return handleStorySubmit(event)" method="post" action="/api/submit-story">
-            <h3 style="margin-bottom: 16px;">分享你的“奇遇”</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 10px;">
-                <label>故事类型 (必选)<br><select name="story_category" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"><option value="romance_dating">两性情感 (相亲/恋爱)</option><option value="family">亲情故事</option><option value="friendship">真挚友情</option><option value="eternal_love">关于“永恒之爱”的遐想</option></select></label>
-                <label>你的视角 (选填)<br><select name="gender_view" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"><option value="">未选择</option><option value="male">男性</option><option value="female">女性</option><option value="other">其他</option></select></label>
-            </div>
-            <label>标题（必填）<br><input name="title" type="text" required placeholder="例如：相亲时我遇到了一个“时间旅行者”" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></label>
-            <label style="display: block; margin-top: 10px;">正文（必填）<br><textarea name="content" rows="6" required placeholder="请描述你的经历或故事，无论是温馨、尴尬还是超乎寻常的遭遇，都是我们珍视的样本。" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></textarea></label>
-            <label style="display: block; margin-top: 10px;">标签 (选填, 逗号分隔)<br><input name="tags" type="text" placeholder="例如: 尴尬, 家庭, 幽默" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></label>
-            <label style="display: block; margin-top: 10px;"><input type="checkbox" name="anonymous" value="1" checked> 匿名投稿（默认勾选）</label>
-            <label style="display: block; margin-top: 10px;">联系邮箱（建议填写便于我们联系，非必填）：<br><input name="contactEmail" type="email" placeholder="name@company.com" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></label>
-            <label style="display: block; margin-top: 10px;"><input type="checkbox" id="storyConsent" required> 我已阅读并同意授权 <span class="muted" style="font-size: 12px;">（我们承诺对您的故事进行专业脱敏和隐私保护，仅将匿名化后的版本用于学术研究、内容创作与出版计划。）</span></label>
-            <div style="display:flex;gap:8px;margin-top:10px;"><button type="submit" class="btn">提交我的奇遇</button><button type="button" class="btn ghost" onclick="document.getElementById('storySubmit').reset()">重置</button></div>
-            </form>
+
+
+<form id="storySubmit" onsubmit="return handleStorySubmit(event)" method="post" action="/api/submit-story">
+    <h3 style="margin-bottom: 16px;">分享你的“奇遇”</h3>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 10px;">
+        <label>故事类型 (必选)<br>
+            <select name="story_category" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;">
+                <option value="" disabled selected>请选择一个故事主题...</option>
+                <option value="romance_cyber">赛博纪元的浪漫 (相亲/恋爱/算法)</option>
+                <option value="family_memory">家族的时光烙印 (亲情/传承)</option>
+                <option value="friendship_pact">超越时间的盟约 (友情/知己)</option>
+                <option value="workplace_drama">职场奇遇记 (内卷/成长/尴尬)</option>
+                <option value="myth_fantasy">我与“非人”的邂逅 (奇幻/遐想)</option>
+            </select>
+        </label>
+        <label>你的视角 (选填)<br>
+            <select name="gender_view" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;">
+                <option value="">作为一名普通人类</option>
+                <option value="male">作为一名男性</option>
+                <option value="female">作为一名女性</option>
+                <option value="observer_ai">作为一名 AI 观察者</option>
+                <option value="descendant">作为一名神祇后裔</option>
+            </select>
+        </label>
+    </div>
+    <label>标题（必填）<br><input name="title" type="text" required placeholder="例如：我的相亲对象，活在《炎黄：前古纪元》里" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></label>
+    <label style="display: block; margin-top: 10px;">正文（必填）<br><textarea name="content" rows="6" required placeholder="请描述你的经历或故事，无论是温馨、尴尬还是超乎寻常的遭遇，都是我们珍视的样本。" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></textarea></label>
+    <label style="display: block; margin-top: 10px;">标签 (选填, 逗号分隔)<br><input name="tags" type="text" placeholder="例如: 尴尬, 家庭, 幽默, 赛博朋克" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></label>
+    <label style="display: block; margin-top: 10px;"><input type="checkbox" name="anonymous" value="1" checked> 匿名投稿（默认勾选）</label>
+    <label style="display: block; margin-top: 10px;">联系邮箱（建议填写便于我们联系，非必填）：<br><input name="contactEmail" type="email" placeholder="name@company.com" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: #eaf6ff; margin-top: 4px;"></label>
+    <label style="display: block; margin-top: 10px;"><input type="checkbox" id="storyConsent" required> 我已阅读并同意授权 <span class="muted" style="font-size: 12px;">（我们承诺对您的故事进行专业脱敏和隐私保护，仅将匿名化后的版本用于学术研究、内容创作与出版计划。）</span></label>
+    <div style="display:flex;gap:8px;margin-top:10px;"><button type="submit" class="btn">提交我的奇遇</button><button type="button" class="btn ghost" onclick="document.getElementById('storySubmit').reset()">重置</button></div>
+</form>
         </div>
     </div>
     <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), rgba(var(--accent2-rgb), 0.05));">
@@ -2892,6 +2946,44 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
             }
         });
     });
+
+
+/* =====【新增】核心按钮美化与动态效果 ===== */
+.btn-primary-cinematic {
+    /* 增加一个微妙的初始光晕效果 */
+    box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 优化过渡动画曲线，使其更平滑 */
+    position: relative; /* 为箭头定位 */
+    overflow: hidden; /* 隐藏溢出的元素 */
+}
+
+.btn-primary-cinematic:hover {
+    transform: translateY(-5px) scale(1.03); /* 悬停时上浮并轻微放大 */
+    box-shadow: 0 10px 40px rgba(var(--accent-rgb), 0.45); /* 悬停时增强光晕 */
+}
+
+/* 使用伪元素制作一个动态进入的箭头图标 */
+.btn-primary-cinematic::after {
+    content: '→';
+    font-size: 24px;
+    line-height: 1;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translate(0, -50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-cinematic:hover::after {
+    opacity: 1;
+    transform: translate(10px, -50%); /* 悬停时箭头滑入 */
+}
+/* ===== CSS 新增部分结束 ===== */
+
+
+
+
 </script>
 
 
@@ -3083,6 +3175,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+
+
 
 
 
