@@ -2963,125 +2963,173 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
 
 
 
-<!-- BRIDGE: 从天问到耳畔 — 情绪缓冲区（直接粘入 index.html） -->
-<section id="bridge-immersive-full" aria-labelledby="bridge-immersive-title">
-  <style>
-    :root {
-      --bridge-bg: #ffffff;
-      --bridge-panel: rgba(255,255,255,0.9);
-      --bridge-card: linear-gradient(180deg,#fff,#fbfbff);
-      --bridge-text: #111;
-      --bridge-muted: #666;
-      --bridge-accent-1: #ff8a00;
-      --bridge-accent-2: #ff3d81;
-      --bridge-radius: 12px;
-      --bridge-shadow: 0 8px 30px rgba(10,10,10,0.06);
-      --bridge-maxw: 1080px;
-      --bridge-gap: 20px;
-      --bridge-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
+<section id="bridge-immersive-full" class="section-divider" aria-labelledby="bridge-immersive-title" style="margin-top: 60px;">
+    <style>
+        /* 继承主页的配色方案 */
+        :root {
+            /* ... (CSS 变量部分保持不变，确保与上一个版本一致) ... */
+            --flow-text: #eaf6ff;
+            --flow-muted: #9fb0c6;
+            --flow-accent-1: #e8b923; 
+            --flow-accent-2: #4a90e2; 
+            --flow-connector: rgba(74, 144, 226, 0.4);
+            --flow-card-bg: rgba(255,255,255,0.02);
+            --flow-font: 'Noto Serif SC', Inter, serif;
+            --bridge-accent-1-rgb: 232, 185, 35;
+            --bridge-accent-2-rgb: 74, 144, 226;
+        }
 
-    #bridge-immersive-full{
-      box-sizing:border-box;
-      max-width:var(--bridge-maxw);
-      margin:56px auto;
-      padding:28px;
-      background:var(--bridge-panel);
-      border-radius:var(--bridge-radius);
-      box-shadow:var(--bridge-shadow);
-      font-family:var(--bridge-font);
-      color:var(--bridge-text);
-    }
+        /* 核心布局容器调整 */
+        .body {
+            display: grid;
+            /* 调整列比例：文本 2.5 份，视觉区 1.5 份，确保横向图片组有足够空间 */
+            grid-template-columns: 2.5fr 1.5fr; 
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px; 
+            align-items: start;
+        }
+        
+        /* 视觉区容器：改为容纳横向三图组 */
+        .visual-container-wide {
+            display: flex;
+            flex-direction: column; /* 保持纵向排列，但只放一个元素 */
+            gap: 0; 
+            padding-top: 20px; /* 微调间距 */
+        }
 
-    .head { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
-    .accent { width:40px; height:4px; border-radius:2px; background:linear-gradient(90deg,var(--bridge-accent-1),var(--bridge-accent-2)); flex:0 0 auto; }
-    h2 { margin:0; font-size:20px; letter-spacing:0.2px; font-weight:600; }
+        /* 横向三图组：使用 Flexbox 实现并排和缝隙 */
+        .wide-visual-flex {
+            display: flex;
+            gap: 12px; /* 栅栏缝隙 */
+            width: 100%;
+            /* 确保整体容器的宽高比合适（三张 1:1 图片加缝隙，约 3.3:1） */
+            aspect-ratio: 3.2 / 1; 
+            
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-    .body { display:grid; grid-template-columns: 1fr 380px; gap:var(--bridge-gap); align-items:start; }
-    .copy { font-size:15.5px; line-height:1.68; color:var(--bridge-text); }
-    .copy .lead { font-weight:600; color:var(--bridge-text); font-size:17px; margin-bottom:10px; }
-    .mini-scenes { display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:16px; }
-    .scene { background:var(--bridge-card); border-radius:10px; padding:12px; min-height:130px; display:flex; flex-direction:column; justify-content:flex-start; box-shadow:0 6px 20px rgba(10,10,10,0.03); }
-    .scene h4 { margin:0 0 8px 0; font-size:14px; color:var(--bridge-text); font-weight:700; }
-    .scene p { margin:0; color:var(--bridge-muted); font-size:13.5px; line-height:1.55; }
+        /* 单个图片容器：确保内部图片是 1:1 且充满空间 */
+        .wide-image-item {
+            position: relative;
+            /* Flex 布局中，让每张图等宽等高 */
+            flex: 1 1 0; 
+            overflow: hidden;
+            background: rgba(var(--bridge-accent-2-rgb), 0.1);
+            /* 内部图片强制 1:1 比例 */
+            aspect-ratio: 1 / 1; 
+        }
+        .wide-image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .wide-image-item:hover img {
+            transform: scale(1.05); /* 悬停微动效果 */
+        }
 
-    .visual { display:flex; flex-direction:column; gap:12px; }
-    .hero { width:100%; height:220px; border-radius:10px; overflow:hidden; background:#f3f3f3; position:relative; display:flex; align-items:center; justify-content:center; }
-    .hero img { width:100%; height:100%; object-fit:cover; display:block; }
-    .thumb-row { display:flex; gap:10px; align-items:center; }
-    .thumb { flex:0 0 72px; height:72px; border-radius:8px; overflow:hidden; background:#fafafa; border:1px solid #eee; display:block; }
+        /* 文本和卡片样式 (保持与上一个版本一致) */
+        .head { display:flex; align-items:center; gap:12px; margin-bottom:18px; justify-content:center; }
+        .three-cols { display:grid; gap:16px; margin-top:24px;} 
+        /* ... (其他通用样式保持不变) ... */
 
-    .lead-out { margin-top:18px; font-weight:600; color:var(--bridge-text); }
-    .subtle { display:block; margin-top:8px; color:var(--bridge-muted); font-size:13px; font-weight:400; }
+        /* 移动端适应 */
+        @media (max-width: 1080px){ 
+            .body { 
+                grid-template-columns: 1fr; /* 移动端堆叠 */
+                gap: 36px;
+            } 
+            .wide-visual-flex {
+                /* 手机上，让图片组不再固定比例，适应屏幕宽度 */
+                aspect-ratio: auto; 
+                height: 120px; /* 限制高度，避免图片过大 */
+            }
+            .three-cols { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 640px){
+            .three-cols { grid-template-columns: 1fr !important; }
+            .wide-visual-flex {
+                 /* 极小屏幕上，图片可以稍微堆叠，但这里我们保持横向，仅缩小尺寸 */
+                 height: 90px;
+            }
+        }
+    </style>
 
-    @media (max-width:960px){ .body { grid-template-columns: 1fr; } .mini-scenes { grid-template-columns: repeat(2, 1fr); } .hero { height:160px; } }
-    @media (max-width:560px){ .mini-scenes { grid-template-columns: 1fr; } #bridge-immersive-full { padding:18px; margin:28px auto; } }
-  </style>
-
-  <div class="head" role="heading" aria-level="2">
-    <div class="accent" aria-hidden="true"></div>
-    <h2 id="bridge-immersive-title">从天问到耳畔 · 当宏问归于日常</h2>
-  </div>
-
-  <div class="body">
-    <div class="copy" role="region" aria-label="情绪过渡文案">
-      <div class="lead">不论宇宙的最终答案如何，脚下的这些瞬间是真实的——而这些小小的、荒诞或温暖的片段，常常比任何理论更能触及我们的存在感。</div>
-
-      <p>远古的人在星空下造神；当代的人在屏光下寻求回应。两者不是割裂，而是同一根线的不同扭曲：我们都在用故事来安放自己的不安。</p>
-
-      <div class="mini-scenes" aria-hidden="false">
-        <article class="scene" aria-label="奇怪的邻居">
-          <h4>奇怪的邻居 • 好奇</h4>
-          <p>她凌晨浇花，却从不锁门；你曾看见她在阳台对着星空低声说话。也许这只是孤独的仪式，或许它暗示着某种超出常识的可能——好奇让你开始怀疑世界的边界。</p>
-        </article>
-
-        <article class="scene" aria-label="意外的温暖">
-          <h4>意外的温暖 • 亲情</h4>
-          <p>忘带钥匙回家，母亲的语音里只有一句“门开了，我在窗边”。那一瞬，城市里所有的荒诞都被一种古老的守护温柔化解。</p>
-        </article>
-
-        <article class="scene" aria-label="社交小确幸">
-          <h4>社交小确幸 • 日常</h4>
-          <p>连续三天，一个陌生人点赞你旧照，最后他发来一句“最近好吗？”。偶然构成了新的叙事——或许这就是当代的神话起点。</p>
-        </article>
-      </div>
-
-      <div class="lead-out">当“谁造神话”的问题变得遥远，回望身边，我们看到的是情感的多样性：疑惑、温暖、荒诞与好奇并存。</div>
-      <span class="subtle">下面 — Human Romance Engine · 《都市情感奇遇记》将放大这些微小线索，带你进入城市情感的近景观察。</span>
+    <div class="head" style="display:flex; align-items:center; gap:12px; margin-bottom:18px; justify-content:center;">
+        <div style="width:40px; height:4px; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); flex-shrink:0;" aria-hidden="true"></div>
+        <h2 id="bridge-immersive-title" style="margin:0; font-size: 32px; text-align:center; font-family: 'Noto Serif SC', serif;">从天问到耳畔 · 当宏问归于日常</h2>
     </div>
 
-    <aside class="visual" role="complementary" aria-label="插图">
-      <figure class="hero" aria-hidden="false" title="城市夜与手机屏光">
-        <img id="bridge-hero" data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23f3f3f3'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%23777'%3E插图占位：城市夜景与手机屏光%3C/text%3E%3C/svg%3E" alt="城市夜景与手机屏光，暗示现代情绪的光点" loading="lazy" />
-      </figure>
+    <div class="body">
+        <div class="copy" role="region" aria-label="情绪过渡文案">
+            <p class="muted" style="font-size:19px; line-height:1.7; font-weight:700; color:#fff;">
+                宏大的文明辩论，最终都要在我们身边寻找“证据”。这些荒诞或温暖的瞬间，正是宇宙真理最微小、最真实的“样本”。
+            </p>
 
-      <div class="thumb-row" aria-hidden="false">
-        <img class="thumb" data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='72'%3E%3Crect width='100%25' height='100%25' fill='%23fbfbfb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%23999'%3E在吗？ 已读…%3C/text%3E%3C/svg%3E" alt="信息气泡占位" loading="lazy"/>
-        <img class="thumb" data-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='72'%3E%3Crect width='100%25' height='100%25' fill='%23fbfbfb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%23999'%3E母亲窗边%3C/text%3E%3C/svg%3E" alt="母亲窗边占位" loading="lazy"/>
-      </div>
-    </aside>
-  </div>
+            <p class="muted" style="margin-top: 16px;">
+                远古造神，当代重构。两者不是割裂，而是同一条数据链的加密与解密：我们都在用“情感”来修正“隐谕”。正是这些日常的微小闪光，为我们提供了神祇基因或天外来客最可信的“线索样本”。
+            </p>
+
+
+<div class="three-cols">
+    <article class="card scene" aria-label="似曾相识的预知" style="padding:16px; border-left: 3px solid var(--accent);">
+        <h4 style="margin:0 0 8px 0; font-size:15px; color:var(--accent); font-weight:700;">编码线索一：第六感，好像来过！</h4>
+        <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">在某个陌生场景，你清晰地预感到接下来会发生什么。这不一定只是“似曾相识”，而很可能是时空轨迹在脑中提前闪现。是“时间之眼”基因觉醒的线索。</p>
+    </article>
+
+    <article class="card scene" aria-label="曼德拉效应的记忆碎片" style="padding:16px; border-left: 3px solid var(--accent2);">
+        <h4 style="margin:0 0 8px 0; font-size:15px; color:var(--accent2); font-weight:700;">基因样本二：你记得的，世界不记得</h4>
+        <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">你坚信某件事发生过，但所有证据和人都否定你。这种“集体记忆错位”，暗示了人类记忆被高维力量重写或篡改后留下的情感碎片。</p>
+    </article>
+
+    <article class="card scene" aria-label="梦中的事物在现实出现" style="padding:16px; border-left: 3px solid #fff;">
+        <h4 style="margin:0 0 8px 0; font-size:15px; color:#fff; font-weight:700;">悖论印记三：梦中之物，现实相见</h4>
+        <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">你梦见了一个从未见过的人或事，醒来后却在日常生活中偶然发现它。这暗示了潜意识正在与高维宇宙的物质流进行非线性同步。</p>
+    </article>
+</div>
+
+
+
+            <div class="lead-out" style="margin-top:30px; font-weight:700; font-size: 17px; color:var(--accent);">
+                结论：每一个被你记录下来的奇遇，都是宇宙在你我身上的一次实验。
+            </div>
+            <span class="subtle" style="display:block; margin-top:8px; color:#fff; font-size:15px; font-weight:500;">
+                请即刻向下滚动，进入情感采集引擎，记录你那“超出教科书”的生命瞬间。
+            </span>
+        </div>
+
+        <aside class="visual-container-wide" role="complementary" aria-label="插图样本">
+            <div class="wide-visual-flex">
+                <figure class="wide-image-item" title="图 1：对着星空低语的个体">
+                    <img src="assets/images/thumb_bridge_1.jpg" alt="对着星空低语的个体" loading="lazy" />
+                </figure>
+
+                <figure class="wide-image-item" title="图 2：家族信物与光芒">
+                    <img src="assets/images/thumb_bridge_2.jpg" alt="古老信物发出科技光芒" loading="lazy" />
+                </figure>
+
+                <figure class="wide-image-item" title="图 3：手机屏幕上的信息气泡">
+                    <img src="assets/images/thumb_bridge_3.jpg" alt="手机屏幕上的信息气泡" loading="lazy" />
+                </figure>
+            </div>
+            <span class="subtle" style="display:block; text-align: center; margin-top: 12px;">↑ 您贡献的奇遇将转化为这样的视觉线索 ↑</span>
+        </aside>
+    </div>
 </section>
 
-<script>
-  (function(){
-    if ('loading' in HTMLImageElement.prototype) {
-      document.querySelectorAll('img[data-src]').forEach(img => img.src = img.dataset.src);
-    } else {
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const img = e.target;
-            img.src = img.dataset.src;
-            io.unobserve(img);
-          }
-        });
-      }, {rootMargin: '200px'});
-      document.querySelectorAll('img[data-src]').forEach(img => io.observe(img));
-    }
-  })();
-</script>
-
+<section id="stories" class="module-stories section-divider">
+    <h2>情感奇遇：宇宙线索的众创采集</h2>
+    <p class="muted" style="max-width: 800px;
+margin: 16px auto; text-align: center; font-size: 16px; line-height: 1.7;">
+        现在，您已理解宏问如何归于日常。「宇宙线索采集引擎」已启动，我们正在寻找那些最奇葩、最温暖、最不可思议的情感样本，它们是”人类起源多样性“的最重要证据。
+    </p>
+    <p class="muted" style="text-align:center;
+font-style: italic; margin-top: 24px;">是神祇基因在觉醒？是天外来客的伪装？请记录下你那“超出教科书”的一刻。</p>
 
 
 
