@@ -1943,79 +1943,75 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
-/* ====== 新：thumb 三图并排放大 + 细黑线分隔（替换 wide-visual-flex-compact / triptych-container） ====== */
-/* 使用 #bridge-immersive-full 限定作用域，避免影响站内其他区域 */
+/* ====== triptych 改为三条竖条（单条宽:高 ≈ 1:3），限定在 #bridge-immersive-full 范围 ====== */
 #bridge-immersive-full .triptych-container {
   display: flex;
+  justify-content: center; /* 三条居中显示 */
+  align-items: flex-start;  /* 顶部对齐 */
+  gap: 0;                   /* 不用 gap，分隔用 border */
   width: 100%;
-  aspect-ratio: 3 / 1; /* 整体横向外形，必要可改为 2/1 或移除改用固定高度 */
-  overflow: hidden;
-  gap: 0; /* 取消 gap，分隔由 border 实现 */
-  border-radius: 10px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-  border: 1px solid rgba(255,255,255,0.04);
   padding: 0;
   margin: 0 auto;
-  align-items: stretch;
-}
-
-/* 每个项均分宽度并撑满高度 */
-#bridge-immersive-full .triptych-container .triptych-item {
-  flex: 1 1 0;
-  min-width: 0; /* 防止图片内元素撑破布局 */
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  border-radius: 0; /* 若想圆角保留在容器上 */
-  margin: 0;
-  padding: 0;
+  /* 这里控制竖条高度：按需求改这个值（例如 420px、480px、600px 等） */
+  height: 520px;            /* ← 你可以按需求调整（越大条越高） */
+  overflow: visible;
   box-sizing: border-box;
 }
 
-/* 图片填满并裁剪 */
+/* 每个 item 固定高度、按 aspect-ratio 计算宽度（width = height * 1/3） */
+#bridge-immersive-full .triptych-container .triptych-item {
+  flex: 0 0 auto;           /* 不拉伸、不收缩，固定尺寸由 height+aspect-ratio 决定 */
+  height: 100%;             /* 跟容器同高 */
+  aspect-ratio: 1 / 3;      /* 宽:高 = 1:3 —— 宽度会由 height 自动算出 */
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* 图片充满并裁剪，保留中心位置 */
 #bridge-immersive-full .triptych-container .triptych-item img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 300ms ease;
+  transition: transform 260ms ease;
 }
 
-/* 用 right border 做细线分隔（非最后一个） */
+/* 细黑线分隔（非最后一项） */
 #bridge-immersive-full .triptych-container .triptych-item:not(:last-child) {
-  border-right: 2px solid #000; /* 你可以改为 1px 或 rgba(...,0.9) */
+  border-right: 2px solid #000; /* 可改为 1px 或 rgba(0,0,0,0.9) */
 }
 
-/* 悬停微动效（可选） */
+/* 悬停放大效果（可选） */
 #bridge-immersive-full .triptych-container .triptych-item:hover img {
   transform: scale(1.03);
 }
 
-/* 响应式：窄屏（手机）回落竖列 */
+/* ---- 响应式：窄屏（例如手机）回落为竖列 ----
+   高度自动减小且每张图变为宽屏矩形，更适合小屏 */
 @media (max-width: 980px) {
   #bridge-immersive-full .triptych-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 8px;
-    aspect-ratio: auto;
+    gap: 10px;
+    height: auto;
+    align-items: stretch;
+  }
+  #bridge-immersive-full .triptych-container .triptych-item {
+    aspect-ratio: 16 / 9;
+    height: auto;
+    width: 100%;
   }
   #bridge-immersive-full .triptych-container .triptych-item:not(:last-child) {
     border-right: none;
-    border-bottom: 2px solid rgba(0,0,0,0.8);
-  }
-  #bridge-immersive-full .triptych-container .triptych-item {
-    aspect-ratio: 16 / 9; /* 手机端更适合横向矩形 */
+    border-bottom: 2px solid rgba(0,0,0,0.85);
   }
 }
-
-
-
-
-
-
-
-
 
 
 
