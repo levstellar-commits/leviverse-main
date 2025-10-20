@@ -1942,6 +1942,84 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
+
+/* ====== 新：thumb 三图并排放大 + 细黑线分隔（替换 wide-visual-flex-compact / triptych-container） ====== */
+/* 使用 #bridge-immersive-full 限定作用域，避免影响站内其他区域 */
+#bridge-immersive-full .triptych-container {
+  display: flex;
+  width: 100%;
+  aspect-ratio: 3 / 1; /* 整体横向外形，必要可改为 2/1 或移除改用固定高度 */
+  overflow: hidden;
+  gap: 0; /* 取消 gap，分隔由 border 实现 */
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 0;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+/* 每个项均分宽度并撑满高度 */
+#bridge-immersive-full .triptych-container .triptych-item {
+  flex: 1 1 0;
+  min-width: 0; /* 防止图片内元素撑破布局 */
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0; /* 若想圆角保留在容器上 */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 图片填满并裁剪 */
+#bridge-immersive-full .triptych-container .triptych-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 300ms ease;
+}
+
+/* 用 right border 做细线分隔（非最后一个） */
+#bridge-immersive-full .triptych-container .triptych-item:not(:last-child) {
+  border-right: 2px solid #000; /* 你可以改为 1px 或 rgba(...,0.9) */
+}
+
+/* 悬停微动效（可选） */
+#bridge-immersive-full .triptych-container .triptych-item:hover img {
+  transform: scale(1.03);
+}
+
+/* 响应式：窄屏（手机）回落竖列 */
+@media (max-width: 980px) {
+  #bridge-immersive-full .triptych-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    aspect-ratio: auto;
+  }
+  #bridge-immersive-full .triptych-container .triptych-item:not(:last-child) {
+    border-right: none;
+    border-bottom: 2px solid rgba(0,0,0,0.8);
+  }
+  #bridge-immersive-full .triptych-container .triptych-item {
+    aspect-ratio: 16 / 9; /* 手机端更适合横向矩形 */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
   </style>
 
 
@@ -3001,29 +3079,7 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
             padding-top: 15px; 
         }
 
-        /* 横向三图组：使用 Flexbox 实现并排和缝隙 */
-        .wide-visual-flex-compact {
-            display: flex;
-            gap: 12px; /* 栅栏缝隙 */
-            width: 100%;
-            height: auto; 
-            
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* 单个图片容器：使用 aspect-ratio 确保 1:1 比例 */
-        .wide-image-item-compact {
-            position: relative;
-            flex: 1 1 0; 
-            overflow: hidden;
-            background: rgba(var(--bridge-accent-2-rgb), 0.1);
-            aspect-ratio: 1 / 1; 
-            height: auto;
-        }
-        
+               
         .wide-image-item-compact img {
             width: 100%;
             height: 100%;
@@ -3103,53 +3159,6 @@ padding-top: 10px;"><a href="pets/shixiaosheng.html" class="btn ghost btn-small"
         </div>
 
 
-
-<style>
-    .triptych-container {
-        /* 规则一：规定一个固定的最大宽度，并居中 */
-        max-width: 600px;
-        margin: 0 auto;
-
-        display: grid;
-        /* 三列完全等宽 */
-        grid-template-columns: 1fr 1fr 1fr;
-        /* 规则三：规定一个极小的缝隙，让整体近似方块 */
-        gap: 4px;
-    }
-
-    .triptych-item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 8px; /* 减小圆角以适应更紧凑的布局 */
-        
-        /* 规则二：严格遵守1:3的宽高比 */
-        aspect-ratio: 1 / 3;
-    }
-
-    .triptych-item img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-    }
-
-    .triptych-item:hover img {
-        transform: scale(1.05);
-    }
-
-    @media (max-width: 980px) {
-        .triptych-container {
-            /* 在手机上取消固定宽度，让其自适应 */
-            max-width: 100%;
-            grid-template-columns: 1fr;
-        }
-        .triptych-item {
-            /* 在手机上恢复更常规的比例，避免过长 */
-            aspect-ratio: 3 / 4;
-        }
-    }
-</style>
 
 <aside class="visual-container-compact" role="complementary" aria-label="插图样本">
     <div class="triptych-container">
