@@ -2075,6 +2075,37 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
+/* ========== [新增] “从天问到耳畔”版块新布局样式 ========== */
+
+/* 这是新的两栏布局网格 */
+.bridge-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 左右两栏，宽度各占一半 */
+    gap: 40px; /* 两栏之间的间距 */
+    align-items: start; /* 顶部对齐 */
+    margin-top: 48px; /* 与上方文字的间距 */
+}
+
+/* 这是左栏，用来装三张卡片 */
+.clue-cards-column {
+    display: flex;
+    flex-direction: column; /* 让内部的卡片竖向排列 */
+    gap: 24px; /* 卡片之间的垂直间距 */
+}
+
+/* 为了让卡片样式更好看，覆盖一下默认样式 */
+.clue-cards-column .card {
+    padding: 20px;
+    margin: 0;
+}
+
+/* 响应式设计：在手机等小屏幕上，自动变成单栏上下布局 */
+@media (max-width: 980px) {
+    .bridge-layout-grid {
+        grid-template-columns: 1fr; /* 变为单栏 */
+    }
+}
+
 
 
   </style>
@@ -2794,9 +2825,9 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     <div class="six-cols" style="margin-top:18px;">
         <div class="expert-card card"><img src="assets/images/archetype_narrative.jpg" alt="立维宇宙团队角色：世界观架构师" loading="lazy"><h3>世界观架构师</h3><p class="muted">负责定义宇宙的基础法则、文明谱系与核心冲突。</p></div>
         <div class="expert-card card"><img src="assets/images/archetype_history expert.jpg" alt="立维宇宙团队角色：历史与神话顾问" loading="lazy"><h3>历史顾问</h3><p class="muted">确保世界观的每一个细节，都植根于真实可考的文化母体。</p></div>
-        <div class="expert-card card"><img src="assets/images/archetype_culture.jpg" alt="立维宇宙团队角色：跨文化研究员" loading="lazy"><h3>跨文化研究员</h3><p class="muted">解读不同文明神话的共通原型，构建全球共鸣的**神话叙事**。</p></div>
-        <div class="expert-card card"><img src="assets/images/archetype_design.jpg" alt="立维宇宙团队角色：叙事设计师" loading="lazy"><h3>叙事设计师</h3><p class="muted">将宏大的世界观，转化为可体验、可互动的**文化IP**故事节点。</p></div>
-        <div class="expert-card card"><img src="assets/images/archetype_spatial.jpg" alt="立维宇宙团队角色：空间规划师" loading="lazy"><h3>空间规划师</h3><p class="muted">将虚构的场景，“翻译”为可进行**规划设计**的物理空间蓝图。</p></div>
+        <div class="expert-card card"><img src="assets/images/archetype_culture.jpg" alt="立维宇宙团队角色：跨文化研究员" loading="lazy"><h3>跨文化研究员</h3><p class="muted">解读不同文明神话的共通原型，构建全球共鸣的神话叙事。</p></div>
+        <div class="expert-card card"><img src="assets/images/archetype_design.jpg" alt="立维宇宙团队角色：叙事设计师" loading="lazy"><h3>叙事设计师</h3><p class="muted">将宏大的世界观，转化为可体验、可互动的文化IP故事节点。</p></div>
+        <div class="expert-card card"><img src="assets/images/archetype_spatial.jpg" alt="立维宇宙团队角色：空间规划师" loading="lazy"><h3>空间规划师</h3><p class="muted">将虚构的场景，“翻译”为可进行规划设计的物理空间蓝图。</p></div>
         <div class="expert-card card" style="border-style: dashed; border-color: rgba(255,255,255,0.2);"><img src="assets/images/archetype_join.jpg" alt="立维宇宙团队开放合作席位" loading="lazy"><h3>期待加入</h3><p class="muted">我们持续邀请各领域顶尖人才，共同探索宇宙的边界。</p></div>
     </div>
 </section>
@@ -2866,7 +2897,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
                 <li class="done"><strong>2025.Q2:</strong> 核心文学作品《驹隙万秋》发布</li>
                 <li class="current"><strong>2025.Q4:</strong> 启动首部微剧《炎的弥赛亚》孵化 (当前)</li>
                 <li><strong>2026.Q2:</strong> 《炎黄：前古纪元》游戏原型公布</li>
-                <li><strong>2026.Q4:</strong> 启动首个线下**城市更新**文旅项目合作</li>
+                <li><strong>2026.Q4:</strong> 启动首个线下城市更新文旅项目合作</li>
             </ul>
         </div>
         <div class="card">
@@ -2950,7 +2981,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
                     <li style="margin-bottom: 8px;">选择立场并发表观点。</li>
                     <li style="margin-bottom: 8px;">你的论据将接受全网用户的评判。</li>
                     <li style="margin-bottom: 8px;">优秀观点将被收录至“宇宙编年史”。</li>
-                    <li>参与**IP创作**，共筑世界观。</li>
+                    <li>参与IP创作，共筑世界观。</li>
                 </ul>
                 <button class="btn ghost" style="width: 100%; margin-top: 15px;">查看往期议题</button>
             </div>
@@ -2978,58 +3009,67 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     <div id="waline"></div>
 </section>
 
+
+
+
 <section id="bridge-immersive-full" class="section-divider" aria-labelledby="bridge-immersive-title" style="margin-top: 60px;">
-    <div class="head" style="display:flex; align-items:center; gap:12px; margin-bottom:18px; justify-content:center;">
-        <div style="width:40px; height:4px; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); flex-shrink:0;" aria-hidden="true"></div>
-        <h2 id="bridge-immersive-title" style="margin:0; font-size: 32px; text-align:center; font-family: 'Noto Serif SC', serif;">从天问到耳畔 · 当宏问归于日常</h2>
+    
+    <div class="bridge-header-wrapper" style="max-width: 800px; margin: 0 auto 48px auto; text-align: center;">
+        <div class="head" style="display:flex; align-items:center; gap:12px; margin-bottom:18px; justify-content:center;">
+            <div style="width:40px; height:4px; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); flex-shrink:0;" aria-hidden="true"></div>
+            <h2 id="bridge-immersive-title" style="margin:0; font-size: 32px; font-family: 'Noto Serif SC', serif;">从天问到耳畔 · 当宏问归于日常</h2>
+        </div>
+        <p class="muted" style="font-size:19px; line-height:1.7; font-weight:700; color:#fff;">
+            宏大的文明辩论，最终都要在我们身边寻找“证据”。这些荒诞或温暖的瞬间，正是“宇宙真理最微小、最真实的“样本”。
+        </p>
+        <p class="muted" style="margin-top: 16px;">
+            远古造神，当代重构。两者不是割裂，而是同一条数据链的加密与解密：我们都在用”情感“来修正”代码“。正是这些日常的微小闪光，为我们提供了神祇基因或天外来客最可信的“线索样本”。
+        </p>
     </div>
 
-    <div class="body">
-        <div class="copy" role="region" aria-label="情绪过渡文案">
-            <p class="muted" style="font-size:19px; line-height:1.7; font-weight:700; color:#fff;">
-                宏大的文明辩论，最终都要在我们身边寻找“证据”。这些荒诞或温暖的瞬间，正是“宇宙真理最微小、最真实的“样本”。
-            </p>
-            <p class="muted" style="margin-top: 16px;">
-                远古造神，当代重构。两者不是割裂，而是同一条数据链的加密与解密：我们都在用”情感“来修正”代码“。正是这些日常的微小闪光，为我们提供了神祇基因或天外来客最可信的“线索样本”。
-            </p>
+    <div class="bridge-layout-grid">
+        
+        <div class="clue-cards-column">
+            <article class="card scene" aria-label="似曾相识的预知" style="border-left: 3px solid var(--accent);">
+                <h4 style="font-size:15px; color:var(--accent); font-weight:700;">编码线索一：第六感，好像来过！</h4>
+                <p class="muted" style="margin: 8px 0 0 0; font-size:13px; line-height:1.6;">在某个陌生场景，你清晰地预感到接下来会发生什么。这不仅仅可能是似曾相识，而更可能是”时空轨迹“在脑中提前闪现。这是”时间之眼“基因觉醒的线索。</p>
+            </article>
 
-            <div class="three-cols">
-                <article class="card scene" aria-label="似曾相识的预知" style="padding:16px; border-left: 3px solid var(--accent);">
-                    <h4 style="margin:0 0 8px 0; font-size:15px; color:var(--accent); font-weight:700;">编码线索一：第六感，好像来过！</h4>
-                    <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">在某个陌生场景，你清晰地预感到接下来会发生什么。这不仅仅可能是似曾相识，而更可能是”时空轨迹“在脑中提前闪现。这是”时间之眼“基因觉醒的线索。</p>
-                </article>
-                <article class="card scene" aria-label="曼德拉效应的记忆碎片" style="padding:16px; border-left: 3px solid var(--accent2);">
-                    <h4 style="margin:0 0 8px 0; font-size:15px; color:var(--accent2); font-weight:700;">基因样本二：你记得的，世界不记得</h4>
-                    <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">你坚信某件事发生过，但所有证据和人都否定你。这种”集体记忆错位“，暗示了人类记忆很可能是被某种高维力量重写或篡改后留下的情感碎片。</p>
-                </article>
-                <article class="card scene" aria-label="梦中的事物在现实出现" style="padding:16px; border-left: 3px solid #fff;">
-                    <h4 style="margin:0 0 8px 0; font-size:15px; color:#fff; font-weight:700;">悖论印记三：梦中之物，现实相见</h4>
-                    <p class="muted" style="margin:0; font-size:13px; line-height:1.6;">你梦见了某些从未见过的人或事，本来以为只是梦，醒来后竟然在日常生活中发现真实存在，会不会觉得不可思议？其实，这暗示了潜意识很可能正在与高维宇宙的物质流进行非线性同步。</p>
-                </article>
-            </div>
+            <article class="card scene" aria-label="曼德拉效应的记忆碎片" style="border-left: 3px solid var(--accent2);">
+                <h4 style="font-size:15px; color:var(--accent2); font-weight:700;">基因样本二：你记得的，世界不记得</h4>
+                <p class="muted" style="margin: 8px 0 0 0; font-size:13px; line-height:1.6;">你坚信某件事发生过，但所有证据和人都否定你。这种”集体记忆错位“，暗示了人类记忆很可能是被某种高维力量重写或篡改后留下的情感碎片。</p>
+            </article>
 
-            <div class="lead-out" style="margin-top:30px; font-weight:700; font-size: 17px; color:var(--accent);">
-                结论：每一个被你记录下来的奇遇，都是宇宙在你我身上的“一次实验”。
-            </div>
-            <span class="subtle" style="display:block; margin-top:8px; color:#fff; font-size:15px; font-weight:500;">
-                请即刻向下滚动，进入情感采集引擎，记录你那“超出教科书”的生命瞬间。
-            </span>
+            <article class="card scene" aria-label="梦中的事物在现实出现" style="border-left: 3px solid #fff;">
+                <h4 style="font-size:15px; color:#fff; font-weight:700;">悖论印记三：梦中之物，现实相见</h4>
+                <p class="muted" style="margin: 8px 0 0 0; font-size:13px; line-height:1.6;">你梦见了某些从未见过的人或事，本来以为只是梦，醒来后竟然在日常生活中发现真实存在，会不会觉得不可思议？其实，这暗示了潜意识很可能正在与高维宇宙的物质流进行非线性同步。</p>
+            </article>
         </div>
 
         <aside class="visual-container-compact" role="complementary" aria-label="插图样本">
             <div class="triptych-container">
                 <figure class="triptych-item" title="图 1：时间轨迹闪现">
-                    <img src="assets/images/thumb_bridge_1.jpg" alt="立维宇宙哲学概念图：如第六感般的时间轨迹闪现" loading="lazy">
+                    <img src="assets/images/thumb_bridge_1.jpg" alt="第六感：时间轨迹闪现" loading="lazy">
                 </figure>
                 <figure class="triptych-item" title="图 2：记忆冲突与碎片">
-                    <img src="assets/images/thumb_bridge_2.jpg" alt="立维宇宙哲学概念图：如曼德拉效应般的记忆冲突与碎片" loading="lazy">
+                    <img src="assets/images/thumb_bridge_2.jpg" alt="曼德拉效应：记忆冲突与碎片" loading="lazy">
                 </figure>
                 <figure class="triptych-item" title="图 3：梦中之物在现实出现">
-                    <img src="assets/images/thumb_bridge_3.jpg" alt="立维宇宙哲学概念图：梦境与现实同步的潜意识物质流" loading="lazy">
+                    <img src="assets/images/thumb_bridge_3.jpg" alt="梦境与现实：潜意识与物质流同步" loading="lazy">
                 </figure>
             </div>
         </aside>
-    
+    </div>
+
+    <div class="bridge-footer-wrapper" style="text-align: center; margin-top: 48px;">
+        <div class="lead-out" style="font-weight:700; font-size: 17px; color:var(--accent);">
+            结论：每一个被你记录下来的奇遇，都是宇宙在你我身上的“一次实验”。
+        </div>
+        <span class="subtle" style="display:block; margin-top:8px; color:#fff; font-size:15px; font-weight:500;">
+            请即刻向下滚动，进入情感采集引擎，记录你那“超出教科书”的生命瞬间。
+        </span>
+    </div>
+
 
         <style>
             @media (max-width: 1080px){ 
@@ -3062,7 +3102,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         <div class="card" style="padding: 20px;">
             <img src="assets/images/romance_engine_visual.jpg" alt="立维宇宙《都市情感奇遇记》内容共创计划概念插图" loading="lazy" style="width: 100%; border-radius: 8px; aspect-ratio: 4/3; object-fit: cover;">
             <h3 style="margin-top: 16px;">你的故事，是宇宙的光</h3>
-            <p class="muted" style="margin-top: 12px; line-height: 1.8;">每一个看似平凡的瞬间，都可能蕴含着足以撼动世界的叙事原型。无论是尴尬的相亲，还是深刻的家庭联结，都是构成我们宏大文化IP的宝贵素材。<br><br>您的每一个分享，都将成为我们“人类情感样本库”的一部分，为**IP创作**提供灵感，为宇宙注入灵魂，甚至可能成为未来电影中的经典一幕。</p>
+            <p class="muted" style="margin-top: 12px; line-height: 1.8;">每一个看似平凡的瞬间，都可能蕴含着足以撼动世界的叙事原型。无论是尴尬的相亲，还是深刻的家庭联结，都是构成我们宏大文化IP的宝贵素材。<br><br>您的每一个分享，都将成为我们“人类情感样本库”的一部分，为IP创作提供灵感，为宇宙注入灵魂，甚至可能成为未来电影中的经典一幕。</p>
         </div>
         <div class="stories-submit card" style="padding: 20px;">
             <form id="storySubmit" onsubmit="return handleStorySubmit(event)" method="post" action="/api/submit-story">
@@ -3106,7 +3146,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
             <li><strong>入选者：</strong>故事样本被采纳用于线上展示或短视频素材，将获赠立维宇宙周边文创一份。</li>
             <li><strong>核心贡献者：</strong>故事被《都市情感奇遇记》系列小说收录为核心章节，您将：
                 <ul style="padding-left: 20px;">
-                    <li>获赠小说出版后的**首版作者签名精装本**。</li>
+                    <li>获赠小说出版后的首版作者签名精装本。</li>
                     <li>您的署名（或匿名ID）将有机会被收录在书籍的“特别鸣谢”章节中。</li>
                     <li>获得“立维宇宙创世贡献者”高级会员身份及专属权益。</li>
                 </ul>
