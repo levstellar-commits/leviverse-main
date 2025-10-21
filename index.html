@@ -3608,16 +3608,18 @@ document.addEventListener('DOMContentLoaded', () => {
         <span onclick="closeLoginModal()" style="position:absolute; top:15px; right:20px; color:#aaa; font-size:28px; font-weight:bold; cursor:pointer; z-index: 1;" aria-label="关闭">&times;</span>
         
         <iframe id="waline-login-iframe"
-                src="https://levythos-comments-db.vercel.app/ui/login?lng=zh-CN"
+                 src="https://api.levythos.com/ui/login?lng=zh-CN"
                 style="width: 100%; height: 100%; border: none; border-radius: 12px;">
         </iframe>
     </div>
 </div>
 
+
+
 <script>
     const loginModal = document.getElementById('loginModal');
     const loginIframe = document.getElementById('waline-login-iframe');
-    const loginUrl = "https://levythos-comments-db.vercel.app/ui/login?lng=zh-CN";
+    const loginUrl = "https://api.levythos.com/ui/login?lng=zh-CN";
 
     // 打开弹窗的函数
     window.openLoginModal = function() {
