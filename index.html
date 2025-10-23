@@ -2107,6 +2107,37 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
+/* ========== [新增] 针对开篇三句话的手机显示优化 ========== */
+@media (max-width: 768px) {
+
+  /* 1. 调整核心内容容器的内边距，给文字留出更多空间 */
+  .hero-content {
+    padding: 10px; /* 将左右边距减小 */
+    width: 90%;     /* 确保容器宽度不会超出屏幕 */
+  }
+
+  /* 2. 修正主标题的样式 */
+  .hero-line {
+    font-size: 28px !important; /* 适当减小字号以适应屏幕 */
+    line-height: 1.3;         /* 调整行高 */
+    margin-bottom: 16px;      /* 调整与下方文字的间距 */
+  }
+
+  /* 3. [核心修正] 修正副标题，允许其正常换行 */
+  .hero-sub-cinematic {
+    font-size: 18px !important;   /* 适当减小字号 */
+    white-space: normal;        /* [关键] 允许文本自动换行 */
+    line-height: 1.6;           /* 增加行高以提高可读性 */
+    padding: 0 10px;            /* 增加一点点左右内边距，避免贴边 */
+  }
+
+  /* 4. 调整按钮组与上方文字的距离 */
+  .hero-actions {
+    margin-top: 24px; /* 确保按钮不会离文字太近 */
+  }
+}
+
+
 
   </style>
 
