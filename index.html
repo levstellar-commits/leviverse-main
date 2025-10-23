@@ -2137,7 +2137,21 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
   }
 }
 
+/* ========== [新增] 修正手机端导航栏遮挡标题的问题 ========== */
+@media (max-width: 768px) {
+  #hero-cinematic {
+    /* 增加一个内边距，把里面的内容（文字和按钮）向下推 */
+    padding-top: 100px; 
+    
+    /* [可选] 如果文字还是偏上，可以去掉flex的垂直居中，手动控制 */
+    /* align-items: flex-start; */
+  }
 
+  /* 同时，为了让文字整体更协调，可以稍微调整一下内容块的上边距 */
+  .hero-content {
+      margin-top: 20px; 
+  }
+}
 
   </style>
 
