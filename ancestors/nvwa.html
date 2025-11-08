@@ -7,14 +7,7 @@
   <link rel="stylesheet" href="../css/subpage.css">
   </head>
 <body>
-  <header> <div class="brand">
-      <a class="logo" href="../index.html" aria-label="Levythos 标志"><img src="../assets/images/logo.png" alt="Levythos 标志" width="44" height="44" /></a>
-      <div style="font-weight:800;line-height:1"><div>立维宇宙</div><div style="font-size:12px;color:var(--muted); text-transform: uppercase;">Levythos</div></div>
-    </div>
-    <nav>
-      <a href="../index.html#matrix">IP矩阵</a><a href="../index.html#universe">宇宙观</a><a href="../index.html#spatial">场景降临</a><a href="../index.html#what">世界蓝图</a><a href="../index.html#contact">合作共建</a>
-    </nav>
-  </header>
+  <div id="header-placeholder"></div>
   <main>
     <section class="subpage-hero" style="background-image: url('../assets/images/ancestor_nuwa.jpg');">
         <div class="subpage-hero-overlay">
@@ -94,5 +87,99 @@
   </main>
   <footer style="margin-top: 80px;"> </footer>
   <script>/* JS代码省略 */</script>
+
+<script>
+// ----------------------------------------------------
+// [功能 1] 自动加载 /header.html 文件
+// ----------------------------------------------------
+function loadHeader() {
+    fetch('/header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('网络响应不佳');
+            }
+            return response.text();
+        })
+        .then(data => {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            if (headerPlaceholder) {
+                headerPlaceholder.innerHTML = data;
+            }
+            // ----------------------------------------------------
+            // [功能 2] 导航栏加载完毕后，立刻执行“微信安全拦截”
+            // ----------------------------------------------------
+            setupWeChatSecurity();
+        })
+        .catch(error => {
+            console.error('加载导航栏失败:', error);
+        });
+}
+
+// ----------------------------------------------------
+// [功能 2] 微信安全拦截逻辑 (和之前一样)
+// ----------------------------------------------------
+// (请确保 "wxSafeModal" 的 HTML 也在 </body> 正上方)
+const wxSafeModal = document.getElementById('wxSafeModal'); 
+
+function openWxSafeModal() {
+    if (wxSafeModal) wxSafeModal.style.display = 'flex';
+}
+function closeWxSafeModal() {
+    if (wxSafeModal) wxSafeModal.style.display = 'none';
+}
+
+function setupWeChatSecurity() {
+    // 检查是否在微信中 (假设 <head> 里的脚本已经添加了 'in-wechat' 类)
+    if (document.documentElement.classList.contains('in-wechat')) {
+        
+        // 拦截“顶部登录/注册”按钮 (现在它在刚加载的导航栏里)
+        const headerLoginButton = document.querySelector('a[onclick*="openLoginModal"]');
+        if (headerLoginButton) {
+            headerLoginButton.setAttribute('onclick', 'event.preventDefault();'); 
+            headerLoginButton.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                e.stopPropagation();
+                openWxSafeModal(); 
+            });
+        }
+        
+        // (拦截其他按钮...)
+        const arenaButtons = document.querySelectorAll('#arena a[href*="#arena-debate-details"]');
+        arenaButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                e.stopPropagation();
+                openWxSafeModal(); 
+            });
+        });
+
+        const reviewButton = document.querySelector('button[onclick*="openReviewModal"]');
+        if (reviewButton) {
+            reviewButton.setAttribute('onclick', ''); 
+            reviewButton.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                e.stopPropagation();
+                openWxSafeModal(); 
+            });
+        }
+    }
+}
+
+// ----------------------------------------------------
+//  [启动] 页面加载时，立刻执行
+// ----------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    loadHeader(); // 启动导航栏加载
+    
+    // 确保弹窗的关闭按钮和背景点击可以立即工作
+    window.addEventListener('click', (event) => {
+        if (event.target == wxSafeModal) {
+            closeWxSafeModal();
+        }
+    });
+    // (确保 .wx-safe-modal-close 上的 onclick="closeWxSafeModal()" 在HTML里)
+});
+</script>
+
 </body>
 </html>
