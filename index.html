@@ -71,6 +71,7 @@
 
 /* 动画层 3: 女主角 (澜熙) - 替换为您自己的图片URL */
 #hero-female {
+    display: none; /* [新增] 禁用此图层 */
     background-image: url('assets/images/char_lanxi.jpg');
     z-index: 3;
     background-position: 80% 50%;
@@ -78,6 +79,7 @@
 
 /* 动画层 4: 男主角 (姜炎洺) - 替换为您自己的图片URL */
 #hero-male {
+    display: none; /* [新增] 禁用此图层 */
     background-image: url('assets/images/char_jiangyanming.jpg');
     z-index: 4;
     background-position: 20% 50%;
@@ -3800,7 +3802,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
 <script>
 // [新增] 微信安全弹窗的控制逻辑
 const wxSafeModal = document.getElementById('wxSafeModal');
@@ -3819,23 +3820,29 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// [核心]：
+// [核心修正]：
 // 我们在 DOM 加载后，再执行这个“转化拦截”脚本
 document.addEventListener('DOMContentLoaded', () => {
+    
     // 再次检查是否在微信中
     if (document.documentElement.classList.contains('in-wechat')) {
         
-        // 1. 拦截“顶部登录/注册”按钮 
-        const headerLoginButton = document.querySelector('a[href*="openLoginModal"]');
+        // 1. 拦截“顶部登录/注册”按钮
+        // [修正]：我们现在正确地通过 'onclick' 属性来找到这个按钮
+        const headerLoginButton = document.querySelector('a[onclick*="openLoginModal"]');
         if (headerLoginButton) {
+            
+            // 阻止它原有的 onclick 行为 
+            headerLoginButton.setAttribute('onclick', 'event.preventDefault();'); 
+            
             headerLoginButton.addEventListener('click', function(e) {
-                e.preventDefault(); // 阻止它调用 openLoginModal()
+                e.preventDefault(); // 再次阻止默认行为
                 e.stopPropagation();
                 openWxSafeModal(); // 打开我们的安全弹窗
             });
         }
         
-        // 2. 拦截“思想擂台”的加入按钮 [cite: 586, 587]
+        // 2. 拦截“思想擂台”的加入按钮
         const arenaButtons = document.querySelectorAll('#arena a[href*="#arena-debate-details"]');
         arenaButtons.forEach(button => {
             button.addEventListener('click', function(e) {
@@ -3845,10 +3852,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // 3. (推荐) 拦截“品读作品样章”按钮 [cite: 561, 668]
+        // 3. 拦截“品读作品样章”按钮
         const reviewButton = document.querySelector('button[onclick*="openReviewModal"]');
         if (reviewButton) {
-            // 必须阻止默认的 onclick [cite: 561, 668]
+            // 必须阻止默认的 onclick
             reviewButton.setAttribute('onclick', ''); 
             reviewButton.addEventListener('click', function(e) {
                 e.preventDefault(); 
@@ -3859,7 +3866,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
-
 
 
 
