@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preload" as="image" href="assets/images/dragon rider.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
   
   
 <style>
@@ -52,13 +52,13 @@
 
 /* 动画层 1: 宇宙背景 */
 #hero-bg {
-    background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600');
+    background-image: url('assets/images/hero-bg.jpg');
     z-index: 1;
 }
 
 /* 动画层 2: 粒子/尘埃 */
 #hero-particles {
-    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+    background-image: url('assets/images/hero-particles.png');
     z-index: 2;
     opacity: 0.3;
     transform: translateX(100%);
@@ -71,21 +71,22 @@
 
 /* 动画层 3: 女主角 (澜熙) - 替换为您自己的图片URL */
 #hero-female {
-    background-image: url('https://storage.googleapis.com/gemini-prod-us-west1-assets/original/Default_A_cinematic_shot_of_a_powerful_female_character_in_a_f_3.jpg');
+    background-image: url('assets/images/char_lanxi.jpg');
     z-index: 3;
     background-position: 80% 50%;
 }
 
 /* 动画层 4: 男主角 (姜炎洺) - 替换为您自己的图片URL */
 #hero-male {
-    background-image: url('https://storage.googleapis.com/gemini-prod-us-west1-assets/original/Default_A_cinematic_shot_of_a_powerful_male_character_in_a_fut_2.jpg');
+    background-image: url('assets/images/char_jiangyanming.jpg');
     z-index: 4;
     background-position: 20% 50%;
 }
 
 /* 动画层 5: 前景特效/碎片 - 替换为您自己的图片URL */
 #hero-foreground {
-    background-image: url('https://storage.googleapis.com/gemini-prod-us-west1-assets/original/Default_cinematic_sci-fi_glowing_energy_particles_and_fractal_s_1.jpg');
+    /* [修改] 我们复用背景的“星尘”图 */
+    background-image: url('assets/images/hero-particles.png');
     background-blend-mode: screen;
     z-index: 5;
     opacity: 0.7;
@@ -2171,18 +2172,72 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 <script>
-  const ua = navigator.userAgent.toLowerCase();
-  if (ua.includes('micromessenger')) {
-    // 微信内访问时，跳转到静态展示页
-    window.location.href = '/wx-view.html';
+  // 智能检测：如果是微信，就给 <html> 标签添加一个 'in-wechat' 类
+  const isWeChat = /micromessenger/i.test(navigator.userAgent);
+  if (isWeChat) {
+    document.documentElement.className += ' in-wechat';
   }
 </script>
+<style>
+  /* 智能隐藏：当 'in-wechat' 类存在时，自动隐藏“原生”的、有风险的评论/登录区 */
+  
+  /* 1. 隐藏“思想擂台”的整个评论区和Waline登录提示 */
+  .in-wechat #arena-debate-details,
+  .in-wechat .waline-login-prompt {
+    display: none !important;
+  }
+
+  /* 2. 我们“不”隐藏顶部的“登录/注册”按钮，以便引导转化 */
+
+  /* 3. 这是新的“引导弹窗”样式 */
+  .wx-safe-modal {
+      display: none; /* 默认隐藏 */
+      position: fixed;
+      z-index: 20000;
+      left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+  }
+  .wx-safe-modal-content {
+      background: var(--bg, #02040a); /* 沿用您网站的变量 */
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 12px;
+      width: min(450px, 90%);
+      text-align: center;
+      position: relative;
+  }
+  .wx-safe-modal h3 {
+      margin-top: 0;
+      color: var(--accent, #e8b923); /* 沿用您网站的变量 */
+      font-size: 20px;
+  }
+  .wx-safe-modal p {
+      color: var(--muted, #9fb0c6); /* 沿用您网站的变量 */
+      font-size: 16px;
+      line-height: 1.7;
+  }
+  .wx-safe-modal-close {
+      position:absolute; top:15px; right:20px;
+      color:#aaa; font-size:28px; font-weight:bold;
+      cursor:pointer;
+  }
+</style>
 
 <meta name="baidu-site-verification" content="codeva-FgXs6ZwMEJ" />
 
 
 
 <meta name="baidu-site-verification" content="codeva-FgXs6ZwMEJ" />
+
+
+
+<link rel="apple-touch-icon" href="/assets/images/favicon.png">
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
 
 </head>
@@ -3647,8 +3702,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
 <script type="module">
-  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
-  init({
+  // 仅在非微信环境时，才加载评论区
+  if (!/micromessenger/i.test(navigator.userAgent)) {
+      import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+      init({
     el: '#waline',
     serverURL: 'https://api.levythos.com',
     path: '/arena-founding-topic-origin', 
@@ -3725,6 +3782,91 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500); // 每半秒检查一次
 });
 </script>
+
+
+
+<div id="wxSafeModal" class="wx-safe-modal">
+    <div class="wx-safe-modal-content">
+        <span class="wx-safe-modal-close" onclick="closeWxSafeModal()">&times;</span>
+        <h3>请在浏览器中打开</h3>
+        <p>
+            为了保障您的账户安全并体验完整功能（如登录、评论），微信环境内已禁用交互。
+        </p>
+        <p>
+            请点击右上角 <strong>「...」</strong> 按钮，<br>然后选择 <strong>「在浏览器中打开」</strong>。
+        </p>
+    </div>
+</div>
+
+
+
+
+<script>
+// [新增] 微信安全弹窗的控制逻辑
+const wxSafeModal = document.getElementById('wxSafeModal');
+
+function openWxSafeModal() {
+    if (wxSafeModal) wxSafeModal.style.display = 'flex';
+}
+function closeWxSafeModal() {
+    if (wxSafeModal) wxSafeModal.style.display = 'none';
+}
+
+// 侦听所有点击，如果点击了弹窗外部，也关闭它
+window.addEventListener('click', (event) => {
+    if (event.target == wxSafeModal) {
+        closeWxSafeModal();
+    }
+});
+
+// [核心]：
+// 我们在 DOM 加载后，再执行这个“转化拦截”脚本
+document.addEventListener('DOMContentLoaded', () => {
+    // 再次检查是否在微信中
+    if (document.documentElement.classList.contains('in-wechat')) {
+        
+        // 1. 拦截“顶部登录/注册”按钮 
+        const headerLoginButton = document.querySelector('a[href*="openLoginModal"]');
+        if (headerLoginButton) {
+            headerLoginButton.addEventListener('click', function(e) {
+                e.preventDefault(); // 阻止它调用 openLoginModal()
+                e.stopPropagation();
+                openWxSafeModal(); // 打开我们的安全弹窗
+            });
+        }
+        
+        // 2. 拦截“思想擂台”的加入按钮 [cite: 586, 587]
+        const arenaButtons = document.querySelectorAll('#arena a[href*="#arena-debate-details"]');
+        arenaButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); // 阻止它滚动
+                e.stopPropagation();
+                openWxSafeModal(); // 打开我们的安全弹窗
+            });
+        });
+        
+        // 3. (推荐) 拦截“品读作品样章”按钮 [cite: 561, 668]
+        const reviewButton = document.querySelector('button[onclick*="openReviewModal"]');
+        if (reviewButton) {
+            // 必须阻止默认的 onclick [cite: 561, 668]
+            reviewButton.setAttribute('onclick', ''); 
+            reviewButton.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                e.stopPropagation();
+                openWxSafeModal(); // 打开我们的安全弹窗
+            });
+        }
+    }
+});
+</script>
+
+
+
+
+
+
+
+
 
 </body>
 </html> 
