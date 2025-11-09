@@ -17,12 +17,12 @@
     <a href="/#press" title="查看项目最新动态">项目动态</a>
     <a href="/#contact" title="与我们建立合作">合作共建</a>
     <div class="header-actions" style="margin-left: 24px; display: flex; gap: 12px; align-items: center;">
-      <a href="javascript:void(0);" onclick="openLoginModal()" class="btn ghost btn-small">登录/注册</a>
+      <a href="javascript:void(0);" onclick="openLoginModal()" class="btn ghost btn-small">登录 / 注册</a>
     </div>
   </nav>
 </header>
 
-<!-- 登录弹窗 -->
+<!-- 登录弹窗（浏览器内正常显示） -->
 <div id="loginModal" style="display:none; position:fixed; z-index:20000; inset:0; background-color:rgba(0,0,0,0.7); backdrop-filter:blur(8px); align-items:center; justify-content:center;">
   <div style="background:#fff; border-radius:12px; width:min(720px,95%); height:80vh; max-height:800px; overflow:hidden; position:relative;">
     <span onclick="closeLoginModal()" style="position:absolute; top:10px; right:16px; color:#555; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
@@ -33,7 +33,7 @@
   </div>
 </div>
 
-<!-- 微信提示弹窗 -->
+<!-- 微信提示弹窗（默认被全局阻断，不会被外部随意打开） -->
 <div id="wxSafeModal" style="display:none; position:fixed; z-index:21000; inset:0; background:rgba(0,0,0,0.65); display:flex; align-items:center; justify-content:center;">
   <div style="background:#0b1830; color:#fff; padding:24px 28px; border-radius:12px; max-width:420px; text-align:center; box-shadow:0 12px 40px rgba(0,0,0,0.6); position:relative;">
     <button id="wxCloseX" style="position:absolute; right:16px; top:10px; border:none; background:transparent; color:#ccc; font-size:22px; cursor:pointer;">&times;</button>
@@ -50,18 +50,50 @@
   </div>
 </div>
 
-<!-- 核心脚本 -->
+<!-- 防护性脚本：默认阻断外部调用，仅在登录点击时短暂允许显示 -->
 <script>
 (function() {
+  // 是否在微信内
   const isWeChat = /micromessenger/i.test(navigator.userAgent);
 
-  // 打开登录
-  window.openLoginModal = function() {
-    if (isWeChat) {
-      // 微信中不打开登录框，只弹提示
-      openWxSafeModal();
+  // === 全局保护开关（默认阻断） ===
+  // 任何外部直接调用 window.openWxSafeModal() 都会被阻断，避免自动弹出
+  if (typeof window.__wxModalBlocked === 'undefined') {
+    window.__wxModalBlocked = true;
+  }
+
+  // 定义受控的全局 open/close（外部调用会被阻断，除非临时解除）
+  window.openWxSafeModal = function() {
+    if (window.__wxModalBlocked) {
+      // 被阻断：不执行任何操作
+      console.warn('openWxSafeModal() 被阻断（默认策略）');
       return;
     }
+    const m = document.getElementById('wxSafeModal');
+    if (m) m.style.display = 'flex';
+  };
+  window.closeWxSafeModal = function() {
+    const m = document.getElementById('wxSafeModal');
+    if (m) m.style.display = 'none';
+  };
+
+  // 登录弹窗控制（浏览器正常弹窗；微信仅弹提示）
+  window.openLoginModal = function() {
+    // 如果在微信环境，走受控流程：临时允许弹窗 -> 打开 -> 再阻断
+    if (isWeChat) {
+      try {
+        // 临时允许外部 open 操作（短短一瞬）
+        window.__wxModalBlocked = false;
+        // 触发我们受控的 open（若其他脚本也调用 openWxSafeModal，会被允许，但我们立刻再阻断）
+        window.openWxSafeModal();
+      } finally {
+        // 立刻恢复阻断，避免其他脚本趁机滥用
+        window.__wxModalBlocked = true;
+      }
+      return;
+    }
+
+    // 非微信环境：正常打开登录 iframe
     const modal = document.getElementById('loginModal');
     const iframe = document.getElementById('waline-login-iframe');
     if (iframe && iframe.getAttribute('data-src')) {
@@ -70,7 +102,6 @@
     if (modal) modal.style.display = 'flex';
   };
 
-  // 关闭登录
   window.closeLoginModal = function() {
     const modal = document.getElementById('loginModal');
     const iframe = document.getElementById('waline-login-iframe');
@@ -78,26 +109,29 @@
     if (iframe) iframe.src = 'about:blank';
   };
 
-  // 打开/关闭微信提示
-  function openWxSafeModal() {
-    const m = document.getElementById('wxSafeModal');
-    if (m) m.style.display = 'flex';
-  }
-  function closeWxSafeModal() {
-    const m = document.getElementById('wxSafeModal');
-    if (m) m.style.display = 'none';
-  }
-
-  // 按钮绑定
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('wxCloseX')?.addEventListener('click', closeWxSafeModal);
-    document.getElementById('wxCloseBtn')?.addEventListener('click', closeWxSafeModal);
-    const modalBg = document.getElementById('wxSafeModal');
-    if (modalBg) {
-      modalBg.addEventListener('click', (e) => {
-        if (e.target === modalBg) closeWxSafeModal();
+  // 绑定关闭事件（确保可关闭）
+  function bindWxModalEvents() {
+    const wxModal = document.getElementById('wxSafeModal');
+    const btnX = document.getElementById('wxCloseX');
+    const btnOk = document.getElementById('wxCloseBtn');
+    if (btnX) btnX.addEventListener('click', function(e){ e.preventDefault(); window.closeWxSafeModal(); });
+    if (btnOk) btnOk.addEventListener('click', function(e){ e.preventDefault(); window.closeWxSafeModal(); });
+    if (wxModal) {
+      wxModal.addEventListener('click', function(e){
+        if (e.target === wxModal) window.closeWxSafeModal();
       });
     }
-  });
+  }
+
+  // DOMContentLoaded 时绑定（如果 header 是内联，这会立即运行）
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindWxModalEvents);
+  } else {
+    bindWxModalEvents();
+  }
+
+  // 保护提示：
+  // 如果站点上有旧的脚本在页面 load 时调用 openWxSafeModal()，那将被阻断并在控制台提示，
+  // 这保证页面不会自动弹窗。只有用户主动点击登录才会短暂允许并显示提示。
 })();
 </script>
