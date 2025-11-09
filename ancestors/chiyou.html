@@ -94,98 +94,138 @@
   <script>/* JS代码省略 */</script>
 
 
+<div id="loginModal" style="display:none; position:fixed; z-index:20000; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items:center; justify-content:center;">
+    <div id="loginModalContent" style="background:var(--bg); border:1px solid rgba(255,255,255,0.1); border-radius:12px; width: min(420px, 90%); height: 600px; max-height: 80vh; overflow: hidden; position:relative;">
+        <span onclick="closeLoginModal()" style="position:absolute; top:15px; right:20px; color:#aaa; font-size:28px; font-weight:bold; cursor:pointer; z-index: 1;"
+        aria-label="关闭">&times;</span>
+        
+        <iframe id="waline-login-iframe"
+                 src="about:blank" 
+                 data-src="https://api.levythos.com/ui/login?lng=zh-CN"
+                 style="width: 100%; height: 100%; border: none; border-radius: 12px;">
+        </iframe>
+    </div>
+</div>
+
+<div id="wxSafeModal" class="wx-safe-modal" style="display:none;">
+    <div class="wx-safe-modal-content">
+        <span class="wx-safe-modal-close" onclick="closeWxSafeModal()">&times;</span>
+        <h3>请在浏览器中打开</h3>
+        <p>
+            为了保障您的账户安全并体验完整功能（如登录、评论），微信环境内已禁用交互。
+        </p>
+        <p>
+            请点击右上角 <strong>「...」</strong> 按钮，<br>然后选择 <strong>「在浏览器中打开」</strong>。
+        </p>
+    </div>
+</div>
+
 <script>
-// ----------------------------------------------------
-// [功能 1] 自动加载 /header.html 文件
-// ----------------------------------------------------
-function loadHeader() {
-    fetch('/header.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('网络响应不佳');
-            }
-            return response.text();
-        })
-        .then(data => {
-            const headerPlaceholder = document.getElementById('header-placeholder');
-            if (headerPlaceholder) {
-                headerPlaceholder.innerHTML = data;
-            }
-            // ----------------------------------------------------
-            // [功能 2] 导航栏加载完毕后，立刻执行“微信安全拦截”
-            // ----------------------------------------------------
-            setupWeChatSecurity();
-        })
-        .catch(error => {
-            console.error('加载导航栏失败:', error);
-        });
-}
+    // ========= [PART 1: 登录弹窗功能] =========
+    // (让 "openLoginModal()" 在浏览器中能正常工作)
+    const loginModal = document.getElementById('loginModal');
+    const loginIframe = document.getElementById('waline-login-iframe');
 
-// ----------------------------------------------------
-// [功能 2] 微信安全拦截逻辑 (和之前一样)
-// ----------------------------------------------------
-// (请确保 "wxSafeModal" 的 HTML 也在 </body> 正上方)
-const wxSafeModal = document.getElementById('wxSafeModal'); 
-
-function openWxSafeModal() {
-    if (wxSafeModal) wxSafeModal.style.display = 'flex';
-}
-function closeWxSafeModal() {
-    if (wxSafeModal) wxSafeModal.style.display = 'none';
-}
-
-function setupWeChatSecurity() {
-    // 检查是否在微信中 (假设 <head> 里的脚本已经添加了 'in-wechat' 类)
-    if (document.documentElement.classList.contains('in-wechat')) {
-        
-        // 拦截“顶部登录/注册”按钮 (现在它在刚加载的导航栏里)
-        const headerLoginButton = document.querySelector('a[onclick*="openLoginModal"]');
-        if (headerLoginButton) {
-            headerLoginButton.setAttribute('onclick', 'event.preventDefault();'); 
-            headerLoginButton.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                e.stopPropagation();
-                openWxSafeModal(); 
-            });
+    window.openLoginModal = function() {
+        if (loginIframe) {
+            // 只有在点击时才加载 iframe，提高性能
+            const loginUrl = loginIframe.getAttribute('data-src');
+            loginIframe.src = loginUrl;
         }
-        
-        // (拦截其他按钮...)
-        const arenaButtons = document.querySelectorAll('#arena a[href*="#arena-debate-details"]');
-        arenaButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                e.stopPropagation();
-                openWxSafeModal(); 
-            });
-        });
-
-        const reviewButton = document.querySelector('button[onclick*="openReviewModal"]');
-        if (reviewButton) {
-            reviewButton.setAttribute('onclick', ''); 
-            reviewButton.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                e.stopPropagation();
-                openWxSafeModal(); 
-            });
-        }
+        if (loginModal) loginModal.style.display = 'flex';
     }
-}
 
-// ----------------------------------------------------
-//  [启动] 页面加载时，立刻执行
-// ----------------------------------------------------
-document.addEventListener('DOMContentLoaded', () => {
-    loadHeader(); // 启动导航栏加载
+    window.closeLoginModal = function() {
+        if (loginModal) loginModal.style.display = 'none';
+        if (loginIframe) loginIframe.src = 'about:blank'; // 关闭时清空
+    }
     
-    // 确保弹窗的关闭按钮和背景点击可以立即工作
+    // 点击弹窗外部区域关闭【登录弹窗】
+    window.addEventListener('click', (event) => {
+        if (event.target == loginModal) {
+            closeLoginModal();
+        }
+    });
+
+    // ========= [PART 2: 微信安全/拦截功能] =========
+    const isWeChat = /micromessenger/i.test(navigator.userAgent);
+    if (isWeChat) {
+        document.documentElement.className += ' in-wechat';
+    }
+
+    const wxSafeModal = document.getElementById('wxSafeModal');
+    function openWxSafeModal() {
+        if (wxSafeModal) wxSafeModal.style.display = 'flex';
+    }
+    function closeWxSafeModal() {
+        if (wxSafeModal) wxSafeModal.style.display = 'none';
+    }
+    
+    // 点击弹窗外部区域关闭【微信安全弹窗】
     window.addEventListener('click', (event) => {
         if (event.target == wxSafeModal) {
             closeWxSafeModal();
         }
     });
-    // (确保 .wx-safe-modal-close 上的 onclick="closeWxSafeModal()" 在HTML里)
-});
-</script>
 
+    // ========= [PART 3: 导航栏加载 + 启动拦截] =========
+    function loadHeaderAndSecurity() {
+        // [A] 加载 header.html
+        fetch('/header.html')
+            .then(response => response.ok ? response.text() : Promise.reject('Network response was not ok.'))
+            .then(data => {
+                const headerPlaceholder = document.getElementById('header-placeholder');
+                if (headerPlaceholder) headerPlaceholder.innerHTML = data;
+                
+                // [B] 导航栏加载完毕后，立刻启动安全拦截
+                setupWeChatSecurity(); 
+            })
+            .catch(error => console.error('加载导航栏失败:', error));
+    }
+
+    function setupWeChatSecurity() {
+        // [C] 只有在微信中才执行拦截
+        if (isWeChat) { 
+            // 拦截“顶部登录/注册”按钮
+            const headerLoginButton = document.querySelector('a[onclick*="openLoginModal"]');
+            if (headerLoginButton) {
+                headerLoginButton.setAttribute('onclick', 'event.preventDefault();'); 
+                headerLoginButton.addEventListener('click', e => {
+                    e.preventDefault(); 
+                    e.stopPropagation();
+                    openWxSafeModal(); // 弹出我们的安全提示
+                });
+            }
+            
+            // 拦截“思想擂台”按钮
+            document.querySelectorAll('#arena a[href*="#arena-debate-details"]').forEach(button => {
+                button.addEventListener('click', e => {
+                    e.preventDefault(); 
+                    e.stopPropagation();
+                    openWxSafeModal(); 
+                });
+            });
+
+            // 拦截“品读作品样章”按钮
+            const reviewButton = document.querySelector('button[onclick*="openReviewModal"]');
+            if (reviewButton) {
+                reviewButton.setAttribute('onclick', ''); 
+                reviewButton.addEventListener('click', e => {
+                    e.preventDefault(); 
+                    e.stopPropagation();
+                    openWxSafeModal(); 
+                });
+            }
+            
+            // (您可以在这里添加对子页面其他按钮的拦截...)
+        }
+        // (如果不在微信中，此函数什么也不做，"openLoginModal()" 会正常执行)
+    }
+
+    // ========= [启动] =========
+    document.addEventListener('DOMContentLoaded', () => {
+        loadHeaderAndSecurity(); // 启动
+    });
+</script>
 </body>
 </html>
