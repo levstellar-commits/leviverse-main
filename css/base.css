@@ -21,7 +21,7 @@ header{position:fixed;left:0;right:0;top:0;padding:16px 32px;display:flex;justif
 .brand:hover{transform:scale(1.05);}
 .brand > a.logo{flex-shrink:0;line-height:0;}
 .brand > div{line-height:normal;}
-.logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:700;}
+.logo{width:44px;height:44px;border-radius:8px;background:transparent;display:grid;place-items:center;font-weight:700;}
 nav{display:flex;gap:12px;align-items:center}
 nav a{color:var(--muted);font-size:13px;transition:color 0.3s ease;padding:8px 12px;border-radius:6px;position:relative;}
 nav a:hover{color:#fff;}
