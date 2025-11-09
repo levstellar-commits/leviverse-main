@@ -17,15 +17,15 @@
     <a href="/#press" title="查看项目最新动态">项目动态</a>
     <a href="/#contact" title="与我们建立合作">合作共建</a>
     <div class="header-actions" style="margin-left: 24px; display: flex; gap: 12px; align-items: center;">
-      <a href="javascript:void(0);" onclick="openLoginModal()" class="btn ghost btn-small">登录 / 注册</a>
+      <a href="javascript:void(0);" onclick="openLoginModal()" class="btn ghost btn-small">登录/注册</a>
     </div>
   </nav>
 </header>
 
-<!-- ===== 登录弹窗 ===== -->
-<div id="loginModal" style="display:none; position:fixed; z-index:20000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items:center; justify-content:center;">
-  <div style="background:var(--bg); border:1px solid rgba(255,255,255,0.1); border-radius:12px; width:min(720px,95%); height:80vh; max-height:800px; overflow:hidden; position:relative;">
-    <span onclick="closeLoginModal()" style="position:absolute; top:12px; right:16px; color:#aaa; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
+<!-- 登录弹窗 -->
+<div id="loginModal" style="display:none; position:fixed; z-index:20000; inset:0; background-color:rgba(0,0,0,0.7); backdrop-filter:blur(8px); align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:12px; width:min(720px,95%); height:80vh; max-height:800px; overflow:hidden; position:relative;">
+    <span onclick="closeLoginModal()" style="position:absolute; top:10px; right:16px; color:#555; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
     <iframe id="waline-login-iframe"
             src="about:blank"
             data-src="https://api.levythos.com/ui/login?lng=zh-CN"
@@ -33,41 +33,44 @@
   </div>
 </div>
 
-<!-- ===== 微信安全提示弹窗 ===== -->
-<div id="wxSafeModal" style="display:none; position:fixed; z-index:21000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center;">
-  <div style="background:#071428; color:#fff; padding:24px; border-radius:12px; max-width:420px; text-align:center; box-shadow:0 12px 40px rgba(0,0,0,0.6); position:relative;">
-    <button id="closeWxModal" style="position:absolute; right:18px; top:18px; border:none; background:transparent; color:#ccc; font-size:22px; cursor:pointer;">&times;</button>
-    <h3 style="margin-top:0; margin-bottom:8px; font-size:1.2rem;">请在浏览器中打开</h3>
-    <p style="color:rgba(255,255,255,0.85); line-height:1.5; margin-bottom:14px;">
+<!-- 微信提示弹窗 -->
+<div id="wxSafeModal" style="display:none; position:fixed; z-index:21000; inset:0; background:rgba(0,0,0,0.65); display:flex; align-items:center; justify-content:center;">
+  <div style="background:#0b1830; color:#fff; padding:24px 28px; border-radius:12px; max-width:420px; text-align:center; box-shadow:0 12px 40px rgba(0,0,0,0.6); position:relative;">
+    <button id="wxCloseX" style="position:absolute; right:16px; top:10px; border:none; background:transparent; color:#ccc; font-size:22px; cursor:pointer;">&times;</button>
+    <h3 style="margin:0 0 10px; font-size:1.2rem;">请在浏览器中打开</h3>
+    <p style="color:rgba(255,255,255,0.9); line-height:1.5; margin-bottom:16px;">
       为保障账户安全与完整功能（登录、评论等），<br>
       微信环境内已禁用交互功能。<br>
-      点击右上角「...」 → 选择「在浏览器中打开」
+      请点击右上角「...」 → 选择「在浏览器中打开」
     </p>
-    <a id="closeWxModalBtn" href="javascript:void(0)"
-       style="display:inline-block; margin-top:8px; padding:8px 14px; border-radius:8px; background:#e8b923; color:#071023; font-weight:700; text-decoration:none;">
+    <a id="wxCloseBtn" href="javascript:void(0)"
+       style="display:inline-block; padding:8px 14px; border-radius:8px; background:#e8b923; color:#071023; font-weight:700; text-decoration:none;">
        我知道了
     </a>
   </div>
 </div>
 
-<!-- ===== 脚本逻辑（仅点击登录时触发微信提示） ===== -->
+<!-- 核心脚本 -->
 <script>
 (function() {
   const isWeChat = /micromessenger/i.test(navigator.userAgent);
 
-  // 打开登录弹窗
+  // 打开登录
   window.openLoginModal = function() {
     if (isWeChat) {
+      // 微信中不打开登录框，只弹提示
       openWxSafeModal();
       return;
     }
     const modal = document.getElementById('loginModal');
     const iframe = document.getElementById('waline-login-iframe');
-    if (iframe && iframe.getAttribute('data-src')) iframe.src = iframe.getAttribute('data-src');
+    if (iframe && iframe.getAttribute('data-src')) {
+      iframe.src = iframe.getAttribute('data-src');
+    }
     if (modal) modal.style.display = 'flex';
   };
 
-  // 关闭登录弹窗
+  // 关闭登录
   window.closeLoginModal = function() {
     const modal = document.getElementById('loginModal');
     const iframe = document.getElementById('waline-login-iframe');
@@ -75,28 +78,26 @@
     if (iframe) iframe.src = 'about:blank';
   };
 
-  // 打开微信提示框
+  // 打开/关闭微信提示
   function openWxSafeModal() {
     const m = document.getElementById('wxSafeModal');
     if (m) m.style.display = 'flex';
   }
-
-  // 关闭微信提示框
   function closeWxSafeModal() {
     const m = document.getElementById('wxSafeModal');
     if (m) m.style.display = 'none';
   }
 
-  // 绑定关闭事件
+  // 按钮绑定
   document.addEventListener('DOMContentLoaded', () => {
-    const wxModal = document.getElementById('wxSafeModal');
-    const btnCloseX = document.getElementById('closeWxModal');
-    const btnCloseOk = document.getElementById('closeWxModalBtn');
-    if (btnCloseX) btnCloseX.addEventListener('click', closeWxSafeModal);
-    if (btnCloseOk) btnCloseOk.addEventListener('click', closeWxSafeModal);
-    if (wxModal) wxModal.addEventListener('click', (e) => {
-      if (e.target === wxModal) closeWxSafeModal();
-    });
+    document.getElementById('wxCloseX')?.addEventListener('click', closeWxSafeModal);
+    document.getElementById('wxCloseBtn')?.addEventListener('click', closeWxSafeModal);
+    const modalBg = document.getElementById('wxSafeModal');
+    if (modalBg) {
+      modalBg.addEventListener('click', (e) => {
+        if (e.target === modalBg) closeWxSafeModal();
+      });
+    }
   });
 })();
 </script>
