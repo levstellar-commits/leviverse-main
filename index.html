@@ -61,6 +61,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh; /* 撑满一屏 */
+    padding-top: 80px; /* ⚠️ 给导航栏留出固定高度，解决A区域留白过高 */
     overflow: hidden; /* 防止神像飘出界 */
     background: #000; /* 兜底黑色 */
 }
@@ -143,17 +144,23 @@
 
 .hero-content {
     position: relative;
-    z-index: 200; /* ⚠️ 再次大幅提高层级，确保在最前面 */
+    z-index: 200;
     max-width: 900px;
     text-align: center;
     padding: 20px;
     margin: 0 auto;
-    top: 35vh; /* ⚠️ 往下推一点，留出更多头部空间，适应不同屏幕 */
+    top: 15vh; /* ⚠️ 降低初始垂直定位，让它更紧凑，解决A区域过高 */
+    transform: translateY(0); /* ⚠️ 移除可能影响的 translateY */
     text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-    color: #FFFFFF; /* ⚠️ 确保字体颜色是白色，不是半透明 */
+    color: #FFFFFF;
 }
 
-
+/* ⚠️ 确保按钮的容器也有足够的空间，防止按钮和文字重叠 */
+.hero-actions {
+    margin-top: 40px; /* 按钮和文字之间的距离 */
+    position: relative;
+    z-index: 210; /* 确保按钮在文字前面 */
+}
 
 
 
