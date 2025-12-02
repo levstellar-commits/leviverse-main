@@ -30,8 +30,8 @@
 /* ========== [新增] 电影级Hero Section：“双星抉择” ========== */
 #hero-cinematic {
     width: 100%;
-    height: 100vh;
-    min-height: 700px;
+    height: 80vh;
+    min-height: 500px;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -61,7 +61,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh; /* 撑满一屏 */
-    padding-top: 80px; /* ⚠️ 给导航栏留出固定高度，解决A区域留白过高 */
+    padding-top: 40px; /* ⚠️ 给导航栏留出固定高度，解决A区域留白过高 */
     overflow: hidden; /* 防止神像飘出界 */
     background: #000; /* 兜底黑色 */
 }
@@ -4169,19 +4169,44 @@ let audioCtx = null;
 let zenGainNode = null;
 let isZenModeOn = false;
 
-// === [新版] 极速加载逻辑 (资源加载完立刻进入) ===
-window.addEventListener('load', () => {
+
+
+/* === [优化版] 极速启动逻辑 (最长只等2秒) === */
+document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById('system-loader');
-    if (loader) {
-        // 哪怕稍微延迟 100毫秒 也是为了让 Logo 闪现一下，避免闪烁感太强
-        // 如果想极致快，把下面的 800 改成 0
-        setTimeout(() => {
-            loader.style.opacity = '0'; // 开始变透明
-            setTimeout(() => {
-                loader.remove(); // 彻底删除
-            }, 500); // 等透明动画播完
-        }, 800); // 这里设置 800毫秒 (0.8秒)，既不拖沓，又能让人看清 Logo
+    const heroImg = document.querySelector('.spaceship'); // 锁定你的“墨龙”图
+    let isLoaded = false; // 标记是否已经开门
+
+    // 开门函数 (执行消除动画)
+    function openGate() {
+        if (isLoaded) return; // 如果已经开了，就别再开了
+        isLoaded = true;
+
+        if (loader) {
+            loader.style.transition = 'opacity 0.6s ease'; // 0.6秒平滑淡出
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.remove(); }, 600); // 动画完删掉DOM
+        }
     }
+
+    // 策略 1: 只要墨龙图片加载好了，立刻开门 (不用等下面的IP图)
+    if (heroImg) {
+        if (heroImg.complete) {
+            // 如果图片已经在缓存里(秒开)，稍微给个0.5秒展示Logo，别闪瞎眼
+            setTimeout(openGate, 500);
+        } else {
+            // 如果还在下，等它下完就开
+            heroImg.onload = () => { setTimeout(openGate, 300); };
+            heroImg.onerror = openGate; // 哪怕图裂了也要开门
+        }
+    } else {
+        // 如果没找到龙，直接开
+        openGate();
+    }
+
+    // 策略 2: 强制保底 (最长等待 2.0 秒)
+    // 就算墨龙图太大卡住了，2秒后也必须强制进系统，不能让用户等！
+    setTimeout(openGate, 2000);
 });
 
 
