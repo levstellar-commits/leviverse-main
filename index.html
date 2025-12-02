@@ -2156,6 +2156,26 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
   }
 }
 
+
+
+
+/* === 星空背景粒子动画 (让你的星空动起来) === */
+#particles-js {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: transparent; /* 保持透明，在你的现有背景之上 */
+    z-index: -2; /* 比内容层低，比你原有的星空背景高一点 */
+}
+
+
+
+
+
+
+
+
+
+
   </style>
 
 
@@ -2277,19 +2297,13 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 <body>
 
 
-
 <div id="system-loader">
+    <img src="./icon-192.png" style="width:60px; height:60px; margin-bottom:20px; border-radius:12px; box-shadow: 0 0 20px rgba(0,229,255,0.3);">
+    
     <div class="loader-text">SYSTEM INITIALIZING...</div>
     <div class="progress-bar"></div>
     <div style="margin-top:10px; font-size:10px; color:#444;">ESTABLISHING NEURAL LINK</div>
 </div>
-
-<div id="zen-mode-overlay">
-    <div class="breathing-circle">Inhale / Exhale</div>
-    <div class="zen-text">DEEP SPACE FREQUENCY CONNECTED</div>
-    <button id="exit-zen-btn" onclick="toggleZenMode()">断开连接 [DISCONNECT]</button>
-</div>
-
 
 
 
@@ -4053,16 +4067,22 @@ let audioCtx = null;
 let zenGainNode = null;
 let isZenModeOn = false;
 
-// 1. 页面加载完成：移除加载屏
+// === [新版] 极速加载逻辑 (资源加载完立刻进入) ===
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        const loader = document.getElementById('system-loader');
-        if (loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.remove(), 500);
-        }
-    }, 2500); // 保持2.5秒动画
+    const loader = document.getElementById('system-loader');
+    if (loader) {
+        // 哪怕稍微延迟 100毫秒 也是为了让 Logo 闪现一下，避免闪烁感太强
+        // 如果想极致快，把下面的 800 改成 0
+        setTimeout(() => {
+            loader.style.opacity = '0'; // 开始变透明
+            setTimeout(() => {
+                loader.remove(); // 彻底删除
+            }, 500); // 等透明动画播完
+        }, 800); // 这里设置 800毫秒 (0.8秒)，既不拖沓，又能让人看清 Logo
+    }
 });
+
+
 
 // 2. 播放机械点击音效 (UI Sound)
 function playClickSound() {
@@ -4162,6 +4182,37 @@ document.addEventListener('keydown', (e) => {
     }
 });
 </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    /* particles.js config (极简配置，你也可以自行调整) */
+    particlesJS('particles-js', {
+        "particles": {
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" },
+            "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+            "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+            "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+            "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+            "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+            "modes": {
+                "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
+                "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 },
+                "repulse": { "distance": 200, "duration": 0.4 },
+                "push": { "particles_nb": 4 },
+                "remove": { "particles_nb": 2 }
+            }
+        },
+        "retina_detect": true
+    });
+</script>
+
+
 
 
 
