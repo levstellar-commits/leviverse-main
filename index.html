@@ -41,6 +41,23 @@
     margin-top: -120px; /* 覆盖页面顶部导航栏造成的空白 */
 }
 
+
+/* === [修复] 星空底部渐变融合 (消除断层线) === */
+#hero-cinematic::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 250px; /* 雾气的高度，越高融合越柔和 */
+    /* 从透明渐变到纯黑 */
+    background: linear-gradient(to bottom, transparent 0%, #000000 100%);
+    z-index: 5; /* 盖在背景(0)和神像(2)上面，但在文字(20)下面 */
+    pointer-events: none;
+}
+
+
+
 .parallax-layer {
     position: absolute;
     top: -5%; left: -5%;
@@ -2352,6 +2369,91 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
       color:#aaa; font-size:28px; font-weight:bold;
       cursor:pointer;
   }
+
+
+
+
+
+/* =================================================================
+   ★ [新增] 蓝图板块：全息数据卡片样式
+   ================================================================= */
+
+/* 1. 网格容器：自动适应电脑和手机 */
+.blueprint-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 电脑4列，手机自动变单列 */
+    gap: 24px; /* 卡片之间的间距 */
+    margin-top: 40px;
+    padding: 0 10px;
+}
+
+/* 2. 卡片本体：磨砂玻璃感 + 极细边框 */
+.blueprint-card {
+    background: rgba(255, 255, 255, 0.02); /* 极淡的背景 */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 灰色的细边框 */
+    border-radius: 12px;
+    padding: 30px 25px;
+    text-align: left;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 平滑过渡 */
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3. 鼠标悬停特效：发光 + 上浮 */
+.blueprint-card:hover {
+    transform: translateY(-8px); /* 向上浮起 */
+    border-color: #00e5ff; /* 边框变青色 */
+    background: rgba(0, 229, 255, 0.08); /* 背景微微泛蓝 */
+    box-shadow: 0 10px 40px rgba(0, 229, 255, 0.15); /* 底部发光 */
+}
+
+/* 4. 卡片标题样式 */
+.blueprint-card h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-family: 'Noto Serif SC', serif;
+    display: flex;
+    align-items: center;
+}
+
+/* 标题前的小亮条装饰 */
+.blueprint-card h3::before {
+    content: '';
+    display: inline-block;
+    width: 3px; height: 16px;
+    background: #00e5ff; /* 青色光条 */
+    margin-right: 12px;
+    box-shadow: 0 0 8px #00e5ff;
+}
+
+/* 5. 卡片正文样式 */
+.blueprint-card p {
+    color: rgba(255, 255, 255, 0.7); /* 亮灰色，比原来的muted清楚 */
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 
 <meta name="baidu-site-verification" content="codeva-FgXs6ZwMEJ" />
@@ -2576,44 +2678,51 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 </section>
 
 
-<section id="executive-summary" class="section-divider">
+<section id="executive-summary" class="section-divider" style="position:relative; z-index:20; padding-top:80px;">
 
-<div style="text-align: center; max-width: 800px; margin: 0 auto 48px auto;">
+    <div style="text-align: center; max-width: 900px; margin: 0 auto 50px auto;">
+        
+        <h2 style="margin-bottom: 10px; color: #fff; font-size: 36px; text-shadow: 0 0 20px rgba(0,0,0,0.8);">
+            我的战场，我们的蓝图
+        </h2>
 
-        <h2 style="margin-bottom: 0;">我的战场，我们的蓝图</h2>
-
-        <h3 style="color: var(--muted); font-family: Inter, sans-serif; font-weight: 400; font-size: 18px; margin-top: 8px;">
-          东方科幻宇宙IP的文化生态构筑者
+        <h3 style="color: #00e5ff; font-family: Inter, sans-serif; font-weight: 400; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; opacity: 0.9;">
+            Strategic Blueprint of Levythos
         </h3>
 
-        <p class="muted" style="font-size: 16px; line-height: 1.8; margin-top: 24px;">
-          在这片战场上，我们是「立维宇宙 LEVYTHOS」的IP构筑师与「维杰设计 VIGIO」的空间叙事者。我们的使命是进行系统的IP创作与文化赋能：让世界神话的繁星，在东方哲学的银河中，重新闪耀并降临于现实。
+        <p style="color: #ddd; font-size: 16px; line-height: 1.8; margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            在这片战场上，我们是「立维宇宙 LEVYTHOS」的IP构筑师与「维杰设计 VIGIO」的空间叙事者。
+            <br>
+            我们的使命是进行系统的IP创作与文化赋能：让世界神话的繁星，在东方哲学的银河中，重新闪耀并降临于现实。
         </p>
         
     </div>
 
+    <div class="blueprint-grid">
+        
+        <div class="blueprint-card">
+            <h3>世界观内核</h3>
+            <p>一个以华夏“十祖”为根基，融合世界神话，贯穿古今的原创东方科幻宇宙。</p>
+        </div>
 
+        <div class="blueprint-card">
+            <h3>IP矩阵</h3>
+            <p>以“文学”为母体进行神话叙事IP创作，横跨漫画、微剧、游戏、影视等领域。</p>
+        </div>
 
-    <div class="summary-grid">
-        <div class="summary-item">
-            <h4><span style="font-size: 24px; color: var(--accent);">①</span> 世界观内核</h4>
-            <p class="muted">一个以华夏“十祖”为根基，融合世界神话，贯穿古今的原创东方科幻宇宙。</p>
+        <div class="blueprint-card">
+            <h3>商业落地</h3>
+            <p>提供从规划设计到城市更新的全流程服务，将无形IP转化为有形资产（文旅、商业、产品）。</p>
         </div>
-        <div class="summary-item">
-            <h4><span style="font-size: 24px; color: var(--accent);">②</span> IP矩阵</h4>
-            <p class="muted">以“文学”为母体进行神话叙事IP创作，横跨漫画、微剧、游戏、影视等领域，培育文化IP生命力。</p>
+
+        <div class="blueprint-card">
+            <h3>合作共建</h3>
+            <p>我们是开放的 Design Studio，寻求IP授权、联合开发与投资伙伴，共建虚实空间融合的未来。</p>
         </div>
-        <div class="summary-item">
-            <h4><span style="font-size: 24px; color: var(--accent);">③</span> 商业落地</h4>
-            <p class="muted">提供从规划设计到城市更新的全流程服务，将无形IP转化为有形资产（文旅、商业、产品）。</p>
-        </div>
-        <div class="summary-item">
-            <h4><span style="font-size: 24px; color: var(--accent);">④</span> 合作共建</h4>
-            <p class="muted">我们是开放的Design Studio，寻求IP授权、联合开发与投资伙伴，共建虚实空间融合的未来。</p>
-        </div>
+
     </div>
-</section>
 
+</section>
 
 
 <section id="heroes" aria-label="角色库" role="region">
