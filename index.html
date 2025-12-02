@@ -84,49 +84,68 @@
     opacity: 0.8; /* 亮度调高一点 */
 }
 
-/* 图层 2: 诸神降临 (缩小版) */
+
+
+/* =================================================================
+   ★ 诸神降临样式 (修正版：远景 & 手机隐藏)
+   ================================================================= */
+
+/* 图层 2: 诸神降临 (通用设定) */
 .god-figure {
-    position: absolute; /* ⚠️ 改成 absolute */
-    top: 45%; /* 稍微往上提一点 */
+    position: absolute;
+    top: 42%; /* 稍微调整垂直位置 */
     transform: translateY(-50%);
-    width: 180px; /* ⚠️ 缩小尺寸 (原280) */
-    height: 300px; /* ⚠️ 缩小尺寸 (原450) */
+    
+    /* ⚠️ 改动1：大幅缩小尺寸，制造“远景感” */
+    width: 120px;  /* 原来是 180px */
+    height: 200px; /* 原来是 300px */
+    
     z-index: 2;
     
-    /* 默认全息框 */
-    border: 1px dashed rgba(0, 229, 255, 0.3);
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, transparent 70%);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: #00e5ff; font-family: monospace; font-size: 12px; text-shadow: 0 0 10px #00e5ff;
+    /* ⚠️ 改动2：降低整体透明度，让它们融入背景 */
+    opacity: 0.5; 
     
-    animation: god-float 6s ease-in-out infinite;
+    /* 默认全息框样式 (没图时显示，保持微弱发光) */
+    border: 1px dashed rgba(0, 229, 255, 0.2); /* 线条更淡 */
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: rgba(0, 229, 255, 0.7); font-family: monospace; font-size: 10px;
+    
+    animation: god-float 8s ease-in-out infinite; /* 浮动更缓慢 */
     pointer-events: none; transition: all 1s ease;
 }
 
-/* 激活状态 */
+/* 激活状态 (当JS加载了图片时) */
 .god-figure.card-mode {
-    border: 1px solid #00e5ff; border-radius: 8px;
-    background-size: cover; background-position: center;
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+    /* ⚠️ 改动3：去掉硬边框和背景色，让神像自然浮现 */
+    border: none;
     background-color: transparent;
+    background-size: contain; /* 确保图片完整显示 */
+    background-position: center bottom;
+    
+    /* 用柔和的投影代替边框，制造发光感 */
+    filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4));
 }
 
-/* 位置：稍微靠边一点，不挡墨龙 */
-#god-left { left: 2%; animation-delay: 0s; }
-#god-right { right: 2%; animation-delay: 3s; }
+/* 左右位置微调 (稍微往两边推一点) */
+#god-left { left: 1%; animation-delay: 0s; }
+#god-right { right: 1%; animation-delay: 4s; }
 
 /* 浮动动画 */
 @keyframes god-float {
-    0%, 100% { transform: translateY(-50%); }
-    50% { transform: translateY(-55%); }
+    0%, 100% { transform: translateY(-50%); opacity: 0.5; }
+    50% { transform: translateY(-54%); opacity: 0.7; } /* 浮动时稍微亮一点点 */
 }
 
-/* 手机适配：神像变得更小 */
+/* ⚠️ 改动4：手机端适配 - 直接隐藏 */
 @media (max-width: 768px) {
-    .god-figure { width: 100px; height: 150px; opacity: 0.6; top: 20%; }
-    #god-left { left: 0; }
-    #god-right { right: 0; }
+    .god-figure {
+        display: none !important; /* 彻底消失，不占空间 */
+    }
 }
+
+
+
 
 /* 图层 3: 氛围遮罩 */
 .hero-vignette {
