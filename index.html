@@ -2300,6 +2300,28 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         <a href="#what" title="我们的核心方法论">世界蓝图</a>
         <a href="#press" title="查看项目最新动态">项目动态</a>
         <a href="#contact" title="与我们建立合作">合作共建</a>
+
+<style>
+  /* 简单的样式：大屏幕隐藏，小屏幕显示 */
+  .pwa-btn { display: none; }
+  @media (max-width: 768px) {
+    .pwa-btn { 
+        display: inline-block; 
+        margin-left: 10px;
+        font-size: 12px;
+        color: #00e5ff !important; /* 科幻青色 */
+        border: 1px solid #00e5ff;
+        padding: 4px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+  }
+</style>
+
+<a href="#" onclick="openInstallGuide(); return false;" class="pwa-btn">
+    ⚡ 接入终端
+</a>
+
         <div class="header-actions" style="margin-left: 24px; display: flex; gap: 12px; align-items: center;">
             <a href="javascript:void(0);" onclick="openLoginModal()" class="btn ghost btn-small">登录/注册</a>
         </div>
@@ -3893,7 +3915,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+<div id="install-guide-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:99999; backdrop-filter:blur(5px);">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:85%; max-width:400px; background:#111; border:1px solid #333; border-radius:12px; padding:30px; text-align:center; box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);">
+        
+        <div style="width:60px; height:60px; background:#000; border-radius:12px; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; border:1px solid #333;">
+            <img src="./icon-192.png" style="width:40px; height:40px; border-radius:8px;">
+        </div>
 
+        <h3 style="color:#fff; margin:0 0 10px; font-family:sans-serif;">接入立维宇宙终端</h3>
+        <p style="color:#888; font-size:14px; line-height:1.6; margin-bottom:25px;">将此“世界入口”添加至主屏幕，<br>获得沉浸式浏览体验。</p>
+
+        <div id="guide-ios" style="display:none; background:#222; padding:15px; border-radius:8px; margin-bottom:20px;">
+            <p style="color:#ccc; font-size:13px; margin:0;">
+                点击底部工具栏的 <span style="font-size:18px; color:#00e5ff;">↥</span> 分享按钮<br>
+                下滑选择 <strong>“添加到主屏幕”</strong>
+            </p>
+        </div>
+
+        <div id="guide-android" style="display:none; background:#222; padding:15px; border-radius:8px; margin-bottom:20px;">
+            <p style="color:#ccc; font-size:13px; margin:0;">
+                点击右上角菜单 <span style="font-size:18px; color:#00e5ff;">⋮</span><br>
+                选择 <strong>“安装应用”</strong>
+            </p>
+        </div>
+
+        <button onclick="document.getElementById('install-guide-modal').style.display='none'" style="background:transparent; border:1px solid #555; color:#fff; padding:8px 30px; border-radius:20px; cursor:pointer; font-size:14px;">我知道了</button>
+    </div>
+</div>
+
+<script>
+function openInstallGuide() {
+    const modal = document.getElementById('install-guide-modal');
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    modal.style.display = 'block';
+    
+    if (isIOS) {
+        document.getElementById('guide-ios').style.display = 'block';
+    } else {
+        document.getElementById('guide-android').style.display = 'block';
+    }
+}
+</script>
 
 
 
