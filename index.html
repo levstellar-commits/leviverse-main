@@ -53,82 +53,72 @@
 
 
 
+/* =================================================================
+   ★ 步骤1：图层样式 (背景 -> 粒子 -> 诸神 -> 遮罩)
+   ================================================================= */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 动画层 1: 宇宙背景 */
+/* 图层 0: 宇宙基底 */
 #hero-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-image: url('assets/images/hero-bg.jpg');
-    z-index: 1;
+    background-size: cover; background-position: center;
+    z-index: 0;
 }
 
-/* 动画层 2: 粒子/尘埃 */
-#hero-particles {
-    background-image: url('assets/images/hero-particles.png');
+/* 图层 1: 赛博粒子 */
+#particles-js {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1; pointer-events: none; opacity: 0.8;
+}
+
+/* 图层 2: 诸神降临 */
+.god-figure {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    width: 280px; height: 450px;
     z-index: 2;
-    opacity: 0.3;
-    transform: translateX(100%);
-    animation: slide-in-from-right 5s ease-out 2s forwards, pan-particles 90s linear 7s infinite;
+    
+    /* 默认全息框样式 (图片加载失败时显示) */
+    border: 1px dashed rgba(0, 229, 255, 0.3);
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #00e5ff; font-family: monospace; font-size: 14px; text-shadow: 0 0 10px #00e5ff;
+    
+    animation: god-float 6s ease-in-out infinite;
+    pointer-events: none; transition: all 1s ease;
 }
-@keyframes pan-particles {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
+/* 卡牌激活样式 */
+.god-figure.card-mode {
+    border: 2px solid #00e5ff; border-radius: 12px;
+    background-size: cover; background-position: center;
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.3), inset 0 0 20px rgba(0,0,0,0.5);
+    background-color: transparent; /* 透明图不需要黑底，如果是jpg卡牌需要改成#000 */
 }
-
-/* 动画层 3: 女主角 (澜曦) - 替换为您自己的图片URL */
-#hero-female {
-    display: none; /* [新增] 禁用此图层 */
-    background-image: url('assets/images/char_lanxi.jpg');
-    z-index: 3;
-    background-position: 80% 50%;
+/* 左右位置 */
+#god-left { left: 5%; animation-delay: 0s; }
+#god-right { right: 5%; animation-delay: 3s; }
+/* 浮动动画 */
+@keyframes god-float {
+    0%, 100% { transform: translateY(-50%) rotate(0deg); }
+    50% { transform: translateY(-53%) rotate(1deg); }
 }
-
-/* 动画层 4: 男主角 (姜炎洺) - 替换为您自己的图片URL */
-#hero-male {
-    display: none; /* [新增] 禁用此图层 */
-    background-image: url('assets/images/char_jiangyanming.jpg');
-    z-index: 4;
-    background-position: 20% 50%;
-}
-
-/* 动画层 5: 前景特效/碎片 - 替换为您自己的图片URL */
-#hero-foreground {
-    /* [修改] 我们复用背景的“星尘”图 */
-    background-image: url('assets/images/hero-particles.png');
-    background-blend-mode: screen;
-    z-index: 5;
-    opacity: 0.7;
+/* 手机适配 */
+@media (max-width: 768px) {
+    .god-figure { width: 120px; height: 180px; opacity: 0.4; top: 60%; }
+    #god-left { left: -40px; }
+    #god-right { right: -40px; }
 }
 
+/* 图层 3: 氛围遮罩 */
 .hero-vignette {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
-    box-shadow: inset 0 0 150px 50px rgba(0,0,0,0.8);
+    position: fixed; inset: 0; z-index: 3; pointer-events: none;
+    background: radial-gradient(circle, transparent 40%, #000 100%);
 }
 
-
-
+/* 图层 20: 内容层定位 */
 .hero-content {
-    position: relative;
-    z-index: 20;
-    max-width: 900px;
-    text-align: center;
-    padding: 20px;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    position: relative; z-index: 20; max-width: 900px;
+    text-align: center; padding: 20px; margin: 0 auto;
+    top: 25vh; text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
 
 
@@ -2348,7 +2338,14 @@ nav, .dawei-guide, .hero-text, button, a {
     <div style="margin-top:10px; font-size:10px; color:#444;">ESTABLISHING NEURAL LINK</div>
 </div>
 
+
+
+<div id="hero-bg"></div>
 <div id="particles-js"></div>
+<div id="god-left" class="god-figure"></div>
+<div id="god-right" class="god-figure"></div>
+<div class="hero-vignette"></div>
+
 
 
 
@@ -2471,12 +2468,7 @@ nav, .dawei-guide, .hero-text, button, a {
 <main>
 
 <section id="hero-cinematic">
-    <div class="parallax-layer" id="hero-bg" data-speed="2"></div>
-    <div class="parallax-layer" id="hero-particles" data-speed="1"></div>
-    <div class="parallax-layer" id="hero-female" data-speed="-5"></div>
-    <div class="parallax-layer" id="hero-male" data-speed="-4"></div>
-    <div class="parallax-layer" id="hero-foreground" data-speed="-8"></div>
-    <div class="hero-vignette"></div>
+ 
 
     <div class="spaceship-container" aria-hidden="true">
         <img src="assets/images/dragon rider.png" alt="立维宇宙创世人驾驭墨龙穿行于星际的概念艺术图" class="spaceship" loading="lazy" decoding="async">
@@ -4255,6 +4247,53 @@ document.addEventListener('keydown', (e) => {
     });
 </script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- 1. 启动粒子 ---
+    particlesJS('particles-js', {
+        "particles": { "number": { "value": 60 }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.5, "random": true }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.3, "width": 1 }, "move": { "enable": true, "speed": 1 } },
+        "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false } } }
+    });
+
+    // --- 2. 诸神降临 (文件名已预埋！) ---
+    // ⚠️ 只要你上传了对应名字的图片，这里就会自动显示！
+    const godsDatabase = [
+        { name: "伏羲",  en: "FUXI",   img: "assets/images/god_fuxi_trans.png" },
+        { name: "女娲",  en: "NUWA",   img: "assets/images/god_nuwa_trans.png" },
+        { name: "宙斯",  en: "ZEUS",   img: "assets/images/god_zeus_trans.png" },
+        { name: "湿婆",  en: "SHIVA",  img: "assets/images/god_shiva_trans.png" },
+        { name: "安努",  en: "ANU",    img: "assets/images/god_anu_trans.png" },
+        { name: "恩基",  en: "ENKI",   img: "assets/images/god_enki_trans.png" },
+        { name: "拉神",  en: "RA",     img: "assets/images/god_ra_trans.png" },
+        { name: "梵天",  en: "BRAHMA", img: "assets/images/god_brahma_trans.png" },
+        { name: "玄女",  en: "XUANNU", img: "assets/images/god_xuannu_trans.png" },
+        { name: "天帝",  en: "TIANDI", img: "assets/images/god_tiandi_trans.png" },
+        { name: "毗湿奴",en: "VISHNU", img: "assets/images/god_vishnu_trans.png" }
+    ];
+
+    function spawnGods() {
+        const shuffled = [...godsDatabase].sort(() => 0.5 - Math.random());
+        renderGod(document.getElementById('god-left'), shuffled[0]);
+        renderGod(document.getElementById('god-right'), shuffled[1]);
+    }
+
+    function renderGod(el, data) {
+        if (!el) return;
+        // 尝试加载图片，如果图片存在则显示
+        // 注意：因为图片还没传，可能会显示裂图或文字，这正常
+        el.innerHTML = "";
+        el.style.backgroundImage = `url('${data.img}')`;
+        el.classList.add('card-mode');
+        
+        // 如果想更智能一点：图片加载失败时回退到文字 (这个功能需要更复杂的JS，暂时先这样，逼着你去传图！)
+        // 暂时如果没图，你可能看到一个空的框或者裂开的图标
+    }
+    spawnGods();
+});
+</script>
 
 
 
