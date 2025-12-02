@@ -50,65 +50,89 @@
     transition: transform 0.3s ease-out;
 }
 
-/* 动画层 1: 宇宙背景 */
+
+
+
+/* =================================================================
+   ★ 立维宇宙：图层架构 (从这里开始复制)
+   ================================================================= */
+
+/* --- 【图层 0】宇宙基底 (背景) --- */
 #hero-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    /* ⚠️ 保持你原有的图片路径 */
     background-image: url('assets/images/hero-bg.jpg');
-    z-index: 1;
+    background-size: cover; background-position: center;
+    z-index: 0;
 }
 
-/* 动画层 2: 粒子/尘埃 */
-#hero-particles {
-    background-image: url('assets/images/hero-particles.png');
-    z-index: 2;
-    opacity: 0.3;
-    transform: translateX(100%);
-    animation: slide-in-from-right 5s ease-out 2s forwards, pan-particles 90s linear 7s infinite;
-}
-@keyframes pan-particles {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
+/* --- 【图层 1】赛博粒子 (动态网络) --- */
+#particles-js {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1; pointer-events: none; opacity: 0.8;
 }
 
-/* 动画层 3: 女主角 (澜曦) - 替换为您自己的图片URL */
-#hero-female {
-    display: none; /* [新增] 禁用此图层 */
-    background-image: url('assets/images/char_lanxi.jpg');
-    z-index: 3;
-    background-position: 80% 50%;
+/* --- 【图层 2】诸神降临 (神像/卡牌位) --- */
+.god-figure {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    width: 280px; height: 450px;
+    z-index: 2; /* 在粒子之上，文字之下 */
+    
+    border: 1px dashed rgba(0, 229, 255, 0.3); /* 默认虚线框 */
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #00e5ff; font-family: monospace; font-size: 14px; text-shadow: 0 0 10px #00e5ff;
+    
+    animation: god-float 6s ease-in-out infinite;
+    pointer-events: none; transition: all 1s ease;
+}
+/* 卡牌激活样式 */
+.god-figure.card-mode {
+    border: 2px solid #00e5ff; border-radius: 12px;
+    background-size: cover; background-position: center;
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.3), inset 0 0 20px rgba(0,0,0,0.5);
+    background-color: #000;
+}
+/* 左右位置 */
+#god-left { left: 5%; animation-delay: 0s; }
+#god-right { right: 5%; animation-delay: 3s; }
+/* 浮动动画 */
+@keyframes god-float {
+    0%, 100% { transform: translateY(-50%) rotate(0deg); }
+    50% { transform: translateY(-53%) rotate(1deg); }
+}
+/* 手机适配 */
+@media (max-width: 768px) {
+    .god-figure { width: 120px; height: 180px; opacity: 0.4; top: 60%; }
+    #god-left { left: -40px; }
+    #god-right { right: -40px; }
 }
 
-/* 动画层 4: 男主角 (姜炎洺) - 替换为您自己的图片URL */
-#hero-male {
-    display: none; /* [新增] 禁用此图层 */
-    background-image: url('assets/images/char_jiangyanming.jpg');
-    z-index: 4;
-    background-position: 20% 50%;
-}
-
-/* 动画层 5: 前景特效/碎片 - 替换为您自己的图片URL */
-#hero-foreground {
-    /* [修改] 我们复用背景的“星尘”图 */
-    background-image: url('assets/images/hero-particles.png');
-    background-blend-mode: screen;
-    z-index: 5;
-    opacity: 0.7;
-}
-
+/* --- 【图层 3】氛围遮罩 (压暗四周) --- */
 .hero-vignette {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
-    box-shadow: inset 0 0 150px 50px rgba(0,0,0,0.8);
+    position: fixed; inset: 0;
+    z-index: 3; /* 盖住神像 */
+    pointer-events: none;
+    background: radial-gradient(circle, transparent 40%, #000 100%);
 }
 
+/* --- 【图层 20】内容层外壳 (对接点) --- */
 .hero-content {
     position: relative;
-    z-index: 20;
+    z-index: 20; /* 必须最高 */
     max-width: 900px;
     text-align: center;
     padding: 20px;
+    margin: 0 auto;
+    top: 25vh; /* 垂直定位 */
     text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
+
+/* =================================================================
+   🛑 复制到这里结束！下面紧接着应该是 .hero-title-cinematic
+   ================================================================= */
+
+
 
 .hero-title-cinematic {
         font-size: 56px; /* 增大字号 */
@@ -2324,7 +2348,23 @@ nav, .dawei-guide, .hero-text, button, a {
     <div style="margin-top:10px; font-size:10px; color:#444;">ESTABLISHING NEURAL LINK</div>
 </div>
 
+
+
+
+
+<div id="hero-bg"></div>
+
 <div id="particles-js"></div>
+
+<div id="god-left" class="god-figure"></div>
+<div id="god-right" class="god-figure"></div>
+
+<div class="hero-vignette"></div>
+
+
+
+
+
 
 
 
@@ -2446,35 +2486,27 @@ nav, .dawei-guide, .hero-text, button, a {
 
 <main>
 
-<section id="hero-cinematic">
-    <div class="parallax-layer" id="hero-bg" data-speed="2"></div>
-    <div class="parallax-layer" id="hero-particles" data-speed="1"></div>
-    <div class="parallax-layer" id="hero-female" data-speed="-5"></div>
-    <div class="parallax-layer" id="hero-male" data-speed="-4"></div>
-    <div class="parallax-layer" id="hero-foreground" data-speed="-8"></div>
-    <div class="hero-vignette"></div>
 
-    <div class="spaceship-container" aria-hidden="true">
-        <img src="assets/images/dragon rider.png" alt="立维宇宙创世人驾驭墨龙穿行于星际的概念艺术图" class="spaceship" loading="lazy" decoding="async">
-        <div class="spaceship-beam" aria-hidden="true"></div>
-        <div class="spaceship-trail" aria-hidden="true">
-            <i style="top:18%; left:85%; width:6px; height:6px; animation-delay:-0.2s;"></i>
-            <i style="top:52%; left:92%; width:4px; height:4px; animation-delay:-0.6s;"></i>
-            <i style="top:81%; left:78%; width:5px; height:5px; animation-delay:-1s;"></i>
-            <i style="top:40%; left:95%; width:6px; height:6px; animation-delay:-1.4s;"></i>
-        </div>
-    </div>
 
+<section id="hero-cinematic" style="min-height: 100vh; position: relative;">
+    
     <div class="hero-content">
-        <p class="hero-line" id="hero-line-1">我驾驭墨龙，在代码与神谕之间潜行。</p>
-        <h1 class="hero-sub-cinematic" id="hero-line-2">只为将每一段被遗忘的神话，重新编织，铸成一个可被踏足的世界。</h1>
-        <p class="hero-sub-cinematic" id="hero-line-3">我是解大为，欢迎来到我的战场！</p>
-        <div class="hero-actions">
-            <a href="#executive-summary" class="btn-primary-cinematic">开始探索世界</a>
-            <a href="#contact" class="btn-ghost-cinematic">了解合作共建</a>
+        <div class="hero-title-cinematic">我驾驭墨龙，在代码与神谕之间潜行。</div>
+        <div class="hero-sub-cinematic">只为将每一段被遗忘的神话，重新编织，铸成一个可被踏足的世界。</div>
+        
+        <div style="margin-top: 40px;">
+            <button class="btn-primary">开始探索世界</button>
+            <button class="btn-secondary">了解合作共建</button>
         </div>
     </div>
+
 </section>
+
+
+
+
+
+
 
 
 <section id="executive-summary" class="section-divider">
@@ -4232,7 +4264,60 @@ document.addEventListener('keydown', (e) => {
 </script>
 
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 🔥 诸神数据库：在这里填入你未来的图片路径
+    // 目前保持 img: ""，网页会自动显示酷炫的全息文字框
+    const godsDatabase = [
+        { name: "伏羲",  en: "FUXI",   img: "" }, 
+        { name: "女娲",  en: "NUWA",   img: "" },
+        { name: "宙斯",  en: "ZEUS",   img: "" },
+        { name: "湿婆",  en: "SHIVA",  img: "" },
+        { name: "安努",  en: "ANU",    img: "" },
+        { name: "恩基",  en: "ENKI",   img: "" },
+        { name: "拉神",  en: "RA",     img: "" },
+        { name: "梵天",  en: "BRAHMA", img: "" }
+    ];
 
+    // 1. 核心逻辑：洗牌并抽取
+    function spawnGods() {
+        // 复制一份数据库并打乱顺序 (Fisher-Yates 算法简化版)
+        const shuffled = [...godsDatabase].sort(() => 0.5 - Math.random());
+        
+        // 渲染左边的神 (取打乱后的第1个)
+        renderGod(document.getElementById('god-left'), shuffled[0]);
+        // 渲染右边的神 (取打乱后的第2个)
+        renderGod(document.getElementById('god-right'), shuffled[1]);
+    }
+
+    // 2. 渲染逻辑：判断是显示图片还是显示全息字
+    function renderGod(el, data) {
+        if (!el) return; // 安全检查：防止找不到元素报错
+
+        if (data.img && data.img !== "") {
+            // ✅ 有图模式：变成卡牌样式
+            el.innerHTML = ""; // 清空文字
+            el.style.backgroundImage = `url('${data.img}')`;
+            el.classList.add('card-mode'); // 呼叫CSS里的卡牌样式
+        } else {
+            // ❎ 无图模式：变成全息文字框
+            el.innerHTML = `
+                <div style="text-align:center; line-height:1.5;">
+                    <span style="font-size:12px; opacity:0.6;">[ DATA LOADING ]</span><br>
+                    <span style="font-size:24px; color:#fff; font-weight:bold; text-shadow:0 0 10px #00e5ff;">${data.name}</span><br>
+                    <span style="font-size:12px; letter-spacing:2px; opacity:0.8;">${data.en}</span>
+                </div>
+            `;
+            el.style.backgroundImage = "none";
+            el.classList.remove('card-mode');
+        }
+    }
+
+    // 3. 立即执行
+    spawnGods();
+});
+</script>
 
 
 </body>
