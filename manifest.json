@@ -17,5 +17,19 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "世界观内核",
+      "short_name": "世界观",
+      "url": "/index.html#worldview",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "IP矩阵",
+      "short_name": "IP档案",
+      "url": "/index.html#ip-matrix",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
   ]
 }
