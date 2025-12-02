@@ -134,18 +134,25 @@
     background: radial-gradient(circle, transparent 30%, #000 100%);
 }
 
-/* 剩下的 .hero-content 保持原样不动 */
-
-
 
 
 
 /* 图层 20: 内容层定位 */
+
+
+
 .hero-content {
-    position: relative; z-index: 20; max-width: 900px;
-    text-align: center; padding: 20px; margin: 0 auto;
-    top: 25vh; text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    position: relative;
+    z-index: 200; /* ⚠️ 再次大幅提高层级，确保在最前面 */
+    max-width: 900px;
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+    top: 35vh; /* ⚠️ 往下推一点，留出更多头部空间，适应不同屏幕 */
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    color: #FFFFFF; /* ⚠️ 确保字体颜色是白色，不是半透明 */
 }
+
 
 
 
@@ -2210,7 +2217,25 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* === [新增] 源力回响按钮的发光特效 === */
+.nav-item-glowing {
+    color: #00e5ff !important; /* 强制青色 */
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.6); /* 核心光晕 */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 20px; /* 和前面菜单拉开点距离 */
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
 
+/* 鼠标悬停时更亮 */
+.nav-item-glowing:hover {
+    text-shadow: 0 0 15px rgba(0, 229, 255, 1), 0 0 25px rgba(0, 229, 255, 0.8);
+    color: #fff !important;
+    transform: scale(1.05); /* 微微放大 */
+}
 
 
 
@@ -2333,13 +2358,21 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     pointer-events: none; /* 关键！让鼠标能穿透粒子，点到下面的按钮 */
 }
 
-/* === 确保你的内容浮在粒子上面 === */
-/* 把你网页里主要的文字、导航栏、解大为气泡都提上来 */
-nav, .dawei-guide, .hero-text, button, a {
+
+
+/* === 修正后的层级管理 (确保文字和按钮绝对可见) === */
+
+/* 1. 导航栏 & 顶部栏 (最高层级，防止被遮挡) */
+nav, header {
     position: relative;
-    z-index: 10; /* 层级：10 (一定要比粒子高，不然点不动) */
+    z-index: 999; /* 提高到 999，确保在所有特效之上 */
 }
 
+/* 2. 页面内容、按钮、解大为 (次高层级) */
+.hero-content, .dawei-guide, button, a {
+    position: relative;
+    z-index: 100; /* 只要比背景(2)和遮罩(3)高就行 */
+}
 
 
 
@@ -2392,8 +2425,8 @@ nav, .dawei-guide, .hero-text, button, a {
         <a href="#what" title="我们的核心方法论">世界蓝图</a>
         <a href="#press" title="查看项目最新动态">项目动态</a>
         <a href="#contact" title="与我们建立合作">合作共建</a>
-        <a href="#" onclick="toggleZenMode(); return false;" style="margin-left:15px; font-size:12px; color:#666; text-decoration:none; vertical-align:middle;">
-    ◎ 安定协议
+<a href="#" onclick="toggleSourceEcho(); return false;" class="nav-item-glowing">
+    <span style="margin-right:5px;">◎</span> 宇宙源力
 </a>
 
 <style>
@@ -4321,6 +4354,112 @@ document.addEventListener('DOMContentLoaded', () => {
     spawnGods();
 });
 </script>
+
+
+
+<div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px);">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.95); padding:40px; text-align:center; box-shadow:0 0 50px rgba(0,229,255,0.15); border-radius:4px;">
+        
+        <h2 style="color:#fff; font-family:'Noto Serif SC'; margin-bottom:5px; font-size:24px; text-shadow:0 0 10px rgba(0,229,255,0.5);">源力回响</h2>
+        <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:30px; opacity:0.8;">COSMIC RESONANCE</div>
+        
+        <p style="color:#ccc; font-size:14px; line-height:1.8; margin-bottom:30px; text-align:justify; border-top:1px solid rgba(0,229,255,0.2); border-bottom:1px solid rgba(0,229,255,0.2); padding:15px 0;">
+            聆听<b>“混沌初开”</b>时的频率。
+            <br><br>
+            这不仅仅是白噪音，这是模拟宇宙背景辐射转换的低频共振。它能屏蔽凡世的嘈杂，助你进入<b>“天人合一”</b>的深层专注状态，感知神话与代码的交融。
+        </p>
+
+        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(45deg, #00e5ff, #0099ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); font-size:14px; letter-spacing:1px; transition:all 0.3s;">
+            启动共振 [INITIATE]
+        </button>
+
+        <div onclick="toggleSourceEcho()" style="margin-top:25px; color:#555; font-size:12px; cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'">
+            断开链接 (关闭)
+        </div>
+    </div>
+</div>
+
+<script>
+let audioCtx, noiseSource, noiseGain;
+let isEchoRunning = false;
+
+// 开关面板
+function toggleSourceEcho() {
+    const panel = document.getElementById('echo-panel');
+    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+}
+
+// 开关声音 (生成深空布朗噪音)
+function toggleNoise() {
+    const btn = document.getElementById('echo-btn');
+    
+    // 初始化音频上下文
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    if (isEchoRunning) {
+        // --- 停止 ---
+        // 缓慢淡出，避免突然断掉
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        setTimeout(() => { 
+            noiseSource.stop(); 
+            isEchoRunning = false; 
+            btn.innerHTML = "启动共振 [INITIATE]";
+            btn.style.background = "linear-gradient(45deg, #00e5ff, #0099ff)";
+            btn.style.color = "#000";
+            btn.style.border = "none";
+        }, 500);
+    } else {
+        // --- 播放 ---
+        // 1. 创建噪音缓冲 (模拟宇宙背景辐射的无序感)
+        const bufferSize = audioCtx.sampleRate * 2;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let lastOut = 0;
+        for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            // 布朗噪音算法：比白噪音更深沉，像远古的雷声或宇宙深空
+            data[i] = (lastOut + (0.02 * white)) / 1.02;
+            lastOut = data[i];
+            data[i] *= 3.5; 
+        }
+
+        noiseSource = audioCtx.createBufferSource();
+        noiseSource.buffer = buffer;
+        noiseSource.loop = true;
+        
+        // 2. 低通滤波器 (只保留低频，营造厚重感)
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass'; 
+        filter.frequency.value = 180; // 频率设得很低，听起来像大道轰鸣
+
+        noiseGain = audioCtx.createGain();
+        noiseGain.gain.value = 0; // 初始静音
+
+        // 连接节点
+        noiseSource.connect(filter); 
+        filter.connect(noiseGain); 
+        noiseGain.connect(audioCtx.destination);
+        
+        // 3. 开始播放 (淡入)
+        noiseSource.start();
+        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3); // 3秒缓慢淡入
+        
+        isEchoRunning = true;
+        btn.innerHTML = "共振中... [RESONATING]";
+        btn.style.background = "transparent";
+        btn.style.color = "#00e5ff";
+        btn.style.border = "1px solid #00e5ff";
+        
+        // 确保浏览器音频引擎是唤醒状态
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+}
+</script>
+
+
+
+
+
 
 
 
