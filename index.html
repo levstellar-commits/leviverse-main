@@ -61,7 +61,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh; /* 撑满一屏 */
-    padding-top: 40px; /* ⚠️ 给导航栏留出固定高度，解决A区域留白过高 */
+    padding-top: 0px; /* ⚠️ 给导航栏留出固定高度，解决A区域留白过高 */
     overflow: hidden; /* 防止神像飘出界 */
     background: #000; /* 兜底黑色 */
 }
@@ -142,24 +142,38 @@
 
 
 
+/* =================================================================
+   ★ 核心内容样式 (最终紧凑版)
+   ================================================================= */
+
+/* 1. 内容容器 (文字部分) */
 .hero-content {
     position: relative;
-    z-index: 200;
+    z-index: 100; /* 保证文字在最上层 */
     max-width: 900px;
     text-align: center;
     padding: 20px;
     margin: 0 auto;
-    top: 15vh; /* ⚠️ 降低初始垂直定位，让它更紧凑，解决A区域过高 */
-    transform: translateY(0); /* ⚠️ 移除可能影响的 translateY */
+    
+    /* ⚠️ 关键修改：直接改到 5vh (甚至可以试 2vh) */
+    /* 这样文字会大幅上移，消除顶部的空旷感 */
+    top: 5vh; 
+    
     text-shadow: 0 4px 20px rgba(0,0,0,0.8);
     color: #FFFFFF;
 }
 
-/* ⚠️ 确保按钮的容器也有足够的空间，防止按钮和文字重叠 */
+/* 2. 按钮容器防遮挡 */
 .hero-actions {
-    margin-top: 40px; /* 按钮和文字之间的距离 */
+    margin-top: 40px; 
     position: relative;
-    z-index: 210; /* 确保按钮在文字前面 */
+    z-index: 210; 
+}
+
+/* 3. 补丁：把你刚才在外面露出来的代码，正确地写在这里 */
+nav, header {
+    position: relative;
+    z-index: 999; /* 导航栏最高 */
 }
 
 
@@ -2364,23 +2378,6 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     z-index: 1;          /* 层级：1 (放在背景图上面) */
     pointer-events: none; /* 关键！让鼠标能穿透粒子，点到下面的按钮 */
 }
-
-
-
-/* === 修正后的层级管理 (确保文字和按钮绝对可见) === */
-
-/* 1. 导航栏 & 顶部栏 (最高层级，防止被遮挡) */
-nav, header {
-    position: relative;
-    z-index: 999; /* 提高到 999，确保在所有特效之上 */
-}
-
-/* 2. 页面内容、按钮、解大为 (次高层级) */
-.hero-content, .dawei-guide, button, a {
-    position: relative;
-    z-index: 100; /* 只要比背景(2)和遮罩(3)高就行 */
-}
-
 
 
 
