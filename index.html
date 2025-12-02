@@ -69,7 +69,7 @@
     100% { background-position: 100% 100%; }
 }
 
-/* 动画层 3: 女主角 (澜熙) - 替换为您自己的图片URL */
+/* 动画层 3: 女主角 (澜曦) - 替换为您自己的图片URL */
 #hero-female {
     display: none; /* [新增] 禁用此图层 */
     background-image: url('assets/images/char_lanxi.jpg');
@@ -2242,6 +2242,29 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
 
+
+
+
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#000000">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js');
+    });
+  }
+</script>
+
+
+
+
+
+
+
 </head>
 
 
@@ -2415,9 +2438,9 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         
         <div class="hero-card">
             <a href="characters/lanxi.html">
-                <div class="pic" style="background-image: url('assets/images/char_lanxi.jpg');" aria-label="立维宇宙核心角色澜熙 - 寻找文明记忆真相的神祇后裔"></div>
+                <div class="pic" style="background-image: url('assets/images/char_lanxi.jpg');" aria-label="立维宇宙核心角色澜曦 - 寻找文明记忆真相的神祇后裔"></div>
             </a>
-            <div class="name">澜熙</div>
+            <div class="name">澜曦</div>
             <div class="role muted">神祇后裔 · 记忆行者</div>
             <p class="muted" style="font-size:12px; margin-top:8px;">作为神话的守护者，她必须在保护与重写文明记忆的悖论中寻找真相。</p>
             <div style="margin-top: auto; padding-top: 10px;"><a href="characters/lanxi.html" class="btn ghost btn-small">查看简介</a></div>
@@ -2564,8 +2587,8 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
                 <a class="btn ghost" href="works/yandenisaiya.html">了解详情</a>
             </div>
             <div class="ip-card">
-                <a href="works/lanxihuimou.html"><img class="ip-card-img" src="assets/images/miniseries_02.jpg" alt="立维宇宙微剧IP：《回溯者之眸》概念海报 - 主角澜熙" loading="lazy"></a>
-                <div class="ip-card-info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜熙</a></div></div>
+                <a href="works/lanxihuimou.html"><img class="ip-card-img" src="assets/images/miniseries_02.jpg" alt="立维宇宙微剧IP：《回溯者之眸》概念海报 - 主角澜曦" loading="lazy"></a>
+                <div class="ip-card-info"><strong>回溯者之眸</strong><div class="muted" style="font-size:12px">悬疑 / <a href="#heroes">澜曦</a></div></div>
                 <a class="btn ghost" href="works/lanxihuimou.html">了解详情</a>
             </div>
             <div class="ip-card">
@@ -2932,7 +2955,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
             <div class="souvenir-track reverse">
                 <div class="souvenir-item"><img src="assets/images/souvenir_notebook_3.jpg" alt="立维宇宙文创周边：“天轨”主题商务钢笔" loading="lazy"><strong>“天轨”主题钢笔</strong><div class="muted">商务礼品 / 定制</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_box.jpg" alt="立维宇宙文创周边：《补天之城》建筑积木模型" loading="lazy"><strong>补天之城建筑积木</strong><div class="muted">微缩模型 / 潮玩</div></div>
-                <div class="souvenir-item"><img src="assets/images/souvenir_silk.jpg" alt="立维宇宙文创周边：角色澜熙同款记忆图谱丝巾" loading="lazy"><strong>澜熙·记忆图谱丝巾</strong><div class="muted">时尚单品 / 设计</div></div>
+                <div class="souvenir-item"><img src="assets/images/souvenir_silk.jpg" alt="立维宇宙文创周边：角色澜曦同款记忆图谱丝巾" loading="lazy"><strong>澜曦·记忆图谱丝巾</strong><div class="muted">时尚单品 / 设计</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_tea_3.jpg" alt="立维宇宙文创周边：归墟主题深海浴盐" loading="lazy"><strong>归墟主题深海浴盐</strong><div class="muted">生活方式 / 体验</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_card_3.jpg" alt="立维宇宙文创周边：Q版角色迷你手办盲盒" loading="lazy"><strong>Q版迷你手办盲盒</strong><div class="muted">潮玩 / 零售</div></div>
                 <div class="souvenir-item"><img src="assets/images/souvenir_card_2.jpg" alt="立维宇宙文创周边：游戏皮肤数字兑换券" loading="lazy"><strong>游戏皮肤兑换券</strong><div class="muted">数字资产 / 合作</div></div>
