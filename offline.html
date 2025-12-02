@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>连接中断 - 立维宇宙</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00e5ff; /* 科幻青色 */
+            font-family: 'Courier New', Courier, monospace; /* 终端字体 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+        p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .icon-box {
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        .btn {
+            background: transparent;
+            color: #00e5ff;
+            border: 1px solid #00e5ff;
+            padding: 12px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+        }
+        @keyframes pulse {
+            0% { opacity: 1; text-shadow: 0 0 10px #00e5ff; }
+            50% { opacity: 0.5; text-shadow: none; }
+            100% { opacity: 1; text-shadow: 0 0 10px #00e5ff; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="icon-box">⚠️</div>
+    
+    <h1>SIGNAL LOST</h1>
+    
+    <p>
+        警告：与[立维宇宙]主节点的连接已中断。<br>
+        当前处于离线离岸模式。
+    </p>
+
+    <a href="./index.html" class="btn">尝试重新接入</a>
+
+</body>
+</html>
