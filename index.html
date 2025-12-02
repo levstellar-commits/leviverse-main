@@ -2282,6 +2282,25 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* === 赛博星空粒子容器 === */
+#particles-js {
+    position: fixed;     /* 固定在屏幕上，不随滚动条走 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;          /* 层级：1 (放在背景图上面) */
+    pointer-events: none; /* 关键！让鼠标能穿透粒子，点到下面的按钮 */
+}
+
+/* === 确保你的内容浮在粒子上面 === */
+/* 把你网页里主要的文字、导航栏、解大为气泡都提上来 */
+nav, .dawei-guide, .hero-text, button, a {
+    position: relative;
+    z-index: 10; /* 层级：10 (一定要比粒子高，不然点不动) */
+}
+
+
 
 
 
@@ -2305,7 +2324,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     <div style="margin-top:10px; font-size:10px; color:#444;">ESTABLISHING NEURAL LINK</div>
 </div>
 
-
+<div id="particles-js"></div>
 
 
 
