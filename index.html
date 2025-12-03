@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>立维宇宙 (Levythos) - 东方科幻宇宙 | 文化IP | 规划建筑设计</title>
+  <title>立维宇宙 (Levythos) - 东方科幻宇宙 | 文化IP | 虚实空间设计</title>
 
   <meta name="description" content="立维宇宙 (LEVYTHOS) 是一个原创东方科幻宇宙与文化IP体系。我们联合维杰设计 (VIGIO)，提供从神话叙事到城市更新、空间设计的全流程文化赋能服务。" />
 
@@ -2344,6 +2344,56 @@ header {
     /* 移除 section-divider 带来的额外上边距 */
     margin-top: 0 !important;
 }
+
+
+/*
+ * =======================================================
+ * 【最终强制修复补丁】
+ * 解决导航内容对齐（靠右）和背景黑底残留问题。
+ * =======================================================
+ */
+
+/* 1. 强制导航栏透明 (解决黑底问题) */
+header {
+    /* 强制背景透明，这是解决您 PC 端黑底问题的最关键一行 */
+    background: transparent !important;
+    /* 确保它是 Flex 容器，以便 margin: auto 生效 */
+    display: flex !important;
+    /* 保持它浮动在星空背景之上 */
+    position: absolute !important;
+    top: 0 !important;
+}
+
+/* 2. 强制导航菜单靠右对齐 (解决对齐问题) */
+nav {
+    /* 强制 nav 占据左侧所有可用空间，将 nav 推到最右侧 */
+    margin-left: auto !important;
+    /* 确保 nav 元素内部的对齐是正常的 */
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* 3. 强制 Logo 保持在最左侧 */
+.brand {
+    /* 确保 Logo 靠左，并移除任何可能干扰 nav 对齐的 auto margin */
+    margin-right: 24px !important; /* 给 Logo 和 nav 之间留出一点点空间 */
+    margin-left: 0 !important;
+}
+
+/* 4. 再次检查手机端导航栏的样式 (仅在小屏幕上显示黑底) */
+@media (max-width: 768px) {
+    /* 手机端保留半透明黑底，以保证文字可读性 */
+    header { 
+        background: rgba(0,0,0,0.9) !important;
+    }
+}
+
+
+
+
+
+
+
 
 
 
