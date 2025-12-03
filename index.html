@@ -2507,7 +2507,56 @@ header {
 
 
 
+/*
+ * =======================================================
+ * 【最终版 Flexbox & 导航栏透明修复补丁】
+ * 解决导航内容对齐（靠右）和背景黑底问题。
+ * =======================================================
+ */
 
+/* 1. 强制 Flexbox 布局，确保 Logo (左) 和 nav (右) 分离 */
+header {
+    /* (1) 强制使用 Flex 布局 */
+    display: flex !important;
+    /* (2) 强制将 Logo/Brand 和 nav 元素推到两侧 */
+    justify-content: space-between !important; 
+    /* (3) 强制背景透明，消除 PC 端的黑条 */
+    background: transparent !important;
+    /* 维持绝对定位，使其浮在星空上 */
+    position: absolute !important;
+    top: 0 !important;
+}
+
+/* 2. 确保 Logo 侧的容器有足够的空间，并将 nav 推到最右侧 */
+.brand {
+    /* 确保 Logo/Brand 占据左侧，并将 nav 往右推 */
+    margin-right: auto !important; 
+}
+
+/* 3. 解决手机端导航栏颜色和顶部间距问题 */
+@media (max-width: 768px) {
+    /* 手机端保留半透明黑底，避免文字看不清 */
+    header { 
+        background: rgba(0,0,0,0.9) !important;
+    }
+    /* 手机端导航链接居中 */
+    nav {
+        justify-content: center !important; 
+    }
+}
+
+
+/* 4. 保持首屏间距优化结果（防止被其他样式覆盖）*/
+#hero-cinematic {
+    min-height: 85vh !important; 
+    padding-bottom: 30px !important; 
+    padding-top: 150px !important;
+}
+
+#executive-summary {
+    padding-top: 30px !important; 
+    margin-top: 0 !important;
+}
 
 
 
