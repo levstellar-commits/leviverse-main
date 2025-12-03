@@ -2276,6 +2276,42 @@ header, nav {
 }
 
 
+/* =================================================================
+   ★★★★★ [Final Overrides] 强制修复样式（解决导航和间距） ★★★★★
+   ================================================================= */
+
+/* 1. 强制解决首屏底部间距过大和高度问题 */
+#hero-cinematic {
+    min-height: 100vh !important;
+    padding-bottom: 80px !important;
+    /* 确保内容不会被顶部导航栏推太远 */
+    padding-top: 150px !important;
+}
+
+/* 2. 强制解决内容垂直居中问题 */
+.hero-content {
+    position: absolute !important; /* 必须改为 absolute 才能使用 top: 50% */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin-top: 0 !important;
+}
+
+/* 3. 手机端适配：确保内容不被导航栏遮挡，且更紧凑 */
+@media (max-width: 768px) {
+    /* 确保手机上导航栏有背景，且内容被推到合适位置 */
+    header { background: rgba(0,0,0,0.9) !important; }
+    #hero-cinematic {
+        min-height: auto !important; /* 手机端自适应高度 */
+        padding-top: 120px !important; /* 确保内容在手机上完全可见 */
+    }
+    .hero-content {
+        top: 0 !important;
+        transform: none !important;
+        margin-top: 10px !important;
+    }
+}
+
+
 
 
   </style>
