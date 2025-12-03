@@ -2262,61 +2262,78 @@ header, nav {
 
 
 
-
 /* =================================================================
-   ★ [最终修正] 导航栏左右对齐 + 消除黑条
+   ★ [最终修正版] 布局控制 (导航栏左右对齐 + 消除黑边)
    ================================================================= */
 
-/* 1. 全局清除边距 (这是消灭黑条的关键) */
-body, html {
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow-x: hidden;
-}
-
-/* 2. 导航栏布局 (Logo左，菜单右) */
+/* 1. 导航栏：强制左右分开 (Logo左，菜单右) */
 header {
-    position: absolute !important; /* 悬浮在星空上 */
+    position: absolute !important;
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
-    height: 80px; /* 固定高度 */
-    background: transparent !important; /* 透明背景 */
+    height: 80px;
+    background: transparent !important; /* 透明 */
     z-index: 9999 !important;
     
-    /* 关键布局：两端对齐 */
+    /* 关键：Flex布局，两端对齐 */
     display: flex !important;
-    justify-content: space-between !important; /* 左一个，右一个 */
+    justify-content: space-between !important; 
     align-items: center !important;
-    padding: 0 40px !important; /* 左右留点空隙 */
-    box-sizing: border-box; /* 防止padding撑破宽度 */
+    padding: 0 5% !important; /* 左右留出 5% 的空隙 */
+    box-sizing: border-box;
 }
 
-/* 3. 针对 nav 标签的修正 */
-header nav {
+/* 2. 针对 Nav 菜单的内部修正 */
+nav {
     display: flex !important;
     align-items: center !important;
+    position: static !important; /* 不要在 header 里乱跑 */
     background: transparent !important;
     box-shadow: none !important;
 }
 
-/* 4. 确保首屏顶部顶满 */
+/* 3. 首屏容器：高度自动适应，消除巨大黑边 */
 #hero-cinematic {
-    margin-top: 0 !important;
+    position: relative !important;
+    width: 100%;
+    /* 电脑端：刚好一屏，不拉长 */
+    min-height: 100vh !important; 
     padding-top: 0 !important;
+    /* 底部留一点点空隙即可，不要 200px 那么大 */
+    padding-bottom: 80px !important; 
+    background: #000 !important;
+    overflow: hidden;
 }
 
-/* 5. 手机端适配 */
+/* 4. 底部渐变雾气 (改短一点，防止遮挡下面内容) */
+#hero-cinematic::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    height: 150px; /* 改小到 150px */
+    background: linear-gradient(to bottom, transparent 0%, #000 100%);
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* 5. 手机端专属：极度紧凑模式 */
 @media (max-width: 768px) {
-    header {
-        padding: 0 15px !important;
-        background: rgba(0,0,0,0.9) !important; /* 手机上加黑色底 */
+    /* 手机导航栏加黑底，防止看不清 */
+    header { background: rgba(0,0,0,0.9) !important; padding: 0 15px !important; }
+    
+    /* 手机首屏：不要固定 100vh，改成自适应，有多少内容撑多高 */
+    #hero-cinematic {
+        min-height: auto !important; /* 关键！自动高度 */
+        padding-top: 100px !important; /* 避开导航栏 */
+        padding-bottom: 40px !important; /* 底部只留一点缝 */
     }
-    #hero-cinematic { padding-top: 80px !important; }
+    
+    .hero-content {
+        margin-top: 0 !important;
+        top: 0 !important;
+    }
 }
-
-
-
 
 
   </style>
@@ -4552,108 +4569,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-<div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.9); backdrop-filter:blur(15px);">
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:85%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.95); padding:30px; text-align:center; border-radius:8px; box-shadow:0 0 50px rgba(0,229,255,0.2);">
+<div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.95); backdrop-filter:blur(10px);">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:85%; max-width:380px; border:1px solid #00e5ff; background:rgba(0,20,30,1); padding:30px; text-align:center; border-radius:8px;">
         
         <h2 style="color:#fff; margin-bottom:5px;">宇宙源力</h2>
-        <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:25px;">COSMIC RESONANCE</div>
+        <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:20px;">COSMIC RESONANCE</div>
         
-        <p style="color:#ccc; font-size:13px; line-height:1.6; text-align:justify; margin-bottom:25px; border-top:1px solid rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1); padding:15px 0;">
-            正在捕获<b>猎户座悬臂</b>深处的引力波回响。<br><br>
-            开启后，它将屏蔽凡世喧嚣，强制将你的脑波拉入<b>深层专注</b>状态。
+        <p style="color:#ccc; font-size:13px; line-height:1.6; margin-bottom:25px; border-top:1px solid #333; border-bottom:1px solid #333; padding:15px 0;">
+            已捕获<b>猎户座悬臂</b>深处的引力波回响。<br>
+            开启后，将强制屏蔽凡世喧嚣，进入<b>深层专注</b>状态。
         </p>
 
-        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(90deg, #00e5ff, #0088ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; width:100%;">
+        <button id="echo-btn" onclick="toggleNoise()" style="background:#00e5ff; color:#000; border:none; padding:12px 0; font-weight:bold; width:100%; cursor:pointer;">
             接入频率 [CONNECT]
         </button>
 
-        <div onclick="toggleSourceEcho()" style="margin-top:20px; color:#666; font-size:12px; cursor:pointer; text-decoration:underline;">
-            断开链接 (关闭)
-        </div>
+        <div onclick="toggleSourceEcho()" style="margin-top:20px; color:#666; font-size:12px; cursor:pointer; text-decoration:underline;">关闭面板</div>
     </div>
 </div>
 
 <script>
-// 定义全局变量，防止报错
-var audioCtx, noiseSource, noiseGain;
-var isEchoRunning = false;
+// 使用 window 全局变量，防止重复定义报错
+window.audioCtx = null;
+window.isEchoRunning = false;
 
-// 面板开关函数
-function toggleSourceEcho() {
+// 强制覆盖旧函数，确保按钮能找到它
+window.toggleSourceEcho = function() {
     var panel = document.getElementById('echo-panel');
     if (panel) {
-        // 切换显示状态
-        if (panel.style.display === 'none' || panel.style.display === '') {
-            panel.style.display = 'block';
-        } else {
-            panel.style.display = 'none';
-        }
+        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
     } else {
-        alert("错误：找不到面板元素 (id='echo-panel')");
+        alert("面板代码丢失，请检查 HTML 底部");
     }
 }
 
-// 声音开关函数
-function toggleNoise() {
+window.toggleNoise = function() {
     var btn = document.getElementById('echo-btn');
-    
-    // 初始化音频 (只在第一次点击时运行)
-    if (!audioCtx) {
-        var AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-    }
+    var AudioContext = window.AudioContext || window.webkitAudioContext;
 
-    if (isEchoRunning) {
-        // === 关 ===
-        if(noiseGain) noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-        setTimeout(function(){ 
-            if(noiseSource) noiseSource.stop(); 
-            isEchoRunning = false; 
-            btn.innerHTML = "接入频率 [CONNECT]";
-            btn.style.background = "linear-gradient(90deg, #00e5ff, #0088ff)";
-            btn.style.color = "#000";
-        }, 500);
+    if (!window.audioCtx) { window.audioCtx = new AudioContext(); }
+
+    if (window.isEchoRunning) {
+        // 关
+        window.audioCtx.suspend();
+        window.isEchoRunning = false;
+        btn.innerHTML = "接入频率 [CONNECT]";
+        btn.style.background = "#00e5ff";
+        btn.style.color = "#000";
     } else {
-        // === 开 ===
-        var bufferSize = audioCtx.sampleRate * 2;
-        var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        var data = buffer.getChannelData(0);
+        // 开
+        window.audioCtx.resume();
         
+        // 创建噪音
+        var bufferSize = window.audioCtx.sampleRate * 2;
+        var buffer = window.audioCtx.createBuffer(1, bufferSize, window.audioCtx.sampleRate);
+        var data = buffer.getChannelData(0);
         for (var i = 0; i < bufferSize; i++) {
-            var white = Math.random() * 2 - 1;
-            data[i] = (lastOut + (0.02 * white)) / 1.02;
-            data[i] *= 3.5;
-            var lastOut = data[i];
+            data[i] = Math.random() * 2 - 1;
         }
 
-        noiseSource = audioCtx.createBufferSource();
-        noiseSource.buffer = buffer;
-        noiseSource.loop = true;
+        var noise = window.audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        noise.loop = true;
         
-        var filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass'; filter.frequency.value = 150;
+        // 简单低通滤波
+        var filter = window.audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 120; // 只要低音
 
-        noiseGain = audioCtx.createGain();
-        noiseGain.gain.value = 0;
-
-        noiseSource.connect(filter); filter.connect(noiseGain); noiseGain.connect(audioCtx.destination);
+        noise.connect(filter);
+        filter.connect(window.audioCtx.destination);
+        noise.start();
         
-        noiseSource.start();
-        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3);
-        
-        isEchoRunning = true;
-        btn.innerHTML = "共振中... [RESONATING]";
+        window.isEchoRunning = true;
+        btn.innerHTML = "共振中... [STOP]";
         btn.style.background = "transparent";
         btn.style.color = "#00e5ff";
         btn.style.border = "1px solid #00e5ff";
-        
-        if (audioCtx.state === 'suspended') audioCtx.resume();
     }
 }
 </script>
-
-
-
 
 
 
