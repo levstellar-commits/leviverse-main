@@ -33,17 +33,17 @@
 
 /* =================================================================
    ★ [终极整合版] 首页样式 (直接替换，不要改动)
+ 
    ================================================================= */
 
 /* 1. 首页大盒子 (撑开高度，防止内容贴底) */
 #hero-cinematic {
     position: relative;
     width: 100%;
-    /* 拉长到 110%，让星空包住下面的内容 */
-    min-height: 110vh; 
-    /* 顶部不留白，底部留白 200px 给按钮 */
+    /* 修复：调整为 100vh，并减小底部填充以解决间距过大问题 */
+    min-height: 100vh; 
     padding-top: 0;
-    padding-bottom: 200px; 
+    padding-bottom: 80px; /* 显著减少底部填充 */
     overflow: hidden;
     background: #000;
     display: flex;
@@ -72,7 +72,8 @@
 
 /* 4. 粒子层 */
 #particles-js {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute; top: 0;
+    left: 0; width: 100%; height: 100%;
     z-index: 1; pointer-events: none; opacity: 0.8;
 }
 
@@ -93,14 +94,18 @@
     background-size: contain; background-position: center bottom;
     filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4));
 }
-#god-left { left: 2%; animation-delay: 0s; }
+#god-left { left: 2%; animation-delay: 0s;
+}
 #god-right { right: 2%; animation-delay: 4s; }
 @keyframes god-float {
-    0%, 100% { transform: translateY(-50%); opacity: 0.5; }
-    50% { transform: translateY(-54%); opacity: 0.7; }
+    0%, 100% { transform: translateY(-50%); opacity: 0.5;
+    }
+    50% { transform: translateY(-54%); opacity: 0.7;
+    }
 }
 @media (max-width: 768px) {
-    .god-figure { display: none !important; }
+    .god-figure { display: none !important;
+    }
 }
 
 /* 6. 氛围遮罩 */
@@ -117,7 +122,9 @@
     text-align: center;
     padding: 20px;
     margin: 0 auto;
-    top: 5vh; /* 靠上定位 */
+    /* 修复：改为垂直居中 */
+    top: 50%;
+    transform: translateY(-50%);
     text-shadow: 0 4px 20px rgba(0,0,0,0.8);
     color: #FFFFFF;
 }
@@ -136,17 +143,16 @@ nav, header {
 }
 
 /* 10. 旧代码残留兼容 (隐藏掉，防止报错) */
-.parallax-layer { position: absolute; display: none; }
-
-
-
-
+.parallax-layer { position: absolute; display: none;
+}
 
 
 .hero-title-cinematic {
-        font-size: 56px; /* 增大字号 */
+        font-size: 56px;
+        /* 增大字号 */
         font-weight: 700;
-        line-height: 1.5; /* 增加行高 */
+        line-height: 1.5;
+        /* 增加行高 */
         margin-bottom: 24px;
         animation: text-fade-in 1.5s 0.5s ease-out backwards;
         font-family: 'Noto Serif SC', serif;
@@ -156,17 +162,15 @@ nav, header {
     /* --- 颜色修正 --- */
     /* [修改] 将颜色从柔和白 var(--muted) 改为纯白色，让文字更明亮 */
     color: #FFFFFF;
-
     /* --- 字体优化 (三步) --- */
     /* 1. [新增] 增加字重，让笔画更坚实清晰 */
-    font-weight: 500; /* 您可以尝试 500 或 600 */
+    font-weight: 500;
+    /* 您可以尝试 500 或 600 */
 
     /* 2. [新增] 增加微小的字间距，提升精致感 */
     letter-spacing: 0.5px;
-    
     /* 3. [优化] 使用一个更柔和的阴影来提升对比度，而不是让文字变暗 */
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-
     /* --- 其他样式保持不变 --- */
     font-size: 24px;
     white-space: nowrap;
@@ -220,9 +224,13 @@ nav, header {
 }
 
 @media (max-width: 768px) {
-    .hero-title-cinematic { font-size: 40px; }
+    .hero-title-cinematic { font-size: 40px;
+    }
     .hero-sub-cinematic { font-size: 16px; }
 }
+
+
+
 
 
 
@@ -2210,17 +2218,18 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
-/* =================================================================
-   ★ [最终强制修复补丁] 解决黑条 + 手机遮挡 (粘贴在 style 最底部)
-   ================================================================= */
+
+
 
 /* 1. 强制把导航栏变成“透明浮动”状态 (解决电脑版顶部黑条问题) */
 header, nav {
-    position: absolute !important; /* 浮在星空上面 */
+    position: absolute !important;
+    /* 浮在星空上面 */
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
-    background: transparent !important; /* 背景透明 */
+    background: transparent !important;
+    /* 背景透明 */
     z-index: 9999 !important; /* 永远在最前面 */
     margin-top: 0 !important;
 }
@@ -2228,7 +2237,8 @@ header, nav {
 /* 2. 强制调整首屏容器 (给文字留出位置) */
 #hero-cinematic {
     position: relative !important;
-    margin-top: 0 !important; /* 消除之前的负边距 */
+    margin-top: 0 !important;
+    /* 消除之前的负边距 */
     padding-top: 150px !important; /* 往下推一点，别被导航栏挡住 */
     min-height: 100vh !important;
     background: #000 !important;
@@ -2237,29 +2247,33 @@ header, nav {
 /* 3. 电脑端：文字位置微调 */
 @media (min-width: 769px) {
     .hero-content {
-        top: 0 !important;
-        margin-top: 5vh !important; /* 稍微往下一点点，视觉居中 */
+        /* 修复：强制 PC 端内容垂直居中 */
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin-top: 0 !important;
     }
 }
 
 /* 4. 手机端：专属修复 (解决手机版字被挡住的问题) */
 @media (max-width: 768px) {
     /* 手机导航栏加个深色底，不然看不清按钮 */
-    header { background: rgba(0,0,0,0.9) !important; }
+    header { background: rgba(0,0,0,0.9) !important;
+    }
     
     /* 手机上把文字往上提，别留太多黑边 */
     #hero-cinematic {
-        padding-top: 100px !important; 
+        padding-top: 120px !important; /* 修复：增加到 120px，确保内容完全可见 */
     }
     .hero-content {
         top: 0 !important;
-        margin-top: 10px !important; /* 紧凑一点 */
+        margin-top: 10px !important;
+        /* 紧凑一点 */
     }
     
     /* 再次强制隐藏神像，防止手机版乱跑 */
-    .god-figure { display: none !important; }
+    .god-figure { display: none !important;
+    }
 }
-
 
 
 
