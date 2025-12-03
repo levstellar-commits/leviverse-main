@@ -419,21 +419,21 @@ nav, header {
 
 
     /* --- [其余样式，保持不变] --- */
-    header {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        padding: 16px 32px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: linear-gradient(180deg, rgba(2,4,10,0.85) 0%, rgba(2,4,10,0.6) 50%, rgba(2,4,10,0) 100%);
-        z-index: 10000;
-        backdrop-filter: blur(8px);
-        transition: all 0.3s ease;
-    }
-    .brand{display:flex;gap:12px;align-items:center}
+header {
+    position: absolute !important; /* 修正：确保它浮在星空上，消除顶部黑边 [cite: 458] */
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 16px 32px;
+    display: flex !important; /* 启用 Flexbox [cite: 76] */
+    justify-content: flex-start !important; /* 让内容从左边开始排列 (这是安全设置) */
+    align-items: center;
+    background: transparent !important; /* 修正：确保背景透明，消除黑条 [cite: 459] */
+    z-index: 10000;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+    .brand{display:flex;gap:12px;align-items:center; margin-right: auto !important;} /* 修正：将 Logo 永远推到最左侧，菜单靠右 */
     .logo{width:44px;height:44px;border-radius:8px;background:transparent;display:grid;place-items:center;font-weight:700;}
     nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px;
     transition: color 0.3s ease;} nav a:hover{color:#fff;}
@@ -2258,84 +2258,6 @@ header, nav {
     
     /* 再次强制隐藏神像，防止手机版乱跑 */
     .god-figure { display: none !important; }
-}
-
-
-
-
-/* =================================================================
-   ★ [最终修正版] 布局控制 (导航栏左右对齐 + 消除黑边)
-   ================================================================= */
-
-/* 1. 导航栏：强制左右分开 (Logo左，菜单右) */
-header {
-    /* [核心修改] 强制覆盖，确保 Logo 左，菜单右 */
-    [cite_start]position: absolute !important; [cite: 458]
-    [cite_start]top: 0 !important; [cite: 458]
-    [cite_start]left: 0 !important; [cite: 459]
-    [cite_start]width: 100% !important; [cite: 459]
-    height: 80px;
-    background: transparent !important; [cite_start]/* 透明，让星空透出来 */ [cite: 459]
-    [cite_start]z-index: 9999 !important; [cite: 460]
-    
-    /* 关键：Flex布局，两端对齐 */
-    [cite_start]display: flex !important; [cite: 460]
-    justify-content: space-between !important; [cite_start]/* <--- 核心修改：实现左右对齐 */ [cite: 460]
-    align-items: center !important;
-    padding: 0 5% !important; 
-    box-sizing: border-box;
-}
-
-/* 2. 针对 Nav 菜单的内部修正 */
-nav {
-    [cite_start]display: flex !important; [cite: 462]
-    align-items: center !important;
-    position: static !important; [cite_start]/* 不要在 header 里乱跑 */ [cite: 462]
-    background: transparent !important;
-    box-shadow: none !important;
-}
-
-/* 3. 首屏容器：高度刚好一屏，消除黑边 */
-#hero-cinematic {
-    [cite_start]position: relative !important; [cite: 464]
-    [cite_start]width: 100%; [cite: 464]
-    /* [核心修改] 电脑端：刚好一屏，不拉长，消除黑边 */
-    [cite_start]min-height: 100vh !important; [cite: 465]
-    padding-top: 0 !important; [cite_start]/* <--- 核心修改：去除顶部多余留白 */ [cite: 465]
-    /* 底部留一点点空隙即可，不要 200px 那么大 */
-    [cite_start]padding-bottom: 80px !important; [cite: 466]
-    background: #000 !important;
-    overflow: hidden;
-}
-
-/* 4. 底部渐变雾气 (改短一点，防止遮挡下面内容) */
-#hero-cinematic::after {
-    [cite_start]content: ''; [cite: 467]
-    position: absolute;
-    [cite_start]bottom: 0; left: 0; width: 100%; [cite: 467]
-    height: 150px; [cite_start]/* 改小到 150px */ [cite: 467]
-    [cite_start]background: linear-gradient(to bottom, transparent 0%, #000 100%); [cite: 468]
-    z-index: 5;
-    pointer-events: none;
-}
-
-/* 5. 手机端专属：极度紧凑模式 */
-@media (max-width: 768px) {
-    /* 手机导航栏加黑底，防止看不清 */
-    header { background: rgba(0,0,0,0.9) !important; padding: 0 15px !important; [cite_start]} [cite: 469]
-    
-    /* 手机首屏：让内容往下推，避开导航栏（解决文字太近问题） */
-    #hero-cinematic {
-        [cite_start]min-height: auto !important; [cite: 470]
-        /* <--- 核心修改：避开导航栏，增大间距 */
-        [cite_start]padding-top: 100px !important; [cite: 471]
-        [cite_start]padding-bottom: 40px !important; [cite: 472]
-    }
-    
-    .hero-content {
-        [cite_start]margin-top: 0 !important; [cite: 473]
-        top: 0 !important;
-    }
 }
 
 
