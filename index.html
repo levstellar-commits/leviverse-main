@@ -1794,72 +1794,8 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
-/* ============================================ */
-/* ========== [新增] 手机端响应式优化 ========== */
-/* ============================================ */
 
-/* 当屏幕宽度小于等于 768px 时 (典型的手机竖屏宽度) */
-@media (max-width: 768px) {
 
-  /* 1. 顶部导航栏：让链接居中换行，而不是挤在一起 */
-  header {
-    flex-direction: column; /* 让Logo和导航垂直排列 */
-    padding: 16px;
-  }
-  nav {
-    justify-content: center; /* 导航链接居中 */
-    flex-wrap: wrap;         /* 允许链接优雅地换行 */
-    margin-top: 12px;
-  }
-
-  /* 2. [核心] 所有多列布局，在手机上全部变为单列显示 */
-  .two-cols,
-  .three-cols,
-  .four-cols,
-  .five-cols,
-  .six-cols,
-  .four-cols-redefined,
-  .five-cols-ip,
-  .four-cols-ip,
-  .summary-grid {
-    grid-template-columns: 1fr; /* 强制所有网格布局变为单列 */
-  }
-
-  /* 针对更复杂网格的额外重置 */
-  .arena-layout-enhanced,
-  .press-redefined-layout,
-  .map-showcase-grid,
-  .archaeology-grid-2x2,
-  .manifesto-grid,
-  .news-grid,
-  .co-builder-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  /* 3. 调整主内容区域的边距，让内容更宽 */
-  main {
-    padding: 100px 16px 40px;
-  }
-  
-  /* 4. 进一步缩小标题字号，使其更适合手机屏幕 */
-  h2, .hero-title {
-    font-size: 28px !important;
-  }
-  .hero-line {
-    font-size: 24px !important;
-  }
-  h3 {
-    font-size: 20px;
-  }
-
-  /* 5. 修正右下角“解大为”悬浮窗的位置，让它出现在底部 */
-  .dawei-hud, .dawei-guide {
-      top: auto;
-      bottom: 20px;
-      right: 16px;
-      transform: none;
-  }
-}
 
 
 /* =====【新增】Waline 登录引导提示样式 ===== */
@@ -2197,53 +2133,6 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
-/* ========== [新增] 针对开篇三句话的手机显示优化 ========== */
-@media (max-width: 768px) {
-
-  /* 1. 调整核心内容容器的内边距，给文字留出更多空间 */
-  .hero-content {
-    padding: 10px; /* 将左右边距减小 */
-    width: 90%;     /* 确保容器宽度不会超出屏幕 */
-  }
-
-  /* 2. 修正主标题的样式 */
-  .hero-line {
-    font-size: 28px !important; /* 适当减小字号以适应屏幕 */
-    line-height: 1.3;         /* 调整行高 */
-    margin-bottom: 16px;      /* 调整与下方文字的间距 */
-  }
-
-  /* 3. [核心修正] 修正副标题，允许其正常换行 */
-  .hero-sub-cinematic {
-    font-size: 18px !important;   /* 适当减小字号 */
-    white-space: normal;        /* [关键] 允许文本自动换行 */
-    line-height: 1.6;           /* 增加行高以提高可读性 */
-    padding: 0 10px;            /* 增加一点点左右内边距，避免贴边 */
-  }
-
-  /* 4. 调整按钮组与上方文字的距离 */
-  .hero-actions {
-    margin-top: 24px; /* 确保按钮不会离文字太近 */
-  }
-}
-
-/* ========== [新增] 修正手机端导航栏遮挡标题的问题 ========== */
-@media (max-width: 768px) {
-  #hero-cinematic {
-    /* 增加一个内边距，把里面的内容（文字和按钮）向下推 */
-    padding-top: 100px; 
-    
-    /* [可选] 如果文字还是偏上，可以去掉flex的垂直居中，手动控制 */
-    /* align-items: flex-start; */
-  }
-
-  /* 同时，为了让文字整体更协调，可以稍微调整一下内容块的上边距 */
-  .hero-content {
-      margin-top: 20px; 
-  }
-}
-
-
 
 
 /* === 星空背景粒子动画 (让你的星空动起来) === */
@@ -2277,6 +2166,104 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     transform: scale(1.05); /* 微微放大 */
 }
 
+
+
+
+/* ========== [优化后] 统一的手机端响应式优化 (解决内容偏下问题) ========== */
+@media (max-width: 768px) {
+  
+  /* 1. 顶部导航栏和核心布局修正 */
+  header {
+    flex-direction: column;
+    padding: 16px;
+  }
+  nav {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  
+  /* 2. 【核心修正】修正整个 Hero 容器的定位和安全空间 */
+  #hero-cinematic {
+    /* ⚠️ 移除 min-height 100vh 的约束，让容器可以更紧凑 */
+    min-height: auto; 
+    height: auto;
+    
+    /* 增加顶部内边距：为导航栏留出安全空间 (~100px) */
+    padding-top: 100px; 
+    
+    /* 允许底部内容根据子元素自然收缩 */
+    padding-bottom: 40px; 
+  }
+
+  /* 3. 【核心修正】修正文字内容块的垂直定位 */
+  .hero-content {
+    /* 移除不稳定的 top: 5vh; */
+    top: auto; 
+    
+    /* 强制整体上移，消除顶部空旷感。这个值是根据您当前布局微调的。 */
+    margin-top: -10vh; /* 向上移动 10% 的视口高度 */
+    
+    /* 恢复左右边距，防止文字贴边 */
+    padding: 10px;
+    width: 90%;
+  }
+
+  /* 4. 标题和副标题样式修正 */
+  h2, .hero-title {
+    font-size: 28px !important;
+  }
+  .hero-line {
+    font-size: 28px !important; /* 修正主标题字号 */
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+  .hero-sub-cinematic {
+    font-size: 18px !important; /* 修正副标题字号 */
+    white-space: normal;      /* [关键] 允许文本自动换行 */
+    line-height: 1.6;
+    padding: 0 10px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+  
+  /* 5. 按钮组和悬浮窗 */
+  .hero-actions {
+    margin-top: 24px;
+  }
+  .dawei-hud, .dawei-guide {
+      top: auto;
+      bottom: 20px;
+      right: 16px;
+      transform: none;
+  }
+  
+  /* 6. 所有多列布局，在手机上全部变为单列显示 */
+  .two-cols,
+  .three-cols,
+  .four-cols,
+  .five-cols,
+  .six-cols,
+  .four-cols-redefined,
+  .five-cols-ip,
+  .four-cols-ip,
+  .summary-grid,
+  .arena-layout-enhanced,
+  .press-redefined-layout,
+  .map-showcase-grid,
+  .archaeology-grid-2x2,
+  .manifesto-grid,
+  .news-grid,
+  .co-builder-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* 7. 调整主内容区域的边距 */
+  main {
+    padding: 100px 16px 40px;
+  }
+}
 
 
 
