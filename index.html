@@ -2312,6 +2312,39 @@ header, nav {
 }
 
 
+/*
+ * =======================================================
+ * 【最终版安全补丁】
+ * 解决导航栏对齐、黑色背景和首屏间距过大问题
+ * =======================================================
+ */
+
+/* 1. 解决导航栏靠右对齐与背景透明问题 */
+header {
+    /* (1) 强制将 Logo 和菜单推到两侧 */
+    justify-content: space-between !important; 
+    /* (2) 强制背景透明，消除 PC 端的黑条 */
+    background: transparent !important;
+}
+
+/* 2. 解决首屏到下一段正文间距过大问题 */
+#hero-cinematic {
+    /* 降低最小高度到 85% 视窗，让首屏更紧凑 */
+    min-height: 85vh !important; 
+    /* 显著减小底部填充，让下一段内容上移 */
+    padding-bottom: 30px !important; 
+    /* 保持顶部填充 150px，以避开导航栏 */
+    padding-top: 150px !important;
+}
+
+/* 3. 减小下一段内容（"我的战场"）顶部的内边距 */
+#executive-summary {
+    /* 减小下一段内容与首屏的间距 */
+    padding-top: 30px !important; 
+    /* 移除 section-divider 带来的额外上边距 */
+    margin-top: 0 !important;
+}
+
 
 
   </style>
