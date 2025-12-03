@@ -2210,6 +2210,59 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* =================================================================
+   ★ [最终强制修复补丁] 解决黑条 + 手机遮挡 (粘贴在 style 最底部)
+   ================================================================= */
+
+/* 1. 强制把导航栏变成“透明浮动”状态 (解决电脑版顶部黑条问题) */
+header, nav {
+    position: absolute !important; /* 浮在星空上面 */
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: transparent !important; /* 背景透明 */
+    z-index: 9999 !important; /* 永远在最前面 */
+    margin-top: 0 !important;
+}
+
+/* 2. 强制调整首屏容器 (给文字留出位置) */
+#hero-cinematic {
+    position: relative !important;
+    margin-top: 0 !important; /* 消除之前的负边距 */
+    padding-top: 150px !important; /* 往下推一点，别被导航栏挡住 */
+    min-height: 100vh !important;
+    background: #000 !important;
+}
+
+/* 3. 电脑端：文字位置微调 */
+@media (min-width: 769px) {
+    .hero-content {
+        top: 0 !important;
+        margin-top: 5vh !important; /* 稍微往下一点点，视觉居中 */
+    }
+}
+
+/* 4. 手机端：专属修复 (解决手机版字被挡住的问题) */
+@media (max-width: 768px) {
+    /* 手机导航栏加个深色底，不然看不清按钮 */
+    header { background: rgba(0,0,0,0.9) !important; }
+    
+    /* 手机上把文字往上提，别留太多黑边 */
+    #hero-cinematic {
+        padding-top: 100px !important; 
+    }
+    .hero-content {
+        top: 0 !important;
+        margin-top: 10px !important; /* 紧凑一点 */
+    }
+    
+    /* 再次强制隐藏神像，防止手机版乱跑 */
+    .god-figure { display: none !important; }
+}
+
+
+
+
 
   </style>
 
@@ -4552,90 +4605,69 @@ function toggleNoise() {
 
 
 
+
+
 <div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.9); backdrop-filter:blur(15px);">
     
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:85%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.8); padding:40px; text-align:center; box-shadow:0 0 60px rgba(0,229,255,0.15); border-radius:8px;">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:85%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.95); padding:30px; text-align:center; border-radius:8px; box-shadow:0 0 50px rgba(0,229,255,0.2);">
         
-        <div style="height:2px; background:#00e5ff; width:100%; position:absolute; top:0; left:0; box-shadow:0 0 10px #00e5ff;"></div>
-
-        <h2 style="color:#fff; font-family:'Noto Serif SC'; font-size:26px; margin-bottom:5px; text-shadow:0 0 15px rgba(0,229,255,0.6);">
-            宇宙源力
-        </h2>
-        <div style="color:#00e5ff; font-size:10px; letter-spacing:5px; margin-bottom:30px; opacity:0.8;">COSMIC RESONANCE</div>
+        <h2 style="color:#fff; font-family:'Noto Serif SC'; font-size:24px; margin-bottom:5px;">宇宙源力</h2>
+        <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:25px;">COSMIC RESONANCE</div>
         
-        <div style="text-align:justify; color:#ccc; font-size:14px; line-height:1.8; margin-bottom:30px; border-top:1px dashed rgba(0,229,255,0.3); border-bottom:1px dashed rgba(0,229,255,0.3); padding:20px 0;">
-            <p>正在捕获来自<b>猎户座悬臂</b>深处的引力波回响。</p>
-            <p style="margin-top:10px; color:#aaa; font-size:12px;">
-                这是宇宙“创世之初”的残余频率。在地球的喧嚣中，这种低频脉动能通过<b>“声学掩蔽效应”</b>屏蔽杂音，强行将你的脑波拉入<b>Alpha波（专注）</b>或<b>Theta波（深眠）</b>状态。
-            </p>
-            <p style="margin-top:10px; color:#00e5ff; font-size:12px;">
-                * 该频率可持续在后台运行，直至神经连接断开。
-            </p>
-        </div>
+        <p style="color:#ccc; font-size:13px; line-height:1.6; text-align:justify; margin-bottom:25px; border-top:1px solid rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1); padding:15px 0;">
+            正在捕获<b>猎户座悬臂</b>深处的引力波回响。<br><br>
+            这不仅仅是白噪音，这是模拟“创世之初”的低频脉动。开启后，它将屏蔽凡世喧嚣，强制将你的脑波拉入<b>深层专注</b>或<b>深度休眠</b>状态。
+        </p>
 
-        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(90deg, #00e5ff, #0077ff); color:#000; border:none; padding:15px 40px; font-weight:bold; cursor:pointer; font-size:16px; letter-spacing:2px; clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); transition:all 0.3s;">
+        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(90deg, #00e5ff, #0088ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; font-size:15px; width:100%;">
             接入频率 [CONNECT]
         </button>
 
-        <div onclick="toggleSourceEcho()" style="margin-top:25px; color:#555; font-size:12px; cursor:pointer; text-decoration:underline;">
-            断开链接 (关闭面板)
+        <div onclick="toggleSourceEcho()" style="margin-top:20px; color:#666; font-size:12px; cursor:pointer; text-decoration:underline;">
+            断开链接 (关闭)
         </div>
     </div>
 </div>
 
-
 <script>
-/* === 宇宙源力：音频生成引擎 (支持后台播放) === */
 let audioCtx, noiseSource, noiseGain;
 let isEchoRunning = false;
 
-// 1. 打开/关闭面板 (点击导航栏按钮时触发)
+// 打开/关闭面板
 function toggleSourceEcho() {
     const panel = document.getElementById('echo-panel');
-    // 如果面板是开的就关，关的就开
-    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+    // 如果找不到面板，说明HTML没贴对
+    if (panel) {
+        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+    }
 }
 
-// 2. 核心：音频开关 (点击面板上的“接入频率”时触发)
+// 播放/停止声音
 function toggleNoise() {
     const btn = document.getElementById('echo-btn');
     
-    // 第一次点击时，初始化音频环境
-    if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // 🚀 黑科技：注册媒体会话 (让手机锁屏也能显示控制条)
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: '宇宙源力：深空频率',
-                artist: '立维宇宙 LEVYTHOS',
-                album: 'Neural Link Protocol',
-                artwork: [{ src: 'icon-512.png', sizes: '512x512', type: 'image/png' }]
-            });
-            navigator.mediaSession.setActionHandler('play', toggleNoise);
-            navigator.mediaSession.setActionHandler('pause', toggleNoise);
-        }
-    }
+    // 初始化音频系统 (只在第一次点击时创建)
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     if (isEchoRunning) {
-        // --- 如果正在播放，则停止 ---
-        // 0.5秒内声音慢慢变小，优雅地停止
+        // --- 停止 ---
+        // 0.5秒内声音慢慢变小
         noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
         setTimeout(() => { 
             noiseSource.stop(); 
             isEchoRunning = false; 
             btn.innerHTML = "接入频率 [CONNECT]";
-            btn.style.background = "linear-gradient(90deg, #00e5ff, #0077ff)";
+            btn.style.background = "linear-gradient(90deg, #00e5ff, #0088ff)";
             btn.style.color = "#000";
-            btn.style.border = "none";
         }, 500);
     } else {
-        // --- 如果没播放，则开始 ---
-        // 1. 生成“布朗噪音” (Brown Noise) - 比白噪音更低沉，像雷声
+        // --- 播放 ---
         const bufferSize = audioCtx.sampleRate * 2;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
         let lastOut = 0;
+        
+        // 生成布朗噪音
         for (let i = 0; i < bufferSize; i++) {
             const white = Math.random() * 2 - 1;
             data[i] = (lastOut + (0.02 * white)) / 1.02;
@@ -4647,10 +4679,10 @@ function toggleNoise() {
         noiseSource.buffer = buffer;
         noiseSource.loop = true;
         
-        // 2. 低通滤波器：把尖锐的嘶嘶声滤掉，只留轰鸣声
+        // 低频滤波器 (只留轰鸣声)
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass'; 
-        filter.frequency.value = 150; // 频率设极低
+        filter.frequency.value = 150; 
 
         noiseGain = audioCtx.createGain();
         noiseGain.gain.value = 0;
@@ -4660,8 +4692,8 @@ function toggleNoise() {
         noiseGain.connect(audioCtx.destination);
         
         noiseSource.start();
-        // 3秒内声音慢慢变大，优雅地开始
-        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3); 
+        // 3秒内声音慢慢变大
+        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3);
         
         isEchoRunning = true;
         btn.innerHTML = "共振中... [RESONATING]";
@@ -4669,12 +4701,11 @@ function toggleNoise() {
         btn.style.color = "#00e5ff";
         btn.style.border = "1px solid #00e5ff";
         
-        // 唤醒音频引擎 (解决部分浏览器休眠问题)
+        // 唤醒浏览器音频
         if (audioCtx.state === 'suspended') audioCtx.resume();
     }
 }
 </script>
-
 
 
 
