@@ -2262,6 +2262,54 @@ header, nav {
 
 
 
+/* =================================================================
+   ★ [最终矫正] 修复顶部黑条 & 导航栏居中
+   ================================================================= */
+
+/* 1. 消除浏览器默认边距 (修复顶部黑条) */
+body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden; /* 防止横向滚动条 */
+}
+
+/* 2. 导航栏强制居中 & 透明 (修复靠左问题) */
+header, nav {
+    /* 确保浮在最顶层 */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    
+    /* 强制背景全透明 */
+    background: transparent !important;
+    box-shadow: none !important;
+    
+    /* 强制内容居中对齐 */
+    display: flex !important;
+    justify-content: center !important; /* 水平居中 */
+    align-items: center !important;     /* 垂直居中 */
+    
+    /* 给顶部一点呼吸空间，不要贴着屏幕边 */
+    padding-top: 20px !important; 
+}
+
+/* 3. 再次确保首屏背景填满 (防止黑边) */
+#hero-cinematic {
+    margin-top: 0 !important;
+    padding-top: 0 !important; /* 电脑端顶部不留白 */
+}
+
+/* 4. 手机端特殊处理 */
+@media (max-width: 768px) {
+    /* 手机端导航栏还是要一点背景色，不然看不清字 */
+    header { background: rgba(0,0,0,0.8) !important; }
+    
+    /* 手机端内容稍微往下推一点 */
+    #hero-cinematic { padding-top: 80px !important; }
+}
+
+
 
 
   </style>
@@ -2530,8 +2578,9 @@ header, nav {
         <a href="#press" title="查看项目最新动态">项目动态</a>
         <a href="#contact" title="与我们建立合作">合作共建</a>
 <a href="#" onclick="toggleSourceEcho(); return false;" class="nav-item-glowing">
-    <span style="margin-right:5px;">◎</span> 宇宙源力
+    <span style="font-size:16px; margin-right:6px;">◎</span> 宇宙源力
 </a>
+
 
 <style>
   /* 简单的样式：大屏幕隐藏，小屏幕显示 */
@@ -4492,112 +4541,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
-
-<div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px);">
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.95); padding:40px; text-align:center; box-shadow:0 0 50px rgba(0,229,255,0.15); border-radius:4px;">
-        
-        <h2 style="color:#fff; font-family:'Noto Serif SC'; margin-bottom:5px; font-size:24px; text-shadow:0 0 10px rgba(0,229,255,0.5);">源力回响</h2>
-        <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:30px; opacity:0.8;">COSMIC RESONANCE</div>
-        
-        <p style="color:#ccc; font-size:14px; line-height:1.8; margin-bottom:30px; text-align:justify; border-top:1px solid rgba(0,229,255,0.2); border-bottom:1px solid rgba(0,229,255,0.2); padding:15px 0;">
-            聆听<b>“混沌初开”</b>时的频率。
-            <br><br>
-            这不仅仅是白噪音，这是模拟宇宙背景辐射转换的低频共振。它能屏蔽凡世的嘈杂，助你进入<b>“天人合一”</b>的深层专注状态，感知神话与代码的交融。
-        </p>
-
-        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(45deg, #00e5ff, #0099ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); font-size:14px; letter-spacing:1px; transition:all 0.3s;">
-            启动共振 [INITIATE]
-        </button>
-
-        <div onclick="toggleSourceEcho()" style="margin-top:25px; color:#555; font-size:12px; cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'">
-            断开链接 (关闭)
-        </div>
-    </div>
-</div>
-
-<script>
-let audioCtx, noiseSource, noiseGain;
-let isEchoRunning = false;
-
-// 开关面板
-function toggleSourceEcho() {
-    const panel = document.getElementById('echo-panel');
-    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-}
-
-// 开关声音 (生成深空布朗噪音)
-function toggleNoise() {
-    const btn = document.getElementById('echo-btn');
-    
-    // 初始化音频上下文
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-    if (isEchoRunning) {
-        // --- 停止 ---
-        // 缓慢淡出，避免突然断掉
-        noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-        setTimeout(() => { 
-            noiseSource.stop(); 
-            isEchoRunning = false; 
-            btn.innerHTML = "启动共振 [INITIATE]";
-            btn.style.background = "linear-gradient(45deg, #00e5ff, #0099ff)";
-            btn.style.color = "#000";
-            btn.style.border = "none";
-        }, 500);
-    } else {
-        // --- 播放 ---
-        // 1. 创建噪音缓冲 (模拟宇宙背景辐射的无序感)
-        const bufferSize = audioCtx.sampleRate * 2;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        let lastOut = 0;
-        for (let i = 0; i < bufferSize; i++) {
-            const white = Math.random() * 2 - 1;
-            // 布朗噪音算法：比白噪音更深沉，像远古的雷声或宇宙深空
-            data[i] = (lastOut + (0.02 * white)) / 1.02;
-            lastOut = data[i];
-            data[i] *= 3.5; 
-        }
-
-        noiseSource = audioCtx.createBufferSource();
-        noiseSource.buffer = buffer;
-        noiseSource.loop = true;
-        
-        // 2. 低通滤波器 (只保留低频，营造厚重感)
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass'; 
-        filter.frequency.value = 180; // 频率设得很低，听起来像大道轰鸣
-
-        noiseGain = audioCtx.createGain();
-        noiseGain.gain.value = 0; // 初始静音
-
-        // 连接节点
-        noiseSource.connect(filter); 
-        filter.connect(noiseGain); 
-        noiseGain.connect(audioCtx.destination);
-        
-        // 3. 开始播放 (淡入)
-        noiseSource.start();
-        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3); // 3秒缓慢淡入
-        
-        isEchoRunning = true;
-        btn.innerHTML = "共振中... [RESONATING]";
-        btn.style.background = "transparent";
-        btn.style.color = "#00e5ff";
-        btn.style.border = "1px solid #00e5ff";
-        
-        // 确保浏览器音频引擎是唤醒状态
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-    }
-}
-</script>
-
-
-
-
-
 <div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.9); backdrop-filter:blur(15px);">
-    
     <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:85%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.95); padding:30px; text-align:center; border-radius:8px; box-shadow:0 0 50px rgba(0,229,255,0.2);">
         
         <h2 style="color:#fff; font-family:'Noto Serif SC'; font-size:24px; margin-bottom:5px;">宇宙源力</h2>
@@ -4605,7 +4549,7 @@ function toggleNoise() {
         
         <p style="color:#ccc; font-size:13px; line-height:1.6; text-align:justify; margin-bottom:25px; border-top:1px solid rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1); padding:15px 0;">
             正在捕获<b>猎户座悬臂</b>深处的引力波回响。<br><br>
-            这不仅仅是白噪音，这是模拟“创世之初”的低频脉动。开启后，它将屏蔽凡世喧嚣，强制将你的脑波拉入<b>深层专注</b>或<b>深度休眠</b>状态。
+            这不是普通的白噪音，这是模拟“创世之初”的低频脉动。开启后，它将屏蔽凡世喧嚣，强制将你的脑波拉入<b>深层专注</b>或<b>深度休眠</b>状态。
         </p>
 
         <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(90deg, #00e5ff, #0088ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; font-size:15px; width:100%;">
@@ -4619,31 +4563,32 @@ function toggleNoise() {
 </div>
 
 <script>
-let audioCtx, noiseSource, noiseGain;
-let isEchoRunning = false;
+// 使用 var 避免重复声明报错
+var audioCtx, noiseSource, noiseGain;
+var isEchoRunning = false;
 
 // 打开/关闭面板
 function toggleSourceEcho() {
-    const panel = document.getElementById('echo-panel');
-    // 如果找不到面板，说明HTML没贴对
+    var panel = document.getElementById('echo-panel');
     if (panel) {
         panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+    } else {
+        console.error("找不到 echo-panel 元素，请检查HTML是否粘贴正确");
     }
 }
 
 // 播放/停止声音
 function toggleNoise() {
-    const btn = document.getElementById('echo-btn');
+    var btn = document.getElementById('echo-btn');
     
-    // 初始化音频系统 (只在第一次点击时创建)
+    // 初始化音频
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     if (isEchoRunning) {
         // --- 停止 ---
-        // 0.5秒内声音慢慢变小
-        noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-        setTimeout(() => { 
-            noiseSource.stop(); 
+        if(noiseGain) noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        setTimeout(function() { 
+            if(noiseSource) noiseSource.stop(); 
             isEchoRunning = false; 
             btn.innerHTML = "接入频率 [CONNECT]";
             btn.style.background = "linear-gradient(90deg, #00e5ff, #0088ff)";
@@ -4651,14 +4596,12 @@ function toggleNoise() {
         }, 500);
     } else {
         // --- 播放 ---
-        const bufferSize = audioCtx.sampleRate * 2;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        let lastOut = 0;
-        
-        // 生成布朗噪音
-        for (let i = 0; i < bufferSize; i++) {
-            const white = Math.random() * 2 - 1;
+        var bufferSize = audioCtx.sampleRate * 2;
+        var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        var data = buffer.getChannelData(0);
+        var lastOut = 0;
+        for (var i = 0; i < bufferSize; i++) {
+            var white = Math.random() * 2 - 1;
             data[i] = (lastOut + (0.02 * white)) / 1.02;
             lastOut = data[i];
             data[i] *= 3.5; 
@@ -4668,10 +4611,8 @@ function toggleNoise() {
         noiseSource.buffer = buffer;
         noiseSource.loop = true;
         
-        // 低频滤波器 (只留轰鸣声)
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass'; 
-        filter.frequency.value = 150; 
+        var filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass'; filter.frequency.value = 150; 
 
         noiseGain = audioCtx.createGain();
         noiseGain.gain.value = 0;
@@ -4681,7 +4622,6 @@ function toggleNoise() {
         noiseGain.connect(audioCtx.destination);
         
         noiseSource.start();
-        // 3秒内声音慢慢变大
         noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3);
         
         isEchoRunning = true;
@@ -4690,11 +4630,13 @@ function toggleNoise() {
         btn.style.color = "#00e5ff";
         btn.style.border = "1px solid #00e5ff";
         
-        // 唤醒浏览器音频
         if (audioCtx.state === 'suspended') audioCtx.resume();
     }
 }
 </script>
+
+
+
 
 
 
