@@ -2262,52 +2262,59 @@ header, nav {
 
 
 
+
 /* =================================================================
-   ★ [最终矫正] 修复顶部黑条 & 导航栏居中
+   ★ [最终修正] 导航栏左右对齐 + 消除黑条
    ================================================================= */
 
-/* 1. 消除浏览器默认边距 (修复顶部黑条) */
+/* 1. 全局清除边距 (这是消灭黑条的关键) */
 body, html {
     margin: 0 !important;
     padding: 0 !important;
-    overflow-x: hidden; /* 防止横向滚动条 */
+    overflow-x: hidden;
 }
 
-/* 2. 导航栏强制居中 & 透明 (修复靠左问题) */
-header, nav {
-    /* 确保浮在最顶层 */
-    position: absolute !important;
+/* 2. 导航栏布局 (Logo左，菜单右) */
+header {
+    position: absolute !important; /* 悬浮在星空上 */
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
+    height: 80px; /* 固定高度 */
+    background: transparent !important; /* 透明背景 */
+    z-index: 9999 !important;
     
-    /* 强制背景全透明 */
+    /* 关键布局：两端对齐 */
+    display: flex !important;
+    justify-content: space-between !important; /* 左一个，右一个 */
+    align-items: center !important;
+    padding: 0 40px !important; /* 左右留点空隙 */
+    box-sizing: border-box; /* 防止padding撑破宽度 */
+}
+
+/* 3. 针对 nav 标签的修正 */
+header nav {
+    display: flex !important;
+    align-items: center !important;
     background: transparent !important;
     box-shadow: none !important;
-    
-    /* 强制内容居中对齐 */
-    display: flex !important;
-    justify-content: center !important; /* 水平居中 */
-    align-items: center !important;     /* 垂直居中 */
-    
-    /* 给顶部一点呼吸空间，不要贴着屏幕边 */
-    padding-top: 20px !important; 
 }
 
-/* 3. 再次确保首屏背景填满 (防止黑边) */
+/* 4. 确保首屏顶部顶满 */
 #hero-cinematic {
     margin-top: 0 !important;
-    padding-top: 0 !important; /* 电脑端顶部不留白 */
+    padding-top: 0 !important;
 }
 
-/* 4. 手机端特殊处理 */
+/* 5. 手机端适配 */
 @media (max-width: 768px) {
-    /* 手机端导航栏还是要一点背景色，不然看不清字 */
-    header { background: rgba(0,0,0,0.8) !important; }
-    
-    /* 手机端内容稍微往下推一点 */
+    header {
+        padding: 0 15px !important;
+        background: rgba(0,0,0,0.9) !important; /* 手机上加黑色底 */
+    }
     #hero-cinematic { padding-top: 80px !important; }
 }
+
 
 
 
@@ -2578,8 +2585,10 @@ header, nav {
         <a href="#press" title="查看项目最新动态">项目动态</a>
         <a href="#contact" title="与我们建立合作">合作共建</a>
 <a href="#" onclick="toggleSourceEcho(); return false;" class="nav-item-glowing">
-    <span style="font-size:16px; margin-right:6px;">◎</span> 宇宙源力
+    <span style="margin-right:5px;">◎</span> 宇宙源力
 </a>
+
+
 
 
 <style>
@@ -4541,18 +4550,20 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
+
+
 <div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.9); backdrop-filter:blur(15px);">
     <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:85%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.95); padding:30px; text-align:center; border-radius:8px; box-shadow:0 0 50px rgba(0,229,255,0.2);">
         
-        <h2 style="color:#fff; font-family:'Noto Serif SC'; font-size:24px; margin-bottom:5px;">宇宙源力</h2>
+        <h2 style="color:#fff; margin-bottom:5px;">宇宙源力</h2>
         <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:25px;">COSMIC RESONANCE</div>
         
         <p style="color:#ccc; font-size:13px; line-height:1.6; text-align:justify; margin-bottom:25px; border-top:1px solid rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1); padding:15px 0;">
             正在捕获<b>猎户座悬臂</b>深处的引力波回响。<br><br>
-            这不是普通的白噪音，这是模拟“创世之初”的低频脉动。开启后，它将屏蔽凡世喧嚣，强制将你的脑波拉入<b>深层专注</b>或<b>深度休眠</b>状态。
+            开启后，它将屏蔽凡世喧嚣，强制将你的脑波拉入<b>深层专注</b>状态。
         </p>
 
-        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(90deg, #00e5ff, #0088ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; font-size:15px; width:100%;">
+        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(90deg, #00e5ff, #0088ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; width:100%;">
             接入频率 [CONNECT]
         </button>
 
@@ -4563,31 +4574,39 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <script>
-// 使用 var 避免重复声明报错
+// 定义全局变量，防止报错
 var audioCtx, noiseSource, noiseGain;
 var isEchoRunning = false;
 
-// 打开/关闭面板
+// 面板开关函数
 function toggleSourceEcho() {
     var panel = document.getElementById('echo-panel');
     if (panel) {
-        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+        // 切换显示状态
+        if (panel.style.display === 'none' || panel.style.display === '') {
+            panel.style.display = 'block';
+        } else {
+            panel.style.display = 'none';
+        }
     } else {
-        console.error("找不到 echo-panel 元素，请检查HTML是否粘贴正确");
+        alert("错误：找不到面板元素 (id='echo-panel')");
     }
 }
 
-// 播放/停止声音
+// 声音开关函数
 function toggleNoise() {
     var btn = document.getElementById('echo-btn');
     
-    // 初始化音频
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // 初始化音频 (只在第一次点击时运行)
+    if (!audioCtx) {
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+    }
 
     if (isEchoRunning) {
-        // --- 停止 ---
+        // === 关 ===
         if(noiseGain) noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-        setTimeout(function() { 
+        setTimeout(function(){ 
             if(noiseSource) noiseSource.stop(); 
             isEchoRunning = false; 
             btn.innerHTML = "接入频率 [CONNECT]";
@@ -4595,16 +4614,16 @@ function toggleNoise() {
             btn.style.color = "#000";
         }, 500);
     } else {
-        // --- 播放 ---
+        // === 开 ===
         var bufferSize = audioCtx.sampleRate * 2;
         var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         var data = buffer.getChannelData(0);
-        var lastOut = 0;
+        
         for (var i = 0; i < bufferSize; i++) {
             var white = Math.random() * 2 - 1;
             data[i] = (lastOut + (0.02 * white)) / 1.02;
-            lastOut = data[i];
-            data[i] *= 3.5; 
+            data[i] *= 3.5;
+            var lastOut = data[i];
         }
 
         noiseSource = audioCtx.createBufferSource();
@@ -4612,14 +4631,12 @@ function toggleNoise() {
         noiseSource.loop = true;
         
         var filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass'; filter.frequency.value = 150; 
+        filter.type = 'lowpass'; filter.frequency.value = 150;
 
         noiseGain = audioCtx.createGain();
         noiseGain.gain.value = 0;
 
-        noiseSource.connect(filter); 
-        filter.connect(noiseGain); 
-        noiseGain.connect(audioCtx.destination);
+        noiseSource.connect(filter); filter.connect(noiseGain); noiseGain.connect(audioCtx.destination);
         
         noiseSource.start();
         noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3);
@@ -4634,6 +4651,7 @@ function toggleNoise() {
     }
 }
 </script>
+
 
 
 
