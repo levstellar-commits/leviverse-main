@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>立维宇宙 (Levythos) - 东方科幻宇宙 | 文化IP | 规划建筑设计</title>
+  <title>立维宇宙 (Levythos) - 东方科幻宇宙 | 文化IP | 虚实空间设计</title>
 
   <meta name="description" content="立维宇宙 (LEVYTHOS) 是一个原创东方科幻宇宙与文化IP体系。我们联合维杰设计 (VIGIO)，提供从神话叙事到城市更新、空间设计的全流程文化赋能服务。" />
 
@@ -27,132 +27,180 @@
   
   
 <style>
+/* ========== [新增] 电影级Hero Section：“双星抉择” ========== */
+#hero-cinematic {
+    width: 100%;
+    height: 80vh;
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    margin-top: -120px; /* 覆盖页面顶部导航栏造成的空白 */
+}
 
+.parallax-layer {
+    position: absolute;
+    top: -5%; left: -5%;
+    width: 110%; height: 110%;
+    background-position: center;
+    background-size: cover;
+    transition: transform 0.3s ease-out;
+}
 
 
 
 /* =================================================================
-   ★ [终极整合版] 首页样式 (直接替换，不要改动)
- 
+   ★ 修正版样式：首屏限定 (不跟随滚动)
    ================================================================= */
 
-/* 1. 首页大盒子 (撑开高度，防止内容贴底) */
+/* 确保首屏容器是定位基准 */
 #hero-cinematic {
     position: relative;
     width: 100%;
-    /* 修复：调整为 100vh，并减小底部填充以解决间距过大问题 */
-    min-height: 100vh; 
-    padding-top: 0;
-    padding-bottom: 80px; /* 显著减少底部填充 */
-    overflow: hidden;
-    background: #000;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    min-height: 100vh; /* 撑满一屏 */
+    padding-top: 0px; /* ⚠️ 给导航栏留出固定高度，解决A区域留白过高 */
+    overflow: hidden; /* 防止神像飘出界 */
+    background: #000; /* 兜底黑色 */
 }
 
-/* 2. 底部渐变黑雾 (消除星空断层线) */
-#hero-cinematic::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; width: 100%;
-    height: 300px; /* 雾气高度 */
-    background: linear-gradient(to bottom, transparent 0%, #000 100%);
-    z-index: 5;
-    pointer-events: none;
-}
-
-/* 3. 背景图层 (绝对定位，不跟随滚动) */
+/* 图层 0: 宇宙背景 (只在首屏) */
 #hero-bg {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute; /* ⚠️ 改成 absolute，不跟随滚动 */
+    top: 0; left: 0; width: 100%; height: 100%;
     background-image: url('assets/images/hero-bg.jpg');
     background-size: cover; background-position: center;
     z-index: 0;
 }
 
-/* 4. 粒子层 */
+/* 图层 1: 星座粒子 (你的星座回来了！) */
 #particles-js {
-    position: absolute; top: 0;
-    left: 0; width: 100%; height: 100%;
-    z-index: 1; pointer-events: none; opacity: 0.8;
+    position: absolute; /* ⚠️ 改成 absolute */
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1; 
+    pointer-events: none;
+    opacity: 0.8; /* 亮度调高一点 */
 }
 
-/* 5. 诸神降临 (神像小图，手机隐藏) */
+
+
+/* =================================================================
+   ★ 诸神降临样式 (修正版：远景 & 手机隐藏)
+   ================================================================= */
+
+/* 图层 2: 诸神降临 (通用设定) */
 .god-figure {
-    position: absolute; top: 42%; transform: translateY(-50%);
-    width: 120px; height: 200px;
-    z-index: 2; opacity: 0.5;
-    border: 1px dashed rgba(0, 229, 255, 0.2);
+    position: absolute;
+    top: 42%; /* 稍微调整垂直位置 */
+    transform: translateY(-50%);
+    
+    /* ⚠️ 改动1：大幅缩小尺寸，制造“远景感” */
+    width: 120px;  /* 原来是 180px */
+    height: 200px; /* 原来是 300px */
+    
+    z-index: 2;
+    
+    /* ⚠️ 改动2：降低整体透明度，让它们融入背景 */
+    opacity: 0.5; 
+    
+    /* 默认全息框样式 (没图时显示，保持微弱发光) */
+    border: 1px dashed rgba(0, 229, 255, 0.2); /* 线条更淡 */
     background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     color: rgba(0, 229, 255, 0.7); font-family: monospace; font-size: 10px;
-    animation: god-float 8s ease-in-out infinite;
+    
+    animation: god-float 8s ease-in-out infinite; /* 浮动更缓慢 */
     pointer-events: none; transition: all 1s ease;
 }
+
+/* 激活状态 (当JS加载了图片时) */
 .god-figure.card-mode {
-    border: none; background-color: transparent;
-    background-size: contain; background-position: center bottom;
+    /* ⚠️ 改动3：去掉硬边框和背景色，让神像自然浮现 */
+    border: none;
+    background-color: transparent;
+    background-size: contain; /* 确保图片完整显示 */
+    background-position: center bottom;
+    
+    /* 用柔和的投影代替边框，制造发光感 */
     filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4));
 }
-#god-left { left: 2%; animation-delay: 0s;
-}
-#god-right { right: 2%; animation-delay: 4s; }
+
+/* 左右位置微调 (稍微往两边推一点) */
+#god-left { left: 1%; animation-delay: 0s; }
+#god-right { right: 1%; animation-delay: 4s; }
+
+/* 浮动动画 */
 @keyframes god-float {
-    0%, 100% { transform: translateY(-50%); opacity: 0.5;
-    }
-    50% { transform: translateY(-54%); opacity: 0.7;
-    }
+    0%, 100% { transform: translateY(-50%); opacity: 0.5; }
+    50% { transform: translateY(-54%); opacity: 0.7; } /* 浮动时稍微亮一点点 */
 }
+
+/* ⚠️ 改动4：手机端适配 - 直接隐藏 */
 @media (max-width: 768px) {
-    .god-figure { display: none !important;
+    .god-figure {
+        display: none !important; /* 彻底消失，不占空间 */
     }
 }
 
-/* 6. 氛围遮罩 */
+
+
+
+/* 图层 3: 氛围遮罩 */
 .hero-vignette {
-    position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    position: absolute; /* ⚠️ 改成 absolute */
+    inset: 0; z-index: 3; pointer-events: none;
     background: radial-gradient(circle, transparent 30%, #000 100%);
 }
 
-/* 7. 文字内容布局 (修复留白问题) */
+
+
+
+/* 图层 20: 内容层定位 */
+
+
+
+/* =================================================================
+   ★ 核心内容样式 (最终紧凑版)
+   ================================================================= */
+
+/* 1. 内容容器 (文字部分) */
 .hero-content {
     position: relative;
-    z-index: 100;
+    z-index: 100; /* 保证文字在最上层 */
     max-width: 900px;
     text-align: center;
     padding: 20px;
     margin: 0 auto;
-    /* 修复：改为垂直居中 */
-    top: 50%;
-    transform: translateY(-50%);
+    
+    /* ⚠️ 关键修改：直接改到 5vh (甚至可以试 2vh) */
+    /* 这样文字会大幅上移，消除顶部的空旷感 */
+    top: 5vh; 
+    
     text-shadow: 0 4px 20px rgba(0,0,0,0.8);
     color: #FFFFFF;
 }
 
-/* 8. 按钮容器 */
+/* 2. 按钮容器防遮挡 */
 .hero-actions {
-    margin-top: 40px;
+    margin-top: 40px; 
     position: relative;
-    z-index: 210;
+    z-index: 210; 
 }
 
-/* 9. 导航栏层级补丁 */
+/* 3. 补丁：把你刚才在外面露出来的代码，正确地写在这里 */
 nav, header {
     position: relative;
-    z-index: 999;
+    z-index: 999; /* 导航栏最高 */
 }
 
-/* 10. 旧代码残留兼容 (隐藏掉，防止报错) */
-.parallax-layer { position: absolute; display: none;
-}
 
 
 .hero-title-cinematic {
-        font-size: 56px;
-        /* 增大字号 */
+        font-size: 56px; /* 增大字号 */
         font-weight: 700;
-        line-height: 1.5;
-        /* 增加行高 */
+        line-height: 1.5; /* 增加行高 */
         margin-bottom: 24px;
         animation: text-fade-in 1.5s 0.5s ease-out backwards;
         font-family: 'Noto Serif SC', serif;
@@ -162,15 +210,17 @@ nav, header {
     /* --- 颜色修正 --- */
     /* [修改] 将颜色从柔和白 var(--muted) 改为纯白色，让文字更明亮 */
     color: #FFFFFF;
+
     /* --- 字体优化 (三步) --- */
     /* 1. [新增] 增加字重，让笔画更坚实清晰 */
-    font-weight: 500;
-    /* 您可以尝试 500 或 600 */
+    font-weight: 500; /* 您可以尝试 500 或 600 */
 
     /* 2. [新增] 增加微小的字间距，提升精致感 */
     letter-spacing: 0.5px;
+    
     /* 3. [优化] 使用一个更柔和的阴影来提升对比度，而不是让文字变暗 */
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+
     /* --- 其他样式保持不变 --- */
     font-size: 24px;
     white-space: nowrap;
@@ -224,13 +274,9 @@ nav, header {
 }
 
 @media (max-width: 768px) {
-    .hero-title-cinematic { font-size: 40px;
-    }
+    .hero-title-cinematic { font-size: 40px; }
     .hero-sub-cinematic { font-size: 16px; }
 }
-
-
-
 
 
 
@@ -427,21 +473,21 @@ nav, header {
 
 
     /* --- [其余样式，保持不变] --- */
-header {
-    position: absolute !important; /* 修正：确保它浮在星空上，消除顶部黑边 [cite: 458] */
-    left: 0;
-    right: 0;
-    top: 0;
-    padding: 16px 32px;
-    display: flex !important; /* 启用 Flexbox [cite: 76] */
-    justify-content: flex-start !important; /* 让内容从左边开始排列 (这是安全设置) */
-    align-items: center;
-    background: transparent !important; /* 修正：确保背景透明，消除黑条 [cite: 459] */
-    z-index: 10000;
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
-}
-    .brand{display:flex;gap:12px;align-items:center; margin-right: auto !important;} /* 修正：将 Logo 永远推到最左侧，菜单靠右 */
+    header {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        padding: 16px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(180deg, rgba(2,4,10,0.85) 0%, rgba(2,4,10,0.6) 50%, rgba(2,4,10,0) 100%);
+        z-index: 10000;
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
+    }
+    .brand{display:flex;gap:12px;align-items:center}
     .logo{width:44px;height:44px;border-radius:8px;background:transparent;display:grid;place-items:center;font-weight:700;}
     nav{display:flex;gap:12px;align-items:center}nav a{color:var(--muted);font-size:13px;
     transition: color 0.3s ease;} nav a:hover{color:#fff;}
@@ -2181,6 +2227,22 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
   }
 }
 
+/* ========== [新增] 修正手机端导航栏遮挡标题的问题 ========== */
+@media (max-width: 768px) {
+  #hero-cinematic {
+    /* 增加一个内边距，把里面的内容（文字和按钮）向下推 */
+    padding-top: 100px; 
+    
+    /* [可选] 如果文字还是偏上，可以去掉flex的垂直居中，手动控制 */
+    /* align-items: flex-start; */
+  }
+
+  /* 同时，为了让文字整体更协调，可以稍微调整一下内容块的上边距 */
+  .hero-content {
+      margin-top: 20px; 
+  }
+}
+
 
 
 
@@ -2214,73 +2276,6 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     color: #fff !important;
     transform: scale(1.05); /* 微微放大 */
 }
-
-
-
-
-
-
-
-/* 1. 强制把导航栏变成“透明浮动”状态 (解决电脑版顶部黑条问题) */
-header, nav {
-    position: absolute !important;
-    /* 浮在星空上面 */
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    background: transparent !important;
-    /* 背景透明 */
-    z-index: 9999 !important; /* 永远在最前面 */
-    margin-top: 0 !important;
-}
-
-/* 2. 强制调整首屏容器 (给文字留出位置) */
-#hero-cinematic {
-    position: relative !important;
-    margin-top: 0 !important;
-    /* 消除之前的负边距 */
-    padding-top: 150px !important; /* 往下推一点，别被导航栏挡住 */
-    min-height: 100vh !important;
-    background: #000 !important;
-}
-
-/* 3. 电脑端：文字位置微调 */
-@media (min-width: 769px) {
-    .hero-content {
-        /* 修复：强制 PC 端内容垂直居中 */
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        margin-top: 0 !important;
-    }
-}
-
-/* 4. 手机端：专属修复 (解决手机版字被挡住的问题) */
-@media (max-width: 768px) {
-    /* 手机导航栏加个深色底，不然看不清按钮 */
-    header { background: rgba(0,0,0,0.9) !important;
-    }
-    
-    /* 手机上把文字往上提，别留太多黑边 */
-    #hero-cinematic {
-        padding-top: 120px !important; /* 修复：增加到 120px，确保内容完全可见 */
-    }
-    .hero-content {
-        top: 0 !important;
-        margin-top: 10px !important;
-        /* 紧凑一点 */
-    }
-    
-    /* 再次强制隐藏神像，防止手机版乱跑 */
-    .god-figure { display: none !important;
-    }
-}
-
-
-
-
-
-
-
 
 
 
@@ -2357,169 +2352,6 @@ header, nav {
       color:#aaa; font-size:28px; font-weight:bold;
       cursor:pointer;
   }
-
-
-
-
-
-/* =================================================================
-   ★ [新增] 蓝图板块：全息数据卡片样式
-   ================================================================= */
-
-/* 1. 网格容器：自动适应电脑和手机 */
-.blueprint-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 电脑4列，手机自动变单列 */
-    gap: 24px; /* 卡片之间的间距 */
-    margin-top: 40px;
-    padding: 0 10px;
-}
-
-/* 2. 卡片本体：磨砂玻璃感 + 极细边框 */
-.blueprint-card {
-    background: rgba(255, 255, 255, 0.02); /* 极淡的背景 */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* 灰色的细边框 */
-    border-radius: 12px;
-    padding: 30px 25px;
-    text-align: left;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 平滑过渡 */
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-}
-
-/* 3. 鼠标悬停特效：发光 + 上浮 */
-.blueprint-card:hover {
-    transform: translateY(-8px); /* 向上浮起 */
-    border-color: #00e5ff; /* 边框变青色 */
-    background: rgba(0, 229, 255, 0.08); /* 背景微微泛蓝 */
-    box-shadow: 0 10px 40px rgba(0, 229, 255, 0.15); /* 底部发光 */
-}
-
-/* 4. 卡片标题样式 */
-.blueprint-card h3 {
-    color: #fff;
-    font-size: 18px;
-    margin-bottom: 12px;
-    font-family: 'Noto Serif SC', serif;
-    display: flex;
-    align-items: center;
-}
-
-/* 标题前的小亮条装饰 */
-.blueprint-card h3::before {
-    content: '';
-    display: inline-block;
-    width: 3px; height: 16px;
-    background: #00e5ff; /* 青色光条 */
-    margin-right: 12px;
-    box-shadow: 0 0 8px #00e5ff;
-}
-
-/* 5. 卡片正文样式 */
-.blueprint-card p {
-    color: rgba(255, 255, 255, 0.7); /* 亮灰色，比原来的muted清楚 */
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 0;
-}
-
-
-
-
-@media (max-width: 768px) {
-    /* 手机导航栏加黑底，防止看不清 */
-    header { background: rgba(0,0,0,0.9) !important; padding: 0 15px !important; }
-    
-    /* 手机首屏：不要固定 100vh，改成自适应，有多少内容撑多高 */
-    #hero-cinematic {
-        min-height: auto !important; /* 关键！自动高度 */
-        padding-top: 120px !important; /* 修正：增加到 120px，与导航栏留出恰当间距 */
-        padding-bottom: 40px !important; /* 底部只留一点缝 */
-    }
-    
-    .hero-content {
-        margin-top: 0 !important;
-        top: 0 !important;
-    }
-}
-
-
-
-/*
- * =======================================================
- * 【最终强制修复补丁】
- * 解决导航内容对齐（靠右）和背景黑底残留问题。
- * =======================================================
- */
-
-/* 1. 强制导航栏透明 (解决黑底问题) */
-header {
-    /* 强制背景透明，这是解决您 PC 端黑底问题的最关键一行 */
-    background: transparent !important; /* */
-    /* 确保它是 Flex 容器，以便 margin: auto 生效 */
-    display: flex !important; /* */
-    /* 保持它浮动在星空背景之上 */
-    position: absolute !important;
-    top: 0 !important;
-}
-
-/* 2. 强制导航菜单靠右对齐 (解决对齐问题) */
-nav {
-    /* 强制 nav 占据左侧所有可用空间，将 nav 推到最右侧 */
-    margin-left: auto !important; /* */
-    /* 确保 nav 元素内部的对齐是正常的 */
-    display: flex !important;
-    align-items: center !important;
-}
-
-/* 3. 强制 Logo 保持在最左侧 */
-.brand {
-    /* 确保 Logo 靠左，并移除任何可能干扰 nav 对齐的 auto margin */
-    margin-right: 24px !important; /* */
-    /* 给 Logo 和 nav 之间留出一点点空间 */
-    margin-left: 0 !important;
-}
-
-/* 4. 再次检查手机端导航栏的样式 (仅在小屏幕上显示黑底) */
-@media (max-width: 768px) {
-    /* 手机端保留半透明黑底，以保证文字可读性 */
-    header { 
-        background: rgba(0,0,0,0.9) !important; /* */
-    }
-}
-
-/*
- * =======================================================
- * 【最终版 Flexbox & 导航栏透明修复补丁】
- * 解决导航内容对齐（靠右）和背景黑底问题。
- * =======================================================
- */
-
-/* 4. 保持首屏间距优化结果（防止被其他样式覆盖）*/
-#hero-cinematic {
-    min-height: 85vh !important; 
-    padding-bottom: 30px !important; 
-    padding-top: 150px !important;
-}
-
-#executive-summary {
-    padding-top: 30px !important; 
-    margin-top: 0 !important;
-}
-
-/* 强制文字内容垂直居中 (PC端) */
-.hero-content {
-    position: absolute !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    margin-top: 0 !important;
-}
-
-
-
-
-
 </style>
 
 <meta name="baidu-site-verification" content="codeva-FgXs6ZwMEJ" />
@@ -2554,6 +2386,17 @@ nav {
 
 
 
+
+/* === 赛博星空粒子容器 === */
+#particles-js {
+    position: fixed;     /* 固定在屏幕上，不随滚动条走 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;          /* 层级：1 (放在背景图上面) */
+    pointer-events: none; /* 关键！让鼠标能穿透粒子，点到下面的按钮 */
+}
 
 
 
@@ -2608,9 +2451,6 @@ nav {
 <a href="#" onclick="toggleSourceEcho(); return false;" class="nav-item-glowing">
     <span style="margin-right:5px;">◎</span> 宇宙源力
 </a>
-
-
-
 
 <style>
   /* 简单的样式：大屏幕隐藏，小屏幕显示 */
@@ -2736,51 +2576,44 @@ nav {
 </section>
 
 
-<section id="executive-summary" class="section-divider" style="position:relative; z-index:20; padding-top:80px;">
+<section id="executive-summary" class="section-divider">
 
-    <div style="text-align: center; max-width: 900px; margin: 0 auto 50px auto;">
-        
-        <h2 style="margin-bottom: 10px; color: #fff; font-size: 36px; text-shadow: 0 0 20px rgba(0,0,0,0.8);">
-            我的战场，我们的蓝图
-        </h2>
+<div style="text-align: center; max-width: 800px; margin: 0 auto 48px auto;">
 
-        <h3 style="color: #00e5ff; font-family: Inter, sans-serif; font-weight: 400; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; opacity: 0.9;">
-            Strategic Blueprint of Levythos
+        <h2 style="margin-bottom: 0;">我的战场，我们的蓝图</h2>
+
+        <h3 style="color: var(--muted); font-family: Inter, sans-serif; font-weight: 400; font-size: 18px; margin-top: 8px;">
+          东方科幻宇宙IP的文化生态构筑者
         </h3>
 
-        <p style="color: #ddd; font-size: 16px; line-height: 1.8; margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
-            在这片战场上，我们是「立维宇宙 LEVYTHOS」的IP构筑师与「维杰设计 VIGIO」的空间叙事者。
-            <br>
-            我们的使命是进行系统的IP创作与文化赋能：让世界神话的繁星，在东方哲学的银河中，重新闪耀并降临于现实。
+        <p class="muted" style="font-size: 16px; line-height: 1.8; margin-top: 24px;">
+          在这片战场上，我们是「立维宇宙 LEVYTHOS」的IP构筑师与「维杰设计 VIGIO」的空间叙事者。我们的使命是进行系统的IP创作与文化赋能：让世界神话的繁星，在东方哲学的银河中，重新闪耀并降临于现实。
         </p>
         
     </div>
 
-    <div class="blueprint-grid">
-        
-        <div class="blueprint-card">
-            <h3>世界观内核</h3>
-            <p>一个以华夏“十祖”为根基，融合世界神话，贯穿古今的原创东方科幻宇宙。</p>
-        </div>
 
-        <div class="blueprint-card">
-            <h3>IP矩阵</h3>
-            <p>以“文学”为母体进行神话叙事IP创作，横跨漫画、微剧、游戏、影视等领域。</p>
-        </div>
 
-        <div class="blueprint-card">
-            <h3>商业落地</h3>
-            <p>提供从规划设计到城市更新的全流程服务，将无形IP转化为有形资产（文旅、商业、产品）。</p>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <h4><span style="font-size: 24px; color: var(--accent);">①</span> 世界观内核</h4>
+            <p class="muted">一个以华夏“十祖”为根基，融合世界神话，贯穿古今的原创东方科幻宇宙。</p>
         </div>
-
-        <div class="blueprint-card">
-            <h3>合作共建</h3>
-            <p>我们是开放的 Design Studio，寻求IP授权、联合开发与投资伙伴，共建虚实空间融合的未来。</p>
+        <div class="summary-item">
+            <h4><span style="font-size: 24px; color: var(--accent);">②</span> IP矩阵</h4>
+            <p class="muted">以“文学”为母体进行神话叙事IP创作，横跨漫画、微剧、游戏、影视等领域，培育文化IP生命力。</p>
         </div>
-
+        <div class="summary-item">
+            <h4><span style="font-size: 24px; color: var(--accent);">③</span> 商业落地</h4>
+            <p class="muted">提供从规划设计到城市更新的全流程服务，将无形IP转化为有形资产（文旅、商业、产品）。</p>
+        </div>
+        <div class="summary-item">
+            <h4><span style="font-size: 24px; color: var(--accent);">④</span> 合作共建</h4>
+            <p class="muted">我们是开放的Design Studio，寻求IP授权、联合开发与投资伙伴，共建虚实空间融合的未来。</p>
+        </div>
     </div>
-
 </section>
+
 
 
 <section id="heroes" aria-label="角色库" role="region">
@@ -4572,87 +4405,108 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-<div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.95); backdrop-filter:blur(10px);">
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:85%; max-width:380px; border:1px solid #00e5ff; background:rgba(0,20,30,1); padding:30px; text-align:center; border-radius:8px;">
+<div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px);">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.95); padding:40px; text-align:center; box-shadow:0 0 50px rgba(0,229,255,0.15); border-radius:4px;">
         
-        <h2 style="color:#fff; margin-bottom:5px;">宇宙源力</h2>
-        <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:20px;">COSMIC RESONANCE</div>
+        <h2 style="color:#fff; font-family:'Noto Serif SC'; margin-bottom:5px; font-size:24px; text-shadow:0 0 10px rgba(0,229,255,0.5);">源力回响</h2>
+        <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:30px; opacity:0.8;">COSMIC RESONANCE</div>
         
-        <p style="color:#ccc; font-size:13px; line-height:1.6; margin-bottom:25px; border-top:1px solid #333; border-bottom:1px solid #333; padding:15px 0;">
-            已捕获<b>猎户座悬臂</b>深处的引力波回响。<br>
-            开启后，将强制屏蔽凡世喧嚣，进入<b>深层专注</b>状态。
+        <p style="color:#ccc; font-size:14px; line-height:1.8; margin-bottom:30px; text-align:justify; border-top:1px solid rgba(0,229,255,0.2); border-bottom:1px solid rgba(0,229,255,0.2); padding:15px 0;">
+            聆听<b>“混沌初开”</b>时的频率。
+            <br><br>
+            这不仅仅是白噪音，这是模拟宇宙背景辐射转换的低频共振。它能屏蔽凡世的嘈杂，助你进入<b>“天人合一”</b>的深层专注状态，感知神话与代码的交融。
         </p>
 
-        <button id="echo-btn" onclick="toggleNoise()" style="background:#00e5ff; color:#000; border:none; padding:12px 0; font-weight:bold; width:100%; cursor:pointer;">
-            接入频率 [CONNECT]
+        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(45deg, #00e5ff, #0099ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); font-size:14px; letter-spacing:1px; transition:all 0.3s;">
+            启动共振 [INITIATE]
         </button>
 
-        <div onclick="toggleSourceEcho()" style="margin-top:20px; color:#666; font-size:12px; cursor:pointer; text-decoration:underline;">关闭面板</div>
+        <div onclick="toggleSourceEcho()" style="margin-top:25px; color:#555; font-size:12px; cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'">
+            断开链接 (关闭)
+        </div>
     </div>
 </div>
 
 <script>
-// 使用 window 全局变量，防止重复定义报错
-window.audioCtx = null;
-window.isEchoRunning = false;
+let audioCtx, noiseSource, noiseGain;
+let isEchoRunning = false;
 
-// 强制覆盖旧函数，确保按钮能找到它
-window.toggleSourceEcho = function() {
-    var panel = document.getElementById('echo-panel');
-    if (panel) {
-        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-    } else {
-        alert("面板代码丢失，请检查 HTML 底部");
-    }
+// 开关面板
+function toggleSourceEcho() {
+    const panel = document.getElementById('echo-panel');
+    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
 }
 
-window.toggleNoise = function() {
-    var btn = document.getElementById('echo-btn');
-    var AudioContext = window.AudioContext || window.webkitAudioContext;
+// 开关声音 (生成深空布朗噪音)
+function toggleNoise() {
+    const btn = document.getElementById('echo-btn');
+    
+    // 初始化音频上下文
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    if (!window.audioCtx) { window.audioCtx = new AudioContext(); }
-
-    if (window.isEchoRunning) {
-        // 关
-        window.audioCtx.suspend();
-        window.isEchoRunning = false;
-        btn.innerHTML = "接入频率 [CONNECT]";
-        btn.style.background = "#00e5ff";
-        btn.style.color = "#000";
+    if (isEchoRunning) {
+        // --- 停止 ---
+        // 缓慢淡出，避免突然断掉
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        setTimeout(() => { 
+            noiseSource.stop(); 
+            isEchoRunning = false; 
+            btn.innerHTML = "启动共振 [INITIATE]";
+            btn.style.background = "linear-gradient(45deg, #00e5ff, #0099ff)";
+            btn.style.color = "#000";
+            btn.style.border = "none";
+        }, 500);
     } else {
-        // 开
-        window.audioCtx.resume();
-        
-        // 创建噪音
-        var bufferSize = window.audioCtx.sampleRate * 2;
-        var buffer = window.audioCtx.createBuffer(1, bufferSize, window.audioCtx.sampleRate);
-        var data = buffer.getChannelData(0);
-        for (var i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
+        // --- 播放 ---
+        // 1. 创建噪音缓冲 (模拟宇宙背景辐射的无序感)
+        const bufferSize = audioCtx.sampleRate * 2;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let lastOut = 0;
+        for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            // 布朗噪音算法：比白噪音更深沉，像远古的雷声或宇宙深空
+            data[i] = (lastOut + (0.02 * white)) / 1.02;
+            lastOut = data[i];
+            data[i] *= 3.5; 
         }
 
-        var noise = window.audioCtx.createBufferSource();
-        noise.buffer = buffer;
-        noise.loop = true;
+        noiseSource = audioCtx.createBufferSource();
+        noiseSource.buffer = buffer;
+        noiseSource.loop = true;
         
-        // 简单低通滤波
-        var filter = window.audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.value = 120; // 只要低音
+        // 2. 低通滤波器 (只保留低频，营造厚重感)
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass'; 
+        filter.frequency.value = 180; // 频率设得很低，听起来像大道轰鸣
 
-        noise.connect(filter);
-        filter.connect(window.audioCtx.destination);
-        noise.start();
+        noiseGain = audioCtx.createGain();
+        noiseGain.gain.value = 0; // 初始静音
+
+        // 连接节点
+        noiseSource.connect(filter); 
+        filter.connect(noiseGain); 
+        noiseGain.connect(audioCtx.destination);
         
-        window.isEchoRunning = true;
-        btn.innerHTML = "共振中... [STOP]";
+        // 3. 开始播放 (淡入)
+        noiseSource.start();
+        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3); // 3秒缓慢淡入
+        
+        isEchoRunning = true;
+        btn.innerHTML = "共振中... [RESONATING]";
         btn.style.background = "transparent";
         btn.style.color = "#00e5ff";
         btn.style.border = "1px solid #00e5ff";
+        
+        // 确保浏览器音频引擎是唤醒状态
+        if (audioCtx.state === 'suspended') audioCtx.resume();
     }
 }
 </script>
+
+
+
+
 
 
 
