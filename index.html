@@ -2169,7 +2169,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
-/* ========== [优化后] 统一的手机端响应式优化 (解决内容偏下问题) ========== */
+/* ========== [最终优化] 统一的手机端响应式优化 (解决导航栏遮挡问题) ========== */
 @media (max-width: 768px) {
   
   /* 1. 顶部导航栏和核心布局修正 */
@@ -2189,8 +2189,8 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     min-height: auto; 
     height: auto;
     
-    /* 增加顶部内边距：为导航栏留出安全空间 (~100px) */
-    padding-top: 100px; 
+    /* 增加顶部内边距：为导航栏留出更多的安全空间 (从100px增至120px) */
+    padding-top: 120px; 
     
     /* 允许底部内容根据子元素自然收缩 */
     padding-bottom: 40px; 
@@ -2201,8 +2201,8 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
     /* 移除不稳定的 top: 5vh; */
     top: auto; 
     
-    /* 强制整体上移，消除顶部空旷感。这个值是根据您当前布局微调的。 */
-    margin-top: -10vh; /* 向上移动 10% 的视口高度 */
+    /* 稍微减少上移幅度 (从-10vh微调至-8vh)，让文字略微下沉 */
+    margin-top: -8vh; 
     
     /* 恢复左右边距，防止文字贴边 */
     padding: 10px;
