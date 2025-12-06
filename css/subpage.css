@@ -468,7 +468,60 @@
 
 
 
+/* ======================================================= */
+/* ========== [新增] 手机端悬浮返回按钮样式 ========== */
+/* ======================================================= */
 
+/* 1. 默认状态：桌面端隐藏 */
+.mobile-back-fab {
+    display: none; 
+}
+
+/* 2. 手机端显示 */
+@media (max-width: 768px) {
+    .mobile-back-fab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        
+        /* 固定定位：悬浮在屏幕上 */
+        position: fixed;
+        bottom: 30px;       /* 距离底部距离 */
+        left: 20px;         /* 距离左侧距离 (符合左手拇指操作习惯) */
+        z-index: 9999;      /* 保证层级最高，不被遮挡 */
+        
+        /* 外观：沿用网站的科幻玻璃风格 */
+        background: rgba(2, 4, 10, 0.85);
+        backdrop-filter: blur(12px); /* 磨砂玻璃效果 */
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 30px; /* 圆角胶囊形状 */
+        
+        padding: 10px 20px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        
+        /* 阴影与过渡 */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    /* 箭头图标微调 */
+    .mobile-back-fab .icon {
+        font-family: sans-serif;
+        font-weight: bold;
+        transform: translateY(-1px); /* 微调垂直对齐 */
+    }
+
+    /* 点击/触摸反馈 */
+    .mobile-back-fab:active {
+        transform: scale(0.95); /* 点击时轻微缩小 */
+        background: rgba(var(--accent-rgb), 0.2); /* 点击时泛起主题色 */
+        border-color: var(--accent);
+    }
+}
 
 
 
