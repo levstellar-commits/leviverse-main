@@ -2635,7 +2635,21 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* =================================================================
+   ★ 特殊修正：世界回响 (World Echoes) 栏目独立设定
+   ================================================================= */
 
+/* 1. 强制将该栏目下的图片改为 4:3 横向比例 */
+#world-echoes .card img.card-img-top {
+    aspect-ratio: 4 / 3 !important;       /* 覆盖全局的 3:4，改为横屏 */
+    object-position: center center !important; /* 横图通常建议居中裁切，而不是顶部对齐 */
+    height: auto !important;
+}
+
+/* 2. (可选) 如果您觉得两列太宽，也可以限制一下卡片的最大宽度 */
+#world-echoes .card {
+    /* 保持现状即可，目前的双栏布局配合 4:3 图片效果会很大气 */
+}
 
 
 
