@@ -4642,109 +4642,125 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 </div>
 
-<script>
-let audioCtx, noiseSource, noiseGain;
-let isEchoRunning = false;
 
-// 开关面板
+
+
+
+<script>
+// 全局音频变量
+window.audioCtx = null;
+window.noiseSource = null;
+window.noiseGain = null;
+window.isEchoRunning = false;
+
+// 1. 打开/关闭 面板 (不直接播放声音)
 function toggleSourceEcho() {
     const panel = document.getElementById('echo-panel');
-    // 增加一个console log方便调试，确认点击是否生效
-    console.log("正在尝试打开源力面板..."); 
     if (panel) {
         panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-    } else {
-        alert("错误：找不到面板元素 (ID: echo-panel)");
     }
 }
 
-// 开关声音 (生成深空布朗噪音)
+// 2. 真正的声音控制 (绑定在面板内的按钮上)
 function toggleNoise() {
     const btn = document.getElementById('echo-btn');
     
-    // 1. 初始化音频上下文 (必须在用户点击事件中触发)
-    if (!audioCtx) {
-        // 兼容 Safari 的 webkit 前缀
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-    }
-
-    // 2. 核心修复：确保 Context 处于运行状态 (解决浏览器自动播放策略限制)
-    if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
-
-    if (isEchoRunning) {
-        // --- 停止逻辑 (添加了平滑淡出，防止爆音) ---
-        if (noiseGain) {
-            // 取消所有计划中的变化
-            noiseGain.gain.cancelScheduledValues(audioCtx.currentTime);
-            // 设定当前值为起点
-            noiseGain.gain.setValueAtTime(noiseGain.gain.value, audioCtx.currentTime);
-            // 0.5秒内线性淡出到静音 (0.001)
-            noiseGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+    // 初始化音频引擎
+    if (!window.audioCtx) {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            window.audioCtx = new AudioContext();
+        } catch (e) {
+            alert("设备不支持音频API"); return;
         }
+    }
+    // 强制唤醒
+    if (window.audioCtx.state === 'suspended') {
+        window.audioCtx.resume();
+    }
 
-        setTimeout(() => { 
-            if (noiseSource) {
-                try { noiseSource.stop(); } catch(e) {} // 防止报错
+    if (window.isEchoRunning) {
+        // --- 停止播放 ---
+        try {
+            // 声音淡出
+            if (window.noiseGain) {
+                window.noiseGain.gain.cancelScheduledValues(window.audioCtx.currentTime);
+                window.noiseGain.gain.setValueAtTime(window.noiseGain.gain.value, window.audioCtx.currentTime);
+                window.noiseGain.gain.linearRampToValueAtTime(0.001, window.audioCtx.currentTime + 0.5);
             }
-            isEchoRunning = false; 
-            btn.innerHTML = "启动共振 [INITIATE]";
-            btn.style.background = "linear-gradient(45deg, #00e5ff, #0099ff)";
-            btn.style.color = "#000";
-            btn.style.border = "none";
-        }, 500);
+            
+            // 延迟关闭引擎
+            setTimeout(() => {
+                if (window.noiseSource) {
+                    window.noiseSource.stop();
+                    window.noiseSource.disconnect();
+                }
+                window.isEchoRunning = false;
+                
+                // 按钮变回“启动”状态
+                if(btn) {
+                    btn.innerHTML = "启动共振 [INITIATE]";
+                    btn.style.background = "linear-gradient(45deg, #00e5ff, #0099ff)";
+                    btn.style.color = "#000";
+                    btn.style.border = "none";
+                }
+            }, 500);
+        } catch(e) { console.error(e); }
 
     } else {
-        // --- 播放逻辑 ---
-        
-        // 1. 创建布朗噪音缓冲
-        const bufferSize = audioCtx.sampleRate * 2;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        let lastOut = 0;
-        for (let i = 0; i < bufferSize; i++) {
-            const white = Math.random() * 2 - 1;
-            data[i] = (lastOut + (0.02 * white)) / 1.02;
-            lastOut = data[i];
-            data[i] *= 3.5; 
+        // --- 开始播放 ---
+        try {
+            const ctx = window.audioCtx;
+            // 创建噪音
+            const bufferSize = ctx.sampleRate * 2; 
+            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            window.noiseSource = ctx.createBufferSource();
+            window.noiseSource.buffer = buffer;
+            window.noiseSource.loop = true;
+
+            // 滤波器：使用低频 (这里我设回了 180Hz，因为有了界面，用户知道这是"低频共振"，太尖锐不好听)
+            // 如果你还是听不到，可以改成 400
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 200; // 稍微提高一点点，兼顾深沉和可听见
+
+            window.noiseGain = ctx.createGain();
+            window.noiseGain.gain.setValueAtTime(0.001, ctx.currentTime);
+
+            window.noiseSource.connect(filter);
+            filter.connect(window.noiseGain);
+            window.noiseGain.connect(ctx.destination);
+
+            window.noiseSource.start();
+            window.noiseGain.gain.linearRampToValueAtTime(0.6, ctx.currentTime + 3);
+
+            window.isEchoRunning = true;
+            
+            // 按钮变成“运行中”状态
+            if(btn) {
+                btn.innerHTML = "共振中... [RUNNING]";
+                btn.style.background = "transparent";
+                btn.style.color = "#00e5ff";
+                btn.style.border = "1px solid #00e5ff";
+            }
+            
+        } catch (err) {
+            console.error(err);
         }
-
-        noiseSource = audioCtx.createBufferSource();
-        noiseSource.buffer = buffer;
-        noiseSource.loop = true;
-        
-        // 2. 低通滤波器 (模拟深空闷响)
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass'; 
-        filter.frequency.value = 180; 
-
-        noiseGain = audioCtx.createGain();
-
-        // ★★★ 核心修复点在这里！★★★
-        // 不能设为 0，必须是一个极小的非零值 (0.001)，否则 exponentialRamp 无法工作
-        noiseGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-
-        // 连接节点
-        noiseSource.connect(filter);
-        filter.connect(noiseGain); 
-        noiseGain.connect(audioCtx.destination);
-        
-        // 3. 开始播放
-        noiseSource.start();
-        
-        // 指数淡入 (现在从 0.001 开始乘，就能乘上去了)
-        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3);
-        
-        isEchoRunning = true;
-        btn.innerHTML = "共振中... [RESONATING]";
-        btn.style.background = "transparent";
-        btn.style.color = "#00e5ff";
-        btn.style.border = "1px solid #00e5ff";
     }
 }
 </script>
+
+
+
+
+
+
 
 
 <script>
@@ -4777,6 +4793,45 @@ document.addEventListener('DOMContentLoaded', () => {
     handleScroll();
 });
 </script>
+
+
+
+<div id="echo-panel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px);">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; max-width:400px; border:1px solid #00e5ff; background:rgba(0,20,30,0.95); padding:40px; text-align:center; box-shadow:0 0 50px rgba(0,229,255,0.15); border-radius:4px;">
+        
+        <div style="width:60px; height:60px; margin:0 auto 20px auto; border-radius:50%; border:2px solid #00e5ff; box-shadow:0 0 20px #00e5ff; display:flex; align-items:center; justify-content:center; animation: breathe 4s infinite ease-in-out;">
+            <div style="width:40px; height:1px; background:#00e5ff; transform:rotate(90deg);"></div>
+            <div style="width:40px; height:1px; background:#00e5ff;"></div>
+        </div>
+
+        <h2 style="color:#fff; font-family:'Noto Serif SC'; margin-bottom:5px; font-size:24px; text-shadow:0 0 10px rgba(0,229,255,0.5);">源力回响</h2>
+        <div style="color:#00e5ff; font-size:10px; letter-spacing:4px; margin-bottom:30px; opacity:0.8;">COSMIC RESONANCE</div>
+        
+        <p style="color:#ccc; font-size:14px; line-height:1.8; margin-bottom:30px; text-align:justify; border-top:1px solid rgba(0,229,255,0.2); border-bottom:1px solid rgba(0,229,255,0.2); padding:15px 0;">
+            你即将聆听的，不是普通的白噪音，而是模拟<b>“宇宙微波背景辐射 (CMB)”</b>转换的低频共振。
+            <br><br>
+            这来自138亿年前“混沌初开”时的余晖。它能屏蔽凡世的嘈杂频率，助你进入<b>“天人合一”</b>的深层冥想与安眠状态。
+        </p>
+
+        <button id="echo-btn" onclick="toggleNoise()" style="background:linear-gradient(45deg, #00e5ff, #0099ff); color:#000; border:none; padding:12px 35px; font-weight:bold; cursor:pointer; clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); font-size:14px; letter-spacing:1px; transition:all 0.3s;">
+            启动共振 [INITIATE]
+        </button>
+
+        <div onclick="toggleSourceEcho()" style="margin-top:25px; color:#555; font-size:12px; cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'">
+            [ 断开链接 / 关闭界面 ]
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes breathe {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 35px #00e5ff; }
+    }
+</style>
+
+
+
 
 
 
