@@ -2654,6 +2654,51 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* =================================================================
+   ★ 手机端交互升级：人物卡片横向滑动 (Peeking Cards)
+   ================================================================= */
+@media (max-width: 768px) {
+    
+    /* 1. 容器改造：将 Grid 网格改为横向 Flex 滚动容器 */
+    #heroes .four-cols {
+        display: flex !important;            /* 强制变为弹性布局 */
+        flex-wrap: nowrap !important;        /* 禁止换行，强制一排 */
+        overflow-x: auto !important;         /* 允许横向滚动 */
+        gap: 12px !important;                /* 卡片之间的间距 */
+        
+        /* 增加左右内边距，让第一张和最后一张不贴边 */
+        padding: 0 16px 20px 16px !important; 
+        
+        /* ⚡️ 物理手感：开启滚动捕捉 (Scroll Snap) */
+        scroll-snap-type: x mandatory;       
+        -webkit-overflow-scrolling: touch;   /* iOS 惯性滚动 */
+        
+        /* 移除原本的 Grid 属性 */
+        grid-template-columns: unset !important;
+        
+        /* 隐藏滚动条 (让界面更像原生 App) */
+        scrollbar-width: none; 
+    }
+    /* 隐藏 Chrome/Safari 的滚动条 */
+    #heroes .four-cols::-webkit-scrollbar {
+        display: none; 
+    }
+
+    /* 2. 卡片定宽策略：露出下一张的一角 */
+    #heroes .hero-card {
+        /* ⚡️ 核心魔法：宽度设为屏幕宽度的 85% */
+        /* 这样右边会剩下 15% 的空间，正好露出第二个角色(羽菱萱)的左胳膊 */
+        min-width: 85vw !important;          
+        width: 85vw !important;
+        
+        flex-shrink: 0 !important;           /* 铁律：绝对不许压缩卡片宽度 */
+        scroll-snap-align: center;           /* 滑动停止时，卡片自动居中 */
+        margin-bottom: 0 !important;         /* 去掉底部的间距 */
+        margin-right: 0 !important;
+    }
+}
+
+
 
 
 
