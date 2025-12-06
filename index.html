@@ -2525,6 +2525,113 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* =================================================================
+   ★ 视觉优化：卡片静止状态 (Idle State) - 冷峻科幻风
+   ================================================================= */
+
+/* 所有卡片默认带有一个微弱的“青白”边框，像未激活的能量盾 */
+.ip-card, .hero-card, .card, .mascot-card, .project-card, .summary-item {
+    /* 默认边框：极淡的青色，像玻璃边缘 */
+    border: 1px solid rgba(0, 229, 255, 0.15) !important;
+    
+    /* 默认背景：保留一点点深色玻璃感 */
+    background: rgba(2, 4, 10, 0.6) !important;
+    
+    /* 加上微弱的内发光，增加通透感 */
+    box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.02) !important;
+}
+
+/* 再次强调：悬停时变成金色 (保持你喜欢的那个效果) */
+.ip-card:hover, .hero-card:hover, .card:hover, .mascot-card:hover, .project-card:hover, .summary-item:hover {
+    border-color: #e8b923 !important;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(232, 185, 35, 0.4),
+        inset 0 0 15px rgba(232, 185, 35, 0.1) !important;
+    background: rgba(232, 185, 35, 0.02) !important; /* 悬停时背景微微泛金 */
+}
+
+
+
+
+/* =================================================================
+   ★ 区域重塑：世界蓝图 (Executive Summary) - 全息战术面板风
+   ================================================================= */
+
+/* 1. 给整个区域加一个深邃的底座背景 */
+#executive-summary {
+    position: relative;
+    background: radial-gradient(circle at center, rgba(7, 20, 42, 0.8) 0%, rgba(2, 4, 10, 0) 70%) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 60px !important;
+    overflow: hidden; /* 防止大数字溢出 */
+}
+
+/* 2. 改造那4个文字块 (.summary-item) */
+.summary-item {
+    position: relative;
+    padding: 24px !important;
+    overflow: hidden; /* 必须加上，为了切掉巨大的水印数字 */
+    
+    /* 加上“科技角标”效果 (左边一条亮线) */
+    border-left: 3px solid var(--accent) !important;
+    
+    /* 重新定义背景，做成渐变玻璃 */
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%) !important;
+}
+
+/* 3. 巨大的水印背景数字 (让 1,2,3,4 变成背景装饰) */
+.summary-item h4 span {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 80px !important; /* 超大字号 */
+    font-family: 'Impact', sans-serif; /* 硬朗字体 */
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.03) !important; /* 极淡的透明度 */
+    line-height: 1;
+    z-index: 0;
+    pointer-events: none;
+    transform: rotate(15deg); /* 稍微倾斜，增加动感 */
+}
+
+/* 4. 让原本的标题浮在水印上面 */
+.summary-item h4 {
+    position: relative;
+    z-index: 1;
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+    color: #fff !important;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5); /* 标题带点光晕 */
+    display: flex;
+    align-items: center;
+}
+
+/* 5. 把原本标题里的小数字隐藏 (因为我们有了巨大的背景数字) */
+/* 或者我们可以把标题里的 ① 改成酷炫的小图标，这里先做简单的文字处理 */
+.summary-item h4 span {
+    /* 这段是为了覆盖上面的通用选择器，重新定位标题里的数字 */
+    /* 实际上，最好的办法是不仅用CSS，但我假设你只改CSS */
+    /* 我们利用CSS Counter或者伪元素来做这一步比较复杂，
+       这里建议：保持原样，上面的大水印已经够酷了 */
+}
+
+/* 6. 说明文字优化 */
+.summary-item .muted {
+    position: relative;
+    z-index: 1;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    color: #9fb0c6 !important;
+}
+
+/* 7. 悬停时的特殊动效：背景数字变亮一点点 */
+.summary-item:hover h4 span {
+    color: rgba(232, 185, 35, 0.1) !important; /* 变成淡金色 */
+    transform: rotate(0deg) scale(1.1); /* 摆正并放大 */
+    transition: all 0.4s ease;
+}
+
 
 
 
