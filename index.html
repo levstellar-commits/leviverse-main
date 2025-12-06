@@ -2899,45 +2899,75 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
+
 /* =================================================================
-   ★ 优化：解大为悬浮窗 (Dawei HUD) 放大与交互
+   ★ 修复：核心方法论 (#what) 图片溢出问题
    ================================================================= */
+#what .card {
+    /* 1. 开启“相框模式” */
+    overflow: hidden !important;
+    padding: 0 !important; /* 清除默认内边距，让图片贴边 */
+    border: 1px solid rgba(255,255,255,0.1) !important;
+}
 
-/* 1. 默认状态：加大尺寸，增加存在感 */
+/* 图片强制填满 */
+#what .card img.card-img-top {
+    width: 100% !important;
+    margin: 0 !important; /* 去除负边距 */
+    border-radius: 0 !important; /* 图片不需要圆角 */
+    aspect-ratio: 4/3 !important; /* 保持原比例 */
+}
+
+/* 文字部分重新给呼吸空间 */
+#what .card h3, 
+#what .card p {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+#what .card h3 {
+    margin-top: 20px !important; /* 标题离图片远一点 */
+}
+
+#what .card p {
+    margin-bottom: 24px !important; /* 底部留白 */
+}
+
+
+
+
+
+
+
+/* =================================================================
+   ★ 解大为头像交互逻辑 (点击放大/缩小)
+   ================================================================= */
+/* 1. 基础状态 */
 .dawei-hud .avatar, .dawei-guide .avatar {
-    width: 70px !important;      /* 原来是52px -> 改为70px */
+    /* 保持之前的 70px 设置 */
+    width: 70px !important;
     height: 70px !important;
-    
-    /* 加个亮一点的边框，像游戏里的通讯头像 */
-    border: 2px solid var(--accent) !important; 
-    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.4) !important;
-    
-    /* 设置平滑过渡动画 */
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-    z-index: 10; /* 保证不被遮挡 */
-    background-color: #000; /* 防止透明图漏底 */
+    z-index: 9999 !important;
 }
 
-/* 2. 交互特效：鼠标悬停（或点击）时“弹窗式”放大 */
-/* 让用户想看清时，只要凑过去就能看清 */
-.dawei-hud:hover .avatar, .dawei-guide:hover .avatar {
-    transform: scale(1.8) !important; /* 瞬间放大 1.8 倍 */
-    z-index: 100 !important;          /* 确保放大后盖住所有文字 */
-    box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important; /* 加深阴影 */
-    cursor: help; /* 鼠标变问号，暗示这是个向导 */
+/* 2. 电脑端：依然保持鼠标放上去就放大 */
+@media (min-width: 769px) {
+    .dawei-hud:hover .avatar, .dawei-guide:hover .avatar {
+        transform: scale(1.8) !important;
+    }
 }
 
-/* 3. 手机端微调：防止太大挡住字 */
-@media (max-width: 768px) {
-    .dawei-hud .avatar, .dawei-guide .avatar {
-        width: 60px !important;  /* 手机上稍微克制一点 */
-        height: 60px !important;
-    }
-    /* 手机点击时也放大 */
-    .dawei-hud:active .avatar {
-        transform: scale(1.5) !important;
-    }
+/* 3. 手机端：只有加上了 'is-zoomed' 类名才放大 */
+/* 我们稍微放得更大一点(2.2倍)，并移到屏幕中间一点，方便看清 */
+.dawei-hud.is-zoomed .avatar, .dawei-guide.is-zoomed .avatar {
+    transform: scale(2.2) translate(-10px, -10px) !important; 
+    box-shadow: 0 0 50px rgba(0,0,0,0.9) !important;
+    border-color: #fff !important;
 }
+
+
+
 
 
 
@@ -5310,6 +5340,45 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. 把这个新容器插到原来金字塔的后面
     originalContainer.parentNode.insertBefore(mobileContainer, originalContainer.nextSibling);
 });
+
+
+
+
+
+
+// 解大为头像点击切换逻辑
+document.addEventListener('DOMContentLoaded', () => {
+    // 找到头像容器
+    const hud = document.getElementById('dawei-hud') || document.querySelector('.dawei-guide');
+    if (!hud) return;
+
+    const avatar = hud.querySelector('.avatar');
+    if (!avatar) return;
+
+    avatar.addEventListener('click', (e) => {
+        // 阻止冒泡，防止触发折叠/展开逻辑
+        e.stopPropagation();
+        
+        // 切换类名：如果有 is-zoomed 就删掉，没有就加上
+        hud.classList.toggle('is-zoomed');
+        
+        // 可选：如果是放大状态，自动在 3 秒后缩回去（防止遮挡太久）
+        if (hud.classList.contains('is-zoomed')) {
+            setTimeout(() => {
+                hud.classList.remove('is-zoomed');
+            }, 3000);
+        }
+    });
+    
+    // 点击页面其他地方也能缩回去
+    document.addEventListener('click', () => {
+        hud.classList.remove('is-zoomed');
+    });
+});
+
+
+
+
 </script>
 
 
