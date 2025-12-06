@@ -2657,115 +2657,138 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 /* =================================================================
-   ★ 移动端终极优化：全站横滑 + 空间压缩 + 视觉修复
+   ★ 手机端交互终极版：全站统一横滑 + 强力视觉暗示
    ================================================================= */
 @media (max-width: 768px) {
 
-    /* --- 1. 空间压缩：解决“大片空白”问题 --- */
+    /* 1. 布局紧凑化：压缩板块间距 */
     main {
-        padding-top: 100px !important;    /* 缩小顶部导航栏留白 */
-        padding-bottom: 40px !important;
+        padding-top: 90px !important;
+        padding-bottom: 30px !important;
     }
     section, .section-divider {
-        margin-top: 32px !important;      /* 原来是 80px，改为 32px，大幅拉近距离 */
-        padding: 16px 0 !important;       /* 减小内部边距 */
-        border-radius: 0 !important;      /* 手机端去掉圆角，更显宽阔 */
+        margin-top: 24px !important;      /* 极致压缩间距 */
+        padding: 10px 0 !important;
     }
-    h2 {
-        font-size: 24px !important;       /* 标题字号适配 */
-        margin-bottom: 16px !important;
-    }
-    p.muted {
-        font-size: 14px !important;
-        margin-bottom: 16px !important;
-    }
-
-    /* --- 2. 全能滚动容器：包含始祖、回响、锚点等所有列表 --- */
-    /* ⚡️ 只要是原本多列排版的，统统变成横滑 */
-    .four-cols, 
-    .five-cols-ip, 
-    .four-cols-ip, 
-    .three-cols, 
-    .six-cols, 
-    .two-cols,                  /* ✅ 修复：加入世界回响 */
-    .four-cols-redefined,
-    .summary-grid, 
-    .co-builder-grid,
-    .ancestor-tier,             /* ✅ 修复：加入十大始祖 */
-    .archaeology-grid-2x2,      /* ✅ 修复：加入现实锚点 */
-    .map-showcase-grid {
-        
+    h2 { font-size: 22px !important; margin-bottom: 12px !important; }
+    
+    /* 2. 【核心】全站横滑容器大集合 */
+    /* 无论是图片、文字、还是始祖，只要是列表，统统变横滑 */
+    .summary-grid,              /* 世界蓝图 (文字) */
+    .three-cols,                /* 核心方法论 (文字+图) */
+    .ancestor-tier,             /* 十大始祖 (关键修复) */
+    .two-cols,                  /* 世界回响 */
+    .four-cols-redefined,       /* 高维原型 */
+    .archaeology-grid-2x2,      /* 现实锚点 */
+    .prism-outputs-grid,        /* 万象棱镜 */
+    .narrative-flow-horizontal, /* 场景降临流程 */
+    .four-cols,                 /* 角色/萌宠 */
+    .five-cols-ip,              /* IP矩阵 */
+    .four-cols-ip,              /* 游戏 */
+    .six-cols,                  /* 团队/康养 */
+    .co-builder-grid,           /* 共建计划 */
+    .press-redefined-layout,    /* 项目动态 */
+    .map-showcase-grid          /* 基因图谱 */
+    {
         display: flex !important;
-        flex-wrap: nowrap !important;       /* 强制单行 */
-        overflow-x: auto !important;        /* 开启横滑 */
+        flex-wrap: nowrap !important;       /* 强制不换行 */
+        overflow-x: auto !important;        /* 允许横滑 */
         overflow-y: hidden !important;
+        justify-content: flex-start !important; /* 强制从左边开始，防止居中导致露不出来 */
         
         gap: 12px !important;
         padding: 0 16px 20px 16px !important; /* 底部预留阴影空间 */
-        margin-left: -24px !important;      /* 抵消父级 padding，实现满屏滑动 */
-        margin-right: -24px !important;
-        width: calc(100% + 48px) !important; 
         
-        scroll-snap-type: x mandatory;      /* 开启磁吸手感 */
-        -webkit-overflow-scrolling: touch;
+        /* ⚡️ 视觉黑魔法：让容器撑满屏幕宽度，无视父级 padding */
+        margin-left: -24px !important;      
+        margin-right: -24px !important;
+        width: calc(100% + 48px) !important;
+        
+        scroll-snap-type: x mandatory;      /* 磁吸手感 */
+        -webkit-overflow-scrolling: touch;  /* iOS流畅滚动 */
         scrollbar-width: none;              /* 隐藏滚动条 */
         
-        /* 强制覆盖原本的 Grid 属性 */
+        /* 覆盖掉原本的 Grid/Flex 设置 */
         grid-template-columns: unset !important;
-        align-items: stretch !important;    /* 让卡片等高 */
+        align-items: stretch !important;
     }
 
-    /* 隐藏滚动条 */
-    .two-cols::-webkit-scrollbar,
-    .ancestor-tier::-webkit-scrollbar,
-    .archaeology-grid-2x2::-webkit-scrollbar,
-    .four-cols::-webkit-scrollbar { display: none; }
+    /* 隐藏 Chrome/Safari 的滚动条 */
+    .summary-grid::-webkit-scrollbar, .three-cols::-webkit-scrollbar, 
+    .ancestor-tier::-webkit-scrollbar, .two-cols::-webkit-scrollbar, 
+    .four-cols-redefined::-webkit-scrollbar, .archaeology-grid-2x2::-webkit-scrollbar, 
+    .prism-outputs-grid::-webkit-scrollbar, .narrative-flow-horizontal::-webkit-scrollbar, 
+    .four-cols::-webkit-scrollbar, .five-cols-ip::-webkit-scrollbar, 
+    .four-cols-ip::-webkit-scrollbar, .six-cols::-webkit-scrollbar, 
+    .co-builder-grid::-webkit-scrollbar, .press-redefined-layout::-webkit-scrollbar,
+    .map-showcase-grid::-webkit-scrollbar { display: none; }
 
-    /* --- 3. 卡片统一规格：75% 宽度，露出右侧 --- */
-    /* 选中上述容器内的直接子元素 */
+    /* 3. 【核心】卡片统一规格：强制露出右侧 25% */
+    /* 选中上述所有容器里的直接子元素 */
+    .summary-grid > *, .three-cols > *, .ancestor-tier > *, 
+    .two-cols > *, .four-cols-redefined > *, .archaeology-grid-2x2 > *, 
+    .prism-outputs-grid > *, .narrative-flow-horizontal > *, 
     .four-cols > *, .five-cols-ip > *, .four-cols-ip > *, 
-    .three-cols > *, .six-cols > *, .two-cols > *, 
-    .four-cols-redefined > *, .summary-grid > *, 
-    .co-builder-grid > *, .ancestor-tier > *, 
-    .archaeology-grid-2x2 > * {
+    .six-cols > *, .co-builder-grid > *, .press-redefined-layout > *,
+    .map-showcase-grid > * {
         
-        min-width: 75vw !important;  /* ✅ 关键：占据屏幕 75%，右边露出 25% */
-        width: 75vw !important;
+        min-width: 75vw !important;         /* ⚡️ 占据屏幕 75% */
+        width: 75vw !important;             /* ⚡️ 剩下 25% 给下一张卡片露脸 */
+        max-width: 75vw !important;         /* 锁死宽度 */
+        
+        flex-shrink: 0 !important;          /* 严禁压缩 */
+        scroll-snap-align: center;          /* 居中磁吸 */
         margin-bottom: 0 !important;
-        flex-shrink: 0 !important;
-        scroll-snap-align: center;   /* 滑动停止时居中 */
+        margin-right: 0 !important;
+        height: auto !important;            /* 高度自适应 */
     }
 
-    /* --- 4. 特殊修复：世界回响 (图片溢出修复) --- */
+    /* --- 4. 针对性修复 --- */
+
+    /* 修复：十大始祖 (确保卡片内部布局正常) */
+    .ancestor-tier .hero-card {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+    }
+
+    /* 修复：世界回响 (图片溢出 + 横图比例) */
     #world-echoes .card {
-        overflow: hidden !important;      /* ✅ 修复：强制切掉溢出的图片 */
-        border-radius: 12px !important;   /* 保证圆角 */
-        height: auto !important;
+        overflow: hidden !important;        /* ✅ 关键：切掉溢出的图片 */
+        border-radius: 12px !important;
         display: flex !important;
         flex-direction: column !important;
     }
-    /* 保持横图比例 */
     #world-echoes .card img.card-img-top {
-        border-radius: 0 !important;      /* 图片本身不需要圆角，由卡片裁切 */
         width: 100% !important;
-        margin: 0 !important;             /* 去掉负边距 */
+        aspect-ratio: 4/3 !important;       /* 保持横图 */
+        object-fit: cover !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
     }
 
-    /* --- 5. 特殊修复：现实锚点 (改为上下结构) --- */
+    /* 修复：现实锚点 (改为上下结构) */
     .arch-item {
-        flex-direction: column !important; /* 强制图片在上，文字在下 */
-        height: 100% !important;
+        flex-direction: column !important;
     }
-    .arch-item:nth-child(even) {
-        flex-direction: column !important; /* 偶数项也不要反转 */
-    }
+    .arch-item:nth-child(even) { flex-direction: column !important; }
     .arch-item .arch-image {
         width: 100% !important;
-        height: 180px !important;
+        height: 180px !important; /* 给个固定高度保证美观 */
+    }
+
+    /* 修复：场景降临 (流程图的箭头太丑，隐藏掉) */
+    .narrative-flow-horizontal .flow-arrow {
+        display: none !important; 
+    }
+    /* 给流程卡片加个边框背景，不然纯文字不好看 */
+    .narrative-flow-horizontal .flow-node {
+        background: var(--card-bg);
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 20px;
+        border-radius: 12px;
     }
 }
-
-
 
 
 
