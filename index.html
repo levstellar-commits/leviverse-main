@@ -2814,9 +2814,119 @@ html.in-wechat .waline-box {
 
 
 
+/* =========================================
+   ★ 紧急修复：强制找回评论区与登录按钮
+   ========================================= */
+
+/* 1. 强制显示评论容器 */
+#waline {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    margin-top: 20px !important;
+    min-height: 150px; /* 给它撑开一点高度，防止坍塌 */
+}
+
+/* 2. 只有在微信里才隐藏 (保留安全机制) */
+html.in-wechat #waline {
+    display: none !important;
+}
+
+/* 3. 评论框美化 & 提亮 (防止黑底黑字看不见) */
+#waline .wl-editor, 
+#waline .wl-input {
+    background: rgba(255, 255, 255, 0.05) !important; /* 提亮背景 */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+}
+
+/* 4. 找回“登录”按钮 */
+#waline .wl-btn {
+    background: linear-gradient(90deg, #e8b923, #d4a010) !important; /* 金色按钮 */
+    color: #000 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 6px 16px !important;
+    font-weight: bold !important;
+    display: inline-block !important; /* 确保它显示 */
+}
+
+/* 5. 调整文字颜色，确保能看清 */
+:root {
+    --waline-theme-color: #e8b923 !important; /* 主题色改金 */
+    --waline-active-color: #00e5ff !important; /* 激活色改青 */
+    --waline-text-color: #ccc !important;
+}
 
 
 
+
+/* =========================================
+   ★ 修复：棱镜光束 (完美对称七彩光)
+   ========================================= */
+
+/* 1. 修正光束容器，给它足够的高度 */
+.prism-connector.light-beam-out {
+    position: relative !important;
+    width: 100% !important;
+    height: 120px !important; /* 光束长度 */
+    margin-top: -10px !important; /* 稍微往上提一点，紧贴球体 */
+    overflow: visible !important;
+    z-index: 0 !important;
+    display: block !important;
+}
+
+/* 2. 重绘光束 (绝对居中 + 扇形渐变) */
+.prism-connector.light-beam-out::before {
+    content: '' !important;
+    position: absolute !important;
+    
+    /* ⚡️ 核心：绝对居中定位 */
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important; 
+    
+    /* 尺寸 */
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 800px !important; /* 限制最大扩散宽度 */
+
+    /* ⚡️ 核心：绘制七彩光扇 (向下) */
+    /* 这里的原理是：以顶部中间为圆心，向下画一个扇面 */
+    background: conic-gradient(
+        from 180deg at 50% 0%, 
+        transparent 155deg,           /* 左侧透明 */
+        rgba(148, 0, 211, 0.2) 160deg, /* 紫 (边缘) */
+        rgba(0, 0, 255, 0.2) 165deg,   /* 蓝 */
+        rgba(0, 229, 255, 0.6) 175deg, /* 青 (高光) */
+        rgba(255, 255, 255, 0.9) 180deg, /* 白 (中心最亮) */
+        rgba(0, 229, 255, 0.6) 185deg, /* 青 (高光) */
+        rgba(255, 255, 0, 0.2) 195deg,   /* 黄 */
+        rgba(255, 0, 0, 0.2) 200deg,   /* 红 (边缘) */
+        transparent 205deg            /* 右侧透明 */
+    ) !important;
+
+    /* 柔化光线 */
+    filter: blur(15px) !important;
+    pointer-events: none !important;
+}
+
+/* 3. (可选) 加一个底部的落地光斑，增加真实感 */
+.prism-connector.light-beam-out::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(0,229,255,0.3) 0%, transparent 70%);
+    filter: blur(10px);
+    z-index: 0;
+}
 
 
 
