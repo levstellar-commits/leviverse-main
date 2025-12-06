@@ -2635,6 +2635,187 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* =================================================================
+   ★ 移动端体验核心升级：横向滑动流 (Netflix/AppStore 风格)
+   ================================================================= */
+
+@media (max-width: 768px) {
+    
+    /* 1. 选中所有原本是网格布局的容器 */
+    .five-cols-ip, .four-cols-ip, .five-cols, .four-cols, .four-cols-redefined, .co-builder-grid {
+        display: flex !important;       /* 强制变成弹性横排 */
+        flex-wrap: nowrap !important;   /* 禁止换行，强制一行 */
+        overflow-x: auto !important;    /* 允许横向滚动 */
+        overflow-y: hidden !important;  /* 禁止纵向溢出 */
+        gap: 16px !important;           /* 卡片之间的间距 */
+        padding-bottom: 20px !important;/* 底部留出空间给滚动条或手指 */
+        
+        /* 启用平滑滚动和吸附效果 */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch; /* iOS 惯性滚动 */
+        scroll-snap-type: x mandatory;     /* 强制横向吸附 */
+        
+        /* 抵消掉父容器的 padding，让卡片能滑到屏幕最边缘 */
+        margin-left: -16px !important;
+        margin-right: -16px !important;
+        padding-left: 16px !important; /* 左侧留白，为了好看 */
+        padding-right: 16px !important; /* 右侧留白，让用户知道后面没了 */
+    }
+
+    /* 2. 定义滑动卡片的尺寸 */
+    .ip-card, .hero-card, .card, .mascot-card, .project-card, .co-builder-card, .archetype-card {
+        flex: 0 0 auto !important;  /* 不许伸缩，固定宽度 */
+        width: 160px !important;    /* ★这里控制卡片宽度，160px在手机上大概占40%，能露出下一个卡片的一角，引导滑动 */
+        scroll-snap-align: start;   /* 每次滑动自动对齐卡片开头 */
+        margin-top: 0 !important;   /* 去掉多余边距 */
+        height: auto !important;    /* 高度自适应 */
+    }
+
+    /* 3. 针对“游戏”和“宽图”板块的特殊尺寸 */
+    /* 游戏板块通常图宽一点，所以给宽一点 */
+    .four-cols-ip .ip-card, .four-cols .card {
+        width: 260px !important;    /* 宽一点，展示游戏大图 */
+    }
+    
+    /* 4. 隐藏丑陋的滚动条 (但在功能上保留滚动) */
+    .five-cols-ip::-webkit-scrollbar, 
+    .four-cols-ip::-webkit-scrollbar,
+    .five-cols::-webkit-scrollbar,
+    .four-cols::-webkit-scrollbar {
+        display: none; /* Chrome/Safari/Webkit 隐藏 */
+        width: 0;
+        height: 0;
+    }
+    /* 兼容火狐 */
+    .five-cols-ip, .four-cols-ip { scrollbar-width: none; }
+
+    /* 5. 修正图片高度，防止在横滑模式下变畸形 */
+    .ip-card-img, .hero-card .pic, .card-img-top {
+        height: 213px !important; /* 160px宽度 * 1.33(4:3比例) ≈ 213px，强制高度防止抖动 */
+        /* 如果是游戏板块 (16:9) */
+        /* height: 146px !important; */ 
+    }
+    
+    /* 游戏板块图片高度单独修正 */
+    .four-cols-ip .ip-card-img {
+        height: 146px !important; /* 260 * 9 / 16 */
+    }
+}
+
+
+
+/* =========================================
+   ★ 修复：找回评论输入框 (Waline)
+   ========================================= */
+
+/* 1. 默认状态：强制显示评论区和输入框 */
+#waline, 
+#waline .wl-editor, 
+#waline .wl-input, 
+#waline .wl-btn {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* 2. 只有在 html 标签带有 "in-wechat" 类名时，才隐藏 */
+/* (这是为了防止微信封禁，保留这个保护机制) */
+html.in-wechat #waline,
+html.in-wechat .waline-box {
+    display: none !important;
+}
+
+/* 3. 优化输入框样式，让它更显眼一点，防止太黑看不见 */
+:root {
+    /* 重新定义 Waline 的颜色变量，让它适应你的深色主题 */
+    --waline-theme-color: #00e5ff !important;
+    --waline-active-color: #e8b923 !important;
+    --waline-bgcolor: rgba(255, 255, 255, 0.05) !important;
+    --waline-bgcolor-light: rgba(255, 255, 255, 0.1) !important;
+    --waline-text-color: #eaf6ff !important;
+}
+
+/* 让输入区域的背景稍微亮一点，方便用户发现 */
+#waline .wl-editor {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    min-height: 100px;
+    padding: 12px;
+}
+
+
+
+/* =========================================
+   ★ 修复：棱镜光束居中与对称
+   ========================================= */
+
+/* 1. 确保父容器是居中的 */
+.prism-connector {
+    position: relative !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important; /* 弹性布局居中 */
+    align-items: center !important;
+    overflow: visible !important; /* 防止光效被切断 */
+}
+
+/* 2. 重写光束 (Light Beam) 样式 */
+.light-beam-out::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    
+    /* 核心修正：强制居中 */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    
+    /* 调整宽度和高度，让它更像一道光 */
+    width: 60% !important; /* 宽度控制光束的扩散范围，可调整 */
+    max-width: 600px !important; 
+    height: 120% !important; /* 拉长一点，延伸到下面 */
+    
+    /* 核心修正：使用完美的径向/锥形渐变，确保左右对称 */
+    /* 这是一个七彩光谱效果 */
+    background: conic-gradient(
+        from 180deg at 50% 0%, 
+        transparent 150deg,       /* 左侧透明区 */
+        rgba(255, 0, 0, 0.3) 165deg,   /* 红 */
+        rgba(232, 185, 35, 0.5) 175deg, /* 金 (你的主题色) */
+        rgba(0, 229, 255, 0.8) 180deg,  /* 青 (你的主题色，最亮) */
+        rgba(232, 185, 35, 0.5) 185deg, /* 金 */
+        rgba(128, 0, 128, 0.3) 195deg,  /* 紫 */
+        transparent 210deg        /* 右侧透明区 */
+    ) !important;
+    
+    /* 核心修正：使用对称的三角形裁切 */
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%) !important;
+    
+    /* 增加模糊，让光更柔和，不那么生硬 */
+    filter: blur(8px) !important;
+    
+    pointer-events: none !important;
+    z-index: 0 !important;
+}
+
+/* 3. 增加一个底部的光斑，增强落地感 */
+.light-beam-out::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(0,229,255,0.2) 0%, transparent 70%);
+    filter: blur(10px);
+    z-index: 0;
+}
+
+
+
+
+
 
 
 
