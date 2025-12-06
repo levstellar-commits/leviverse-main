@@ -2457,6 +2457,109 @@ main {
 
 
 
+/* =========================================
+   1. 完美对齐修正补丁 (针对所有IP卡片) 
+   ========================================= */
+
+/* 强制卡片变成弹性盒子，为了让按钮沉底 */
+.ip-card, .hero-card {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important; /* 让同行的卡片强制等高 */
+    justify-content: flex-start !important;
+}
+
+/* 强制图片统一为 3:4 海报比例，并修复微剧/漫画可能的宽图变形 */
+.ip-card-img, .hero-card .pic {
+    aspect-ratio: 3 / 4 !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important; /* 关键：多余部分自动裁切，不压扁图片 */
+    object-position: top center !important; /* 保证人脸/标题通常在上方不被切掉 */
+    border-radius: 6px !important;
+    flex-shrink: 0 !important; /* 防止图片被挤压 */
+}
+
+/* 文本区域自动填充剩余空间，把按钮挤下去 */
+.ip-card-info, .hero-card-info {
+    flex-grow: 1 !important; /* 占据中间所有空白 */
+    display: flex !important;
+    flex-direction: column !important;
+    margin-bottom: 12px !important;
+}
+
+/* 统一标题样式 */
+.ip-card-info strong, .hero-card .name {
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 4px !important;
+    min-height: 42px !important; /* 关键：预留两行标题的高度，防止一行和两行的标题错位 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 最多显示两行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal !important; /* 允许换行 */
+}
+
+/* 统一副标题/标签样式 */
+.ip-card-info .muted, .hero-card .role {
+    font-size: 12px !important;
+    margin-top: 0 !important;
+    opacity: 0.7;
+}
+
+/* 按钮固定样式 */
+.ip-card .btn, .hero-card .btn {
+    margin-top: auto !important; /* 核心：自动把按钮推到最下面 */
+    width: 100% !important;
+    padding: 6px 0 !important;
+    border-radius: 4px !important;
+}
+
+/* 修正：游戏板块保持 16:9 (如果你希望游戏也是3:4，请删除下面这段) */
+/* 通常游戏截图是横屏的，所以我保留了特殊处理，若需统一删除即可 */
+.four-cols-ip .ip-card-img {
+    aspect-ratio: 16 / 9 !important; 
+}
+.four-cols-ip .ip-card-info strong {
+    min-height: auto !important; /* 游戏标题通常较短，不需要强制高度 */
+}
+
+
+/* =========================================
+   2. 首屏星空底部优雅淡出 (Fade Out)
+   ========================================= */
+
+#hero-cinematic {
+    position: relative !important;
+    /* 确保容器内可以放绝对定位的遮罩 */
+}
+
+/* 创建一个从透明到页面背景色(黑色)的渐变层 */
+#hero-cinematic::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* 渐变区域的高度，可以改大让过渡更柔和 */
+    
+    /* 从透明 -> 你的网页背景色 (#02040a) */
+    background: linear-gradient(to bottom, transparent 0%, #02040a 100%);
+    
+    z-index: 10; /* 盖在图片上面，但要小心别盖住文字(文字通常z-index很高) */
+    pointer-events: none; /* 让鼠标能穿透遮罩点击下面的东西 */
+}
+
+/* 额外优化：让背景图本身也稍微往下淡出一点 */
+#hero-bg {
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+
+
+
   </style>
 
 
