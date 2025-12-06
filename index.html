@@ -2639,9 +2639,9 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
    ★ 特殊修正：世界回响 (World Echoes) 栏目独立设定
    ================================================================= */
 
-/* 1. 强制将该栏目下的图片改为 4:3 横向比例 */
+/* 1. 强制将该栏目下的图片改为 16:9 横向比例 */
 #world-echoes .card img.card-img-top {
-    aspect-ratio: 4 / 3 !important;       /* 覆盖全局的 3:4，改为横屏 */
+    aspect-ratio: 16 / 9 !important;       /* 覆盖全局的 3:4，改为横屏 */
     object-position: center center !important; /* 横图通常建议居中裁切，而不是顶部对齐 */
     height: auto !important;
 }
@@ -2769,7 +2769,7 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
         flex-direction: column !important;
     }
     #world-echoes .card img.card-img-top {
-        aspect-ratio: 4/3 !important;       /* 强制横图 */
+        aspect-ratio: 16/9 !important;       /* 强制横图 */
         width: 100% !important;
         margin: 0 !important;
         border-radius: 0 !important;
