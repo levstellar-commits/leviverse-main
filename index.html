@@ -2654,49 +2654,95 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+
 /* =================================================================
-   ★ 手机端交互升级：人物卡片横向滑动 (Peeking Cards)
+   ★ 手机端交互最终版：全站横向滑动画廊 (Gallery Mode)
    ================================================================= */
 @media (max-width: 768px) {
-    
-    /* 1. 容器改造：将 Grid 网格改为横向 Flex 滚动容器 */
-    #heroes .four-cols {
-        display: flex !important;            /* 强制变为弹性布局 */
-        flex-wrap: nowrap !important;        /* 禁止换行，强制一排 */
-        overflow-x: auto !important;         /* 允许横向滚动 */
-        gap: 12px !important;                /* 卡片之间的间距 */
+
+    /* 1. 暴力选中所有多列布局容器 */
+    .four-cols, 
+    .five-cols-ip, 
+    .four-cols-ip, 
+    .three-cols, 
+    .six-cols, 
+    .four-cols-redefined,
+    .summary-grid, 
+    .co-builder-grid,
+    .ancestor-tier {
         
-        /* 增加左右内边距，让第一张和最后一张不贴边 */
-        padding: 0 16px 20px 16px !important; 
+        /* 布局重置：强制转为横向弹性布局 */
+        display: flex !important;
+        flex-wrap: nowrap !important;       /* 禁止换行，强制单行 */
+        overflow-x: auto !important;        /* 开启横向滚动 */
+        overflow-y: hidden !important;
         
-        /* ⚡️ 物理手感：开启滚动捕捉 (Scroll Snap) */
-        scroll-snap-type: x mandatory;       
-        -webkit-overflow-scrolling: touch;   /* iOS 惯性滚动 */
+        /* 间距与安全区 */
+        gap: 16px !important;
+        padding: 0 16px 30px 16px !important; /* 底部预留空间防止阴影被切 */
+        margin-left: -16px !important;      /* 抵消父级 padding，让原本贴边的内容能滑到屏幕边缘 */
+        margin-right: -16px !important;
+        width: calc(100% + 32px) !important; 
         
-        /* 移除原本的 Grid 属性 */
+        /* 物理手感：滚动捕捉 */
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        
+        /* 移除 Grid 相关属性 */
         grid-template-columns: unset !important;
         
-        /* 隐藏滚动条 (让界面更像原生 App) */
-        scrollbar-width: none; 
+        /* 隐藏滚动条 (视觉更干净，但功能保留) */
+        scrollbar-width: none;
     }
-    /* 隐藏 Chrome/Safari 的滚动条 */
-    #heroes .four-cols::-webkit-scrollbar {
-        display: none; 
+    
+    /* 隐藏 Chrome/Safari 滚动条 */
+    .four-cols::-webkit-scrollbar,
+    .five-cols-ip::-webkit-scrollbar,
+    .four-cols-ip::-webkit-scrollbar,
+    .three-cols::-webkit-scrollbar,
+    .six-cols::-webkit-scrollbar,
+    .summary-grid::-webkit-scrollbar,
+    .co-builder-grid::-webkit-scrollbar,
+    .ancestor-tier::-webkit-scrollbar {
+        display: none;
     }
 
-    /* 2. 卡片定宽策略：露出下一张的一角 */
-    #heroes .hero-card {
-        /* ⚡️ 核心魔法：宽度设为屏幕宽度的 85% */
-        /* 这样右边会剩下 15% 的空间，正好露出第二个角色(羽菱萱)的左胳膊 */
-        min-width: 85vw !important;          
-        width: 85vw !important;
+    /* 2. 卡片定宽策略：70% 宽度 (强制露出右侧 30%) */
+    /* 选中这些容器下的所有直接子元素 (也就是卡片) */
+    .four-cols > *, 
+    .five-cols-ip > *, 
+    .four-cols-ip > *, 
+    .three-cols > *, 
+    .six-cols > *, 
+    .four-cols-redefined > *,
+    .summary-grid > *, 
+    .co-builder-grid > *,
+    .ancestor-tier > * {
         
-        flex-shrink: 0 !important;           /* 铁律：绝对不许压缩卡片宽度 */
-        scroll-snap-align: center;           /* 滑动停止时，卡片自动居中 */
-        margin-bottom: 0 !important;         /* 去掉底部的间距 */
-        margin-right: 0 !important;
+        /* ⚡️ 核心参数：70vw */
+        /* 这意味着屏幕右侧会留出 30% 的空间给下一张卡片 */
+        /* 下一张卡片会非常明显地露出来，用户绝对知道可以滑 */
+        min-width: 70vw !important;
+        width: 70vw !important;
+        
+        flex-shrink: 0 !important;          /* 严禁被压缩 */
+        scroll-snap-align: center;          /* 停止时居中对齐，更有画廊感 */
+        margin-bottom: 0 !important;        /* 去掉多余的垂直间距 */
+    }
+
+    /* 3. 特殊处理：对于“世界蓝图”这种纯文字卡片，可以稍微窄一点，露出更多 */
+    .summary-grid > * {
+        min-width: 60vw !important;
+        width: 60vw !important;
+    }
+    
+    /* 4. 视觉修正：防止卡片发光特效在滑动时被切掉 */
+    .ip-card, .hero-card, .card {
+        margin: 5px 0 !important; /* 给上下留点缝隙展示阴影 */
     }
 }
+
+
 
 
 
