@@ -2865,10 +2865,79 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* =================================================================
+   ★ 修复：世界回响 (World Echoes) 图片溢出与边框适配
+   ================================================================= */
+#world-echoes .card {
+    /* 1. 开启“相框模式”：任何超出圆角的内容直接切掉 */
+    overflow: hidden !important;
+    
+    /* 2. 清除卡片默认的内边距：让图片能直接贴到边缘，不再需要负margin */
+    padding: 0 !important;
+    
+    /* 3. 确保边框和圆角清晰 */
+    border-radius: 12px !important;
+    border: 1px solid rgba(255,255,255,0.1) !important; /* 稍微加强一点边框 */
+}
+
+/* 图片样式重置 */
+#world-echoes .card img.card-img-top {
+    /* 强制填满容器 */
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important; /* 保持您设定的宽屏比例 */
+    
+    /* 清除之前的负边距 */
+    margin: 0 !important;
+    border-radius: 0 !important; /* 图片本身不需要圆角，由外层卡片切角 */
+}
+
+/* 文字区域单独加内边距 */
+/* 因为卡片的 padding 没了，我们要把文字“推”回来 */
+#world-echoes .card .info {
+    padding: 24px !important; /* 给文字留出呼吸空间 */
+}
 
 
+/* =================================================================
+   ★ 优化：解大为悬浮窗 (Dawei HUD) 放大与交互
+   ================================================================= */
 
+/* 1. 默认状态：加大尺寸，增加存在感 */
+.dawei-hud .avatar, .dawei-guide .avatar {
+    width: 70px !important;      /* 原来是52px -> 改为70px */
+    height: 70px !important;
+    
+    /* 加个亮一点的边框，像游戏里的通讯头像 */
+    border: 2px solid var(--accent) !important; 
+    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.4) !important;
+    
+    /* 设置平滑过渡动画 */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    z-index: 10; /* 保证不被遮挡 */
+    background-color: #000; /* 防止透明图漏底 */
+}
 
+/* 2. 交互特效：鼠标悬停（或点击）时“弹窗式”放大 */
+/* 让用户想看清时，只要凑过去就能看清 */
+.dawei-hud:hover .avatar, .dawei-guide:hover .avatar {
+    transform: scale(1.8) !important; /* 瞬间放大 1.8 倍 */
+    z-index: 100 !important;          /* 确保放大后盖住所有文字 */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important; /* 加深阴影 */
+    cursor: help; /* 鼠标变问号，暗示这是个向导 */
+}
+
+/* 3. 手机端微调：防止太大挡住字 */
+@media (max-width: 768px) {
+    .dawei-hud .avatar, .dawei-guide .avatar {
+        width: 60px !important;  /* 手机上稍微克制一点 */
+        height: 60px !important;
+    }
+    /* 手机点击时也放大 */
+    .dawei-hud:active .avatar {
+        transform: scale(1.5) !important;
+    }
+}
 
 
 
