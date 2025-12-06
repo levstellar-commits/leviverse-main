@@ -2372,123 +2372,88 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
-/* ====== 修复：IP矩阵紧凑化 (针对 #matrix, #heroes 等区域) ====== */
 
-/* 1. 缩小网格间距，防止5列时太挤 */
+/* ====== 重新修正：紧凑布局 + 保持3:4比例 + 强制不换行 ====== */
+
+/* 1. 强制锁定列数 (解决“串行”问题) */
+/* 只要屏幕宽度大于 1000px，就强制显示 5 列，不让它自动变成 4 列或 3 列 */
+@media (min-width: 1000px) {
+    .five-cols-ip, .five-cols {
+        grid-template-columns: repeat(5, 1fr) !important;
+    }
+    /* 游戏板块只有4个，所以我们强制它显示4列，保持和其他板块一样的紧凑度 */
+    .four-cols-ip, .four-cols {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* 2. 全局缩小间距 (解决“太散/太大”问题) */
 .five-cols-ip, .four-cols-ip, .five-cols, .four-cols {
-    gap: 12px !important; /* 原来是 16px 或 24px */
+    gap: 10px !important; /* 原来可能是 20px+，改小让一排能放下更多 */
     margin-top: 20px !important;
 }
 
-/* 2. 优化卡片容器：减小内边距，让卡片看起来不那么臃肿 */
+/* 3. 卡片容器“瘦身” */
 .ip-card, .hero-card, .card {
-    padding: 12px !important; /* 原来是 20px，缩小后更精致 */
-    border-radius: 8px !important; /* 圆角稍微改小一点，更利落 */
+    padding: 10px !important; /* 减小卡片内部留白 */
+    border: 1px solid rgba(255,255,255,0.08) !important; /* 边框改淡一点 */
 }
 
-/* 3. 核心：大幅缩小卡片内的图片高度，防止满屏都是图 */
-.ip-card-img, .card-img-top, .hero-card .pic {
-    /* 既然是列表，不需要3:4那么长，改为更紧凑的比例，或者限制最大高度 */
-    aspect-ratio: 4 / 3 !important; /* 从 3/4 (竖长) 改为 4/3 (横方) 或 1/1 (正方) */
-    /* 如果你必须保持竖图，请保留 3/4，但限制 max-height */
-    /* max-height: 200px; */ 
-    margin-bottom: 10px !important;
+/* 4. 图片严格保持 3:4，但限制最大宽度 (关键点) */
+.ip-card-img, .hero-card .pic, .card-img-top {
+    aspect-ratio: 3 / 4 !important; /* ⚡️ 严格保持你的原图比例 */
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    margin-bottom: 8px !important;
+    border-radius: 4px !important;
 }
 
-/* 4. 核心：缩小卡片内的文字，这就不会“串行”难看了 */
-.ip-card-info strong, .hero-card .name {
-    font-size: 15px !important; /* 原来可能继承了更大的字体 */
-    margin-bottom: 4px !important;
-    display: block;
-    white-space: nowrap; /* 强制不换行 */
-    overflow: hidden;
-    text-overflow: ellipsis; /* 超出显示省略号 */
-}
-
-.ip-card-info .muted, .hero-card .role {
-    font-size: 12px !important;
+/* 5. 字体大幅缩小 (解决“字太大”问题) */
+/* 标题 */
+.ip-card-info strong, .hero-card .name, .card h4, .ip-card-info b {
+    font-size: 14px !important; /* 原来可能很大，改小 */
     line-height: 1.4 !important;
+    display: block;
+    margin-bottom: 4px !important;
+    
+    /* 防止标题太长换行导致卡片高度不一，超出一行显示省略号 */
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
-/* 5. 调整卡片里的按钮：做成小按钮，不要占据太多空间 */
-.ip-card .btn, .hero-card .btn {
-    padding: 6px 12px !important;
+/* 副标题/类型/说明 */
+.ip-card-info .muted, .hero-card .role, .card .muted {
+    font-size: 12px !important; /* 极小字体，显得精致 */
+    line-height: 1.5 !important;
+    opacity: 0.7;
+}
+
+/* 按钮也改小 */
+.ip-card .btn, .hero-card .btn, .card .btn {
+    padding: 4px 0 !important; /* 减小按钮内边距 */
+    height: 28px !important;
+    line-height: 26px !important;
     font-size: 12px !important;
     margin-top: 8px !important;
-    width: 100%; /* 按钮撑满卡片底部 */
+    width: 100%;
+    border-radius: 4px;
 }
 
-/* 6. 调整断点：让5列在稍微窄一点的屏幕（比如1100px）也能显示 */
-@media (max-width: 1400px) {
-    /* 1400以下才切为4列，保证大屏尽量显示5列 */
-    /* 如果你希望笔记本(1366px)也强制显示5列，可以把 1200 改为 1000 */
-    .five-cols-ip { 
-        grid-template-columns: repeat(5, 1fr) !important; 
-    }
-}
-@media (max-width: 1024px) {
-    /* 平板才变少 */
-    .five-cols-ip { grid-template-columns: repeat(3, 1fr) !important; }
+/* 6. 专门修复“游戏”板块 (解决你说的游戏栏目没变的问题) */
+/* 因为游戏在源码里用的是 .four-cols-ip，上面的规则已经覆盖了它。
+   但我额外加一个限制，防止游戏图特别巨大 */
+.four-cols-ip .ip-card-img {
+    max-height: none !important; /* 解除高度限制，完全由宽度决定 */
 }
 
-
-/* ====== 全局瘦身：调整字号与间距 ====== */
-
-/* 1. 限制整个网页的最大宽度，防止在宽屏上拉得太开 */
+/* 7. 页面整体变紧凑，给内容腾空间 */
 main {
-    max-width: 1200px !important; /* 原来是 1300px，收窄一点聚焦视线 */
-    padding-top: 100px !important; /* 顶部留白减小 */
+    max-width: 1400px !important; /* 稍微放宽一点总容器，让5列并排更从容 */
+    padding-left: 40px !important;
+    padding-right: 40px !important;
 }
-
-/* 2. 减小各板块之间的垂直距离 */
-section, .section-divider {
-    margin-top: 40px !important; /* 原来是 80px，太散了 */
-    padding: 0 !important; /* 移除多余内边距 */
-    border-top: none !important; /* 去掉那条分割线，用留白分割更现代 */
-}
-
-/* 3. 标题降级：让H2看起来不要像H1那么大 */
-h2 {
-    font-size: 24px !important; /* 原来 32px，缩小 */
-    margin-bottom: 12px !important;
-    font-weight: 700 !important;
-}
-
-/* 4. 副标题/说明文案降级 */
-p.muted, .hero-sub, .section-divider p.muted {
-    font-size: 14px !important; /* 原来 16px-18px */
-    line-height: 1.6 !important;
-    max-width: 100% !important; /* 允许文字排满，不要强行折行 */
-}
-
-/* 5. 按钮瘦身：原来的按钮太像手机端的触摸按钮了，PC端可以小一点 */
-.btn, .btn-primary-cinematic, .btn-ghost-cinematic {
-    padding: 8px 24px !important; /* 原来是 16px 40px，太大了 */
-    font-size: 14px !important;
-    border-radius: 6px !important;
-}
-
-/* 6. 导航栏调整 */
-header {
-    height: 60px !important; /* 强制压扁导航栏 */
-    padding: 0 24px !important;
-}
-.logo { width: 32px !important; height: 32px !important; }
-nav a { font-size: 13px !important; }
-
-/* 7. 修正 Hero 区域（第一屏）的文字大小 */
-.hero-line {
-    font-size: 32px !important; /* 原来 48px */
-    margin-bottom: 10px !important;
-}
-.hero-sub-cinematic {
-    font-size: 16px !important; /* 原来 24px */
-}
-
-
-
-
-
 
 
 
