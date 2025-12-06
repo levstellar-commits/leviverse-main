@@ -4649,38 +4649,63 @@ let isEchoRunning = false;
 // 开关面板
 function toggleSourceEcho() {
     const panel = document.getElementById('echo-panel');
-    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+    // 增加一个console log方便调试，确认点击是否生效
+    console.log("正在尝试打开源力面板..."); 
+    if (panel) {
+        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+    } else {
+        alert("错误：找不到面板元素 (ID: echo-panel)");
+    }
 }
 
 // 开关声音 (生成深空布朗噪音)
 function toggleNoise() {
     const btn = document.getElementById('echo-btn');
     
-    // 初始化音频上下文
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // 1. 初始化音频上下文 (必须在用户点击事件中触发)
+    if (!audioCtx) {
+        // 兼容 Safari 的 webkit 前缀
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+    }
+
+    // 2. 核心修复：确保 Context 处于运行状态 (解决浏览器自动播放策略限制)
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
 
     if (isEchoRunning) {
-        // --- 停止 ---
-        // 缓慢淡出，避免突然断掉
-        noiseGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        // --- 停止逻辑 (添加了平滑淡出，防止爆音) ---
+        if (noiseGain) {
+            // 取消所有计划中的变化
+            noiseGain.gain.cancelScheduledValues(audioCtx.currentTime);
+            // 设定当前值为起点
+            noiseGain.gain.setValueAtTime(noiseGain.gain.value, audioCtx.currentTime);
+            // 0.5秒内线性淡出到静音 (0.001)
+            noiseGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        }
+
         setTimeout(() => { 
-            noiseSource.stop(); 
+            if (noiseSource) {
+                try { noiseSource.stop(); } catch(e) {} // 防止报错
+            }
             isEchoRunning = false; 
             btn.innerHTML = "启动共振 [INITIATE]";
             btn.style.background = "linear-gradient(45deg, #00e5ff, #0099ff)";
             btn.style.color = "#000";
             btn.style.border = "none";
         }, 500);
+
     } else {
-        // --- 播放 ---
-        // 1. 创建噪音缓冲 (模拟宇宙背景辐射的无序感)
+        // --- 播放逻辑 ---
+        
+        // 1. 创建布朗噪音缓冲
         const bufferSize = audioCtx.sampleRate * 2;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
         let lastOut = 0;
         for (let i = 0; i < bufferSize; i++) {
             const white = Math.random() * 2 - 1;
-            // 布朗噪音算法：比白噪音更深沉，像远古的雷声或宇宙深空
             data[i] = (lastOut + (0.02 * white)) / 1.02;
             lastOut = data[i];
             data[i] *= 3.5; 
@@ -4690,35 +4715,36 @@ function toggleNoise() {
         noiseSource.buffer = buffer;
         noiseSource.loop = true;
         
-        // 2. 低通滤波器 (只保留低频，营造厚重感)
+        // 2. 低通滤波器 (模拟深空闷响)
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass'; 
-        filter.frequency.value = 180; // 频率设得很低，听起来像大道轰鸣
+        filter.frequency.value = 180; 
 
         noiseGain = audioCtx.createGain();
-        noiseGain.gain.value = 0; // 初始静音
+
+        // ★★★ 核心修复点在这里！★★★
+        // 不能设为 0，必须是一个极小的非零值 (0.001)，否则 exponentialRamp 无法工作
+        noiseGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
 
         // 连接节点
-        noiseSource.connect(filter); 
+        noiseSource.connect(filter);
         filter.connect(noiseGain); 
         noiseGain.connect(audioCtx.destination);
         
-        // 3. 开始播放 (淡入)
+        // 3. 开始播放
         noiseSource.start();
-        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3); // 3秒缓慢淡入
+        
+        // 指数淡入 (现在从 0.001 开始乘，就能乘上去了)
+        noiseGain.gain.exponentialRampToValueAtTime(0.8, audioCtx.currentTime + 3);
         
         isEchoRunning = true;
         btn.innerHTML = "共振中... [RESONATING]";
         btn.style.background = "transparent";
         btn.style.color = "#00e5ff";
         btn.style.border = "1px solid #00e5ff";
-        
-        // 确保浏览器音频引擎是唤醒状态
-        if (audioCtx.state === 'suspended') audioCtx.resume();
     }
 }
 </script>
-
 
 
 <script>
