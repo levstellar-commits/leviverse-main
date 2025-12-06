@@ -2792,6 +2792,80 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* =================================================================
+   ★ 十大始祖：手机端合并为单行横滑 (JS辅助版)
+   ================================================================= */
+
+/* 1. 默认状态（电脑端）：隐藏这个手机专用容器 */
+#mobile-ancestor-full-list {
+    display: none;
+}
+
+/* 2. 手机端状态 */
+@media (max-width: 768px) {
+    
+    /* 隐藏原来的“金字塔”结构 (太占地了) */
+    .ancestor-lineage-epic {
+        display: none !important;
+    }
+
+    /* 显示我们用JS生成的新容器 */
+    #mobile-ancestor-full-list {
+        display: flex !important;
+        flex-wrap: nowrap !important;       /* 强制单行 */
+        overflow-x: auto !important;        /* 开启横滑 */
+        
+        /* 布局参数：和其他栏目保持完全一致 */
+        gap: 12px !important;
+        padding: 0 16px 20px 16px !important;
+        margin-left: -24px !important;      /* 满屏滑动 */
+        margin-right: -24px !important;
+        width: calc(100% + 48px) !important;
+        margin-top: 0 !important;           /* 紧贴上方说明 */
+        
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        align-items: stretch !important;
+    }
+    
+    /* 隐藏手机容器内的 h3 标题（因为 section 本身已有标题，避免重复） */
+    #mobile-ancestor-full-list h3 {
+        display: none;
+    }
+
+    /* 设定卡片尺寸：和其他栏目一样，露出右边 */
+    #mobile-ancestor-full-list .hero-card {
+        min-width: 75vw !important;         /* 75% 宽度 */
+        width: 75vw !important;
+        flex-shrink: 0 !important;
+        scroll-snap-align: center;
+        
+        /* 确保卡片内部布局正常 */
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        margin: 0 !important;
+    }
+    
+    /* 强制图片比例 */
+    #mobile-ancestor-full-list .hero-card .pic {
+        width: 100% !important;
+        aspect-ratio: 3/4 !important;
+        object-fit: cover !important;
+        border-radius: 6px !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5134,7 +5208,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. 找到原来的“金字塔”容器
+    const originalContainer = document.querySelector('.ancestor-lineage-epic');
+    if (!originalContainer) return;
 
+    // 2. 创建一个“手机专用”的新容器
+    const mobileContainer = document.createElement('div');
+    mobileContainer.id = 'mobile-ancestor-full-list';
+    mobileContainer.className = 'mobile-ancestor-scroll'; // 加上类名以便CSS控制
+    
+    // 3. 加上标题（可选，保持结构完整）
+    const title = document.createElement('h3');
+    title.style.textAlign = 'center';
+    title.style.marginBottom = '16px';
+    title.innerHTML = '文明源流 · 十大始祖';
+    mobileContainer.appendChild(title);
+
+    // 4. 把原来散落在各层的卡片，全部克隆一份放进去
+    const allCards = originalContainer.querySelectorAll('.hero-card');
+    allCards.forEach(card => {
+        const clonedCard = card.cloneNode(true);
+        mobileContainer.appendChild(clonedCard);
+    });
+
+    // 5. 把这个新容器插到原来金字塔的后面
+    originalContainer.parentNode.insertBefore(mobileContainer, originalContainer.nextSibling);
+});
+</script>
 
 
 
