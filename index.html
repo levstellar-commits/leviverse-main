@@ -2476,7 +2476,51 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 }
 
 
+/* =================================================================
+   ★ 视觉特效回归：金边、发光与悬停浮动
+   ================================================================= */
 
+/* 1. 基础过渡动画 (让发光动作丝滑，不生硬) */
+.ip-card, .hero-card, .card, .mascot-card, .project-card {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    position: relative !important;
+    z-index: 1;
+    /* 恢复默认状态下若隐若现的边框 */
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.02) !important; /* 微弱的玻璃质感背景 */
+}
+
+/* 2. 鼠标悬停 (Hover) —— 核心发光特效 */
+.ip-card:hover, .hero-card:hover, .card:hover, .mascot-card:hover, .project-card:hover {
+    /* 【动作】卡片上浮，产生“被吸起”的感觉 */
+    transform: translateY(-6px) !important;
+    
+    /* 【金边】边框变成亮金色 (#e8b923 是你的主题金) */
+    border-color: #e8b923 !important;
+    
+    /* 【光晕】核心发光代码：外发光 + 内发光，营造能量感 */
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.5),          /* 底部深色投影，增加立体感 */
+        0 0 20px rgba(232, 185, 35, 0.4),        /* 金色外发光 */
+        inset 0 0 15px rgba(232, 185, 35, 0.1) !important; /* 内部微弱金光，像能量充能 */
+    
+    /* 【层级】确保发光的卡片盖住别人的阴影 */
+    z-index: 10 !important;
+}
+
+/* 3. 鼠标按下 (Click/Active) —— 点击反馈 */
+.ip-card:active, .hero-card:active, .card:active {
+    transform: translateY(-2px) !important; /* 按下去会有微小的回弹 */
+    box-shadow: 0 0 10px rgba(232, 185, 35, 0.6) !important; /* 光晕收缩，变亮 */
+    border-color: #fff !important; /* 边框瞬间变白高亮 */
+}
+
+/* 4. 图片微动特效 (可选：让图片也跟着活起来) */
+.ip-card:hover .ip-card-img, 
+.hero-card:hover .pic,
+.card:hover .card-img-top {
+    filter: brightness(1.1) contrast(1.1); /* 图片稍微变亮一点点 */
+}
 
 
 
