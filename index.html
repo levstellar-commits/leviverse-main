@@ -2796,6 +2796,76 @@ details[style*="cursor: pointer;"] summary::-webkit-details-marker {
 
 
 
+/* =================================================================
+   ★ 紧急修复：电脑版“十大始祖”巨大化修复补丁
+   ================================================================= */
+
+/* 1. 在电脑上，坚决隐藏那个JS生成的“手机滑块容器” */
+@media (min-width: 769px) {
+    #mobile-ancestor-full-list {
+        display: none !important;
+    }
+}
+
+/* 2. 强制恢复电脑版“金字塔”的原始布局 */
+@media (min-width: 769px) {
+    
+    /* 恢复金字塔大容器 */
+    .ancestor-lineage-epic {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        margin-top: 48px !important;
+    }
+
+    /* 恢复每一层的 Grid 网格布局 */
+    .ancestor-tier {
+        display: grid !important;
+        gap: 24px !important;
+        margin: 0 auto !important;
+        
+        /* 关掉手机端的横滑功能 */
+        overflow: visible !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        padding: 0 !important; /* 去掉手机端的内边距 */
+    }
+
+    /* 恢复原来精致的宽度比例 (2个-3个-5个) */
+    .ancestor-tier.tier-2 { 
+        grid-template-columns: repeat(2, 1fr) !important; 
+        width: 60% !important;   /* 2个的时候窄一点 */
+        max-width: 600px !important;
+    }
+    .ancestor-tier.tier-3 { 
+        grid-template-columns: repeat(3, 1fr) !important; 
+        width: 90% !important;   /* 3个的时候宽一点 */
+        max-width: 900px !important;
+    }
+    .ancestor-tier.tier-5 { 
+        grid-template-columns: repeat(5, 1fr) !important; 
+        width: 100% !important;  /* 5个的时候全宽 */
+        max-width: 100% !important;
+    }
+
+    /* ⚡️ 核心修复：把卡片宽度从“巨大的75vw”改回“自动适应” */
+    .ancestor-tier .hero-card {
+        min-width: unset !important;  /* 取消最小宽度 */
+        width: auto !important;       /* 恢复自动宽度 */
+        max-width: unset !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* 确保图片比例在电脑上也是正常的 3:4 */
+    .ancestor-tier .hero-card .pic {
+        aspect-ratio: 3/4 !important;
+        width: 100% !important;
+    }
+}
+
+
+
+
 
 
 
